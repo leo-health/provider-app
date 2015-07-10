@@ -11,9 +11,9 @@ module.exports = Reflux.createStore({
 
   onSessionChanged: function(result){
     if (result.isLoggedIn){
-      @router.transitionTo('HomePage')
+      @router.transitionTo('home')
     } else{
-      @router.transitionTo('Login')
+      @router.transitionTo('login')
     }
   }
 });
