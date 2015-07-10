@@ -4,15 +4,17 @@ window.React = React;
 
 var Router = require('react-router');
 var Route = Router.Route;
-var DefaultRoute = Router.DefaultRoute
+var DefaultRoute = Router.DefaultRoute;
 
 var App = require('./app');
 var Login = require('./pages/login');
+var HomePage = require('./pages/homePage');
 
 var routes = (
   <Route handler={App} path='/'>
     <DefaultRoute handler={Login}/>
     <Route name="login" handler={Login}/>
+    <Route name="homePage" handler={HomePage}/>
   </Route>
 );
 
