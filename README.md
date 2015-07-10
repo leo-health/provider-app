@@ -1,23 +1,5 @@
 Provider Web App
 
-## OverView
-
-* React
-* React Router
-* Reflux ( Refactor of Flux )
-* ES6 ( Harmony ) | if you use .js or .jsx extension
-* CoffeeScript | if you use .coffee extension
-* CJSX ( Coffee JSX ) | if you use .cjsx extension
-* LoDash  ( Lightweight version of Underscore )
-* Stylus ( CSS pre-processor )
-* JEET ( Grid system for Stylus )
-* Rupture ( Media Query support for Stylus )
-* Jest ( Testing framework for React app )
-* Browser Live Reload during development
-* CSS / HTML / JS minification / Image optimization when built
-* JS code duplication removal during built
-* Optional TDD task to perform auto testing when file changes
-
 ### Installation
 
 You must have npm installed gloablly before running the following command :-
@@ -56,6 +38,24 @@ $ gulp clean  // in case you need to clean the public folder
 * \__test\__/  - all your tests go to this directly
 
 __Note__ : assets/ and src/ will be compiled into public/ folder when you run build command
+
+### Structure OverView
+
+* React
+* React Router
+* Reflux ( Refactor of Flux )
+* ES6 ( Harmony ) | if you use .js or .jsx extension
+* CoffeeScript | if you use .coffee extension
+* CJSX ( Coffee JSX ) | if you use .cjsx extension
+* LoDash  ( Lightweight version of Underscore )
+* Stylus ( CSS pre-processor )
+* JEET ( Grid system for Stylus )
+* Rupture ( Media Query support for Stylus )
+* Jest ( Testing framework for React app )
+* Browser Live Reload during development
+* CSS / HTML / JS minification / Image optimization when built
+* JS code duplication removal during built
+* Optional TDD task to perform auto testing when file changes
 
 
 ### Suggested Workflow
