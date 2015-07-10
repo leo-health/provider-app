@@ -1,8 +1,6 @@
 var Reflux = require('reflux');
 
-var actions = {
+module.exports = Reflux.createActions([
   'setRouter',
   'transitionTo'
-};
-
-module.exports = Reflux.createActions(actions);
+]);
