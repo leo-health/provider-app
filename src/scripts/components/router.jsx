@@ -5,8 +5,10 @@ window.React = React;
 var Router = require('react-router');
 var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
+var NotFoundRoute = Router.NotFoundRoute
 
 var App = require('./app');
+
 var Login = require('./pages/login');
 var Home = require('./pages/home');
 
