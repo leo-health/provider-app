@@ -1,8 +1,8 @@
 var Reflux = require('reflux');
 
 var PasswordActions = {
-  reset: {asyncResult: true},
-  change: {ayncResult: true}
+  resetPasswordRequest: {asyncResult: true},
+  changePassowrdRequest: {ayncResult: true}
 };
 
 module.exports = Reflux.createActions(PasswordActions);
