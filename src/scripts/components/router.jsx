@@ -8,13 +8,13 @@ var DefaultRoute = Router.DefaultRoute;
 
 var App = require('./app');
 var Login = require('./pages/login');
-var HomePage = require('./pages/homePage');
+var Home = require('./pages/home');
 
 var routes = (
   <Route handler={App} path='/'>
     <DefaultRoute handler={Login}/>
     <Route name="login" handler={Login}/>
-    <Route name="homePage" handler={HomePage}/>
+    <Route name="home" handler={Home}/>
   </Route>
 );
 
