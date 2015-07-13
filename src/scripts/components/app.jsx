@@ -9,25 +9,25 @@ var SessionStore = require('../stores/sessionStore');
 var RouteStore = require('../stores/routerStore');
 var PasswordStore = require('../stores/passwordStore');
 
-function getStateFromStores(){
-  return {
-    isLoggedIn: SessionStore.isLoggedIn(),
-    email: SessionStore.getEmail()
-  }
-};
+//function getStateFromStores(){
+//  return {
+//    isLoggedIn: SessionStore.isLoggedIn(),
+//    email: SessionStore.getEmail()
+//  }
+//};
 
 module.exports = React.createClass({
-  getInitialState: function(){
-    var result = getStateFromStores();
-
-    if(result.isLoggedIn){
-      this.transitionTo('home')
-    }else{
-      this.transitionTo('login')
-    }
-
-    return result
-  },
+  //getInitialState: function(){
+  //  var result = getStateFromStores();
+  //
+  //  if(result.isLoggedIn){
+  //    this.transitionTo('home')
+  //  }else{
+  //    this.transitionTo('login')
+  //  }
+  //
+  //  return result
+  //},
 
   render: function(){
     return(
