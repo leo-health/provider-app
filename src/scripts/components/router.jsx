@@ -14,7 +14,7 @@ var Home = require('./pages/home');
 
 var routes = (
   <Route handler={App} path='/'>
-    <DefaultRoute handler={Login}/>
+    <DefaultRoute handler={App}/>
     <Route name="login" handler={Login}/>
     <Route name="home" handler={Home}/>
   </Route>

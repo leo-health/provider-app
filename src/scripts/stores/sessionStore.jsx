@@ -14,7 +14,7 @@ module.exports = Reflux.createStore({
   },
 
   getAuthenticationToken: function(){
-    this.getLocalStorageOjb()['authentication_token']
+    this.getLocalStorageObj()['authentication_token']
   },
 
   getEmail: function(){
