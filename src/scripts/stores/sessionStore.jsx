@@ -13,29 +13,13 @@ module.exports = Reflux.createStore({
 
   isLoggedIn: function(){
     //!!this.getAuthenticationToken()
-    return true
+    return false
   },
 
-  //getAuthenticationToken: function(){
-  //  this.getLocalStorageObj()['authentication_token']
-  //},
-  //
   getEmail: function(){
     //this.getLocalStorageObj()['email']
     return 'wuang@leohealth.com'
   },
-  //
-  //getId: function () {
-  //  this.getLocalStorageObj()['id']
-  //},
-  //
-  //getErrors: function() {
-  //  this.errors
-  //},
-  //
-  //getLocalStorageObj: function(){
-  //  //get the input data from the login form
-  //},
 
   onLoginRequest: function(email, password){
     request.post('/api/v1/login')
@@ -61,3 +45,21 @@ module.exports = Reflux.createStore({
        })
   }
 });
+
+
+//
+//getId: function () {
+//  this.getLocalStorageObj()['id']
+//},
+//
+//getErrors: function() {
+//  this.errors
+//},
+//
+//getLocalStorageObj: function(){
+//  //get the input data from the login form
+//},
+//getAuthenticationToken: function(){
+//  this.getLocalStorageObj()['authentication_token']
+//},
+//
