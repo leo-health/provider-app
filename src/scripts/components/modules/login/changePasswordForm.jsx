@@ -7,7 +7,7 @@ module.exports = React.createClass({
         <div class="row">
           <div class="col-xs-offset-4 col-lg-4 col-xs-offset-4 jumbotron text-center">
             <form class="">
-              <a href="../" class=""><img src="/images/leo.png" alt="..." /></a>
+              <a href="../" class=""><img src="../images/leo.png" alt="..." /></a>
               <h6>Please enter your new password.</h6>
               <div class="alert alert-dismissible alert-danger">
                 <button type="button" class="close" data-dismiss="alert">×</button>
@@ -35,7 +35,7 @@ module.exports = React.createClass({
               <ul class="list-unstyled">
                 <li class="pull-right"><a href="#top">Back to top</a></li>
                 <li><a href="https://twitter.com/leo4kids">Twitter</a></li>
-                <li><a href="https://github.com/le0-health">GitHub</a></li>
+                <li><a href="https://github.com/leo-health">GitHub</a></li>
                 <li><a href="../help/#support">Support</a></li>
               </ul>
             </div>

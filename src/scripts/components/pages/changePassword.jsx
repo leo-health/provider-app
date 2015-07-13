@@ -1,11 +1,11 @@
 var React = require('react'),
-    ChangePasswordForm = require('../modules/login/resetPasswordForm');
+    ChangePasswordForm = require('../modules/login/changePasswordForm');
 
 module.exports = React.createClass({
   render: function(){
-    render(
+    return(
         <div>
-          <ChangePasswordFomr/>
+          <ChangePasswordForm/>
         </div>
     )
   }
