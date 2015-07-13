@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var Router = require('react-router');
 var Reflux = require('reflux');
 
@@ -16,24 +16,16 @@ function getStateFromStores(){
   }
 }
 
+function loginOrOut(status){
+  if(status.isLoggedIn){
+    this.transitionTo('home')
+  }else{
+    this.transitionTo('login')
+  }
+}
+
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(SessionStore, "onSessionChange")],
-
-  loginOrOut: function(status){
-    if(status.isLoggedIn){
-      this.transitionTo('home')
-    }else{
-      this.transitionTo('login')
-    }
-  },
-
-  getInitialState: function(){
-    this.setState({
-      currentStatus: getStateFromStores()
-    });
-    loginOrOut(this.state);
-    return this.state
-  },
 
   onSessionChange: function(status){
     this.setState({
@@ -42,25 +34,35 @@ module.exports = React.createClass({
     loginOrOut(this.state);
   },
 
-  onLogout: function () {
-    LoginActions.logoutRequest();
+  getInitialState: function(){
+    result = getStateFromStores();
+    debugger
+    this.setState({
+      isLoggedIn: result.isLoggedIn
+      //email: result.email
+    });
+    loginOrOut(this.state);
+    return this.state
   },
 
+
+  //onLogout: function () {
+  //  LoginActions.logoutRequest();
+  //},
+
   render: function(){
+    debugger
     if (this.state.isLoggedIn){
       var loginFields = (
-          <span>
-          <a href="#" onClick={this.handleOnLogout}>
-            <span>
-              Logout
-            </span>
-          </a>
-          <span>Hi, {this.state.email}</span>
-        </span>
+        <div>
+          logout button
+        </div>
       )
     }else{
       var loginFields = (
-        <div>here should redirect to login</div>
+        <div>
+          login button
+        </div>
       )
     }
 

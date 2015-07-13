@@ -1,37 +1,41 @@
-var Reflux = require('reflux');
-LoginActions = require('../actions/loginActions');
+var Reflux = require('reflux'),
+    LoginActions = require('../actions/loginActions'),
+    request = require('superagent');
 
 
 module.exports = Reflux.createStore({
-  //init: function () {
-  //  this.listenToMany(actions)
+  //init: function() {
+  //  this.listenTo(actions.fireBall,this.onFireBall);
+  //  this.listenTo(actions.magicMissile,this.onMagicMissile);
   //},
-
+  // above this equivalent to the one below
   listenalbes: LoginActions,
 
   isLoggedIn: function(){
-    !!this.getAuthenticationToken()
+    //!!this.getAuthenticationToken()
+    return true
   },
 
-  getAuthenticationToken: function(){
-    this.getLocalStorageObj()['authentication_token']
-  },
-
+  //getAuthenticationToken: function(){
+  //  this.getLocalStorageObj()['authentication_token']
+  //},
+  //
   getEmail: function(){
-    this.getLocalStorageObj()['email']
+    //this.getLocalStorageObj()['email']
+    return 'wuang@leohealth.com'
   },
-
-  getId: function () {
-    this.getLocalStorageObj()['id']
-  },
-
-  getErrors: function() {
-    this.errors
-  },
-
-  getLocalStorageObj: function(){
-    //get the input data from the login form
-  },
+  //
+  //getId: function () {
+  //  this.getLocalStorageObj()['id']
+  //},
+  //
+  //getErrors: function() {
+  //  this.errors
+  //},
+  //
+  //getLocalStorageObj: function(){
+  //  //get the input data from the login form
+  //},
 
   onLoginRequest: function(email, password){
     request.post('/api/v1/login')

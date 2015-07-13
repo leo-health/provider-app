@@ -16,7 +16,7 @@ var App = require('./app'),
     ChangePassword = require('./pages/changePassword');
 
 var routes = (
-  <Route handler={ChangePassword}>
+  <Route handler={App}>
     <DefaultRoute handler={Home}/>
     <Route name="login" path='login' handler={Login}/>
     <Route name ="resetPassword" path="password_reset" handler={ResetPassword} />
