@@ -11,12 +11,16 @@ var Router = require('react-router'),
 
 var App = require('./app'),
     Login = require('./pages/login'),
-    Home = require('./pages/home');
+    Home = require('./pages/home'),
+    ResetPassword = require('./pages/resetPassword'),
+    ChangePassword = require('./pages/changePassword');
 
 var routes = (
   <Route handler={Login}>
     <DefaultRoute handler={Home}/>
-    <Route name="/#/login" path='login' handler={Login}/>
+    <Route name="login" path='login' handler={Login}/>
+    <Route name ="resetPassword" path="password_reset" handler={ResetPassword} />
+    <Route name ="changePassword" path="password_change" handler={ChangePassword} />
     <Route name="home" path='home' handler={Home}/>
   </Route>
 );

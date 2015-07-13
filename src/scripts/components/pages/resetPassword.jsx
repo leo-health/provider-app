@@ -1,5 +1,5 @@
 var React = require('react'),
-    ResetPasswordForm = require('../modules/login/resetPasswordFrom');
+    ResetPasswordForm = require('../modules/login/resetPasswordForm');
 
 module.exports = React.createClass({
   render: function(){
