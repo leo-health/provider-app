@@ -1,10 +1,12 @@
 var React = require('react');
 
+var HomeHeader = require('./homeHeader');
+
 module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        Here is the home
+        <HomeHeader/>
       </div>
     )
   }

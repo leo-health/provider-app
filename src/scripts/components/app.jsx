@@ -11,6 +11,8 @@ var SessionStore = require('../stores/sessionStore'),
     RouteStore = require('../stores/routerStore'),
     PasswordStore = require('../stores/passwordStore');
 
+var Footer = require('./pages/footer');
+
 function getStateFromStores(){
   return {
     isLoggedIn: SessionStore.isLoggedIn(),
@@ -58,6 +60,7 @@ module.exports = React.createClass({
     return(
       <div className = "container">
         <RouteHandler/>
+        <Footer/>
       </div>
     );
   }
