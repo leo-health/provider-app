@@ -1,5 +1,5 @@
 var React = require('react');
-var LoginAction = require('../../../actions/LoginActions');
+var LoginAction = require('../../../actions/loginActions');
 
 module.exports = React.createClass({
   handleSubmit: function(event){
