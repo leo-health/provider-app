@@ -13,7 +13,7 @@ module.exports = React.createClass({
       <div>
         <div className="container page-header">
           <div className="row">
-            <div className="col-xs-offset-4 col-lg-4 col-xs-offset-4 jumbotron text-center">
+            <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4 jumbotron text-center">
               <form className="">
                 <a href="../" className=""><img src="/images/leo.png" alt="..." /></a>
                 <fieldset>
