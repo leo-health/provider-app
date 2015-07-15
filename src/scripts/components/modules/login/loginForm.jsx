@@ -29,8 +29,8 @@ module.exports = React.createClass({
                     </div>
                   </div>
                   <div className="form-group">
-                    <div className="col-lg-10">
-                      <button type="reset" className="btn btn-primary">Login</button>
+                    <div className="col-lg-12">
+                      <button type="reset" className="btn btn-primary">Login</button>&nbsp;
                       <button type="submit" className="btn btn-default">Forgot?</button>
                     </div>
                   </div>
