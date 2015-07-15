@@ -11,27 +11,27 @@ module.exports = React.createClass({
   render: function(){
     return(
       <div>
-        <div class="container page-header">
-          <div class="row">
-            <div class="col-xs-offset-4 col-lg-4 col-xs-offset-4 jumbotron text-center">
-              <form class="">
-                <a href="../" class=""><img src="/images/leo.png" alt="..." /></a>
+        <div className="container page-header">
+          <div className="row">
+            <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4 jumbotron text-center">
+              <form className="">
+                <a href="../" className=""><img src="/images/leo.png" alt="..." /></a>
                 <fieldset>
-                  <div class="form-group">
-                    <input type="text" class="form-control" id="inputEmail" placeholder="Email" ref="userEmail"/>
+                  <div className="form-group">
+                    <input type="text" className="form-control" id="inputEmail" placeholder="Email" ref="userEmail"/>
                   </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" ref="userPassword"/>
-                    <div class="checkbox">
+                  <div className="form-group">
+                    <input type="password" className="form-control" id="inputPassword" placeholder="Password" ref="userPassword"/>
+                    <div className="checkbox">
                       <label>
                         <input type="checkbox"/> Save password
                       </label>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <div class="col-lg-10">
-                      <button type="reset" class="btn btn-primary">Login</button>
-                      <button type="submit" class="btn btn-default">Forgot?</button>
+                  <div className="form-group">
+                    <div className="col-lg-12">
+                      <button type="reset" className="btn btn-primary">Login</button>&nbsp;
+                      <button type="submit" className="btn btn-default">Forgot?</button>
                     </div>
                   </div>
                 </fieldset>
