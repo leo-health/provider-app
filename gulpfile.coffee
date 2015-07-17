@@ -23,10 +23,10 @@ nib     = require 'nib'
 jeet    = require 'jeet'
 rupture = require 'rupture'
 
-# integrate test and tdd 
+# integrate test and tdd
 jest = require 'jest-cli'
 
-JEST_CONFIG = { 
+JEST_CONFIG = {
     rootDir: '.'
     scriptPreprocessor: 'preprocessor.js',
     unmockedModulePathPatterns: ['node_modules/react'],
@@ -51,7 +51,7 @@ gulp.task('css', ->
   gulp.src(['src/styles/*.styl'])
     .pipe(stylus({
         use: [nib(), jeet(), rupture()]
-        compress: true 
+        compress: true
     }))
     .on('error', (err) ->
       gutil.log err
@@ -77,15 +77,15 @@ gulp.task('minify-html', ->
 
 # this is for PROD
 gulp.task('copy-assets-ignore-html', ->
-    
+
     gulp.src(['assets/**', '!assets/**/*.html'])
       .pipe(gulp.dest(paths.dest))
       .pipe($.size())
-) 
+)
 
 # this is for DEV
 gulp.task('copy-assets', ->
-    
+
     gulp.src(['assets/**'])
       .pipe(gulp.dest(paths.dest))
       .pipe($.size())
@@ -122,7 +122,10 @@ gulp.task "webpack-dev-server", (callback) ->
   devServer = new WebpackDevServer(webpack(webpackConfig),
     contentBase: './' + paths.dest + '/'
     hot: true
-    watchDelay: 100
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: true
+    }
     noInfo: true
   )
   devServer.listen DEV_PORT, "0.0.0.0", (err) ->
@@ -137,7 +140,7 @@ gulp.task('clean-dest', (done) ->
 )
 
 ########################################################
-# Below are the recommended gulp commands for new users 
+# Below are the recommended gulp commands for new users
 ########################################################
 
 # gulp  ( with no argument )
@@ -175,7 +178,7 @@ gulp.task 'dev', ['copy-assets'], ->
  # gulp dev-tdd
 # description -- start a development server plus test run automatically when cjsx file changes
 gulp.task 'dev-tdd', ['dev', 'tdd']
-  
+
 # gulp clean
 # description -- clean the paths.dest
 gulp.task 'clean', ['clean-dest']
