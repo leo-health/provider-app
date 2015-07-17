@@ -32,9 +32,6 @@ module.exports = React.createClass({
                     <div className="col-lg-12">
                       <button type="reset" className="btn btn-primary">Login</button>&nbsp;
                       <button type="submit" className="btn btn-default">Forgot?</button>
-                      <button type="button" className="btn btn-default" aria-label="Left Align">
-                        <span className="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-                      </button>
                     </div>
                   </div>
                 </fieldset>
