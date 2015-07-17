@@ -125,7 +125,7 @@ gulp.task "webpack-dev-server", (callback) ->
     watchOptions: {
       aggregateTimeout: 300,
       poll: true
-    },
+    }
     noInfo: true
   )
   devServer.listen DEV_PORT, "0.0.0.0", (err) ->
