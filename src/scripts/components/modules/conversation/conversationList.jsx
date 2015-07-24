@@ -5,14 +5,16 @@ var ConversationHeader = require('./conversationHeader');
 module.exports = React.createClass({
   render: function () {
     return (
-      <div id="content" className="tab-content">
-        <div className="tab-pane fade active in" id="all-tab">
-          <div className="panel panel-default pre-scrollable-left">
-            <ConversationHeader/>
-            <Conversation/>
+      <div>
+        <ConversationHeader/>
+        <div id="content" className="tab-content">
+          <div className="tab-pane fade active in" id="all-tab">
+            <div className="panel panel-default pre-scrollable-left">
+              <Conversation/>
+            </div>
           </div>
         </div>
-      </div>  
+      </div>
     )
   }      
 });
