@@ -3,26 +3,26 @@ var React = require('react');
 module.exports = React.createClass({
   render: function () {
     return(
-      <div class="container page-header">
-        <div class="row">
-          <div class="col-xs-offset-4 col-lg-4 col-xs-offset-4 jumbotron text-center">
-            <form class="">
-              <a href="../" class=""><img src="../images/leo.png" alt="..." /></a>
+      <div className="container page-header">
+        <div className="row">
+          <div className="col-xs-offset-4 col-lg-4 col-xs-offset-4 jumbotron text-center">
+            <form className="">
+              <a href="../" className=""><img src="../images/leo.png" alt="..." /></a>
               <h6>Please enter your new password.</h6>
-              <div class="alert alert-dismissible alert-danger">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <a href="#" class="alert-link">Your passwords do not match.</a>
+              <div className="alert alert-dismissible alert-danger">
+                <button type="button" className="close" data-dismiss="alert">×</button>
+                <a href="#" className="alert-link">Your passwords do not match.</a>
               </div>
               <fieldset>
-                <div class="form-group has-error">
-                  <input type="password" class="form-control" id="inputPassword" placeholder="New password"/>
+                <div className="form-group has-error">
+                  <input type="password" className="form-control" id="inputPassword" placeholder="New password"/>
                 </div>
-                <div class="form-group">
-                  <input type="password" class="form-control" id="reInputPassword" placeholder="Re-enter password"/>
+                <div className="form-group">
+                  <input type="password" className="form-control" id="reInputPassword" placeholder="Re-enter password"/>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <div class="col-lg-8">
-                    <button type="reset" class="btn btn-primary">Submit</button>
+                    <button type="reset" className="btn btn-primary">Submit</button>
                   </div>
                 </div>
               </fieldset>
