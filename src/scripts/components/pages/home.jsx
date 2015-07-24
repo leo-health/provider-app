@@ -1,14 +1,24 @@
 var React = require('react');
 
 var HomeHeader = require('./homeHeader');
-var ConversationList = require('../modules/conversation/conversationList')
+var ConversationList = require('../modules/conversation/conversationList');
+var MessageList = require('../modules/message/messageList');
 
 module.exports = React.createClass({
   render: function() {
     return (
       <div>
         <HomeHeader/>
-        <ConversationList/>
+        <div className="container page-header">
+          <div className="row">
+            <div id="left" className="col-lg-4">
+              <ConversationList/>
+            </div>
+            <div id="right" className="col-lg-8">
+              <MessageList/>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

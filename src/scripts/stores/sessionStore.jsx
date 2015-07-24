@@ -13,7 +13,7 @@ module.exports = Reflux.createStore({
 
   isLoggedIn: function(){
     //!!this.getAuthenticationToken()
-    return false
+    return true
   },
 
   getEmail: function(){
