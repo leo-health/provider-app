@@ -4,27 +4,13 @@ var Reflux = require('reflux'),
 
 
 module.exports = Reflux.createStore({
-  //init: function() {
-  //  this.listenTo(actions.fireBall,this.onFireBall);
-  //  this.listenTo(actions.magicMissile,this.onMagicMissile);
-  //},
-  // above this equivalent to the one below
   listenalbes: LoginActions,
 
-  isLoggedIn: function(){
-    //!!this.getAuthenticationToken()
-    return true
-  },
-
-  getEmail: function(){
-    //this.getLocalStorageObj()['email']
-    return 'wuang@leohealth.com'
-  },
-
   onLoginRequest: function(email, password){
+    console.log('before sending request')
     request.post('/api/v1/login')
-     .send({email: email, password: password})
-     .end(function(err, res){
+        .send({email: email, password: password})
+        .end(function(err, res){
           if (res.ok){
             loginRequest.completed(res.body)
           }else{
@@ -34,16 +20,26 @@ module.exports = Reflux.createStore({
   },
 
   onLogoutRequest: function(authentication_token){
-   request.post('/api/v1/logout')
-    .send({authentication_token: authentication_token})
-    .end(function(err,res){
-         if (res.ok){
-           logoutResquest.completed(res.body)
-         }else{
-           logoutResquest.failed(err)
-         }
-       })
-  }
+    request.post('/api/v1/logout')
+        .send({authentication_token: authentication_token})
+        .end(function(err,res){
+          if (res.ok){
+            logoutResquest.completed(res.body)
+          }else{
+            logoutResquest.failed(err)
+          }
+        })
+  },
+
+  isLoggedIn: function(){
+    //!!this.getAuthenticationToken()
+    return false
+  },
+
+  getEmail: function(){
+    //this.getLocalStorageObj()['email']
+    return 'wuang@leohealth.com'
+  },
 });
 
 
