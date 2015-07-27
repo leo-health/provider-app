@@ -1,26 +1,41 @@
 var Reflux = require('reflux'),
-    LoginActions = require('../actions/loginActions'),
-    request = require('superagent');
-
+    Router = require('react-router'),
+    RouteHandler = Router.RouteHandler,
+    Navigation = Router.Navigation,
+    router = require('../components/router'),
+    request = require('superagent'),
+    LoginActions = require('../actions/loginActions');
 
 module.exports = Reflux.createStore({
-  listenalbes: LoginActions,
+  mixins: [Router.Navigation],
 
-  onLoginRequest: function(email, password){
-    console.log('before sending request')
-    request.post('/api/v1/login')
-        .send({email: email, password: password})
+  listenables: [LoginActions],
+
+  redirectHome: function(){
+
+  },
+
+  onLoginRequest: function(loginParam){
+    request.post('http://localhost:3000/api/v1/login')
+        .send({email: loginParam.email, password: loginParam.password})
         .end(function(err, res){
           if (res.ok){
-            loginRequest.completed(res.body)
+            LoginActions.loginRequest.completed(res.body)
           }else{
-            loginRequest.failed(err)
+            LoginActions.loginRequest.failed(err)
           }
         })
   },
 
+  onLoginRequestCompleted: function(response){
+    console.log('hi I am here now');
+    debugger
+    router.transitionTo('home');
+    this.redirectHome();
+  },
+
   onLogoutRequest: function(authentication_token){
-    request.post('/api/v1/logout')
+    request.post('http://localhost:3000/api/v1/logout')
         .send({authentication_token: authentication_token})
         .end(function(err,res){
           if (res.ok){
@@ -39,7 +54,7 @@ module.exports = Reflux.createStore({
   getEmail: function(){
     //this.getLocalStorageObj()['email']
     return 'wuang@leohealth.com'
-  },
+  }
 });
 
 

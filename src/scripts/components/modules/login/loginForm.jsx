@@ -1,17 +1,19 @@
 var React = require('react');
 var LoginAction = require('../../../actions/loginActions');
 var Router = require('react-router');
-//var RouteHandler = Router.RouteHandler;
-//var Navigation = Router.Navigation;
 
 module.exports = React.createClass({
   mixins : [Router.Navigation],
 
-  handleOnSubmit: function(event){
-    event.preventDefault();
-    var loginParam = {email: this.refs.email, password: this.refs.password};
+  handleOnSubmit: function(e){
+    e.preventDefault();
+    var email = this.refs.email.getDOMNode().value.trim();
+    var password = this.refs.password.getDOMNode().value.trim();
+    if (!email || !password){
+      return
+    }
+    var loginParam = {email: email, password: password};
     LoginAction.loginRequest(loginParam);
-    console.log('on login request now')
   },
 
   handleOnForget: function(){
