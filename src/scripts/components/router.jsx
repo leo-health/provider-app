@@ -25,11 +25,6 @@ var routes = (
   </Route>
 );
 
-var router = Router.create({
-  routes: routes,
-  location: Router.HistoryLocation
-});
-
-Router.run(function (Handler) {
+Router.run(routes, Router.HistoryLocation, function (Handler) {
   React.render(<Handler/>, document.getElementById("container"));
 });

@@ -11,9 +11,9 @@ module.exports = Reflux.createStore({
 
   listenables: [LoginActions],
 
-  redirectHome: function(){
-
-  },
+  //redirectHome: function(){
+  //
+  //},
 
   onLoginRequest: function(loginParam){
     request.post('http://localhost:3000/api/v1/login')
@@ -29,7 +29,6 @@ module.exports = Reflux.createStore({
 
   onLoginRequestCompleted: function(response){
     console.log('hi I am here now');
-    debugger
     router.transitionTo('home');
     this.redirectHome();
   },
