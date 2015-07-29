@@ -11,10 +11,6 @@ module.exports = Reflux.createStore({
 
   listenables: [LoginActions],
 
-  //redirectHome: function(){
-  //
-  //},
-
   onLoginRequest: function(loginParam){
     request.post('http://localhost:3000/api/v1/login')
         .send({email: loginParam.email, password: loginParam.password})
@@ -27,49 +23,37 @@ module.exports = Reflux.createStore({
         })
   },
 
-  onLoginRequestCompleted: function(response){
-    console.log('hi I am here now');
-    router.transitionTo('home');
-    this.redirectHome();
-  },
-
   onLogoutRequest: function(authentication_token){
-    request.post('http://localhost:3000/api/v1/logout')
+    request.del('http://localhost:3000/api/v1/logout')
         .send({authentication_token: authentication_token})
         .end(function(err,res){
           if (res.ok){
-            logoutResquest.completed(res.body)
+            LoginActions.logoutRequest.completed(res.body)
           }else{
-            logoutResquest.failed(err)
+            LoginActions.logoutRequest.failed(err)
           }
         })
   },
 
-  isLoggedIn: function(){
-    //!!this.getAuthenticationToken()
-    return false
+  onLoginRequestCompleted: function(response){
+    localStorage["authentication_token"]=response.data.session.authentication_token;
+    localStorage["first_name"]=response.data.session.user.first_name;
+    this.trigger(this.getSession());
   },
 
-  getEmail: function(){
-    //this.getLocalStorageObj()['email']
-    return 'wuang@leohealth.com'
+  onLogoutRequestCompleted: function(response){
+    debugger
+    localStorage.removeItem("authentication_token");
+    localStorage.removeItem("first_name");
+    this.trigger(this.getSession());
+  },
+
+  getSession: function(){
+    return {isLoggedIn: this.isLoggedIn(),
+            first_name: localStorage['first_name']}
+  },
+
+  isLoggedIn: function(){
+    return !!localStorage["authentication_token"];
   }
 });
-
-
-//
-//getId: function () {
-//  this.getLocalStorageObj()['id']
-//},
-//
-//getErrors: function() {
-//  this.errors
-//},
-//
-//getLocalStorageObj: function(){
-//  //get the input data from the login form
-//},
-//getAuthenticationToken: function(){
-//  this.getLocalStorageObj()['authentication_token']
-//},
-//

@@ -3,11 +3,7 @@ var React = require('react');
 window.React = React;
 
 var Router = require('react-router'),
-    Route = Router.Route,
-    DefaultRoute = Router.DefaultRoute,
-    RouteHandler = Router.RouteHandler,
-    NotFoundRoute = Router.NotFoundRoute,
-    Link = Router.Link;
+    { Route, RouteHandler, Link, DefaultRoute, NotFoundRoute } = Router;
 
 var App = require('./app'),
     Login = require('./pages/login'),
@@ -18,13 +14,13 @@ var App = require('./app'),
 var routes = (
   <Route handler={App}>
     <DefaultRoute handler={Home}/>
-    <Route name="login" path='login' handler={Login}/>
-    <Route name ="resetPassword" path="password_reset" handler={ResetPassword} />
-    <Route name ="changePassword" path="password_change" handler={ChangePassword} />
-    <Route name="home" path='home' handler={Home}/>
+    <Route name="login" handler={Login}/>
+    <Route name ="resetPassword" handler={ResetPassword} />
+    <Route name ="changePassword" handler={ChangePassword} />
+    <Route name="home" handler={Home}/>
   </Route>
 );
 
-Router.run(routes, Router.HistoryLocation, function (Handler) {
+Router.run(routes, function (Handler) {
   React.render(<Handler/>, document.getElementById("container"));
 });
