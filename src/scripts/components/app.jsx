@@ -15,25 +15,16 @@ var Footer = require('./pages/footer');
 
 function getStateFromStores(){
   return {
-    isLoggedIn: SessionStore.isLoggedIn(),
-    email: SessionStore.getEmail()
+    isLoggedIn: SessionStore.isLoggedIn()
   }
 }
 
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(SessionStore, "onSessionChange"), Navigation],
 
-  onSessionChange: function(status){
-    this.setState(status);
-    if(this.state.isLoggedIn){
-      this.transitionTo('home')
-    }else{
-      this.transitionTo('login')
-    }
-  },
-
   getInitialState: function(){
     var loginStatus = getStateFromStores();
+
     if(loginStatus.isLoggedIn){
       this.transitionTo('home')
     }else{
@@ -42,21 +33,17 @@ module.exports = React.createClass({
     return loginStatus;
   },
 
-  render: function(){
-    if (this.state.isLoggedIn){
-      var loginFields = (
-        <div>
-          logout button
-        </div>
-      )
-    }else{
-      var loginFields = (
-        <div>
-          login button
-        </div>
-      )
-    }
+  onSessionChange: function(status){
+    this.setState(status);
 
+    if(this.state.isLoggedIn){
+      this.transitionTo('home')
+    }else{
+      this.transitionTo('login')
+    }
+  },
+
+  render: function(){
     return(
       <div className = "container">
         <RouteHandler/>

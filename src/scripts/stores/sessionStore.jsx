@@ -1,65 +1,59 @@
 var Reflux = require('reflux'),
-    LoginActions = require('../actions/loginActions'),
-    request = require('superagent');
-
+    Router = require('react-router'),
+    RouteHandler = Router.RouteHandler,
+    Navigation = Router.Navigation,
+    router = require('../components/router'),
+    request = require('superagent'),
+    LoginActions = require('../actions/loginActions');
 
 module.exports = Reflux.createStore({
-  //init: function() {
-  //  this.listenTo(actions.fireBall,this.onFireBall);
-  //  this.listenTo(actions.magicMissile,this.onMagicMissile);
-  //},
-  // above this equivalent to the one below
-  listenalbes: LoginActions,
+  mixins: [Router.Navigation],
 
-  isLoggedIn: function(){
-    //!!this.getAuthenticationToken()
-    return true
-  },
+  listenables: [LoginActions],
 
-  getEmail: function(){
-    //this.getLocalStorageObj()['email']
-    return 'wuang@leohealth.com'
-  },
-
-  onLoginRequest: function(email, password){
-    request.post('/api/v1/login')
-     .send({email: email, password: password})
-     .end(function(err, res){
+  onLoginRequest: function(loginParam){
+    request.post('http://localhost:3000/api/v1/login')
+        .send({email: loginParam.email, password: loginParam.password})
+        .end(function(err, res){
           if (res.ok){
-            loginRequest.completed(res.body)
+            LoginActions.loginRequest.completed(res.body)
           }else{
-            loginRequest.failed(err)
+            LoginActions.loginRequest.failed(err)
           }
         })
   },
 
   onLogoutRequest: function(authentication_token){
-   request.post('/api/v1/logout')
-    .send({authentication_token: authentication_token})
-    .end(function(err,res){
-         if (res.ok){
-           logoutResquest.completed(res.body)
-         }else{
-           logoutResquest.failed(err)
-         }
-       })
+    request.del('http://localhost:3000/api/v1/logout')
+        .send({authentication_token: authentication_token})
+        .end(function(err,res){
+          if (res.ok){
+            LoginActions.logoutRequest.completed(res.body)
+          }else{
+            LoginActions.logoutRequest.failed(err)
+          }
+        })
+  },
+
+  onLoginRequestCompleted: function(response){
+    localStorage["authentication_token"]=response.data.session.authentication_token;
+    localStorage["first_name"]=response.data.session.user.first_name;
+    this.trigger(this.getSession());
+  },
+
+  onLogoutRequestCompleted: function(response){
+    debugger
+    localStorage.removeItem("authentication_token");
+    localStorage.removeItem("first_name");
+    this.trigger(this.getSession());
+  },
+
+  getSession: function(){
+    return {isLoggedIn: this.isLoggedIn(),
+            first_name: localStorage['first_name']}
+  },
+
+  isLoggedIn: function(){
+    return !!localStorage["authentication_token"];
   }
 });
-
-
-//
-//getId: function () {
-//  this.getLocalStorageObj()['id']
-//},
-//
-//getErrors: function() {
-//  this.errors
-//},
-//
-//getLocalStorageObj: function(){
-//  //get the input data from the login form
-//},
-//getAuthenticationToken: function(){
-//  this.getLocalStorageObj()['authentication_token']
-//},
-//

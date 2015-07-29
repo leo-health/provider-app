@@ -1,6 +1,17 @@
 var React = require('react');
+var LoginAction = require('../../actions/loginActions');
+var Router = require('react-router');
 
 module.exports = React.createClass({
+
+  handleOnLogout: function(){
+    var authentication_token = localStorage['authentication_token'];
+    if(!authentication_token){
+      return
+    }
+    LoginAction.logoutRequest(authentication_token)
+  },
+
   render: function() {
     return (
       <div>
@@ -23,7 +34,7 @@ module.exports = React.createClass({
                     <li className="divider"></li>
                     <li><a href="">Dashboard</a></li>
                     <li><a href="">Settings</a></li>
-                    <li><a href=""><strong>Log Out</strong></a></li>
+                    <li><a onClick={this.handleOnLogout}><strong>Log Out</strong></a></li>
                   </ul>
                 </li>
               </ul>
