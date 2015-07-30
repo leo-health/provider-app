@@ -6,24 +6,25 @@ module.exports = Reflux.createStore({
   listenables: [PasswordActions],
 
   onResetPasswordRequest: function (resetParam) {
-    debugger
     request.post('http://localhost:3000/api/v1/passwords/send_reset_email')
            .send({email: resetParam.email})
            .end(function(err, res){
              if(res.ok){
                PasswordActions.resetPasswordRequest.completed(res.body)
              }else{
-               PasswordActions.resetPasswordRequest.failed(err)
+               debugger
+               PasswordActions.resetPasswordRequest.failed(res.body)
              }
            })
   },
 
-  onresetPasswordRequestCompleted: function (response) {
+  onResetPasswordRequestCompleted: function (response) {
+    debugger
     this.trigger(response.status)
   },
 
-  onresetPasswordRequestFailed: function(error) {
-    //do a error rendering
+  onResetPasswordRequestFailed: function(response) {
+    debugger
   },
 
   onChangePassowrdRequest: function(password){
