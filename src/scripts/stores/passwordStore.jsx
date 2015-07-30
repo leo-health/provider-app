@@ -1,22 +1,32 @@
 var Reflux = require('reflux');
-PasswordActions = require('../actions/PasswordActions');
+var PasswordActions = require('../actions/passwordActions');
+var request = require('superagent');
 
 module.exports = Reflux.createStore({
   listenables: [PasswordActions],
 
-  onRest: function (email) {
-    //send the post request to api here
+  onResetPasswordRequest: function (resetParam) {
+    debugger
+    request.post('http://localhost:3000/api/v1/passwords/send_reset_email')
+           .send({email: resetParam.email})
+           .end(function(err, res){
+             if(res.ok){
+               PasswordActions.resetPasswordRequest.completed(res.body)
+             }else{
+               PasswordActions.resetPasswordRequest.failed(err)
+             }
+           })
   },
 
-  onResetCompleted: function (result) {
-    //do a redirect
+  onresetPasswordRequestCompleted: function (response) {
+    this.trigger(response.status)
   },
 
-  onRestFailed: function(response, error) {
+  onresetPasswordRequestFailed: function(error) {
     //do a error rendering
   },
 
-  onChange: function(password){
+  onChangePassowrdRequest: function(password){
     //post the password to api
   }
 });

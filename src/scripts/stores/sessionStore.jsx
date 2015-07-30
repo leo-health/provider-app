@@ -13,26 +13,26 @@ module.exports = Reflux.createStore({
 
   onLoginRequest: function(loginParam){
     request.post('http://localhost:3000/api/v1/login')
-        .send({email: loginParam.email, password: loginParam.password})
-        .end(function(err, res){
-          if (res.ok){
-            LoginActions.loginRequest.completed(res.body)
-          }else{
-            LoginActions.loginRequest.failed(err)
-          }
-        })
+           .send({email: loginParam.email, password: loginParam.password})
+           .end(function(err, res){
+             if (res.ok){
+               LoginActions.loginRequest.completed(res.body)
+             }else{
+               LoginActions.loginRequest.failed(err)
+             }
+           })
   },
 
   onLogoutRequest: function(authentication_token){
     request.del('http://localhost:3000/api/v1/logout')
-        .send({authentication_token: authentication_token})
-        .end(function(err,res){
-          if (res.ok){
-            LoginActions.logoutRequest.completed(res.body)
-          }else{
-            LoginActions.logoutRequest.failed(err)
-          }
-        })
+           .send({authentication_token: authentication_token})
+           .end(function(err,res){
+             if (res.ok){
+               LoginActions.logoutRequest.completed(res.body)
+             }else{
+               LoginActions.logoutRequest.failed(err)
+             }
+           })
   },
 
   onLoginRequestCompleted: function(response){
@@ -42,7 +42,6 @@ module.exports = Reflux.createStore({
   },
 
   onLogoutRequestCompleted: function(response){
-    debugger
     localStorage.removeItem("authentication_token");
     localStorage.removeItem("first_name");
     this.trigger(this.getSession());
