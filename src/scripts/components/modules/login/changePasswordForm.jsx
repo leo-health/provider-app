@@ -21,7 +21,7 @@ module.exports = React.createClass({
                   <input type="password" className="form-control" id="reInputPassword" placeholder="Re-enter password"/>
                 </div>
                 <div className="form-group">
-                  <div class="col-lg-8">
+                  <div class="col-lg-12">
                     <button type="reset" className="btn btn-primary">Submit</button>
                   </div>
                 </div>
