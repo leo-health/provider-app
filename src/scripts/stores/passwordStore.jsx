@@ -28,7 +28,7 @@ module.exports = Reflux.createStore({
   },
 
   onChangePassowrdRequest: function(changeParams){
-    request.post('http://localhost:3000/api/v1/passwords/reset')
+    request.post("http://localhost:3000/api/v1/passwords/" + changeParams.token + "/reset")
            .send({password: changeParams.password,
                   password_confirmation: changeParams.passwordConfirmation
                   })

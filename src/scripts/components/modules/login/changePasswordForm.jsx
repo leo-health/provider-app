@@ -6,8 +6,10 @@ var PasswordStore = require('../../../stores/passwordStore');
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(PasswordStore, "onStatusChange")],
 
-  getInitialStatus: function(){
-
+  getInitialState: function(){
+    return{
+      status: "initial"
+    }
   },
 
   onStatusChange: function (status) {
@@ -22,7 +24,10 @@ module.exports = React.createClass({
     e.preventDefault();
     var password = this.refs.password.getDOMNode().value.trim();
     var passwordConfirmation = this.refs.passwordConfirmation.getDOMNode().value.trim();
-    if(!password || !passwordConfirmation){
+    if(password.length < 8){
+      return
+    }else if(!(password === passwordConfirmation)){
+      this.setState({status: "failed", message: "hahaha"});
       return
     }
     var changeParams = {password: password, passwordConfirmation: passwordConfirmation };
@@ -30,34 +35,33 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var cx = React.addons.classSet;
-    var classes = cx({
-      'form-group': true,
-      'has-error': this.state.status == "failed"
-    });
+    var classNames = require('classnames');
+    var classes = ['form-group', {has_error: this.state.status == "failed"}];
     var showError = {display: "none"};
-
+    if (this.state.status == "fail"){
+      showError.display = "block"
+    }
     return(
       <div className="container page-header">
         <div className="row">
           <div className="col-xs-offset-4 col-lg-4 col-xs-offset-4 jumbotron text-center">
-            <form className={classes} onSubmit={this.handleOnSubmit}>
+            <form className="form-group has_error" onSubmit={this.handleOnSubmit}>
               <a href="../" className=""><img src="../images/leo.png" alt="..." /></a>
               <h6>Please enter your new password.</h6>
               <div className="alert alert-dismissible alert-danger" style={showError}>
                 <button type="button" className="close" data-dismiss="alert">×</button>
-                <a href="#" className="alert-link">Your passwords do not match.</a>
+                <a href="#" className="alert-link">{this.state.message}</a>
               </div>
               <fieldset>
-                <div className="form-group has-error">
+                <div className={classes}>
                   <input type="password" className="form-control" id="inputPassword" placeholder="New password" ref="password"/>
                 </div>
                 <div className="form-group">
                   <input type="password" className="form-control" id="reInputPassword" placeholder="Re-enter password" ref="passwordConfirmation"/>
                 </div>
                 <div className="form-group">
-                  <div class="col-lg-12">
-                    <button type="reset" className="btn btn-primary">Submit</button>
+                  <div className="col-lg-12">
+                    <button type="submit" className="btn btn-primary">Submit</button>
                   </div>
                 </div>
               </fieldset>
