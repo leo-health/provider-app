@@ -25,9 +25,10 @@ module.exports = React.createClass({
     var password = this.refs.password.getDOMNode().value.trim();
     var passwordConfirmation = this.refs.passwordConfirmation.getDOMNode().value.trim();
     if(password.length < 8){
+      this.setState({status: "failed", message: "at least 8 charactors."});
       return
     }else if(!(password === passwordConfirmation)){
-      this.setState({status: "failed", message: "hahaha"});
+      this.setState({status: "failed", message: "password do not match."});
       return
     }
     var changeParams = {password: password, passwordConfirmation: passwordConfirmation };
@@ -35,10 +36,8 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var classNames = require('classnames');
-    var classes = ['form-group', {has_error: this.state.status == "failed"}];
     var showError = {display: "none"};
-    if (this.state.status == "fail"){
+    if (this.state.status == "failed"){
       showError.display = "block"
     }
     return(
@@ -50,10 +49,10 @@ module.exports = React.createClass({
               <h6>Please enter your new password.</h6>
               <div className="alert alert-dismissible alert-danger" style={showError}>
                 <button type="button" className="close" data-dismiss="alert">×</button>
-                <a href="#" className="alert-link">{this.state.message}</a>
+                {this.state.message}
               </div>
               <fieldset>
-                <div className={classes}>
+                <div className="form-group">
                   <input type="password" className="form-control" id="inputPassword" placeholder="New password" ref="password"/>
                 </div>
                 <div className="form-group">
