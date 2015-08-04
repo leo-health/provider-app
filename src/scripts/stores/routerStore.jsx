@@ -9,11 +9,11 @@ module.exports = Reflux.createStore({
     this.router = router
   },
 
-  onSessionChanged: function(result){
-    if (result.isLoggedIn){
-      this.router.transitionTo('home')
-    } else{
-      this.router.transitionTo('login')
-    }
-  }
+  //onSessionChanged: function(result){
+  //  if (result.isLoggedIn){
+  //    this.router.transitionTo('home')
+  //  } else{
+  //    this.router.transitionTo('login')
+  //  }
+  //}
 });
