@@ -18,34 +18,41 @@ module.exports = Reflux.createStore({
            })
   },
 
-  onChangePassowrdRequest: function(changeParams){
-    request.post("http://localhost:3000/api/v1/passwords/" + changeParams.token + "/reset")
-        .send({password: changeParams.password,
-          password_confirmation: changeParams.passwordConfirmation
+  onChangePasswordRequest: function(changeParam){
+    request.put("http://localhost:3000/api/v1/passwords/" + changeParam.token + "/reset")
+        .send({password: changeParam.password,
+               password_confirmation: changeParam.passwordConfirmation
         })
         .end(function(err,res){
           if(res.ok) {
-            PasswordActions.changePassowrdRequest.completed(res.body)
+            PasswordActions.changePasswordRequest.completed(res.body)
           }else{
-            PasswordActions.changePassowrdRequest.failed(res.body)
+            PasswordActions.changePasswordRequest.failed(res.body)
           }
         })
   },
 
   onResetPasswordRequestCompleted: function(response){
-    this.trigger({status: response.status, message: "Instructions have been sent.", button: "Back"})
+    this.trigger({status: response.status,
+                  message: "Instructions have been sent.",
+                  button: "Back"})
   },
 
   onResetPasswordRequestFailed: function(response){
-    this.trigger({status: response.status, message: response.data.error_message, button: "Try again"})
+    this.trigger({status: response.status,
+                  message: response.data.error_message,
+                  button: "Try again"})
   },
 
   onChangePasswordRequestCompleted: function(response){
-    this.trigger({status: response.status})
+    this.trigger({status: response.status,
+                  message: "Password changed successfully",
+                  button: "Login"})
   },
 
   onChangePasswordRequestFailed: function(response){
     this.trigger({status: response.status,
-                  message: response.data.error_message})
+                  message: response.data.error_message,
+                  button: "Submit"})
   }
 });
