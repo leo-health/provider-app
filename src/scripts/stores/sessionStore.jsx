@@ -1,9 +1,7 @@
-var React = require('react'),
-    Reflux = require('reflux'),
+var Reflux = require('reflux'),
     Router = require('react-router'),
     RouteHandler = Router.RouteHandler,
     Navigation = Router.Navigation,
-    router = require('../components/router'),
     request = require('superagent'),
     LoginActions = require('../actions/loginActions');
 
@@ -19,7 +17,7 @@ module.exports = Reflux.createStore({
              if (res.ok){
                LoginActions.loginRequest.completed(res.body)
              }else{
-               LoginActions.loginRequest.failed(err)
+               LoginActions.loginRequest.failed(res.body)
              }
            })
   },
@@ -40,6 +38,10 @@ module.exports = Reflux.createStore({
     localStorage["authentication_token"]=response.data.session.authentication_token;
     localStorage["first_name"]=response.data.session.user.first_name;
     this.trigger(this.getSession());
+  },
+
+  onLoginRequestFailed: function(response){
+    this.trigger({status: response.status, message: "Invalid email or password"})
   },
 
   onLogoutRequestCompleted: function(response){

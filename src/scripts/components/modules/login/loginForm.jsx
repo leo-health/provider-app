@@ -1,9 +1,23 @@
+var Reflux = require('reflux');
 var React = require('react');
 var LoginAction = require('../../../actions/loginActions');
+var SessionStore = require('../../../stores/sessionStore');
 var Router = require('react-router');
+var Navigation = Router.Navigation;
 
 module.exports = React.createClass({
-  mixins : [Router.Navigation],
+  mixins: [Reflux.listenTo(SessionStore, "onStatusChange"), Navigation],
+
+  getInitialState: function(){
+    return{
+      status: "initial",
+      message: ""
+    }
+  },
+
+  onStatusChange: function (status) {
+    this.setState(status);
+  },
 
   handleOnSubmit: function(e){
     e.preventDefault();
@@ -21,6 +35,11 @@ module.exports = React.createClass({
   },
 
   render: function(){
+    var showError = {display: "none"};
+    if (this.state.status == "fail"){
+      showError.display = "block"
+    }
+
     return(
       <div>
         <div className="container page-header">
@@ -28,6 +47,10 @@ module.exports = React.createClass({
             <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4 jumbotron text-center">
               <form className="" onSubmit={this.handleOnSubmit}>
                 <a href="../" className=""><img src="/images/leo.png" alt="..." /></a>
+                <div className="alert alert-dismissible alert-danger" style={showError}>
+                  <button type="button" className="close" data-dismiss="alert">×</button>
+                  {this.state.message}
+                </div>
                 <fieldset>
                   <div className="form-group">
                     <input type="text" className="form-control" id="inputEmail" placeholder="Email" ref="email"/>

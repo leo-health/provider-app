@@ -7,7 +7,7 @@ var RouteHandler = Router.RouteHandler;
 var Navigation = Router.Navigation;
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(PasswordStore, "onStatusChange"), Router.Navigation],
+  mixins: [Reflux.listenTo(PasswordStore, "onStatusChange"), Navigation],
 
   getInitialState: function(){
     return{

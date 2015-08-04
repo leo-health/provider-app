@@ -1,5 +1,4 @@
-var React = require('react'),
-    Reflux = require('reflux'),
+var Reflux = require('reflux'),
     request = require('superagent'),
     PasswordActions = require('../actions/passwordActions');
 
