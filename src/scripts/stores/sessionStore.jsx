@@ -1,4 +1,5 @@
-var Reflux = require('reflux'),
+var React = require('react'),
+    Reflux = require('reflux'),
     Router = require('react-router'),
     RouteHandler = Router.RouteHandler,
     Navigation = Router.Navigation,
