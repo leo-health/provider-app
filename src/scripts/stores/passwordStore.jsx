@@ -33,11 +33,11 @@ module.exports = Reflux.createStore({
   },
 
   onResetPasswordRequestCompleted: function(response){
-    this.trigger({status: response.status, message: "Instructions have been sent."})
+    this.trigger({status: response.status, message: "Instructions have been sent.", button: "Back"})
   },
 
   onResetPasswordRequestFailed: function(response){
-    this.trigger({status: response.status, message: response.data.error_message})
+    this.trigger({status: response.status, message: response.data.error_message, button: "Try again"})
   },
 
   onChangePasswordRequestCompleted: function(response){

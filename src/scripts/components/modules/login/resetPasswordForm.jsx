@@ -2,14 +2,18 @@ var React = require('react');
 var Reflux = require('reflux');
 var PasswordActions = require('../../../actions/passwordActions');
 var PasswordStore = require('../../../stores/passwordStore');
+var Router = require('react-router');
+var RouteHandler = Router.RouteHandler;
+var Navigation = Router.Navigation;
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(PasswordStore, "onResetChange")],
+  mixins: [Reflux.listenTo(PasswordStore, "onResetChange"), Router.Navigation],
 
   getInitialState: function(){
     return{
       status: "initial",
-      message: ""
+      message: "",
+      button: "Submit"
     }
   },
 
@@ -19,26 +23,28 @@ module.exports = React.createClass({
 
   handleOnSubmit: function (e) {
     e.preventDefault();
-    var email = this.refs.email.getDOMNode().value.trim();
-    if (!email){
-      return
+    if (this.state.button=="Submit" || this.state.button == "Try again"){
+      var email = this.refs.email.getDOMNode().value.trim();
+      if (!email){
+        return
+      }
+      var resetParam = {email: email};
+      PasswordActions.resetPasswordRequest(resetParam)
+    }else{
+      this.transitionTo('login');
     }
-    var resetParam = {email: email};
-    PasswordActions.resetPasswordRequest(resetParam)
-
   },
 
   render: function(){
-    var SucessAlert = {display: 'none'};
+    var SuccessAlert = {display: 'none'};
     var ErrorAlert = {display: 'none'};
     if(this.state.status == "ok"){
       ErrorAlert.display = "none";
-      SucessAlert.display = "block";
+      SuccessAlert.display = "block";
     }else if(this.state.status == "fail"){
-      SucessAlert.display = "none";
+      SuccessAlert.display = "none";
       ErrorAlert.display = "block";
     }
-
     return(
       <div className="container page-header resetPasswordForm">
         <div className="row">
@@ -46,7 +52,7 @@ module.exports = React.createClass({
             <form className="form-group" onSubmit={this.handleOnSubmit}>
               <a href="../" className=""><img src="/images/leo.png" alt="..." /></a>
               <h6>Please enter your @leohealth.com e-mail address and we will send you a link to reset your password right away!</h6>
-              <div className="alert alert-dismissible alert-success" style={SucessAlert}>
+              <div className="alert alert-dismissible alert-success" style={SuccessAlert}>
                 <button type="button" className="close" data-dismiss="alert">×</button>
                 {this.state.message}
               </div>
@@ -60,7 +66,7 @@ module.exports = React.createClass({
                 </div>
                 <div className="form-group">
                   <div className="col-lg-12">
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">{this.state.button}</button>
                   </div>
                 </div>
               </fieldset>
