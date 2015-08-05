@@ -7,13 +7,5 @@ module.exports = Reflux.createStore({
 
   onSetRouter: function(router){
     this.router = router
-  },
-
-  onSessionChanged: function(result){
-    if (result.isLoggedIn){
-      this.router.transitionTo('home')
-    } else{
-      this.router.transitionTo('login')
-    }
   }
 });

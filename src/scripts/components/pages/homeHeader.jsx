@@ -1,33 +1,44 @@
 var React = require('react');
+var LoginAction = require('../../actions/loginActions');
+var Router = require('react-router');
 
 module.exports = React.createClass({
+
+  handleOnLogout: function(){
+    var authentication_token = localStorage['authentication_token'];
+    if(!authentication_token){
+      return
+    }
+    LoginAction.logoutRequest(authentication_token)
+  },
+
   render: function() {
     return (
       <div>
-        <div class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+        <div className="navbar navbar-default navbar-fixed-top">
+          <div className="container">
+            <div className="navbar-header">
+              <button className="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
               </button>
             </div>
-            <div class="navbar-collapse collapse" id="navbar-main">
-              <ul class="nav navbar-nav">
-                <li><a href="../" class="navbar-brand"><img src="../images/leo.png" alt="..." /></a></li>
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="features">Features <span class="caret"></span></a>
-                  <ul class="dropdown-menu" aria-labelledby="features">
+            <div className="navbar-collapse collapse" id="navbar-main">
+              <ul className="nav navbar-nav">
+                <li><a href="../" className="navbar-brand"><img src="../images/leo.png" alt="..." /></a></li>
+                <li className="dropdown">
+                  <a className="dropdown-toggle" data-toggle="dropdown" href="#" id="features">Features <span className="caret"></span></a>
+                  <ul className="dropdown-menu" aria-labelledby="features">
                     <li><a href="../messaging/">Messaging</a></li>
-                    <li class="divider"></li>
+                    <li className="divider"></li>
                     <li><a href="">Dashboard</a></li>
                     <li><a href="">Settings</a></li>
-                    <li><a href=""><strong>Log Out</strong></a></li>
+                    <li><a onClick={this.handleOnLogout}><strong>Log Out</strong></a></li>
                   </ul>
                 </li>
               </ul>
-              <ul class="nav navbar-nav navbar-right">
+              <ul className="nav navbar-nav navbar-right">
                 <li>
                   <a href="https://www.zendesk.com/">Help</a>
                 </li>

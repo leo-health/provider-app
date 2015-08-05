@@ -1,28 +1,75 @@
 var React = require('react');
+var Reflux = require('reflux');
+var PasswordActions = require('../../../actions/passwordActions');
+var PasswordStore = require('../../../stores/passwordStore');
+var Router = require('react-router');
+var RouteHandler = Router.RouteHandler;
+var Navigation = Router.Navigation;
+var SuccessAlert = require('../alert/successAlert');
+var ErrorAlert = require('../alert/errorAlert');
 
 module.exports = React.createClass({
+  mixins: [Reflux.listenTo(PasswordStore, "onStatusChange"), Navigation],
+
+  getInitialState: function(){
+    return{
+      status: "initial",
+      message: "",
+      button: "Submit"
+    }
+  },
+
+  onStatusChange: function (status) {
+    this.setState(status);
+  },
+
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+
+  handleOnSubmit: function(e){
+    e.preventDefault();
+    if(this.state.button == "Submit"){
+      var password = this.refs.password.getDOMNode().value.trim();
+      var passwordConfirmation = this.refs.passwordConfirmation.getDOMNode().value.trim();
+      if(password.length < 8){
+        this.setState({status: "fail", message: "The password should be at least 8 characters long."});
+        return
+      }else if(!(password === passwordConfirmation)){
+        this.setState({status: "fail", message: "password do not match."});
+        return
+      }else{
+        var changeParams = {password: password,
+          passwordConfirmation: passwordConfirmation,
+          token: this.context.router.getCurrentQuery().token
+        };
+        PasswordActions.changePasswordRequest(changeParams)
+      }
+    }else{
+      this.transitionTo('login');
+    }
+  },
+
   render: function () {
     return(
-      <div class="container page-header">
-        <div class="row">
-          <div class="col-xs-offset-4 col-lg-4 col-xs-offset-4 jumbotron text-center">
-            <form class="">
-              <a href="../" class=""><img src="../images/leo.png" alt="..." /></a>
+      <div className="container page-header">
+        <div className="row">
+          <div className="col-xs-offset-4 col-lg-4 col-xs-offset-4 jumbotron text-center">
+            <form className="form-group has_error" onSubmit={this.handleOnSubmit}>
+              <a href="../" className=""><img src="../images/leo.png" alt="..." /></a>
               <h6>Please enter your new password.</h6>
-              <div class="alert alert-dismissible alert-danger">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <a href="#" class="alert-link">Your passwords do not match.</a>
-              </div>
+              <SuccessAlert message={this.state.message} status={this.state.status}/>
+              <ErrorAlert message={this.state.message} status={this.state.status}/>
               <fieldset>
-                <div class="form-group has-error">
-                  <input type="password" class="form-control" id="inputPassword" placeholder="New password"/>
+                <div className="form-group">
+                  <input type="password" className="form-control" id="inputPassword" placeholder="New password" ref="password"/>
                 </div>
-                <div class="form-group">
-                  <input type="password" class="form-control" id="reInputPassword" placeholder="Re-enter password"/>
+                <div className="form-group">
+                  <input type="password" className="form-control" id="reInputPassword" placeholder="Re-enter password" ref="passwordConfirmation"/>
                 </div>
-                <div class="form-group">
-                  <div class="col-lg-8">
-                    <button type="reset" class="btn btn-primary">Submit</button>
+                <div className="form-group">
+                  <div className="col-lg-12">
+                    <button type="submit" className="btn btn-primary">{this.state.button}</button>
                   </div>
                 </div>
               </fieldset>
