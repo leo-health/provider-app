@@ -13,6 +13,9 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var first_name = localStorage["first_name"];
+    var last_name = localStorage["last_name"];
+    var title = localStorage["title"];
     return (
       <div>
         <div className="navbar navbar-default navbar-fixed-top">
@@ -43,7 +46,7 @@ module.exports = React.createClass({
                   <a href="https://www.zendesk.com/">Help</a>
                 </li>
                 <li>
-                  <a href="../login/">Welcome, Dr. Om Lala</a>
+                  <a href="../login/">Welcome, {title}. {first_name} {last_name}</a>
                 </li>
               </ul>
             </div>
