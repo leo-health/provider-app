@@ -1,6 +1,6 @@
 var React = require('react');
-var Conversation = require('./conversation');
 var ConversationHeader = require('./conversationHeader');
+var Conversation = require('./conversation');
 
 module.exports = React.createClass({
   render: function () {

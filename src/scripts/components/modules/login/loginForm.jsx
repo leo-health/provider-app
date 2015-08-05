@@ -4,6 +4,7 @@ var LoginAction = require('../../../actions/loginActions');
 var SessionStore = require('../../../stores/sessionStore');
 var Router = require('react-router');
 var Navigation = Router.Navigation;
+var ErrorAlert = require('../alert/errorAlert');
 
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(SessionStore, "onStatusChange"), Navigation],
@@ -35,11 +36,6 @@ module.exports = React.createClass({
   },
 
   render: function(){
-    var showError = {display: "none"};
-    if (this.state.status == "fail"){
-      showError.display = "block"
-    }
-
     return(
       <div>
         <div className="container page-header">
@@ -47,11 +43,8 @@ module.exports = React.createClass({
             <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4 jumbotron text-center">
               <form className="" onSubmit={this.handleOnSubmit}>
                 <a href="../" className=""><img src="/images/leo.png" alt="..." /></a>
-                <div className="alert alert-dismissible alert-danger" style={showError}>
-                  <button type="button" className="close" data-dismiss="alert">×</button>
-                  {this.state.message}
-                </div>
                 <fieldset>
+                  <ErrorAlert message={this.state.message} status={this.state.status}/>
                   <div className="form-group">
                     <input type="text" className="form-control" id="inputEmail" placeholder="Email" ref="email"/>
                   </div>

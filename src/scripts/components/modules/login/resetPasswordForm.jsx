@@ -5,6 +5,8 @@ var PasswordStore = require('../../../stores/passwordStore');
 var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 var Navigation = Router.Navigation;
+var SuccessAlert = require('../alert/successAlert');
+var ErrorAlert = require('../alert/errorAlert');
 
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(PasswordStore, "onResetChange"), Router.Navigation],
@@ -36,15 +38,6 @@ module.exports = React.createClass({
   },
 
   render: function(){
-    var SuccessAlert = {display: 'none'};
-    var ErrorAlert = {display: 'none'};
-    if(this.state.status == "ok"){
-      ErrorAlert.display = "none";
-      SuccessAlert.display = "block";
-    }else if(this.state.status == "fail"){
-      SuccessAlert.display = "none";
-      ErrorAlert.display = "block";
-    }
     return(
       <div className="container page-header resetPasswordForm">
         <div className="row">
@@ -52,14 +45,8 @@ module.exports = React.createClass({
             <form className="form-group" onSubmit={this.handleOnSubmit}>
               <a href="../" className=""><img src="/images/leo.png" alt="..." /></a>
               <h6>Please enter your @leohealth.com e-mail address and we will send you a link to reset your password right away!</h6>
-              <div className="alert alert-dismissible alert-success" style={SuccessAlert}>
-                <button type="button" className="close" data-dismiss="alert">×</button>
-                {this.state.message}
-              </div>
-              <div className="alert alert-dismissible alert-danger" style={ErrorAlert}>
-                <button type="button" className="close" data-dismiss="alert">×</button>
-                {this.state.message}
-              </div>
+              <SuccessAlert message={this.state.message} status={this.state.status}/>
+              <ErrorAlert message={this.state.message} status={this.state.status}/>
               <fieldset>
                 <div className="form-group">
                   <input type="text" className="form-control" id="inputEmail" placeholder="Email" ref="email"/>

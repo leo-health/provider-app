@@ -5,6 +5,8 @@ var PasswordStore = require('../../../stores/passwordStore');
 var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 var Navigation = Router.Navigation;
+var SuccessAlert = require('../alert/successAlert');
+var ErrorAlert = require('../alert/errorAlert');
 
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(PasswordStore, "onStatusChange"), Navigation],
@@ -31,10 +33,10 @@ module.exports = React.createClass({
       var password = this.refs.password.getDOMNode().value.trim();
       var passwordConfirmation = this.refs.passwordConfirmation.getDOMNode().value.trim();
       if(password.length < 8){
-        this.setState({status: "failed", message: "at least 8 charactors."});
+        this.setState({status: "fail", message: "The password should be at least 8 characters long."});
         return
       }else if(!(password === passwordConfirmation)){
-        this.setState({status: "failed", message: "password do not match."});
+        this.setState({status: "fail", message: "password do not match."});
         return
       }else{
         var changeParams = {password: password,
@@ -49,15 +51,6 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var showSuccess={display: "none"};
-    var showError = {display: "none"};
-    if (this.state.status == "failed"){
-      showSuccess.display = "none";
-      showError.display = "block"
-    }else if(this.state.status == "ok"){
-      showError.display = "none";
-      showSuccess.display="block"
-    }
     return(
       <div className="container page-header">
         <div className="row">
@@ -65,14 +58,8 @@ module.exports = React.createClass({
             <form className="form-group has_error" onSubmit={this.handleOnSubmit}>
               <a href="../" className=""><img src="../images/leo.png" alt="..." /></a>
               <h6>Please enter your new password.</h6>
-              <div className="alert alert-dismissible alert-success" style={showSuccess}>
-                <button type="button" className="close" data-dismiss="alert">×</button>
-                {this.state.message}
-              </div>
-              <div className="alert alert-dismissible alert-danger" style={showError}>
-                <button type="button" className="close" data-dismiss="alert">×</button>
-                {this.state.message}
-              </div>
+              <SuccessAlert message={this.state.message} status={this.state.status}/>
+              <ErrorAlert message={this.state.message} status={this.state.status}/>
               <fieldset>
                 <div className="form-group">
                   <input type="password" className="form-control" id="inputPassword" placeholder="New password" ref="password"/>
