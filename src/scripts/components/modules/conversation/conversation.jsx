@@ -1,7 +1,7 @@
 var React = require('react');
 var _ = require('lodash');
+var ConversationStatus = require("./conversationStatus");
 var ConversationPatient = require("./conversationPatient");
-var conversationStatus = require("./conversationStatus");
 
 module.exports = React.createClass({
   render: function () {
@@ -12,7 +12,6 @@ module.exports = React.createClass({
     var patients = this.props.patients.map(function( patient ){
       return <ConversationPatient patient = { patient.first_name + " " + patient.last_name}/>
     });
-
     return(
         //className="list-group-item active"
       <a href="" className="list-group-item">
@@ -21,7 +20,7 @@ module.exports = React.createClass({
         </h6>
         <p>
           {patients}
-          <conversationStatus status = {this.props.conversationStatus} />
+          <ConversationStatus status = {this.props.conversationStatus}/>
         </p>
         <p className="list-group-item-text">
           { this.props.latestMessage.body }
