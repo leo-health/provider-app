@@ -1,19 +1,30 @@
 var React = require('react');
+var _ = require('lodash');
+var ConversationPatient = require("./conversationPatient");
+var conversationStatus = require("./conversationStatus");
 
 module.exports = React.createClass({
   render: function () {
+    var guardians =  _.map(this.props.guardians, function(guardian){
+      return guardian.title + guardian.first_name + " " + guardian.last_name + "  "
+    });
+
+    var patients = this.props.patients.map(function( patient ){
+      return <ConversationPatient patient = { patient.first_name + " " + patient.last_name}/>
+    });
+
     return(
-      <a href="" className="list-group-item active">
-        <h6 className="list-group-item-heading">Parent 1
-          <span className="pull-right">Today, 1:23 PM</span>
+        //className="list-group-item active"
+      <a href="" className="list-group-item">
+        <h6 className="list-group-item-heading">{ guardians }
+          <span className="pull-right">{ this.props.createdAt }</span>
         </h6>
         <p>
-          <span className="label label-warning">Test Child 1</span>
-          <span className="label label-warning">Test Child 2</span>
-          <span className="glyphicon glyphicon-exclamation-sign-default pull-right" aria-hidden="true"></span>
+          {patients}
+          <conversationStatus status = {this.props.conversationStatus} />
         </p>
         <p className="list-group-item-text">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          { this.props.latestMessage.body }
         </p>
       </a>
     )
