@@ -5,6 +5,12 @@ var ConversationPatient = require("./conversationPatient");
 
 module.exports = React.createClass({
   render: function () {
+    var latestMessage = this.props.latestMessage.body;
+
+    if( latestMessage.length > 111 ){
+      latestMessage = latestMessage.substr(0, 108) + "..."
+    }
+
     var guardians =  _.map(this.props.guardians, function(guardian){
       return guardian.title + guardian.first_name + " " + guardian.last_name + "  "
     });
@@ -23,7 +29,7 @@ module.exports = React.createClass({
           <ConversationStatus status = {this.props.conversationStatus}/>
         </p>
         <p className="list-group-item-text">
-          { this.props.latestMessage.body }
+          { latestMessage }
         </p>
       </a>
     )
