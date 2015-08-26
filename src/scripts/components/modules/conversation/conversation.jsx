@@ -1,21 +1,46 @@
 var React = require('react');
+var _ = require('lodash');
+var ConversationStatus = require("./conversationStatus");
+var ConversationPatient = require("./conversationPatient");
+var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
+  handleOnForget: function(){
+    var messages = this.props.messages;
+    MessageActions.displayMessages(messages);
+  },
+
   render: function () {
+    var latestMessage = this.props.latestMessage.body;
+    var messageSendAt = this.props.createdAt;
+    var guardians =  _.map(this.props.guardians, function(guardian){
+      return guardian.title + guardian.first_name + " " + guardian.last_name + "  "
+    });
+    var patients = this.props.patients.map(function( patient ){
+      return <ConversationPatient key = {patient.id}
+                                  patient = { patient.first_name + " " + patient.last_name}
+             />
+    });
+
+    if( latestMessage.length > 111 ){
+      latestMessage = latestMessage.substr(0, 108) + "..."
+    }
+
     return(
-      <a href="" className="list-group-item active">
-        <h6 className="list-group-item-heading">Parent 1
-          <span className="pull-right">Today, 1:23 PM</span>
-        </h6>
-        <p>
-          <span className="label label-warning">Test Child 1</span>
-          <span className="label label-warning">Test Child 2</span>
-          <span className="glyphicon glyphicon-exclamation-sign-default pull-right" aria-hidden="true"></span>
-        </p>
-        <p className="list-group-item-text">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-      </a>
+      <div onClick={this.handleOnForget}>
+        <a href="" className="list-group-item">
+          <h6 className="list-group-item-heading">{guardians}
+            <span className="pull-right">{messageSendAt}</span>
+          </h6>
+          <p className = "patientList">
+            {patients}
+            <ConversationStatus status = {this.props.conversationStatus}/>
+          </p>
+          <p className="list-group-item-text">
+            {latestMessage}
+          </p>
+        </a>
+      </div>
     )
   }
 });

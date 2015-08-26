@@ -5,7 +5,7 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [PasswordActions],
 
-  onResetPasswordRequest: function (resetParam) {
+  onResetPasswordRequest: function(resetParam) {
     request.post('http://localhost:3000/api/v1/passwords/send_reset_email')
            .send({email: resetParam.email})
            .end(function(err, res){
