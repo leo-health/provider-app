@@ -13,7 +13,6 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    debugger
     return {messages: [{id: 55, body: "hahahahaha"}, {id: 56, body: "yayaya"}, {id: 57, body: "wawawawawa"}]}
   },
 

@@ -6,7 +6,6 @@ module.exports = Reflux.createStore({
   listenables: [MessageActions],
 
   onDisplayMessages: function( messages ){
-    debugger
     this.trigger({messages: messages})
   }
 });
