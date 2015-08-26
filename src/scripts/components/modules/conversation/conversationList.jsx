@@ -11,11 +11,6 @@ module.exports = React.createClass({
     //Reflux.listenTo(ConversationStore, "onStatusChange")
   ],
 
-  //onStatusChange: function (status) {
-  //  debugger
-  //  this.setState(status);
-  //},
-
   componentWillMount: function(){
     ConversationActions.fetchConversationRequest(localStorage.authentication_token);
   },
@@ -24,11 +19,13 @@ module.exports = React.createClass({
     var conversations = this.state.conversations;
     if (this.state.status == "ok") {
       conversations = conversations.map(function(conversation){
-        return <Conversation guardians = { conversation.users.guardians }
-                             patients = { conversation.users.patients }
-                             latestMessage = { conversation.messages[0]}
-                             createdAt = { conversation.last_message_created_at }
-                             conversationStatus = { conversation.status }
+        return <Conversation key = {conversation.id}
+                             guardians = {conversation.users.guardians}
+                             patients = {conversation.users.patients}
+                             latestMessage = {conversation.messages[0]}
+                             messages = { conversation.messages }
+                             createdAt = {conversation.last_message_created_at }
+                             conversationStatus = {conversation.status}
                 />
       })
     }

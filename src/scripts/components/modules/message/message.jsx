@@ -2,14 +2,19 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function () {
+    var messageBody = this.props.body;
+    var sentAt = this.props.sentAt;
+    var sender = this.props.sender;
+    //sender = sender.title + " " + sender.first_name + " " + sender.last_name;
+
     return(
       <div>
         <div className="checkbox checkbox-circle checkbox-danger">
           <input id="checkbox1" type="checkbox"/>
           <label for="checkbox1">
-            <small> 12:00 PM </small>
-            <strong>Dr. Om Lala</strong>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+            <small> {sentAt} </small>
+            <strong>{sentAt}</strong>
+            {messageBody}
           </label>
         </div>
         <div className="inline-hr">
