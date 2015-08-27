@@ -5,7 +5,7 @@ module.exports = React.createClass({
     var messageBody = this.props.body;
     var sentAt = this.props.sentAt;
     var sender = this.props.sender;
-    //sender = sender.title + " " + sender.first_name + " " + sender.last_name;
+    sender = sender.title + "." + sender.first_name + " " + sender.last_name;
 
     return(
       <div>
@@ -13,14 +13,15 @@ module.exports = React.createClass({
           <input id="checkbox1" type="checkbox"/>
           <label for="checkbox1">
             <small> {sentAt} </small>
-            <strong>{sentAt}</strong>
+            <strong>{sender}</strong>
             {messageBody}
           </label>
-        </div>
-        <div className="inline-hr">
-          <span className="primary">Case closed by Dr. Om Lala</span>
         </div>
       </div>
     )
   }
 });
+
+//<div className="inline-hr">
+//  <span className="primary">Case closed by Dr. Om Lala</span>
+//</div>

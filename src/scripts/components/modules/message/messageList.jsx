@@ -13,7 +13,9 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    return {messages: [{id: 55, body: "hahahahaha"}, {id: 56, body: "yayaya"}, {id: 57, body: "wawawawawa"}]}
+    return {messages: [{id: 55, body: "hahahahaha", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}},
+      {id: 56, body: "yayaya", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}},
+      {id: 57, body: "wawawawawa", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}}]}
   },
 
   //componentWillMount: function () {
@@ -21,7 +23,6 @@ module.exports = React.createClass({
   //},
 
   onStatusChange: function(status){
-    debugger
     this.setState(status);
   },
 

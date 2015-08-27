@@ -8,7 +8,6 @@ module.exports = React.createClass({
   handleOnClick: function(){
     var currentConversationId = this.props.conversation_id;
     var authentication_token = localStorage.authentication_token;
-    debugger
     MessageActions.fetchMessageRequest(authentication_token, currentConversationId);
   },
 
@@ -25,7 +24,7 @@ module.exports = React.createClass({
 
     return(
       <div onClick={this.handleOnClick}>
-        <a href="" className="list-group-item">
+        <a href="#" className="list-group-item">
           <h6 className="list-group-item-heading">{guardians}
             <span className="pull-right">{messageSendAt}</span>
           </h6>
