@@ -5,13 +5,14 @@ var ConversationPatient = require("./conversationPatient");
 var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
-  handleOnForget: function(){
-    var messages = this.props.messages;
-    MessageActions.displayMessages(messages);
+  handleOnClick: function(){
+    var currentConversationId = this.props.conversation_id;
+    var authentication_token = localStorage.authentication_token;
+    debugger
+    MessageActions.fetchMessageRequest(authentication_token, currentConversationId);
   },
 
   render: function () {
-    var latestMessage = this.props.latestMessage.body;
     var messageSendAt = this.props.createdAt;
     var guardians =  _.map(this.props.guardians, function(guardian){
       return guardian.title + guardian.first_name + " " + guardian.last_name + "  "
@@ -22,12 +23,8 @@ module.exports = React.createClass({
              />
     });
 
-    if( latestMessage.length > 111 ){
-      latestMessage = latestMessage.substr(0, 108) + "..."
-    }
-
     return(
-      <div onClick={this.handleOnForget}>
+      <div onClick={this.handleOnClick}>
         <a href="" className="list-group-item">
           <h6 className="list-group-item-heading">{guardians}
             <span className="pull-right">{messageSendAt}</span>
@@ -37,10 +34,16 @@ module.exports = React.createClass({
             <ConversationStatus status = {this.props.conversationStatus}/>
           </p>
           <p className="list-group-item-text">
-            {latestMessage}
+            hahahahahahahahaha
           </p>
         </a>
       </div>
     )
   }
 });
+
+//if( latestMessage.length > 111 ){
+//  latestMessage = latestMessage.substr(0, 108) + "..."
+//}
+
+//var latestMessage = this.props.latestMessage.body;

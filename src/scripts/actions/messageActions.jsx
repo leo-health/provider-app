@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 
-var MessageActions = ([
-    "displayMessages"
-]);
+var MessageActions = {
+    fetchMessageRequest: {asyncResult: true}
+};
 
 module.exports = Reflux.createActions(MessageActions);

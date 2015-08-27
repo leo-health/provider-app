@@ -8,7 +8,7 @@ var ConversationStore = require('../../../stores/conversationStore');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.connect(ConversationStore),
+    Reflux.connect(MessageStore),
     Reflux.listenTo(MessageStore, "onStatusChange")
   ],
 
@@ -16,7 +16,12 @@ module.exports = React.createClass({
     return {messages: [{id: 55, body: "hahahahaha"}, {id: 56, body: "yayaya"}, {id: 57, body: "wawawawawa"}]}
   },
 
+  //componentWillMount: function () {
+  //  debugger
+  //},
+
   onStatusChange: function(status){
+    debugger
     this.setState(status);
   },
 

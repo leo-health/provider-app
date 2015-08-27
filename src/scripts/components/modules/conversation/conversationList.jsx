@@ -18,12 +18,11 @@ module.exports = React.createClass({
   render: function () {
     var conversations = this.state.conversations;
     if (this.state.status == "ok") {
-      conversations = conversations.map(function(conversation){
-        return <Conversation key = {conversation.id}
+      conversations = conversations.map(function(conversation, i){
+        return <Conversation key = {i}
+                             conversation_id = {conversation.id}
                              guardians = {conversation.users.guardians}
                              patients = {conversation.users.patients}
-                             latestMessage = {conversation.messages[0]}
-                             messages = { conversation.messages }
                              createdAt = {conversation.last_message_created_at }
                              conversationStatus = {conversation.status}
                 />
