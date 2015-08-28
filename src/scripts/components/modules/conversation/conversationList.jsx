@@ -21,6 +21,7 @@ module.exports = React.createClass({
       conversations = conversations.map(function(conversation, i){
         return <Conversation key = {i}
                              conversation_id = {conversation.id}
+                             lastMessage = {conversation.last_message}
                              guardians = {conversation.users.guardians}
                              patients = {conversation.users.patients}
                              createdAt = {conversation.last_message_created_at }

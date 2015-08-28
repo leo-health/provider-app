@@ -12,6 +12,11 @@ module.exports = React.createClass({
   },
 
   render: function () {
+    var lastMessage = this.props.lastMessage.body;
+    if( lastMessage.length > 150 ){
+      var shortMessage = lastMessage.substr(0, 150);
+      lastMessage = shortMessage.substr(0, shortMessage.lastIndexOf(" ")) + "...";
+    }
     var messageSendAt = this.props.createdAt;
     var guardians =  _.map(this.props.guardians, function(guardian){
       return guardian.title + guardian.first_name + " " + guardian.last_name + "  "
@@ -33,16 +38,10 @@ module.exports = React.createClass({
             <ConversationStatus status = {this.props.conversationStatus}/>
           </p>
           <p className="list-group-item-text">
-            hahahahahahahahaha
+            {lastMessage}
           </p>
         </a>
       </div>
     )
   }
 });
-
-//if( latestMessage.length > 111 ){
-//  latestMessage = latestMessage.substr(0, 108) + "..."
-//}
-
-//var latestMessage = this.props.latestMessage.body;
