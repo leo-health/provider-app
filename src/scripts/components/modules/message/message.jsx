@@ -1,9 +1,10 @@
 var React = require('react');
+var moment = require('moment');
 
 module.exports = React.createClass({
   render: function () {
     var messageBody = this.props.body;
-    var sentAt = this.props.sentAt;
+    var sentAt = moment(this.props.sentAt).calendar();
     var sender = this.props.sender;
     sender = sender.title + "." + sender.first_name + " " + sender.last_name;
 

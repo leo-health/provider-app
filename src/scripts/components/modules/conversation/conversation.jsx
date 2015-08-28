@@ -1,5 +1,6 @@
 var React = require('react');
 var _ = require('lodash');
+var moment = require('moment');
 var ConversationStatus = require("./conversationStatus");
 var ConversationPatient = require("./conversationPatient");
 var MessageActions = require('../../../actions/messageActions');
@@ -17,7 +18,7 @@ module.exports = React.createClass({
       var shortMessage = lastMessage.substr(0, 150);
       lastMessage = shortMessage.substr(0, shortMessage.lastIndexOf(" ")) + "...";
     }
-    var messageSendAt = this.props.createdAt;
+    var messageSendAt = moment(this.props.createdAt).calendar();
     var guardians =  _.map(this.props.guardians, function(guardian){
       return guardian.title + guardian.first_name + " " + guardian.last_name + "  "
     });
