@@ -16,12 +16,9 @@ module.exports = React.createClass({
             <strong>{sender}</strong>
             {messageBody}
           </label>
+          <hr/>
         </div>
       </div>
     )
   }
 });
-
-//<div className="inline-hr">
-//  <span className="primary">Case closed by Dr. Om Lala</span>
-//</div>
