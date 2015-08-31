@@ -20,6 +20,7 @@ module.exports = React.createClass({
     if (this.state.status == "ok") {
       conversations = conversations.map(function(conversation, i){
         return <Conversation key = {i}
+                             reactKey = {i}
                              conversation_id = {conversation.id}
                              lastMessage = {conversation.last_message}
                              guardian = {conversation.primary_guardian}

@@ -10,6 +10,7 @@ module.exports = React.createClass({
     var currentConversationId = this.props.conversation_id;
     var authentication_token = localStorage.authentication_token;
     MessageActions.fetchMessageRequest(authentication_token, currentConversationId);
+
   },
 
   render: function () {
@@ -27,9 +28,16 @@ module.exports = React.createClass({
              />
     });
 
+    var className;
+    if (this.props.reactKey==0){
+      className="list-group-item active"
+    }else{
+      className="list-group-item"
+    }
+
     return(
       <div onClick={this.handleOnClick}>
-        <a href="#" className="list-group-item">
+        <a href="#" className={className}>
           <h6 className="list-group-item-heading">{guardian}
             <span className="pull-right">{messageSendAt}</span>
           </h6>
