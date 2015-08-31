@@ -13,6 +13,16 @@ module.exports = React.createClass({
 
   },
 
+  getInitialState: function(){
+    var className;
+    if (this.props.reactKey==0){
+      className="list-group-item active"
+    }else{
+      className="list-group-item"
+    }
+    return {className: className}
+  },
+
   render: function () {
     var lastMessage = this.props.lastMessage.body;
     var guardian = this.props.guardian;
@@ -28,16 +38,9 @@ module.exports = React.createClass({
              />
     });
 
-    var className;
-    if (this.props.reactKey==0){
-      className="list-group-item active"
-    }else{
-      className="list-group-item"
-    }
-
     return(
       <div onClick={this.handleOnClick}>
-        <a href="#" className={className}>
+        <a href="#" className={this.state.className}>
           <h6 className="list-group-item-heading">{guardian}
             <span className="pull-right">{messageSendAt}</span>
           </h6>
