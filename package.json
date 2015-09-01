@@ -37,6 +37,7 @@
     "jsx-loader": "^0.13.2",
     "lodash": "^3.10.0",
     "map-stream": "0.0.6",
+    "moment": "^2.10.6",
     "nib": "^1.1.0",
     "react": "^0.13.3",
     "react-hot-loader": "^1.2.8",

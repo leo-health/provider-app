@@ -5,16 +5,16 @@ var Router = require('react-router');
 module.exports = React.createClass({
 
   handleOnLogout: function(){
-    var authentication_token = localStorage['authentication_token'];
-    if(!authentication_token){
+    var authenticationToken = localStorage.authenticationToken;
+    if(!authenticationToken){
       return
     }
-    LoginAction.logoutRequest(authentication_token)
+    LoginAction.logoutRequest(authenticationToken)
   },
 
   render: function() {
-    var first_name = localStorage["first_name"];
-    var last_name = localStorage["last_name"];
+    var firstName = localStorage["firstName"];
+    var lastName = localStorage["lastName"];
     var title = localStorage["title"];
     return (
       <div>
@@ -46,7 +46,7 @@ module.exports = React.createClass({
                   <a href="https://www.zendesk.com/">Help</a>
                 </li>
                 <li>
-                  <a href="../login/">Welcome, {title}. {first_name} {last_name}</a>
+                  <a href="../login/">Welcome, {title}. {firstName} {lastName}</a>
                 </li>
               </ul>
             </div>
