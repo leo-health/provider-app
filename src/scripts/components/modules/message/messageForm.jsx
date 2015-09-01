@@ -11,6 +11,7 @@ module.exports = React.createClass({
     var messageType="text";
     var currentConversationId=this.props.conversationId;
     MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, messageType, currentConversationId)
+    this.refs.message.getDOMNode().value="";
   },
 
   render: function () {

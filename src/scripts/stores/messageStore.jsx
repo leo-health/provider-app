@@ -28,7 +28,6 @@ module.exports = Reflux.createStore({
   },
 
   onSendMessageRequest: function(authenticationToken, messageBody, messageType, currentConversationId){
-    debugger
     request.post("http://localhost:3000/api/v1/conversations/"+ currentConversationId +"/messages")
            .send({authentication_token: authenticationToken, body: messageBody, message_type: messageType})
            .end(function(err, res){
@@ -41,9 +40,8 @@ module.exports = Reflux.createStore({
   },
 
   onSendMessageRequestCompleted: function(response){
-    debugger;
     this.trigger({ status: response.status,
-                   messages: response.data.message})
+                   new_message: response.data})
   },
 
   onSendMessageRequestFailed: function(response){

@@ -9,8 +9,8 @@ var ConversationStore = require('../../../stores/conversationStore');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.connect(MessageStore)
-    //Reflux.listenTo(MessageStore, "onStatusChange")
+    Reflux.connect(MessageStore),
+    Reflux.listenTo(MessageStore, "onStatusChange")
   ],
 
   getInitialState: function(){
@@ -20,7 +20,11 @@ module.exports = React.createClass({
   },
 
   onStatusChange: function(status){
-    this.setState(status);
+    if(status.new_message){
+      this.setState({messages: this.state.messages.concat(this.state.new_message)})
+    }else{
+      this.setState(status);
+    }
   },
 
   render: function () {
