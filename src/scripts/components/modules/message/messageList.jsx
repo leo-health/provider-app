@@ -19,6 +19,10 @@ module.exports = React.createClass({
       {id: 57, body: "wawawawawa", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}}]}
   },
 
+  componentWillMount: function(){
+    debugger
+  },
+
   onStatusChange: function(status){
     if(status.new_message){
       this.setState({messages: this.state.messages.concat(this.state.new_message)})

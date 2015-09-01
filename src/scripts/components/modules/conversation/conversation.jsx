@@ -26,6 +26,10 @@ module.exports = React.createClass({
     return {selectedConversation: 0}
   },
 
+  componentWillMount: function(){
+
+  },
+
   render: function () {
     var lastMessage = this.props.lastMessage.body;
     var guardian = this.props.guardian;
@@ -35,7 +39,7 @@ module.exports = React.createClass({
       lastMessage = shortMessage.substr(0, shortMessage.lastIndexOf(" ")) + "...";
     }
     var messageSendAt = moment(this.props.createdAt).calendar();
-    var patients = this.props.patients.map(function( patient ){
+    var patients = this.props.patients.map(function(patient){
       return (
         <ConversationPatient key = {patient.id}
                              patient = { patient.first_name + " " + patient.last_name}
