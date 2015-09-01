@@ -4,12 +4,13 @@ var Message = require('./message');
 var MessageHeader = require('./messageHeader');
 var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
+var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
 
 module.exports = React.createClass({
   mixins: [
     Reflux.connect(MessageStore),
-    Reflux.listenTo(MessageStore, "onStatusChange")
+    //Reflux.listenTo(MessageStore, "onStatusChange")
   ],
 
   getInitialState: function(){
@@ -18,8 +19,8 @@ module.exports = React.createClass({
       {id: 57, body: "wawawawawa", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}}]}
   },
 
-  //componentWillMount: function () {
-  //  debugger
+  //componentWillMount: function(){
+  //  MessageActions.fetchMessageRequest(localStorage.authentication_token, 1);
   //},
 
   onStatusChange: function(status){

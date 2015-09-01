@@ -25,24 +25,25 @@ module.exports = Reflux.createStore({
   onFetchMessageRequestFailed: function(response){
     this.trigger({ status: response.status,
                    message: "error fetching messages"})
-  }
+  },
 
-  //init: function(){
-  //  debugger
-  //  this.listenTo(ConversationStore, this.fetchMessages)
-  //},
-  //
-  //getInitialState: function(){
-  //  debugger
-  //  return this.defaultMessages
-  //},
-  //
-  //fetchMessages: function (result) {
-  //  debugger
-  //  this.defaultMessages = result.conversations[0].messages
-  //},
-  //
-  //onDisplayMessages: function( messages ){
-  //  this.trigger({messages: messages})
-  //}
+  onSendMessageRequest: function(authenticationToken, messageBody, messageType, currentConversationId){
+    request.post("http://localhost:3000/api/v1/conversations/"+ currentConversationId +"/messages")
+           .send({authentication_token: authenticationToken, body: messageBody, message_type: messageType})
+           .end(function(err, res){
+             if(res.ok){
+               MessageActions.sendMessageRequest.completed(res.body)
+             }else{
+               MessageActions.sendMessageRequest.failed(res.body)
+             }
+           });
+  },
+
+  onSendMessageRequestCompleted: function(response){
+
+  },
+
+  onSendMessageRequestFailed: function(response){
+
+  }
 });

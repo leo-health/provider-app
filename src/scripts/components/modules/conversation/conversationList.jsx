@@ -8,7 +8,6 @@ var Conversation = require('./conversation');
 module.exports = React.createClass({
   mixins: [
     Reflux.connect(ConversationStore)
-    //Reflux.listenTo(ConversationStore, "onStatusChange")
   ],
 
   componentWillMount: function(){

@@ -1,12 +1,23 @@
 var React = require('react');
+var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
+  handleClick: function(e){
+    e.preventDefault();
+    var messageBody=this.refs.message.getDOMNode().value.trim();
+    var messageType="text";
+    if (!messageBody){
+      return
+    }
+    MessageActions.sendMessageRequest(localStorage.authentication_token, messageBody, messageType)
+  },
+
   render: function () {
     return (
       <div>
         <div className="panel panel-body">
           <form>
-            <textarea rows="3" className="form-control" placeholder="Reply"></textarea>
+            <textarea rows="3" className="form-control" placeholder="Reply" ref="message" onClick={this.handleClick()}></textarea>
           </form>
         </div>
         <div className="">
