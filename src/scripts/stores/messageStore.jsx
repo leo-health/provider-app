@@ -28,6 +28,7 @@ module.exports = Reflux.createStore({
   },
 
   onSendMessageRequest: function(authenticationToken, messageBody, messageType, currentConversationId){
+    debugger
     request.post("http://localhost:3000/api/v1/conversations/"+ currentConversationId +"/messages")
            .send({authentication_token: authenticationToken, body: messageBody, message_type: messageType})
            .end(function(err, res){
