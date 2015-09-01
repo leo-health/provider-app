@@ -27,7 +27,7 @@ module.exports = Reflux.createStore({
                   message: "error fetching conversations"})
   },
 
-  getCurrentMessages: function(){
-
+  onSelectConversation: function(selectedConversation){
+    this.trigger({selectedConversation: selectedConversation})
   }
 });

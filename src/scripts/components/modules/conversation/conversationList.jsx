@@ -19,15 +19,17 @@ module.exports = React.createClass({
     var conversations = this.state.conversations;
     if (this.state.status == "ok") {
       conversations = conversations.map(function(conversation, i){
-        return <Conversation key = {i}
-                             reactKey = {i}
-                             conversation_id = {conversation.id}
-                             lastMessage = {conversation.last_message}
-                             guardian = {conversation.primary_guardian}
-                             patients = {conversation.users.patients}
-                             createdAt = {conversation.last_message_created_at }
-                             conversationStatus = {conversation.status}
-                />
+        return (
+          <Conversation key = {i}
+                        reactKey = {i}
+                        conversation_id = {conversation.id}
+                        lastMessage = {conversation.last_message}
+                        guardian = {conversation.primary_guardian}
+                        patients = {conversation.users.patients}
+                        createdAt = {conversation.last_message_created_at }
+                        conversationStatus = {conversation.status}
+          />
+        )
       })
     }
     return (
