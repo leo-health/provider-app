@@ -9,7 +9,7 @@ var ConversationStore = require('../../../stores/conversationStore');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.connect(MessageStore),
+    Reflux.connect(MessageStore)
     //Reflux.listenTo(MessageStore, "onStatusChange")
   ],
 
@@ -19,16 +19,13 @@ module.exports = React.createClass({
       {id: 57, body: "wawawawawa", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}}]}
   },
 
-  //componentWillMount: function(){
-  //  MessageActions.fetchMessageRequest(localStorage.authentication_token, 1);
-  //},
-
   onStatusChange: function(status){
     this.setState(status);
   },
 
   render: function () {
     var messages = this.state.messages;
+    var currentConversationId = messages[0].conversation_id;
     messages = messages.map(function(message){
       return <Message key={message.id}
                       body={message.body}
@@ -43,7 +40,7 @@ module.exports = React.createClass({
         <div id="conversation-container" className="pre-scrollable panel panel-body">
           {messages}
         </div>
-        <MessageForm/>
+        <MessageForm conversationId={currentConversationId}/>
       </div>
     )
   }

@@ -40,10 +40,13 @@ module.exports = Reflux.createStore({
   },
 
   onSendMessageRequestCompleted: function(response){
-
+    debugger;
+    this.trigger({ status: response.status,
+                   messages: response.data.message})
   },
 
   onSendMessageRequestFailed: function(response){
-
+    this.trigger({ status: response.status,
+                   message: "error sending messages"})
   }
 });

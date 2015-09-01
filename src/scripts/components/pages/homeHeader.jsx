@@ -5,11 +5,11 @@ var Router = require('react-router');
 module.exports = React.createClass({
 
   handleOnLogout: function(){
-    var authentication_token = localStorage['authentication_token'];
-    if(!authentication_token){
+    var authenticationToken = localStorage.authenticationToken;
+    if(!authenticationToken){
       return
     }
-    LoginAction.logoutRequest(authentication_token)
+    LoginAction.logoutRequest(authenticationToken)
   },
 
   render: function() {

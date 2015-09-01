@@ -14,8 +14,8 @@ module.exports = React.createClass({
   handleOnClick: function(){
     ConversationActions.selectConversation(this.props.reactKey);
     var currentConversationId = this.props.conversation_id;
-    var authentication_token = localStorage.authentication_token;
-    MessageActions.fetchMessageRequest(authentication_token, currentConversationId);
+    var authenticationToken = localStorage.authenticationToken;
+    MessageActions.fetchMessageRequest(authenticationToken, currentConversationId);
   },
 
   onStatusChange: function(status){
