@@ -9,8 +9,8 @@ var ConversationStore = require('../../../stores/conversationStore');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.connect(MessageStore),
-    Reflux.listenTo(MessageStore, "onStatusChange")
+    Reflux.connect(MessageStore)
+    //Reflux.listenTo(MessageStore, "onStatusChange")
   ],
 
   getInitialState: function(){
@@ -19,13 +19,36 @@ module.exports = React.createClass({
       {id: 57, body: "wawawawawa", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}}]}
   },
 
-  onStatusChange: function(status){
-    if(status.new_message){
-      this.setState({messages: this.state.messages.concat(this.state.new_message)})
-    }else{
-      this.setState(status);
+  componentWillMount: function(){
+    this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
+    this.messageChanel = this.pusher.subscribe(localStorage.email)
+  },
+
+  componentDidMount: function(){
+    this.messageChanel.bind('new_message', function(message){
+      this.setState({messages: this.state.messages.concat(message)})
+    }, this);
+  },
+
+  componentWillUpdate: function(){
+    var node = React.findDOMNode(this.refs.conversationContainer);
+    this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+  },
+
+  componentDidUpdate: function(){
+    if (this.shouldScrollBottom){
+      var node = React.findDOMNode(this.refs.conversationContainer);
+      node.scrollTop = node.scrollHeight;
     }
   },
+
+  //onStatusChange: function(status){
+  //  if(status.new_message){
+  //    this.setState({messages: this.state.messages.concat(this.state.new_message)})
+  //  }else{
+  //    this.setState(status);
+  //  }
+  //},
 
   render: function () {
     var messages = this.state.messages;
@@ -41,10 +64,10 @@ module.exports = React.createClass({
     return (
       <div>
         <MessageHeader/>
-        <div id="conversation-container" className="pre-scrollable panel panel-body">
+        <div id="conversation-container" className="pre-scrollable panel panel-body" ref="conversationContainer">
           {messages}
         </div>
-        <MessageForm conversationId={currentConversationId}/>
+        <MessageForm conversationId={currentConversationId} messageContainer={this.refs.conversationContainer}/>
       </div>
     )
   }
