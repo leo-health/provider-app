@@ -9,8 +9,8 @@ var ConversationStore = require('../../../stores/conversationStore');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.connect(MessageStore),
-    Reflux.listenTo(MessageStore, "onStatusChange")
+    Reflux.connect(MessageStore)
+    //Reflux.listenTo(MessageStore, "onStatusChange")
   ],
 
   getInitialState: function(){
@@ -20,21 +20,23 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function(){
-    this.pusher = new Pusher('218006d766a6d76e8672');
-    this.chatRoom = this.pusher.subscribe(localStorage.email)
+    this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
+    this.messageChanel = this.pusher.subscribe(localStorage.email)
   },
 
-  componentDidUpdate: function(){
-    debugger
+  componentDidMount: function(){
+    this.messageChanel.bind('new_message', function(message){
+      this.setState({messages: this.state.messages.concat(message)})
+    }, this);
   },
 
-  onStatusChange: function(status){
-    if(status.new_message){
-      this.setState({messages: this.state.messages.concat(this.state.new_message)})
-    }else{
-      this.setState(status);
-    }
-  },
+  //onStatusChange: function(status){
+  //  if(status.new_message){
+  //    this.setState({messages: this.state.messages.concat(this.state.new_message)})
+  //  }else{
+  //    this.setState(status);
+  //  }
+  //},
 
   render: function () {
     var messages = this.state.messages;
