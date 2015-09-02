@@ -20,6 +20,11 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function(){
+    this.pusher = new Pusher('218006d766a6d76e8672');
+    this.chatRoom = this.pusher.subscribe(localStorage.email)
+  },
+
+  componentDidUpdate: function(){
     debugger
   },
 

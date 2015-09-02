@@ -2,7 +2,7 @@ var React = require('react');
 var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
-  handleClick: function(e){
+  handleSendMessage: function(e){
     e.preventDefault();
     var messageBody=this.refs.message.getDOMNode().value.trim();
     if (!messageBody){
@@ -10,8 +10,16 @@ module.exports = React.createClass({
     }
     var messageType="text";
     var currentConversationId=this.props.conversationId;
-    MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, messageType, currentConversationId)
+    MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, messageType, currentConversationId);
     this.refs.message.getDOMNode().value="";
+  },
+
+  handleCloseConversation: function(e){
+    e.preventDefault();
+  },
+
+  handleEscalateMessage(e){
+    e.preventDefault();
   },
 
   render: function () {
@@ -24,13 +32,13 @@ module.exports = React.createClass({
         </div>
         <div className="">
           <form>
-            <a href="#" className="btn btn-success btn-sm" onClick={this.handleClick}>
+            <a href="#" className="btn btn-success btn-sm" onClick={this.handleSendMessage}>
               <span className="glyphicon glyphicon-ok"></span>Send
             </a>
-            <a href="#" className="btn btn-primary btn-sm">
+            <a href="#" className="btn btn-primary btn-sm" onClick={this.handleCloseConversation}>
               <span className="glyphicon glyphicon-ok"></span> Close Case
             </a>
-            <a href="#" className="btn btn-danger btn-sm">
+            <a href="#" className="btn btn-danger btn-sm" onClick={this.handleEscalateMessage}>
               <span className="glyphicon glyphicon-fire"></span> Escalate
             </a>
           </form>
