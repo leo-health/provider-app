@@ -12,6 +12,8 @@ module.exports = React.createClass({
     var currentConversationId=this.props.conversationId;
     MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, messageType, currentConversationId);
     this.refs.message.getDOMNode().value="";
+    var node = React.findDOMNode(this.props.messageContainer);
+    node.scrollTop = node.scrollHeight;
   },
 
   handleCloseConversation: function(e){
