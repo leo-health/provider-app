@@ -1,5 +1,6 @@
 var React = require('react');
 var MessageActions = require('../../../actions/messageActions');
+var ConversationActions = require('../../../actions/conversationActions');
 
 module.exports = React.createClass({
   handleSendMessage: function(e){
@@ -18,6 +19,7 @@ module.exports = React.createClass({
 
   handleCloseConversation: function(e){
     e.preventDefault();
+    ConversationActions.closeConversationRequest(localStorage.authenticationToken, this.props.conversationId)
   },
 
   handleEscalateMessage(e){

@@ -29,5 +29,27 @@ module.exports = Reflux.createStore({
 
   onSelectConversation: function(selectedConversation){
     this.trigger({selectedConversation: selectedConversation})
+  },
+
+  onCloseConversationRequest: function(authenticationToken, conversationId){
+    request.put('http://localhost:3000/api/v1/conversations' + conversationId)
+        .query({ authentication_token: authenticationToken })
+        .end(function(err, res){
+          if(res.ok){
+            ConversationActions.closeConversationRequest.completed(res.body)
+          }else{
+            ConversationActions.closeConversationRequest.failed(res.body)
+          }
+        })
+  },
+
+  onCloseConversationRequestCompleted: function(response){
+    this.trigger({status: response.status,
+                  conversation: response.data.conversation})
+  },
+
+  onCloseConversationRequestFailed: function(response){
+    this.trigger({status: response.status,
+                  message: "error closing conversation"})
   }
 });
