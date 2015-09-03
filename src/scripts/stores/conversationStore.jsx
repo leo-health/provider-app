@@ -32,7 +32,7 @@ module.exports = Reflux.createStore({
   },
 
   onCloseConversationRequest: function(authenticationToken, conversationId){
-    request.put('http://localhost:3000/api/v1/conversations' + conversationId)
+    request.put('http://localhost:3000/api/v1/conversations/' + conversationId)
         .query({ authentication_token: authenticationToken })
         .end(function(err, res){
           if(res.ok){
@@ -45,7 +45,7 @@ module.exports = Reflux.createStore({
 
   onCloseConversationRequestCompleted: function(response){
     this.trigger({status: response.status,
-                  conversation: response.data.conversation})
+                  closedConversation: response.data.conversation})
   },
 
   onCloseConversationRequestFailed: function(response){
