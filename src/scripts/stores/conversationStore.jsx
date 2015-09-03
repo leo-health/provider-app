@@ -5,9 +5,14 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
-  onFetchConversationRequest: function(authenticationToken){
+  onFetchConversationRequest: function(authenticationToken, status){
+    if (status.length > 0){
+      var conversationParams = {authentication_token: authenticationToken, status: status}
+    }else{
+      conversationParams = {authentication_token: authenticationToken}
+    }
     request.get('http://localhost:3000/api/v1/conversations')
-           .query({ authentication_token: authenticationToken })
+           .query(conversationParams)
            .end(function(err, res){
               if(res.ok){
                 ConversationActions.fetchConversationRequest.completed(res.body)
