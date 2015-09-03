@@ -9,12 +9,14 @@ module.exports = React.createClass({
   render: function () {
     return (
       <ul className="nav nav-tabs">
-        <li className="active">
-          <a href="#all-tab" data-toggle="tab" onClick={this.handleClick}>All</a>
+        <li className="active" onClick={this.fetchConversations}>
+          <a href="#open" data-toggle="tab">
+            <span className="glyphicon glyphicon glyphicon-star-empty" aria-hidden="false"></span> Open
+          </a>
         </li>
         <li className="" onClick={this.fetchConversations}>
-          <a href="#new-tab" data-toggle="tab">
-            <span className="glyphicon glyphicon glyphicon-star-empty" aria-hidden="false"></span> New
+          <a href="#escalated" data-toggle="tab">
+            <span className="glyphicon glyphicon-exclamation-sign-default" aria-hidden="false"></span> Escalated
           </a>
         </li>
         <li className="" onClick={this.fetchConversations}>
@@ -22,10 +24,8 @@ module.exports = React.createClass({
             <span className="glyphicon glyphicon-ok-circle" aria-hidden="false"></span> Closed
           </a>
         </li>
-        <li className="" onClick={this.fetchConversations}>
-          <a href="#escalated" data-toggle="tab">
-            <span className="glyphicon glyphicon-exclamation-sign-default" aria-hidden="false"></span> Escalated
-          </a>
+        <li className="">
+          <a href="#all-tab" data-toggle="tab" onClick={this.handleClick}>All</a>
         </li>
       </ul>
     )
