@@ -1,6 +1,7 @@
 var React = require('react');
 var MessageActions = require('../../../actions/messageActions');
-var ConversationActions = require('../../../actions/conversationActions');
+var CloseConversationAlert = require('../alert/closeConversationAlert');
+var EscalateMessageAlert = require('../alert/escalateMessageAlert');
 
 module.exports = React.createClass({
   handleSendMessage: function(e){
@@ -19,16 +20,18 @@ module.exports = React.createClass({
 
   handleCloseConversation: function(e){
     e.preventDefault();
-    ConversationActions.closeConversationRequest(localStorage.authenticationToken, this.props.conversationId)
+    React.render(<CloseConversationAlert conversationId={this.props.conversationId}/>, document.getElementById('alerts'));
   },
 
   handleEscalateMessage(e){
     e.preventDefault();
+    React.render(<EscalateMessageAlert conversationId={this.props.conversationId}/>, document.getElementById('alerts'));
   },
 
   render: function () {
     return (
       <div>
+        <div id="alerts"></div>
         <div className="panel panel-body">
           <form>
             <textarea rows="3" className="form-control" placeholder="Reply" ref="message"></textarea>

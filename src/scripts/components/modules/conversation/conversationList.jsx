@@ -11,7 +11,7 @@ module.exports = React.createClass({
   ],
 
   componentWillMount: function(){
-    ConversationActions.fetchConversationRequest(localStorage.authenticationToken);
+    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open");
   },
 
   render: function () {
