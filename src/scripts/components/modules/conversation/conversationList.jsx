@@ -21,7 +21,7 @@ module.exports = React.createClass({
         return (
           <Conversation key = {i}
                         reactKey = {i}
-                        conversation_id = {conversation.id}
+                        conversationId = {conversation.id}
                         lastMessage = {conversation.last_message}
                         guardian = {conversation.primary_guardian}
                         patients = {conversation.users.patients}
