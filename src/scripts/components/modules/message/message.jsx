@@ -1,6 +1,6 @@
 var React = require('react');
 var moment = require('moment');
-var MessageStatus = require('./messageStatue');
+var MessageStatus = require('./messageStatus');
 
 module.exports = React.createClass({
   render: function () {
