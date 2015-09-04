@@ -25,7 +25,7 @@ module.exports = React.createClass({
 
   handleEscalateMessage(e){
     e.preventDefault();
-    React.render(<EscalateMessageAlert conversationId={this.props.conversationId}/>, document.getElementById('alerts'));
+    React.render(<EscalateMessageAlert conversationId={this.props.conversationId} staff={this.props.staff}/>, document.getElementById('alerts'));
   },
 
   render: function () {

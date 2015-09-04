@@ -6,17 +6,22 @@ var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
 var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
+var UserStore = require('../../../stores/userStore');
 
 module.exports = React.createClass({
   mixins: [
     Reflux.connect(MessageStore),
-    Reflux.listenTo(ConversationStore, "onStatusChange")
+    Reflux.connect(UserStore)
   ],
 
   getInitialState: function(){
     return {messages: [{id: 55, body: "hahahahaha", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}},
       {id: 56, body: "yayaya", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}},
       {id: 57, body: "wawawawawa", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}}]}
+  },
+
+  componentWillMount: function(){
+    MessageActions.fetchStaffRequest(localStorage.authenticationToken)
   },
 
   componentDidMount: function(){
@@ -37,14 +42,9 @@ module.exports = React.createClass({
     }
   },
 
-  onStatusChange: function(status){
-    if(status.closedConversation){
-
-    }
-  },
-
   render: function () {
     var messages = this.state.messages;
+    var staff = this.state.staff;
     var currentConversationId = messages[0].conversation_id;
     messages = messages.map(function(message){
       return <Message key={message.id}
@@ -60,7 +60,7 @@ module.exports = React.createClass({
         <div id="conversation-container" className="pre-scrollable panel panel-body" ref="conversationContainer">
           {messages}
         </div>
-        <MessageForm conversationId={currentConversationId} messageContainer={this.refs.conversationContainer}/>
+        <MessageForm conversationId={currentConversationId} messageContainer={this.refs.conversationContainer} staff={staff}/>
       </div>
     )
   }
