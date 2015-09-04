@@ -14,11 +14,16 @@ module.exports = React.createClass({
     Reflux.connect(UserStore)
   ],
 
-  getInitialState: function(){
-    return {messages: [{id: 55, body: "hahahahaha", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}},
-      {id: 56, body: "yayaya", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}},
-      {id: 57, body: "wawawawawa", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}}]}
-  },
+  //getInitialState: function(){
+  //  return {messages: [{id: 55, body: "hahahahaha", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}},
+  //    {id: 56, body: "yayaya", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}},
+  //    {id: 57, body: "wawawawawa", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}}]}
+  //  var currentConversationId = ConversationStore.getFirstConversationId();
+  //
+  //  return {
+  //    messages: MessageActions.fetchMessageRequest(localStorage.authenticationToken, currentConversationId)
+  //  }
+  //},
 
   componentWillMount: function(){
     MessageActions.fetchStaffRequest(localStorage.authenticationToken)
@@ -44,16 +49,19 @@ module.exports = React.createClass({
 
   render: function () {
     var messages = this.state.messages;
+    debugger
+    if(messages){
+      var currentConversationId = messages[0].conversation_id;
+      messages = messages.map(function(message){
+        return <Message key={message.id}
+                        body={message.body}
+                        sender={message.sender}
+                        escalatedTo={message.escalated_to}
+                        sentAt={message.created_at}
+            />
+      });
+    }
     var staff = this.state.staff;
-    var currentConversationId = messages[0].conversation_id;
-    messages = messages.map(function(message){
-      return <Message key={message.id}
-                      body={message.body}
-                      sender={message.sender}
-                      escalatedTo={message.escalated_to}
-                      sentAt={message.created_at}
-             />
-    });
 
     return (
       <div>

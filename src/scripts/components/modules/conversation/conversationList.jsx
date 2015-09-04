@@ -6,18 +6,10 @@ var ConversationHeader = require('./conversationHeader');
 var Conversation = require('./conversation');
 
 module.exports = React.createClass({
-  mixins: [
-    Reflux.connect(ConversationStore)
-  ],
-
-  componentWillMount: function(){
-    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open");
-  },
-
   render: function () {
-    var conversations = this.state.conversations;
+    var conversations = this.props.conversations;
     var that = this;
-    if (this.state.status == "ok") {
+    if (conversations) {
       conversations = conversations.map(function(conversation, i){
         return (
           <Conversation key = {i}

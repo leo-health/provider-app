@@ -1,6 +1,5 @@
 var React = require('react');
 var moment = require('moment');
-var MessageStatus = require('./messageStatus');
 
 module.exports = React.createClass({
   render: function () {
@@ -18,7 +17,6 @@ module.exports = React.createClass({
             <strong>{sender}</strong>
             {messageBody}
           </label>
-          <MessageStatus escalatedTo={this.props.escalatedTo}/>
         </div>
       </div>
     )

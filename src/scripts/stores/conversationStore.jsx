@@ -1,9 +1,29 @@
 var Reflux = require('reflux'),
     request = require('superagent'),
-    ConversationActions = require('../actions/conversationActions');
+    ConversationActions = require('../actions/conversationActions'),
+    MessageActions = require('../actions/messageActions'),
+    _firstConversationId = null;
 
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
+
+  init: function(){
+    request.get('http://localhost:3000/api/v1/conversations')
+        .query({authentication_token: localStorage.authenticationToken, status: 'open'})
+        .end(function(err, res){
+          if(res.ok){
+            _firstConversationId = res.body.data.conversations[0].id
+            MessageActions.fetchMessageRequest(localStorage.authenticationToken, _firstConversationId)
+            ConversationActions.fetchConversationRequest.completed(res.body)
+          }else{
+            ConversationActions.fetchConversationRequest.failed(res.body)
+          }
+        })
+  },
+
+  getFirstConversationId: function(){
+    return _firstConversationId
+  },
 
   onFetchConversationRequest: function(authenticationToken, status){
     if (status.length > 0){
@@ -24,7 +44,8 @@ module.exports = Reflux.createStore({
 
   onFetchConversationRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   conversations: response.data.conversations })
+                   conversations: response.data.conversations });
+    debugger
   },
 
   onFetchConversationRequestFailed: function(response){
