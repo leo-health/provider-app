@@ -5,13 +5,8 @@ module.exports = React.createClass({
     return {status: this.props.status}
   },
 
-  componentWillMount: function(){
-    this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
-    this.statusChanel = this.pusher.subscribe(localStorage.email)
-  },
-
   componentDidMount: function(){
-    this.statusChanel.bind('new_status', function(status){
+    this.props.statusChanel.bind('new_status', function(status){
       if(status.conversation_id == this.props.conversationId){
         this.setState({status: status.new_status})
       }else{

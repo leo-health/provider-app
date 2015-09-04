@@ -19,13 +19,8 @@ module.exports = React.createClass({
       {id: 57, body: "wawawawawa", sender: {title: "Mr", first_name: "Loka", last_name: "Mata"}}]}
   },
 
-  componentWillMount: function(){
-    this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
-    this.messageChanel = this.pusher.subscribe(localStorage.email)
-  },
-
   componentDidMount: function(){
-    this.messageChanel.bind('new_message', function(message){
+    this.props.messageChanel.bind('new_message', function(message){
       this.setState({messages: this.state.messages.concat(message)})
     }, this);
   },

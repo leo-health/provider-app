@@ -16,6 +16,7 @@ module.exports = React.createClass({
 
   render: function () {
     var conversations = this.state.conversations;
+    var that = this;
     if (this.state.status == "ok") {
       conversations = conversations.map(function(conversation, i){
         return (
@@ -27,6 +28,7 @@ module.exports = React.createClass({
                         patients = {conversation.users.patients}
                         createdAt = {conversation.last_message_created_at }
                         conversationStatus = {conversation.status}
+                        statusChanel = {that.props.statusChanel}
           />
         )
       })
@@ -43,5 +45,5 @@ module.exports = React.createClass({
         </div>
       </div>
     )
-  }      
+  }
 });
