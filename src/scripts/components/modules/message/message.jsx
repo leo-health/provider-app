@@ -18,7 +18,7 @@ module.exports = React.createClass({
             <strong>{sender}</strong>
             {messageBody}
           </label>
-          <MessageStatus/>
+          <MessageStatus escalatedTo={this.props.escalatedTo}/>
         </div>
       </div>
     )

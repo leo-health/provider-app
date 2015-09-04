@@ -2,6 +2,7 @@ var React = require('react');
 var Reflux = require('reflux');
 var MessageActions = require('../../../actions/messageActions');
 var MessageStaff = require('../message/messageStaff');
+
 module.exports = React.createClass({
   handleClick: function (e) {
     e.preventDefault();

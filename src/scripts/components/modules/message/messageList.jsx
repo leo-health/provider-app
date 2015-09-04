@@ -50,6 +50,7 @@ module.exports = React.createClass({
       return <Message key={message.id}
                       body={message.body}
                       sender={message.sender}
+                      escalatedTo={message.escalated_to}
                       sentAt={message.created_at}
              />
     });
