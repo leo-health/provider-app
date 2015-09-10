@@ -3,7 +3,7 @@ var Reflux = require('reflux');
 var ConversationActions = {
   fetchConversationRequest: {asyncResult: true},
   closeConversationRequest: {asyncResult: true},
-  selectConversation: {}
+  sendMessages: {}
 };
 
 module.exports = Reflux.createActions(ConversationActions);

@@ -7,19 +7,20 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
-  init: function(){
-    request.get('http://localhost:3000/api/v1/conversations')
-        .query({authentication_token: localStorage.authenticationToken, status: 'open'})
-        .end(function(err, res){
-          if(res.ok){
-            _firstConversationId = res.body.data.conversations[0].id
-            MessageActions.fetchMessageRequest(localStorage.authenticationToken, _firstConversationId)
-            ConversationActions.fetchConversationRequest.completed(res.body)
-          }else{
-            ConversationActions.fetchConversationRequest.failed(res.body)
-          }
-        })
-  },
+  //init: function(){
+  //  debugger
+  //  request.get('http://localhost:3000/api/v1/conversations')
+  //      .query({authentication_token: localStorage.authenticationToken, status: 'open'})
+  //      .end(function(err, res){
+  //        if(res.ok){
+  //          _firstConversationId = res.body.data.conversations[0].id
+  //          MessageActions.fetchMessageRequest(localStorage.authenticationToken, _firstConversationId)
+  //          ConversationActions.fetchConversationRequest.completed(res.body)
+  //        }else{
+  //          ConversationActions.fetchConversationRequest.failed(res.body)
+  //        }
+  //      })
+  //},
 
   getFirstConversationId: function(){
     return _firstConversationId
@@ -45,7 +46,6 @@ module.exports = Reflux.createStore({
   onFetchConversationRequestCompleted: function(response){
     this.trigger({ status: response.status,
                    conversations: response.data.conversations });
-    debugger
   },
 
   onFetchConversationRequestFailed: function(response){
@@ -53,8 +53,12 @@ module.exports = Reflux.createStore({
                   message: "error fetching conversations"})
   },
 
-  onSelectConversation: function(selectedConversation){
-    this.trigger({selectedConversation: selectedConversation})
+  onSendMessages: function(messages, index, conversationId){
+    this.trigger({
+      messages: messages,
+      selectedConversation: index,
+      conversationId: conversationId
+    })
   },
 
   onCloseConversationRequest: function(authenticationToken, conversationId){

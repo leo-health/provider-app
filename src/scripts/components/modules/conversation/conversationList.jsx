@@ -20,6 +20,7 @@ module.exports = React.createClass({
                         patients = {conversation.users.patients}
                         createdAt = {conversation.last_message_created_at }
                         conversationStatus = {conversation.status}
+                        messages = {conversation.messages}
                         statusChanel = {that.props.statusChanel}
           />
         )

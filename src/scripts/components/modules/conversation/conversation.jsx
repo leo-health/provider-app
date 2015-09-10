@@ -12,10 +12,7 @@ module.exports = React.createClass({
   mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
 
   handleOnClick: function(){
-    ConversationActions.selectConversation(this.props.reactKey);
-    var currentConversationId = this.props.conversationId;
-    var authenticationToken = localStorage.authenticationToken;
-    MessageActions.fetchMessageRequest(authenticationToken, currentConversationId);
+    ConversationActions.sendMessages(this.props.messages, this.props.reactKey, this.props.conversationId);
   },
 
   onStatusChange: function(status){

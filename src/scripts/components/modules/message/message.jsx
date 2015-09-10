@@ -17,6 +17,7 @@ module.exports = React.createClass({
             <strong>{sender}</strong>
             {messageBody}
           </label>
+          <hr/>
         </div>
       </div>
     )

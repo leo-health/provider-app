@@ -16,7 +16,7 @@ module.exports = React.createClass({
     this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
     this.statusChanel = this.pusher.subscribe('newStatus' + localStorage.email);
     this.messageChanel = this.pusher.subscribe('newMessage' + localStorage.email);
-    //ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open");
+    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open");
   },
 
   componentDidMount: function(){
@@ -26,7 +26,7 @@ module.exports = React.createClass({
   render: function() {
     var conversations = this.state.conversations;
     if (conversations){
-      var ID = conversations[0].id
+      var initialMessages = conversations[0].messages;
     }
     return (
       <div>
@@ -38,7 +38,7 @@ module.exports = React.createClass({
               <ConversationList statusChanel={this.statusChanel} conversations={conversations}/>
             </div>
             <div id="right" className="col-lg-8">
-              <MessageList messageChanel={this.messageChanel} ID={ID}/>
+              <MessageList messageChanel={this.messageChanel} initialMessages={initialMessages}/>
             </div>
           </div>
         </div>
