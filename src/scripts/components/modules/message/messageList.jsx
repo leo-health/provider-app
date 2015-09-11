@@ -5,25 +5,26 @@ var MessageHeader = require('./messageHeader');
 var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
 var ConversationStore = require('../../../stores/conversationStore');
+var UserStore = require('../../../stores/userStore');
 var MessageActions = require('../../../actions/messageActions');
-var ConversationStore = require('../../../stores/conversationStore');
 
 module.exports = React.createClass({
   mixins: [
     Reflux.connect(MessageStore),
-    Reflux.connect(ConversationStore)
+    Reflux.connect(ConversationStore),
+    Reflux.connect(UserStore)
   ],
 
   getInitialState: function(){
-    return {messages: []}
-  },
-
-  componentWillMount: function(){
-    MessageActions.fetchStaffRequest(localStorage.authenticationToken)
+    return {messages: [],
+            init: true}
   },
 
   componentDidMount: function(){
+    MessageActions.fetchStaffRequest(localStorage.authenticationToken);
+    debugger
     this.props.messageChanel.bind('new_message', function(message){
+      debugger
       this.setState({messages: this.state.messages.concat(message)})
     }, this);
   },
@@ -41,12 +42,15 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    if (this.state.messages.length > 0){
-      var messages = this.state.messages;
-    }else{
+    if(this.state.init){
       var messages = this.props.initialMessages;
+      if(messages && messages.length > 0){
+        var messages = messages.concat(this.state.messages)
+      }
+    }else{
+      var messages = this.state.messages;
     }
-    if(messages){
+    if(messages && messages.length > 0){
       var currentConversationId = messages[0].conversation_id;
       messages = messages.map(function(message, i){
         return <Message key={i}
@@ -58,7 +62,7 @@ module.exports = React.createClass({
       });
     }
     var staff = this.state.staff;
-
+    debugger
     return (
       <div>
         <MessageHeader/>

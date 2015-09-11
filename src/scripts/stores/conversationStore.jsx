@@ -57,7 +57,8 @@ module.exports = Reflux.createStore({
     this.trigger({
       messages: messages,
       selectedConversation: index,
-      conversationId: conversationId
+      conversationId: conversationId,
+      init: false
     })
   },
 

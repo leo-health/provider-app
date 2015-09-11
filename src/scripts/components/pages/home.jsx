@@ -16,11 +16,10 @@ module.exports = React.createClass({
     this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
     this.statusChanel = this.pusher.subscribe('newStatus' + localStorage.email);
     this.messageChanel = this.pusher.subscribe('newMessage' + localStorage.email);
-    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open");
   },
 
   componentDidMount: function(){
-
+    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open");
   },
 
   render: function() {

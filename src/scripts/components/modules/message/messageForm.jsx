@@ -10,12 +10,12 @@ module.exports = React.createClass({
     if (!messageBody){
       return
     }
-    var messageType="text";
+    var typeName="text";
     var currentConversationId=this.props.conversationId;
-    MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, messageType, currentConversationId);
+    MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, typeName, currentConversationId);
     this.refs.message.getDOMNode().value="";
     var node = React.findDOMNode(this.props.messageContainer);
-    node.scrollTop = node.scrollHeight;
+    //node.scrollTop = node.scrollHeight;
   },
 
   handleCloseConversation: function(e){
@@ -25,6 +25,7 @@ module.exports = React.createClass({
 
   handleEscalateMessage(e){
     e.preventDefault();
+    debugger
     React.render(<EscalateMessageAlert conversationId={this.props.conversationId} staff={this.props.staff}/>, document.getElementById('alerts'));
   },
 

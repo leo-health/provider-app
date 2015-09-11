@@ -19,7 +19,8 @@ module.exports = Reflux.createStore({
 
   onFetchMessageRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   messages: response.data.messages })
+                   messages: response.data.messages,
+                   init: false})
   },
 
   onFetchMessageRequestFailed: function(response){
@@ -27,9 +28,9 @@ module.exports = Reflux.createStore({
                    message: "error fetching messages"})
   },
 
-  onSendMessageRequest: function(authenticationToken, messageBody, messageType, currentConversationId){
+  onSendMessageRequest: function(authenticationToken, messageBody, typeName, currentConversationId){
     request.post("http://localhost:3000/api/v1/conversations/"+ currentConversationId +"/messages")
-           .send({authentication_token: authenticationToken, body: messageBody, message_type: messageType})
+           .send({authentication_token: authenticationToken, body: messageBody, type_name: typeName})
            .end(function(err, res){
              if(res.ok){
                MessageActions.sendMessageRequest.completed(res.body)
