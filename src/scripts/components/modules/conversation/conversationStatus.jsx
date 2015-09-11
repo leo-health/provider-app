@@ -1,10 +1,6 @@
 var React = require('react');
 
 module.exports = React.createClass({
-  getInitialState: function(){
-    return {status: this.props.status}
-  },
-
   componentDidMount: function(){
     this.props.statusChanel.bind('new_status', function(status){
       if(status.conversation_id == this.props.conversationId){
@@ -16,7 +12,7 @@ module.exports = React.createClass({
   },
 
   render: function (){
-    var status = this.state.status;
+    var status = this.props.status;
     var display = "glyphicon pull-right";
     switch (status){
       case "escalated":
