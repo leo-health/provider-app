@@ -25,7 +25,7 @@ module.exports = React.createClass({
 
   render: function() {
     var conversations = this.state.conversations;
-    if (conversations){
+    if (conversations && conversations.length > 0){
       var initialMessages = conversations[0].messages;
     }
     return (
