@@ -7,21 +7,6 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
-  //init: function(){
-  //  debugger
-  //  request.get('http://localhost:3000/api/v1/conversations')
-  //      .query({authentication_token: localStorage.authenticationToken, status: 'open'})
-  //      .end(function(err, res){
-  //        if(res.ok){
-  //          _firstConversationId = res.body.data.conversations[0].id
-  //          MessageActions.fetchMessageRequest(localStorage.authenticationToken, _firstConversationId)
-  //          ConversationActions.fetchConversationRequest.completed(res.body)
-  //        }else{
-  //          ConversationActions.fetchConversationRequest.failed(res.body)
-  //        }
-  //      })
-  //},
-
   getFirstConversationId: function(){
     return _firstConversationId
   },

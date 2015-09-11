@@ -22,12 +22,10 @@ module.exports = React.createClass({
 
   componentDidMount: function(){
     MessageActions.fetchStaffRequest(localStorage.authenticationToken);
-    debugger
     this.props.messageChanel.bind('new_message', function(message){
-      debugger
       this.setState({messages: this.state.messages.concat(message)})
     }, this);
-  },
+},
 
   componentWillUpdate: function(){
     var node = React.findDOMNode(this.refs.conversationContainer);
@@ -61,15 +59,13 @@ module.exports = React.createClass({
             />
       });
     }
-    var staff = this.state.staff;
-    debugger
     return (
       <div>
         <MessageHeader/>
         <div id="conversation-container" className="pre-scrollable panel panel-body" ref="conversationContainer">
           {messages}
         </div>
-        <MessageForm conversationId={currentConversationId} messageContainer={this.refs.conversationContainer} staff={staff}/>
+        <MessageForm conversationId={currentConversationId} messageContainer={this.refs.conversationContainer} staff={this.state.staff}/>
       </div>
     )
   }

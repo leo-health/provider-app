@@ -15,7 +15,6 @@ module.exports = React.createClass({
     MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, typeName, currentConversationId);
     this.refs.message.getDOMNode().value="";
     var node = React.findDOMNode(this.props.messageContainer);
-    //node.scrollTop = node.scrollHeight;
   },
 
   handleCloseConversation: function(e){
@@ -25,7 +24,6 @@ module.exports = React.createClass({
 
   handleEscalateMessage(e){
     e.preventDefault();
-    debugger
     React.render(<EscalateMessageAlert conversationId={this.props.conversationId} staff={this.props.staff}/>, document.getElementById('alerts'));
   },
 

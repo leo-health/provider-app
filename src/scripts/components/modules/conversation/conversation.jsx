@@ -45,7 +45,7 @@ module.exports = React.createClass({
     return(
       <div onClick={this.handleOnClick}>
         <a href="#" className={this.state.selectedConversation == this.props.reactKey ? "list-group-item active" : "list-group-item"}>
-          <h6 className="list-group-item-heading">{guardian}
+          <h6 className="list-group-item-heading">{guardian}<span>id: {conversationId}</span>
             <span className="pull-right">{messageSendAt}</span>
           </h6>
           <p className = "patientList">
