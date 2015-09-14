@@ -6,11 +6,14 @@ var ConversationStore = require('../../stores/conversationStore');
 var FindConversation = require('../modules/search/findConversation');
 var ConversationList = require('../modules/conversation/conversationList');
 var MessageList = require('../modules/message/messageList');
+var _ = require('lodash');
 
 module.exports = React.createClass({
-  mixins: [
-    Reflux.connect(ConversationStore)
-  ],
+  mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
+
+  getInitialState: function () {
+    return {}
+  },
 
   componentWillMount: function(){
     this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
@@ -22,11 +25,23 @@ module.exports = React.createClass({
     ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open");
   },
 
+  onStatusChange: function (status) {
+    this.setState(status)
+  },
+
   render: function() {
     var conversations = this.state.conversations;
     if (conversations && conversations.length > 0){
       var initialMessages = conversations[0].messages;
     }
+
+    //if (this.state.closedConversation){
+    //  var conversationId = this.state.closedConversation.id;
+    //  _.remove(conversations, function(closedConversation){
+    //    return closedConversation.id == conversationId
+    //  })
+    //}
+
     return (
       <div>
         <HomeHeader/>

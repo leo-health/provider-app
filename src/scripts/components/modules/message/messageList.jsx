@@ -11,7 +11,6 @@ var MessageActions = require('../../../actions/messageActions');
 module.exports = React.createClass({
   mixins: [
     Reflux.connect(MessageStore),
-    //Reflux.connect(ConversationStore),
     Reflux.connect(UserStore)
   ],
 
@@ -36,6 +35,12 @@ module.exports = React.createClass({
     if (this.shouldScrollBottom){
       var node = React.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight;
+    }
+  },
+
+  componentWillReceiveProps: function(nextProps){
+    if(nextProps.initialMessages){
+      this.setState({init: true, messages: []})
     }
   },
 

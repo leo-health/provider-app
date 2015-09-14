@@ -14,11 +14,13 @@ module.exports = React.createClass({
   handleOnClick: function(){
     ConversationActions.selectConversation(this.props.reactKey);
     MessageActions.fetchMessageRequest(localStorage.authenticationToken, this.props.conversationId);
-    //this.setState({selectedConversation: this.props.reactKey})
   },
 
   onStatusChange: function(status){
-    this.setState(status)
+    this.setState(status);
+    if (status.init){
+      this.setState({selectedConversation: 0})
+    }
   },
 
   getInitialState: function () {
