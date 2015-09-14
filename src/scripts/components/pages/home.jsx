@@ -35,12 +35,12 @@ module.exports = React.createClass({
       var initialMessages = conversations[0].messages;
     }
 
-    //if (this.state.closedConversation){
-    //  var conversationId = this.state.closedConversation.id;
-    //  _.remove(conversations, function(closedConversation){
-    //    return closedConversation.id == conversationId
-    //  })
-    //}
+    if (this.state.closedConversation && this.state.conversationStatus != 'closed'){
+      var conversationId = this.state.closedConversation.id;
+      _.remove(conversations, function(closedConversation){
+        return closedConversation.id == conversationId
+      })
+    }
 
     return (
       <div>

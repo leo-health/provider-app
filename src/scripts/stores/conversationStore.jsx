@@ -21,17 +21,18 @@ module.exports = Reflux.createStore({
            .query(conversationParams)
            .end(function(err, res){
               if(res.ok){
-                ConversationActions.fetchConversationRequest.completed(res.body)
+                ConversationActions.fetchConversationRequest.completed(res.body, status)
               }else{
                 ConversationActions.fetchConversationRequest.failed(res.body)
               }
             })
   },
 
-  onFetchConversationRequestCompleted: function(response){
+  onFetchConversationRequestCompleted: function(response, status){
     this.trigger({ status: response.status,
                    conversations: response.data.conversations,
-                   init: true
+                   init: true,
+                   conversationStatus: status
                   });
   },
 
