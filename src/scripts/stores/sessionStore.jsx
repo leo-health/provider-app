@@ -11,7 +11,7 @@ module.exports = Reflux.createStore({
   listenables: [LoginActions],
 
   onLoginRequest: function(loginParam){
-    request.post('http://localhost:3000/api/v1/login')
+    request.post('http://leo-api.elasticbeanstalk.com/api/v1/login')
            .send({ email: loginParam.email, password: loginParam.password })
            .end(function(err, res){
              if (res.ok){
@@ -23,7 +23,7 @@ module.exports = Reflux.createStore({
   },
 
   onLogoutRequest: function(authenticationToken){
-    request.del('http://localhost:3000/api/v1/logout')
+    request.del('http://leo-api.elasticbeanstalk.com/api/v1/logout')
            .send({ authentication_token: authenticationToken })
            .end(function(err,res){
              if (res.ok){

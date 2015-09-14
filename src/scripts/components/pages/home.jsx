@@ -27,9 +27,6 @@ module.exports = React.createClass({
     if (conversations && conversations.length > 0){
       var initialMessages = conversations[0].messages;
     }
-    if(this.state.closedConversation){
-
-    }
     return (
       <div>
         <HomeHeader/>
