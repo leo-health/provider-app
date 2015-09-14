@@ -11,7 +11,7 @@ var MessageActions = require('../../../actions/messageActions');
 module.exports = React.createClass({
   mixins: [
     Reflux.connect(MessageStore),
-    Reflux.connect(ConversationStore),
+    //Reflux.connect(ConversationStore),
     Reflux.connect(UserStore)
   ],
 
@@ -25,7 +25,7 @@ module.exports = React.createClass({
     this.props.messageChanel.bind('new_message', function(message){
       this.setState({messages: this.state.messages.concat(message)})
     }, this);
-},
+  },
 
   componentWillUpdate: function(){
     var node = React.findDOMNode(this.refs.conversationContainer);

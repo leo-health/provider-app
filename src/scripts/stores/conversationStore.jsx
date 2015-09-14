@@ -40,13 +40,8 @@ module.exports = Reflux.createStore({
                   message: "error fetching conversations"})
   },
 
-  onSendMessages: function(messages, index, conversationId){
-    this.trigger({
-      messages: messages,
-      selectedConversation: index,
-      conversationId: conversationId,
-      init: false
-    })
+  onSelectConversation: function(selectedConversation){
+    this.trigger({selectedConversation: selectedConversation})
   },
 
   onCloseConversationRequest: function(authenticationToken, conversationId){
