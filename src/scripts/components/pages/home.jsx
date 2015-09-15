@@ -52,7 +52,7 @@ module.exports = React.createClass({
               <ConversationList statusChanel={this.statusChanel} conversations={conversations}/>
             </div>
             <div id="right" className="col-lg-8">
-              <MessageList messageChanel={this.messageChanel} initialMessages={initialMessages}/>
+              <MessageList messageChanel={this.messageChanel} statusChanel={this.statusChanel} initialMessages={initialMessages}/>
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ var MessageActions = require('../../../actions/messageActions');
 module.exports = React.createClass({
   mixins: [
     Reflux.connect(MessageStore),
+    //Reflux.listenTo(MessageStore, 'onStatusChange'),
     Reflux.connect(UserStore)
   ],
 
@@ -19,10 +20,20 @@ module.exports = React.createClass({
             init: true}
   },
 
+  //onStatusChange: function(status) {
+  //  this.setState(status);
+  //},
+
   componentDidMount: function(){
     MessageActions.fetchStaffRequest(localStorage.authenticationToken);
     this.props.messageChanel.bind('new_message', function(message){
       this.setState({messages: this.state.messages.concat(message)})
+    }, this);
+
+    this.props.statusChanel.bind('new_status', function(status){
+      if(status.new_status){
+
+      }
     }, this);
   },
 
@@ -45,14 +56,7 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    //if(this.state.init){
-    //  var messages = this.props.initialMessages;
-    //  if(messages && messages.length > 0){
-    //    var messages = messages.concat(this.state.messages)
-    //  }
-    //}else{
     var messages = this.state.messages;
-    //}
     if(messages && messages.length > 0){
       var currentConversationId = messages[0].conversation_id;
       messages = messages.map(function(message, i){
