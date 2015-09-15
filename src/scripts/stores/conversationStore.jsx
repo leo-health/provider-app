@@ -29,8 +29,12 @@ module.exports = Reflux.createStore({
   },
 
   onFetchConversationRequestCompleted: function(response, status){
+    var conversations = response.data.conversations;
+    if (conversations.length > 0){
+      MessageActions.fetchMessageRequest(localStorage.authenticationToken, response.data.conversations[0].id)
+    }
     this.trigger({ status: response.status,
-                   conversations: response.data.conversations,
+                   conversations: conversations,
                    init: true,
                    conversationStatus: status
                   });

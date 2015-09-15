@@ -45,14 +45,14 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    if(this.state.init){
-      var messages = this.props.initialMessages;
-      if(messages && messages.length > 0){
-        var messages = messages.concat(this.state.messages)
-      }
-    }else{
-      var messages = this.state.messages;
-    }
+    //if(this.state.init){
+    //  var messages = this.props.initialMessages;
+    //  if(messages && messages.length > 0){
+    //    var messages = messages.concat(this.state.messages)
+    //  }
+    //}else{
+    var messages = this.state.messages;
+    //}
     if(messages && messages.length > 0){
       var currentConversationId = messages[0].conversation_id;
       messages = messages.map(function(message, i){
