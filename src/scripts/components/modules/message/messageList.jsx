@@ -31,11 +31,11 @@ module.exports = React.createClass({
       this.setState({messages: this.state.messages.concat(message)})
     }, this);
 
-    this.props.statusChanel.bind('new_status', function(status){
-      if(status.new_status){
-
-      }
-    }, this);
+    //this.props.statusChanel.bind('new_status', function(status){
+    //  if(status.new_status){
+    //
+    //  }
+    //}, this);
   },
 
   componentWillUpdate: function(){
@@ -51,50 +51,58 @@ module.exports = React.createClass({
   },
 
   render: function () {
+    debugger
     var messages = this.state.messages;
     var currentConversationId = this.state.currentConversationId;
     if(messages && messages.length > 0){
-      this.previousMessageClosed = false;
-      this.nextMessageFromSystem = false;
-      that = this;
-      debugger
-      messages = messages.reverse().map(function(message, i){
-        if(message.system_message){
-          debugger
-          if (message.system_message.key == "conversation.conversation_closed"){
-            that.previousMessageClosed = true
+      //var reversedMessage = messages.reverse();
+      var test = messages.map(function(msg, i){
+        console.log(msg);
+        var messageType;
+        var sender;
+        var sentAt;
+        var body;
+        var previousMessageClosed = false;
+        var nextMessageFromSystem = false;
+
+        if(msg.hasOwnProperty('system_message')){
+          sender = msg.system_message.owner;
+          body = msg.system_message.key;
+          messageType = "systemMessage";
+          if (msg.system_message.key == "conversation.conversation_closed"){
+            previousMessageClosed = true
           }
-          return <MessageStatus key={i}
-                                body={message.system_message.key}
-                                sender={message.system_message.owner}/>
         }else{
-          debugger
+          sender = msg.regular_message.sender;
+          sentAt = msg.regular_message.created_at;
+          body = msg.regular_message.body;
+          messageType = "regularMessage";
+
           if (i == 1){
-            that.previousMessageClosed = true
+            previousMessageClosed = true
           }
           var next_message = messages.reverse()[i+1];
-          if (next_message && next_message.system_message){
-            that.nextMessageFromSystem = true
+          if (next_message && next_message.hasOwnProperty('system_message')){
+            nextMessageFromSystem = true
           }
-          var previousMessageClosed = that.previousMessageClosed;
-          var nextMessageFromSystem = that.nextMessageFromSystem;
-          that.previousMessageClosed = false;
-          that.nextMessageFromSystem = false;
-          return <Message key={i}
-                          body={message.regular_message.body}
-                          sender={message.regular_message.sender}
-                          escalatedTo={message.regular_message.escalated_to}
-                          sentAt={message.regular_message.created_at}
-                          previousMessageClosed={previousMessageClosed}
-                          nextMessageFromSystem = {nextMessageFromSystem}/>
+          debugger
         }
+        return <Message key={i}
+                        body={body}
+                        sender={sender}
+                        sentAt={sentAt}
+                        messageType = {messageType}
+                        previousMessageClosed={previousMessageClosed}
+                        nextMessageFromSystem = {nextMessageFromSystem}/>
       });
+      debugger
+      console.log(test)
     }
     return (
       <div>
         <MessageHeader/>
         <div id="conversation-container" className="pre-scrollable panel panel-body" ref="conversationContainer">
-          {messages}
+          {test}
         </div>
         <MessageForm conversationId={currentConversationId} messageContainer={this.refs.conversationContainer} staff={this.state.staff}/>
       </div>
