@@ -1,15 +1,10 @@
 var Reflux = require('reflux'),
     request = require('superagent'),
     ConversationActions = require('../actions/conversationActions'),
-    MessageActions = require('../actions/messageActions'),
-    _firstConversationId = null;
+    MessageActions = require('../actions/messageActions');
 
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
-
-  getFirstConversationId: function(){
-    return _firstConversationId
-  },
 
   onFetchConversationRequest: function(authenticationToken, status){
     if (status.length > 0){

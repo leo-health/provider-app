@@ -2,6 +2,7 @@ var React = require('react');
 var Reflux = require('reflux');
 var Message = require('./message');
 var MessageHeader = require('./messageHeader');
+var MessageStatus = require('./messageStatus');
 var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
 var ConversationStore = require('../../../stores/conversationStore');
@@ -49,23 +50,44 @@ module.exports = React.createClass({
     }
   },
 
-  componentWillReceiveProps: function(nextProps){
-    if(nextProps.initialMessages){
-      this.setState({init: true, messages: []})
-    }
-  },
-
   render: function () {
     var messages = this.state.messages;
+    var currentConversationId = this.state.currentConversationId;
     if(messages && messages.length > 0){
-      var currentConversationId = messages[0].conversation_id;
-      messages = messages.map(function(message, i){
-        return <Message key={i}
-                        body={message.body}
-                        sender={message.sender}
-                        escalatedTo={message.escalated_to}
-                        sentAt={message.created_at}
-            />
+      this.previousMessageClosed = false;
+      this.nextMessageFromSystem = false;
+      that = this;
+      debugger
+      messages = messages.reverse().map(function(message, i){
+        if(message.system_message){
+          debugger
+          if (message.system_message.key == "conversation.conversation_closed"){
+            that.previousMessageClosed = true
+          }
+          return <MessageStatus key={i}
+                                body={message.system_message.key}
+                                sender={message.system_message.owner}/>
+        }else{
+          debugger
+          if (i == 1){
+            that.previousMessageClosed = true
+          }
+          var next_message = messages.reverse()[i+1];
+          if (next_message && next_message.system_message){
+            that.nextMessageFromSystem = true
+          }
+          var previousMessageClosed = that.previousMessageClosed;
+          var nextMessageFromSystem = that.nextMessageFromSystem;
+          that.previousMessageClosed = false;
+          that.nextMessageFromSystem = false;
+          return <Message key={i}
+                          body={message.regular_message.body}
+                          sender={message.regular_message.sender}
+                          escalatedTo={message.regular_message.escalated_to}
+                          sentAt={message.regular_message.created_at}
+                          previousMessageClosed={previousMessageClosed}
+                          nextMessageFromSystem = {nextMessageFromSystem}/>
+        }
       });
     }
     return (
