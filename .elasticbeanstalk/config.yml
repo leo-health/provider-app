@@ -2,7 +2,7 @@ branch-defaults:
   close_and_escalate_message:
     environment: null
   develop:
-    environment: leo-provider
+    environment: provider
 global:
   application_name: leo-provider
   default_ec2_keyname: aws-eb
