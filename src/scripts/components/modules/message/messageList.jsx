@@ -1,7 +1,6 @@
 var React = require('react');
 var Reflux = require('reflux');
 var Message = require('./message');
-var MessageHeader = require('./messageHeader');
 var MessageStatus = require('./messageStatus');
 var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
@@ -102,7 +101,6 @@ module.exports = React.createClass({
     }
     return (
       <div>
-        <MessageHeader/>
         <div id="conversation-container" className="pre-scrollable panel panel-body" ref="conversationContainer">
           {test}
         </div>
