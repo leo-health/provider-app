@@ -67,7 +67,6 @@ module.exports = React.createClass({
               <NoteList/>
             </div>
           </div>
-
         </div>
       </div>
     )

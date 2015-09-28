@@ -18,7 +18,7 @@ module.exports = React.createClass({
     return(
       <div id="escalation-form" className="alert alert-dismissible alert-default">
         <button type="button" className="close" data-dismiss="alert">×</button>
-        <form className="form-inline clearfix">
+        <form className="form">
           <div className="form-group">
             <label for="provider-select" className="control-label"> Assign this conversation to </label>&nbsp;
             <select id="provider-select" className="form-control">
