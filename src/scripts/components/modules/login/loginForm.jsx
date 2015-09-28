@@ -57,10 +57,8 @@ module.exports = React.createClass({
                     </div>
                   </div>
                   <div className="form-group">
-                    <div className="col-lg-12">
                       <button type="submit" className="btn btn-primary">Login</button>&nbsp;
                       <button type="button" className="btn btn-default" onClick={this.handleOnForget}>Forgot?</button>
-                    </div>
                   </div>
                 </fieldset>
               </form>

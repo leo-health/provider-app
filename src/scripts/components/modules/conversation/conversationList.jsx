@@ -2,7 +2,6 @@ var React = require('react');
 var Reflux = require('reflux');
 var ConversationActions = require('../../../actions/conversationActions');
 var ConversationStore = require('../../../stores/conversationStore');
-var ConversationHeader = require('./conversationHeader');
 var Conversation = require('./conversation');
 
 module.exports = React.createClass({
@@ -28,7 +27,6 @@ module.exports = React.createClass({
     }
     return (
       <div>
-        <ConversationHeader/>
         <div id="content" className="tab-content">
           <div className="tab-pane fade active in" id="all-tab">
             <div className="panel panel-default pre-scrollable-left">

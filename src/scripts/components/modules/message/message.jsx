@@ -27,31 +27,40 @@ module.exports = React.createClass({
         return(
           <div>
             <div className="inline-hr" style={showOpenCase}>
-              <span className="primary">Case opened by {sender}</span>
+              <span className="">Case opened by {sender}</span>
             </div>
-            <div className="checkbox checkbox-circle checkbox-danger">
-              <input id="checkbox1" type="checkbox"/>
-              <label for="checkbox1">
-                <small> {sentAt} </small>
-                <strong>{sender}</strong>
-                {messageBody}
-              </label>
+            <div>
+              <small> {sentAt} </small>
+              <strong>{sender}</strong>
+              {messageBody}
               {seperateLine}
             </div>
           </div>
         )
-      }else{
-        return(
-          <div className="inline-hr">
-            <span className="Primary">{messageBody}</span>
-          </div>
-        )
       }
+      //else{
+      //  return(
+      //    <div className="inline-hr">
+      //      <span className="Primary">{messageBody}</span>
+      //    </div>
+      //  )
+      //}
     };
     return(
-     <div>
-       {displayContent()}
-     </div>
+      <div>
+        <div className="inline-hr" style={showOpenCase}>
+          <span className="primary">Case opened by {sender}</span>
+        </div>
+        <div className="checkbox checkbox-circle checkbox-danger">
+          <input id="checkbox1" type="checkbox"/>
+          <label for="checkbox1">
+            <small> {sentAt} </small>
+            <strong>{sender}</strong>
+            {messageBody}
+          </label>
+          {seperateLine}
+        </div>
+      </div>
     )
   }
 });

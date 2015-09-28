@@ -12,7 +12,6 @@ var MessageActions = require('../../../actions/messageActions');
 module.exports = React.createClass({
   mixins: [
     Reflux.connect(MessageStore),
-    //Reflux.listenTo(MessageStore, 'onStatusChange'),
     Reflux.connect(UserStore)
   ],
 
@@ -21,21 +20,11 @@ module.exports = React.createClass({
             init: true}
   },
 
-  //onStatusChange: function(status) {
-  //  this.setState(status);
-  //},
-
   componentDidMount: function(){
     MessageActions.fetchStaffRequest(localStorage.authenticationToken);
     this.props.messageChanel.bind('new_message', function(message){
       this.setState({messages: this.state.messages.concat(message)})
     }, this);
-
-    //this.props.statusChanel.bind('new_status', function(status){
-    //  if(status.new_status){
-    //
-    //  }
-    //}, this);
   },
 
   componentWillUpdate: function(){
@@ -51,52 +40,65 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    debugger
     var messages = this.state.messages;
     var currentConversationId = this.state.currentConversationId;
     if(messages && messages.length > 0){
       //var reversedMessage = messages.reverse();
       var test = messages.map(function(msg, i){
-        console.log(msg);
-        var messageType;
-        var sender;
-        var sentAt;
-        var body;
-        var previousMessageClosed = false;
-        var nextMessageFromSystem = false;
-
-        if(msg.hasOwnProperty('system_message')){
-          sender = msg.system_message.owner;
-          body = msg.system_message.key;
-          messageType = "systemMessage";
-          if (msg.system_message.key == "conversation.conversation_closed"){
-            previousMessageClosed = true
-          }
-        }else{
-          sender = msg.regular_message.sender;
-          sentAt = msg.regular_message.created_at;
-          body = msg.regular_message.body;
-          messageType = "regularMessage";
-
-          if (i == 1){
-            previousMessageClosed = true
-          }
-          var next_message = messages.reverse()[i+1];
-          if (next_message && next_message.hasOwnProperty('system_message')){
-            nextMessageFromSystem = true
-          }
-          debugger
-        }
         return <Message key={i}
-                        body={body}
-                        sender={sender}
-                        sentAt={sentAt}
-                        messageType = {messageType}
-                        previousMessageClosed={previousMessageClosed}
-                        nextMessageFromSystem = {nextMessageFromSystem}/>
+                        body={msg.regular_message.body}
+                        sender={msg.regular_message.sender}
+                        sentAt={msg.regular_message.sentAt}
+                        messageType = {'regularMessage'}
+                        previousMessageClosed={false}
+                        nextMessageFromSystem = {false}/>
+        //var messageType;
+        //var sender;
+        //var sentAt;
+        //var body;
+        //var previousMessageClosed = false;
+        //var nextMessageFromSystem = false;
+
+        //if(msg.hasOwnProperty('system_message')){
+        //  sender = msg.system_message.owner;
+        //  body = msg.system_message.key;
+        //  messageType = "systemMessage";
+        //  if (msg.system_message.key == "conversation.conversation_closed"){
+        //    previousMessageClosed = true
+        //  }
+        //}else{
+        //  sender = msg.regular_message.sender;
+        //  sentAt = msg.regular_message.created_at;
+        //  body = msg.regular_message.body;
+        //  messageType = "regularMessage";
+        //
+        //  if (i == 1){
+        //    previousMessageClosed = true
+        //  }
+        //  var next_message = messages.reverse()[i+1];
+        //  if (next_message && next_message.hasOwnProperty('system_message')){
+        //    nextMessageFromSystem = true
+        //  }
+        //}
+        //sender = msg.regular_message.sender;
+        //sentAt = msg.regular_message.created_at;
+        //body = msg.regular_message.body;
+        //messageType = "regularMessage";
+        //if (i == 1){
+        //  previousMessageClosed = true
+        //}
+        //var next_message = messages.reverse()[i+1];
+        //if (next_message && next_message.hasOwnProperty('system_message')){
+        //  nextMessageFromSystem = true
+        //}
+        //return <Message key={i}
+        //                body={body}
+        //                sender={sender}
+        //                sentAt={sentAt}
+        //                messageType = {messageType}
+        //                previousMessageClosed={previousMessageClosed}
+        //                nextMessageFromSystem = {nextMessageFromSystem}/>
       });
-      debugger
-      console.log(test)
     }
     return (
       <div>

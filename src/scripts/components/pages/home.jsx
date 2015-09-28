@@ -5,7 +5,9 @@ var ConversationActions = require('../../actions/conversationActions');
 var ConversationStore = require('../../stores/conversationStore');
 var FindConversation = require('../modules/search/findConversation');
 var ConversationList = require('../modules/conversation/conversationList');
+var ConversationHeader = require('../modules/conversation/conversationHeader');
 var MessageList = require('../modules/message/messageList');
+var NoteList = require('../modules/note/noteList');
 var _ = require('lodash');
 
 module.exports = React.createClass({
@@ -46,15 +48,26 @@ module.exports = React.createClass({
       <div>
         <HomeHeader/>
         <div className="container page-header">
+
           <div className="row">
-            <div id="left" className="col-lg-4">
+            <div className="col-lg-3">
               <FindConversation/>
-              <ConversationList statusChanel={this.statusChanel} conversations={conversations}/>
-            </div>
-            <div id="right" className="col-lg-8">
-              <MessageList messageChanel={this.messageChanel} statusChanel={this.statusChanel}/>
+              <ConversationHeader/>
             </div>
           </div>
+
+          <div className="row">
+            <div id="left" className="col-lg-3">
+              <ConversationList statusChanel={this.statusChanel} conversations={conversations}/>
+            </div>
+            <div id="middle" className="col-lg-6">
+              <MessageList messageChanel={this.messageChanel} statusChanel={this.statusChanel}/>
+            </div>
+            <div id="right" className="col-lg-3">
+              <NoteList/>
+            </div>
+          </div>
+
         </div>
       </div>
     )
