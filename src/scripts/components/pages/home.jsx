@@ -8,6 +8,7 @@ var ConversationList = require('../modules/conversation/conversationList');
 var ConversationHeader = require('../modules/conversation/conversationHeader');
 var MessageList = require('../modules/message/messageList');
 var NoteList = require('../modules/note/noteList');
+var Footer = require('./footer');
 var _ = require('lodash');
 
 module.exports = React.createClass({
@@ -67,7 +68,7 @@ module.exports = React.createClass({
               <NoteList/>
             </div>
           </div>
-
+          <Footer/>
         </div>
       </div>
     )
