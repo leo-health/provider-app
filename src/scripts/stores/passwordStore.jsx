@@ -6,7 +6,7 @@ module.exports = Reflux.createStore({
   listenables: [PasswordActions],
 
   onResetPasswordRequest: function(resetParam) {
-    request.post('http://localhost:3000/api/v1/passwords/send_reset_email')
+    request.post('https://dev.leoforkids.com/api/v1/passwords/send_reset_email')
            .send({email: resetParam.email})
            .end(function(err, res){
              if(res.ok){
@@ -18,7 +18,7 @@ module.exports = Reflux.createStore({
   },
 
   onChangePasswordRequest: function(changeParam){
-    request.put("http://localhost:3000/api/v1/passwords/" + changeParam.token + "/reset")
+    request.put("https://dev.leoforkids.com/api/v1/passwords/" + changeParam.token + "/reset")
         .send({password: changeParam.password,
                password_confirmation: changeParam.passwordConfirmation
         })
@@ -45,7 +45,7 @@ module.exports = Reflux.createStore({
 
   onChangePasswordRequestCompleted: function(response){
     this.trigger({status: response.status,
-                  message: "Password changed successfully",
+                  message: "Password changed successfully.",
                   button: "Login"})
   },
 
