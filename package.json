@@ -1,8 +1,7 @@
 {
   "name": "base",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
-  "homepage": "https://github.com/iroy2000/react-reflux-boilerplate-with-webpack",
   "main": "preprocessor.js",
   "scripts": {
     "start": "./node_modules/.bin/gulp",
