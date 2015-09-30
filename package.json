@@ -1,7 +1,8 @@
 {
-  "name": "base",
+  "name": "provider-app",
   "version": "0.0.2",
   "description": "",
+  "private": true,
   "main": "preprocessor.js",
   "scripts": {
     "start": "./node_modules/.bin/gulp",
