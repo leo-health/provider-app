@@ -1,8 +1,8 @@
 {
-  "name": "base",
-  "version": "0.0.1",
+  "name": "provider-app",
+  "version": "0.0.2",
   "description": "",
-  "homepage": "https://github.com/iroy2000/react-reflux-boilerplate-with-webpack",
+  "private": true,
   "main": "preprocessor.js",
   "scripts": {
     "start": "./node_modules/.bin/gulp",
@@ -48,6 +48,7 @@
     "run-sequence": "^1.1.2",
     "rupture": "^0.6.1",
     "style-loader": "^0.12.3",
+    "superagent": "^1.4.0",
     "touch": "1.0.0",
     "webpack": "^1.10.5",
     "webpack-dev-server": "^1.10.1"
