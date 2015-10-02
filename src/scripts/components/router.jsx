@@ -2,19 +2,22 @@ var React = require('react');
 //# Assign React to Window so the Chrome React Dev Tools will work.
 window.React = React;
 
-var Router = require('react-router');
-var Route = Router.Route;
-var DefaultRoute = Router.DefaultRoute;
+var Router = require('react-router'),
+    { Route, RouteHandler, Link, DefaultRoute, NotFoundRoute } = Router;
 
-var App = require('./app');
-var Login = require('./pages/login');
-var HomePage = require('./pages/homePage');
+var App = require('./app'),
+    Login = require('./pages/login'),
+    Home = require('./pages/home'),
+    ResetPassword = require('./pages/resetPassword'),
+    ChangePassword = require('./pages/changePassword');
 
 var routes = (
-  <Route handler={App} path='/'>
-    <DefaultRoute handler={Login}/>
+  <Route handler={App}>
+    <DefaultRoute handler={Home}/>
     <Route name="login" handler={Login}/>
-    <Route name="homePage" handler={HomePage}/>
+    <Route name ="resetPassword" handler={ResetPassword} />
+    <Route name ="changePassword" handler={ChangePassword} />
+    <Route name="home" handler={Home}/>
   </Route>
 );
 

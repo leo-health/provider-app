@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 
 var LoginActions = {
-  loginRequest:  {asyncResult: true, children: [ 'progressed' ]},
+  loginRequest:  {asyncResult: true},
   logoutRequest: {asyncResult: true}
 };
 

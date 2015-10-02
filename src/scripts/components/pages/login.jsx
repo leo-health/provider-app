@@ -1,12 +1,11 @@
-var React = require('react')
-
-var LoginForm = require('../modules/login/loginForm')
+var React = require('react'),
+    LoginForm = require('../modules/login/loginForm');
 
 module.exports = React.createClass({
   render: function(){
     return(
       <div>
-        I am here
+        <LoginForm/>
       </div>
     )
   }
