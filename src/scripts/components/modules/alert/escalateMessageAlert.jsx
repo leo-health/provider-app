@@ -20,7 +20,7 @@ module.exports = React.createClass({
         <button type="button" className="close" data-dismiss="alert">×</button>
         <form className="form">
           <div className="form-group">
-            <label for="provider-select" className="control-label"> Assign this conversation to </label>&nbsp;
+            <label htmlFor="provider-select" className="control-label"> Assign this conversation to </label>&nbsp;
             <select id="provider-select" className="form-control">
               {staff}
             </select>
