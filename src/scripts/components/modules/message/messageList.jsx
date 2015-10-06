@@ -15,8 +15,7 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    return {messages: [],
-            init: true}
+    return{ messages: [], init: true }
   },
 
   componentDidMount: function(){
