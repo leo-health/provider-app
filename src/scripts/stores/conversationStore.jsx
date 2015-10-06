@@ -1,7 +1,8 @@
 var Reflux = require('reflux'),
     request = require('superagent'),
     ConversationActions = require('../actions/conversationActions'),
-    MessageActions = require('../actions/messageActions');
+    MessageActions = require('../actions/messageActions'),
+    NoteActions = require('../actions/noteActions');
 
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
@@ -26,7 +27,9 @@ module.exports = Reflux.createStore({
   onFetchConversationRequestCompleted: function(response, status){
     var conversations = response.data.conversations;
     if (conversations.length > 0){
-      MessageActions.fetchMessageRequest(localStorage.authenticationToken, response.data.conversations[0].id)
+      var firstConversationId = response.data.conversations[0].id;
+      MessageActions.fetchMessageRequest(localStorage.authenticationToken, firstConversationId);
+      NoteActions.fetchNoteRequest(localStorage.authenticationToken, firstConversationId) ;
     }
     this.trigger({ status: response.status,
                    conversations: conversations,

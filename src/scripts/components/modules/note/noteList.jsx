@@ -1,8 +1,18 @@
 var React = require('react');
 var Reflux = require('reflux');
+var NoteActions = require('../../../actions/noteActions');
 
 module.exports = React.createClass({
+  getInitialState: function(){
+
+  },
+
+  componentDidMount: function(){
+    NoteActions.fetchNoteRequest(localStorage.authentication_token);
+  },
+
   render: function () {
+    var notes = this.state.notes;
     return (
       <div id="notes-container" className="pre-scrollable panel panel-body">
         <h4>Notes</h4>
