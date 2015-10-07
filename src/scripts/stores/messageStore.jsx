@@ -43,7 +43,7 @@ module.exports = Reflux.createStore({
 
   onFetchMessageRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   message_body: response.data.message_body })
+                   new_message: response.data.message })
   },
 
   onFetchMessageRequestFailed: function(response){

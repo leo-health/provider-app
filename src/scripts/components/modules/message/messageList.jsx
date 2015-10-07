@@ -20,8 +20,8 @@ module.exports = React.createClass({
 
   componentDidMount: function(){
     MessageActions.fetchStaffRequest(localStorage.authenticationToken);
-    this.props.messageChanel.bind('new_message', function(message){
-      //MessageActions.fetchMessageRequest
+    this.props.messageChanel.bind('new_message', function(messageId){
+      MessageActions.fetchMessageRequest(localStorage.authenticationToken, messageId);
     }, this);
   },
 
@@ -39,6 +39,9 @@ module.exports = React.createClass({
 
   render: function () {
     var messages = this.state.messages;
+    if(this.state.new_message){
+      messages.push(this.state.new_message)
+    }
     var currentConversationId = this.state.currentConversationId;
     if(messages && messages.length > 0){
       var test = messages.map(function(msg, i){
