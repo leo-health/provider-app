@@ -21,7 +21,7 @@ module.exports = React.createClass({
   componentDidMount: function(){
     MessageActions.fetchStaffRequest(localStorage.authenticationToken);
     this.props.messageChanel.bind('new_message', function(message){
-      this.setState({messages: this.state.messages.concat(message)})
+      //MessageActions.fetchMessageRequest
     }, this);
   },
 
@@ -41,7 +41,6 @@ module.exports = React.createClass({
     var messages = this.state.messages;
     var currentConversationId = this.state.currentConversationId;
     if(messages && messages.length > 0){
-      //var reversedMessage = messages.reverse();
       var test = messages.map(function(msg, i){
         return <Message key={i}
                         body={msg.regular_message.body}
