@@ -1,12 +1,13 @@
 var React = require('react');
 var Reflux = require('reflux');
-var MessageActions = require('../../../actions/messageActions');
+var ConversationActions = require('../../../actions/conversationActions');
 var MessageStaff = require('../message/messageStaff');
 
 module.exports = React.createClass({
   handleClick: function (e) {
     e.preventDefault();
-    MessageActions.escalateMessageRequest(localStorage.authenticationToken, this.props.conversationId)
+    var escalationNote = this.refs.messages.getDOMNode().value.trim();
+    ConversationActions.escalateConversationRequest(localStorage.authenticationToken, this.props.conversationId)
   },
 
   render: function () {
@@ -30,7 +31,7 @@ module.exports = React.createClass({
               <option>high</option>
             </select>
             <label className="control-label">Please enter any relevant notes to help the assignee resolve the case.</label>
-            <textarea id="escalation-notes" className="form-control" rows="1" type="text"></textarea>
+            <textarea id="escalation-notes" className="form-control" rows="1" type="text" ref="escalationNote"></textarea>
           </div>
           <button type="submit" className="btn btn-danger btn-sm form">
             <span className="glyphicon glyphicon-fire"></span> Escalate
