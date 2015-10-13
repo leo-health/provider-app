@@ -3,7 +3,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'))
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8081;
 app.listen(port, function() {
 	console.log("Server listening on port " + port);
 });
