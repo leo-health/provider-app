@@ -53,7 +53,7 @@ module.exports = React.createClass({
         </div>
         <div className="checkbox checkbox-circle checkbox-danger">
           <input id="checkbox1" type="checkbox"/>
-          <label for="checkbox1">
+          <label htmlFor="checkbox1">
             <small> {sentAt} </small>
             <strong>{sender}</strong>
             {messageBody}

@@ -10,22 +10,45 @@ module.exports = Reflux.createStore({
         .query({ authentication_token: authenticationToken })
         .end(function(err, res){
           if(res.ok){
-            MessageActions.fetchMessageRequest.completed(res.body)
+            MessageActions.fetchMessagesRequest.completed(res.body)
           }else{
-            MessageActions.fetchMessageRequest.failed(res.body)
+            MessageActions.fetchMessagesRequest.failed(res.body)
           }
         });
   },
 
+  onFetchMessagesRequestCompleted: function(response){
+    this.trigger({ status: response.status,
+                   messages: response.data.messages.reverse(),
+                   currentConversationId: response.data.conversation_id })
+  },
+
+  onFetchMessagesRequestFailed: function(response){
+    this.trigger({ status: response.status,
+                   message: "error fetching messages"})
+  },
+
+  onFetchMessageRequest: function(authenticationToken, messsageId){
+    request.get("http://localhost:3000/api/v1/messages/"+ messageId)
+      .query({ authentication_token: authenticationToken })
+      .end(function(err, res){
+          if(res.ok){
+            MessageActions.fetchMessageRequest.completed(res.body)
+          }else{
+            MessageActions.fetchMessageRequest.failed(res.body)
+          }
+        })
+
+  },
+
   onFetchMessageRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   messages: response.data.messages,
-                   currentConversationId: response.data.conversation_id })
+                   new_message: response.data.message })
   },
 
   onFetchMessageRequestFailed: function(response){
     this.trigger({ status: response.status,
-                   message: "error fetching messages"})
+                   message: 'error fetching message'  })
   },
 
   onSendMessageRequest: function(authenticationToken, messageBody, typeName, currentConversationId){

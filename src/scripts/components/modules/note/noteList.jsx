@@ -1,8 +1,24 @@
 var React = require('react');
 var Reflux = require('reflux');
+var NoteActions = require('../../../actions/noteActions');
+var Note = require('./note');
 
 module.exports = React.createClass({
+  getInitialState: function(){
+    return{ notes: []}
+  },
+
+  componentDidMount: function(){
+    NoteActions.fetchNoteRequest(localStorage.authentication_token);
+  },
+
   render: function () {
+    var notes = this.state.notes;
+    if(notes && notes.length > 0){
+      var notes = notes.map(function(note, i){
+        return <Note key={i}/>
+      });
+    }
     return (
       <div id="notes-container" className="pre-scrollable panel panel-body">
         <h4>Notes</h4>

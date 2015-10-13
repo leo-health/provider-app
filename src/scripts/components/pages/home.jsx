@@ -49,14 +49,12 @@ module.exports = React.createClass({
       <div>
         <HomeHeader/>
         <div className="container page-header">
-
           <div className="row">
             <div className="col-lg-3">
               <FindConversation/>
               <ConversationHeader/>
             </div>
           </div>
-
           <div className="row">
             <div id="left" className="col-lg-3">
               <ConversationList statusChanel={this.statusChanel} conversations={conversations}/>

@@ -15,14 +15,13 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    return {messages: [],
-            init: true}
+    return{ messages: [], init: true }
   },
 
   componentDidMount: function(){
     MessageActions.fetchStaffRequest(localStorage.authenticationToken);
-    this.props.messageChanel.bind('new_message', function(message){
-      this.setState({messages: this.state.messages.concat(message)})
+    this.props.messageChanel.bind('new_message', function(messageId){
+      MessageActions.fetchMessageRequest(localStorage.authenticationToken, messageId);
     }, this);
   },
 
@@ -40,9 +39,11 @@ module.exports = React.createClass({
 
   render: function () {
     var messages = this.state.messages;
+    if(this.state.new_message){
+      messages.push(this.state.new_message)
+    }
     var currentConversationId = this.state.currentConversationId;
     if(messages && messages.length > 0){
-      //var reversedMessage = messages.reverse();
       var test = messages.map(function(msg, i){
         return <Message key={i}
                         body={msg.regular_message.body}
