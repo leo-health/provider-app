@@ -5,7 +5,7 @@
   "private": true,
   "main": "preprocessor.js",
   "scripts": {
-    "start": "./node_modules/.bin/gulp build && forever start server.js",
+    "start": "./node_modules/.bin/gulp build && ./node_modules/.bin/forever start server.js",
     "watch": "./node_modules/.bin/gulp watch",
     "build": "./node_modules/.bin/gulp build",
     "test": "jest"
