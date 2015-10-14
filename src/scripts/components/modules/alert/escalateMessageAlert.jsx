@@ -1,6 +1,7 @@
 var React = require('react');
-var ConversationActions = require('../../../actions/conversationActions');
+var Reflux = require('reflux');
 var MessageActions = require('../../../actions/messageActions');
+var MessageStaff = require('../message/messageStaff');
 
 module.exports = React.createClass({
   handleClick: function (e) {
@@ -9,26 +10,31 @@ module.exports = React.createClass({
   },
 
   render: function () {
+    var staff = this.props.staff;
+    staff = staff.map(function(staff){
+      return <MessageStaff staff={staff}/>
+    });
+
     return(
       <div id="escalation-form" className="alert alert-dismissible alert-default">
         <button type="button" className="close" data-dismiss="alert">×</button>
-        <form className="form-inline clearfix">
+        <form className="form">
           <div className="form-group">
-            <label for="provider-select" className="control-label">Assign <a id="escalation-message-count">2</a> messages to </label>&nbsp;
+            <label htmlFor="provider-select" className="control-label"> Assign this conversation to </label>&nbsp;
             <select id="provider-select" className="form-control">
-              <option>Dr. Chelsea Bodnar</option>
-              <option>Dr. Om Lala</option>
+              {staff}
             </select>
-            <label> with</label>
+            <label className="control-label"> with a priority level of</label>
             <select className="form-control">
               <option>standard</option>
               <option>high</option>
-            </select> &nbsp;
-            priority. &nbsp;
-            <button type="submit" className="btn btn-danger btn-sm form">
-              <span className="glyphicon glyphicon-fire"></span> Escalate
-            </button>
+            </select>
+            <label className="control-label">Please enter any relevant notes to help the assignee resolve the case.</label>
+            <textarea id="escalation-notes" className="form-control" rows="1" type="text"></textarea>
           </div>
+          <button type="submit" className="btn btn-danger btn-sm form">
+            <span className="glyphicon glyphicon-fire"></span> Escalate
+          </button>
         </form>
       </div>
     )

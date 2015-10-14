@@ -13,21 +13,18 @@ module.exports = React.createClass({
 
   handleOnClick: function(){
     ConversationActions.selectConversation(this.props.reactKey);
-    var currentConversationId = this.props.conversation_id;
-    var authenticationToken = localStorage.authenticationToken;
-    MessageActions.fetchMessageRequest(authenticationToken, currentConversationId);
+    MessageActions.fetchMessagesRequest(localStorage.authenticationToken, this.props.conversationId);
   },
 
   onStatusChange: function(status){
-    this.setState(status)
+    this.setState(status);
+    if (status.init){
+      this.setState({selectedConversation: 0})
+    }
   },
 
   getInitialState: function () {
     return {selectedConversation: 0}
-  },
-
-  componentWillMount: function(){
-
   },
 
   render: function () {
@@ -39,6 +36,8 @@ module.exports = React.createClass({
       lastMessage = shortMessage.substr(0, shortMessage.lastIndexOf(" ")) + "...";
     }
     var messageSendAt = moment(this.props.createdAt).calendar();
+    var conversationStatus = this.props.conversationStatus;
+    var conversationId = this.props.conversationId;
     var patients = this.props.patients.map(function(patient){
       return (
         <ConversationPatient key = {patient.id}
@@ -46,15 +45,16 @@ module.exports = React.createClass({
         />
       )
     });
+
     return(
       <div onClick={this.handleOnClick}>
         <a href="#" className={this.state.selectedConversation == this.props.reactKey ? "list-group-item active" : "list-group-item"}>
-          <h6 className="list-group-item-heading">{guardian}
+          <h6 className="list-group-item-heading">{guardian}<span>id: {conversationId}</span>
             <span className="pull-right">{messageSendAt}</span>
           </h6>
           <p className = "patientList">
             {patients}
-            <ConversationStatus status = {this.props.conversationStatus}/>
+            <ConversationStatus status = {conversationStatus} conversationId = {conversationId} statusChanel = {this.props.statusChanel}/>
           </p>
           <p className="list-group-item-text">
             {lastMessage}

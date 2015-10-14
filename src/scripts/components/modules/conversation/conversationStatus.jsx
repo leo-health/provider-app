@@ -1,16 +1,15 @@
 var React = require('react');
 
 module.exports = React.createClass({
-  //componentWillMount: function(){
-  //  this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
-  //  this.statusChanel = this.pusher.subscribe(localStorage.email)
-  //},
-  //
-  //componentDidMount: function(){
-  //  this.messageChanel.bind('new_message', function(message){
-  //    this.setState({messages: this.state.messages.concat(message)})
-  //  }, this);
-  //},
+  componentDidMount: function(){
+    this.props.statusChanel.bind('new_status', function(status){
+      if(status.conversation_id == this.props.conversationId){
+        this.setState({status: status.new_status})
+      }else{
+        return
+      }
+    }, this);
+  },
 
   render: function (){
     var status = this.props.status;
