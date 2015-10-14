@@ -1628,8 +1628,8 @@
 	  border-radius: 0;
 	}
 	.pre-scrollable {
-	  min-height: 700px;
-	  max-height: 700px;
+	  min-height: 730px;
+	  max-height: 730px;
 	  overflow-y: auto;
 	}
 	.pre-scrollable-left {
@@ -1653,9 +1653,16 @@
 	    width: 970px;
 	  }
 	}
+
 	@media (min-width: 1200px) {
 	  .container {
-	    width: 1170px;
+	    width: 1570px;
+	  }
+	}
+
+	@media (min-width: 1680px) {
+	  .container {
+	    width: 1600px;
 	  }
 	}
 	.container-fluid {
@@ -3548,6 +3555,7 @@
 	}
 	.btn-sm,
 	.btn-group-sm > .btn {
+	  margin-right: 5px;
 	  padding: 5px 10px;
 	  font-size: 12px;
 	  line-height: 1.5;
