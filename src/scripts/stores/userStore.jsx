@@ -6,7 +6,7 @@ module.exports = Reflux.createStore({
   listenables: [MessageActions],
 
   onFetchStaffRequest: function(authenticationToken){
-    request.get('http://localhost:3000/api/v1/staff')
+    request.get('https://dev.leoforkids.com/api/v1/staff')
            .query({authentication_token: authenticationToken})
            .end(function(err, res){
              if(res.ok){
