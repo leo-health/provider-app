@@ -87,6 +87,7 @@ module.exports = Reflux.createStore({
   },
 
   onEscalateConversationRequestCompleted: function(response){
+    debugger;
     this.trigger({status: response.status})
   },
 

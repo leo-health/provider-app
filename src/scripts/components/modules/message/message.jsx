@@ -38,45 +38,19 @@ module.exports = React.createClass({
           </div>
         )
       }
-      //else{
-      //  return(
-      //    <div className="inline-hr">
-      //      <span className="Primary">{messageBody}</span>
-      //    </div>
-      //  )
-      //}
     };
     return(
       <div>
-        <div className="inline-hr" style={showOpenCase}>
-          <span className="primary">Case opened by {sender}</span>
-        </div>
-        <div className="checkbox checkbox-circle checkbox-danger">
-          <input id="checkbox1" type="checkbox"/>
-          <label htmlFor="checkbox1">
-            <small> {sentAt} </small>
-            <strong>{sender}</strong>
-            {messageBody}
-          </label>
-          {seperateLine}
-        </div>
+        <small> {sentAt} </small>
+        <strong>{sender}</strong>
+        {messageBody}
+        <hr/>
       </div>
     )
   }
 });
 
+//<div className="inline-hr" style={showOpenCase}>
+//  <span className="primary">Case opened by {sender}</span>
+//</div>
 
-//render: function () {
-//  var action = this.props.body;
-//  var sender = this.props.sender;
-//  sender = sender.title + "." + sender.first_name + " " + sender.last_name;
-//  var content;
-//  if(action == "conversation.conversation_closed"){
-//    content = <span className="Primary">Case Closed By {sender}</span>;
-//  }
-//  return(
-//      <div className="inline-hr">
-//        {content}
-//      </div>
-//  )
-//}
