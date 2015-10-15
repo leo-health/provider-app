@@ -44,11 +44,12 @@ module.exports = React.createClass({
     }
     var currentConversationId = this.state.currentConversationId;
     if(messages && messages.length > 0){
-      var test = messages.map(function(msg, i){
+      var messages = messages.map(function(msg, i){
         return <Message key={i}
                         body={msg.message_body}
                         sender={msg.created_by}
-                        sentAt={msg.sentAt}
+                        sentAt={msg.created_at}
+                        esclated_to = {msg.escalated_to}
                         messageType = {msg.message_type}
                />
         //var messageType;
@@ -57,7 +58,6 @@ module.exports = React.createClass({
         //var body;
         //var previousMessageClosed = false;
         //var nextMessageFromSystem = false;
-
         //if(msg.hasOwnProperty('system_message')){
         //  sender = msg.system_message.owner;
         //  body = msg.system_message.key;
@@ -102,7 +102,7 @@ module.exports = React.createClass({
     return (
       <div>
         <div id="conversation-container" className="pre-scrollable panel panel-body" ref="conversationContainer">
-          {test}
+          {messages}
         </div>
         <MessageForm conversationId={currentConversationId} messageContainer={this.refs.conversationContainer} staff={this.state.staff}/>
       </div>

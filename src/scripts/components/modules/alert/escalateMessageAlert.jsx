@@ -7,7 +7,11 @@ module.exports = React.createClass({
   handleClick: function (e) {
     e.preventDefault();
     var escalationNote = this.refs.messages.getDOMNode().value.trim();
-    ConversationActions.escalateConversationRequest(localStorage.authenticationToken, this.props.conversationId)
+    ConversationActions.escalateConversationRequest( localStorage.authenticationToken,
+                                                     this.props.conversationId,
+                                                     escalatedToId,
+                                                     note,
+                                                     priority )
   },
 
   render: function () {

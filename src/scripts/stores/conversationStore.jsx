@@ -48,7 +48,7 @@ module.exports = Reflux.createStore({
   },
 
   onCloseConversationRequest: function(authenticationToken, conversationId){
-    request.put('http://localhost:3000/api/v1/conversations/' + conversationId)
+    request.put('http://localhost:3000/api/v1/conversations/' + conversationId + '/close')
            .query({ authentication_token: authenticationToken })
            .end(function(err, res){
              if(res.ok){
@@ -67,5 +67,32 @@ module.exports = Reflux.createStore({
   onCloseConversationRequestFailed: function(response){
     this.trigger({status: response.status,
                   message: "error closing conversation"})
+  },
+
+  onEscalateConversationRequest: function(authenticationToken, conversationId, escalatedToId, note, priority){
+    escalateParams = { authentication_token: authenticationToken,
+                       escalated_to_id: escalatedToId,
+                       note: note,
+                       priority: priority
+                      };
+
+    request.put('http://localhost:3000/api/v1/conversations/' + conversationId + '/escalate')
+           .query(escalateParams)
+           .end(function(err, res){
+              if(res.ok){
+                ConversationActions.escalateConversationRequest.completed(res.body)
+              }else{
+                ConversationActions.escalateConversationRequest.failed(res.body)
+              }
+            })
+  },
+
+  onEscalateConversationRequestCompleted: function(response){
+    this.trigger({status: response.status})
+  },
+
+  onEscalateConversationRequestFailed: function(response){
+    this.trigger({status: response.status,
+                  message: "error escalating conversation"})
   }
 });
