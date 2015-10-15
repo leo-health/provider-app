@@ -75,7 +75,6 @@ module.exports = Reflux.createStore({
                        note: note,
                        priority: priority
                       };
-
     request.put('http://localhost:3000/api/v1/conversations/' + conversationId + '/escalate')
            .query(escalateParams)
            .end(function(err, res){

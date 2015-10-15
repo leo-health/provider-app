@@ -6,9 +6,10 @@ var MessageStaff = require('../message/messageStaff');
 module.exports = React.createClass({
   handleClick: function (e) {
     e.preventDefault();
-    var note = this.refs.messages.getDOMNode().value.trim();
+    var note = this.refs.note.getDOMNode().value.trim();
     var conversationId = this.props.conversationId;
     var escalatedToId = this.state.escalatedToID;
+    var priority = this.state.priority;
     ConversationActions.escalateConversationRequest( localStorage.authenticationToken,
                                                      conversationId,
                                                      escalatedToId,
@@ -59,9 +60,9 @@ module.exports = React.createClass({
               <option value={1}>high</option>
             </select>
             <label className="control-label">Please enter any relevant notes to help the assignee resolve the case.</label>
-            <textarea id="escalation-notes" className="form-control" rows="1" type="text" ref="escalationNote"></textarea>
+            <textarea id="escalation-notes" className="form-control" rows="1" type="text" ref="note"></textarea>
           </div>
-          <button type="submit" className="btn btn-danger btn-sm form">
+          <button type="submit" className="btn btn-danger btn-sm form" onClick={this.handleClick}>
             <span className="glyphicon glyphicon-fire"></span> Escalate
           </button>
         </form>
