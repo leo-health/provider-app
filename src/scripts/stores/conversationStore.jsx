@@ -13,7 +13,7 @@ module.exports = Reflux.createStore({
     }else{
       conversationParams = {authentication_token: authenticationToken}
     }
-    request.get('http://localhost:3000/api/v1/conversations')
+    request.get('https://dev.leoforkids.com/api/v1/conversations')
            .query(conversationParams)
            .end(function(err, res){
               if(res.ok){
@@ -48,7 +48,7 @@ module.exports = Reflux.createStore({
   },
 
   onCloseConversationRequest: function(authenticationToken, conversationId){
-    request.put('http://localhost:3000/api/v1/conversations/' + conversationId)
+    request.put('https://dev.leoforkids.com/api/v1/conversations/' + conversationId)
         .query({ authentication_token: authenticationToken })
         .end(function(err, res){
           if(res.ok){

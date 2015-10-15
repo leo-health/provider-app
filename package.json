@@ -5,7 +5,7 @@
   "private": true,
   "main": "preprocessor.js",
   "scripts": {
-    "start": "./node_modules/.bin/gulp",
+    "start": "./node_modules/.bin/gulp build && ./node_modules/.bin/forever start server.js",
     "watch": "./node_modules/.bin/gulp watch",
     "build": "./node_modules/.bin/gulp build",
     "test": "jest"
@@ -17,9 +17,11 @@
     "coffee-script": "^1.9.3",
     "css-loader": "^0.15.6",
     "del": "^1.2.0",
+    "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.8.2",
     "file": "^0.2.2",
     "file-loader": "^0.8.4",
+    "forever": "^0.15.1",
     "gulp": "^3.9.0",
     "gulp-filter": "^3.0.0",
     "gulp-load-plugins": "^1.0.0-rc",
