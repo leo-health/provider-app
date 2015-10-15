@@ -7,17 +7,17 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
-  onFetchConversationRequest: function(authenticationToken, status){
-    if (status.length > 0){
-      var conversationParams = {authentication_token: authenticationToken, status: status}
+  onFetchConversationRequest: function(authenticationToken, state){
+    if (state.length > 0){
+      var conversationParams = {authentication_token: authenticationToken, state: state}
     }else{
       conversationParams = {authentication_token: authenticationToken}
     }
-    request.get('https://dev.leoforkids.com/api/v1/conversations')
+    request.get('http://localhost:3000/api/v1/conversations')
            .query(conversationParams)
            .end(function(err, res){
               if(res.ok){
-                ConversationActions.fetchConversationRequest.completed(res.body, status)
+                ConversationActions.fetchConversationRequest.completed(res.body, state)
               }else{
                 ConversationActions.fetchConversationRequest.failed(res.body)
               }
@@ -34,7 +34,7 @@ module.exports = Reflux.createStore({
     this.trigger({ status: response.status,
                    conversations: conversations,
                    init: true,
-                   conversationStatus: status
+                   conversationState: state
                   });
   },
 
@@ -48,15 +48,15 @@ module.exports = Reflux.createStore({
   },
 
   onCloseConversationRequest: function(authenticationToken, conversationId){
-    request.put('https://dev.leoforkids.com/api/v1/conversations/' + conversationId)
-        .query({ authentication_token: authenticationToken })
-        .end(function(err, res){
-          if(res.ok){
-            ConversationActions.closeConversationRequest.completed(res.body)
-          }else{
-            ConversationActions.closeConversationRequest.failed(res.body)
-          }
-        })
+    request.put('http://localhost:3000/api/v1/conversations/' + conversationId)
+           .query({ authentication_token: authenticationToken })
+           .end(function(err, res){
+             if(res.ok){
+               ConversationActions.closeConversationRequest.completed(res.body)
+             }else{
+               ConversationActions.closeConversationRequest.failed(res.body)
+             }
+           })
   },
 
   onCloseConversationRequestCompleted: function(response){
