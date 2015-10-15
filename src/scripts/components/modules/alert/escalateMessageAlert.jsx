@@ -6,18 +6,30 @@ var MessageStaff = require('../message/messageStaff');
 module.exports = React.createClass({
   handleClick: function (e) {
     e.preventDefault();
-    var escalationNote = this.refs.messages.getDOMNode().value.trim();
+    var note = this.refs.messages.getDOMNode().value.trim();
+    var conversationId = this.props.conversationId;
     ConversationActions.escalateConversationRequest( localStorage.authenticationToken,
-                                                     this.props.conversationId,
+                                                     conversationId,
                                                      escalatedToId,
                                                      note,
                                                      priority )
   },
 
+  handleChange: function(e){
+    this.setState({})
+  },
+
+  getInitialState: function(){
+    return { escalatedTo: this.props.staff[0] }
+  },
+
   render: function () {
     var staff = this.props.staff;
-    staff = staff.map(function(staff){
-      return <MessageStaff staff={staff}/>
+    staff = staff.map(function(staff, i){
+      return <MessageStaff key = {i}
+                           id = {staff.id}
+                           staff={staff}
+             />
     });
 
     return(
@@ -26,7 +38,11 @@ module.exports = React.createClass({
         <form className="form">
           <div className="form-group">
             <label htmlFor="provider-select" className="control-label"> Assign this conversation to </label>&nbsp;
-            <select id="provider-select" className="form-control">
+            <select id="provider-select"
+                    className="form-control"
+                    value={this.state.escalatedTo}
+                    onChange={this.handleChange}
+            >
               {staff}
             </select>
             <label className="control-label"> with a priority level of</label>
