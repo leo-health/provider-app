@@ -28,7 +28,7 @@ module.exports = Reflux.createStore({
                    message: "error fetching messages"})
   },
 
-  onFetchMessageRequest: function(authenticationToken, messsageId){
+  onFetchMessageRequest: function(authenticationToken, messageId){
     request.get("http://localhost:3000/api/v1/messages/"+ messageId)
       .query({ authentication_token: authenticationToken })
       .end(function(err, res){
@@ -43,7 +43,7 @@ module.exports = Reflux.createStore({
 
   onFetchMessageRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   new_message: response.data.message })
+                   new_message: response.data })
   },
 
   onFetchMessageRequestFailed: function(response){
