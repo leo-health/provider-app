@@ -8,6 +8,7 @@ module.exports = React.createClass({
     e.preventDefault();
     var note = this.refs.messages.getDOMNode().value.trim();
     var conversationId = this.props.conversationId;
+    var escalatedToId = this.state.escalatedToID;
     ConversationActions.escalateConversationRequest( localStorage.authenticationToken,
                                                      conversationId,
                                                      escalatedToId,
@@ -15,12 +16,18 @@ module.exports = React.createClass({
                                                      priority )
   },
 
-  handleChange: function(e){
-    this.setState({})
+  setEscalatedTo: function(e){
+    this.setState({ escalatedToId: e.target.value })
+  },
+
+  setPriority: function(e){
+    this.setState({ priority: e.target.value})
   },
 
   getInitialState: function(){
-    return { escalatedTo: this.props.staff[0] }
+    return { escalatedToID: this.props.staff[0].id,
+             priority: 0
+           }
   },
 
   render: function () {
@@ -40,15 +47,16 @@ module.exports = React.createClass({
             <label htmlFor="provider-select" className="control-label"> Assign this conversation to </label>&nbsp;
             <select id="provider-select"
                     className="form-control"
-                    value={this.state.escalatedTo}
-                    onChange={this.handleChange}
+                    onChange={this.setEscalatedTo}
             >
               {staff}
             </select>
             <label className="control-label"> with a priority level of</label>
-            <select className="form-control">
-              <option>standard</option>
-              <option>high</option>
+            <select className="form-control"
+                    onChange={this.setPriority}
+            >
+              <option value={0}>standard</option>
+              <option value={1}>high</option>
             </select>
             <label className="control-label">Please enter any relevant notes to help the assignee resolve the case.</label>
             <textarea id="escalation-notes" className="form-control" rows="1" type="text" ref="escalationNote"></textarea>
