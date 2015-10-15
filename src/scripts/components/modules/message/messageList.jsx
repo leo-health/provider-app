@@ -46,12 +46,11 @@ module.exports = React.createClass({
     if(messages && messages.length > 0){
       var test = messages.map(function(msg, i){
         return <Message key={i}
-                        body={msg.regular_message.body}
-                        sender={msg.regular_message.sender}
-                        sentAt={msg.regular_message.sentAt}
-                        messageType = {'regularMessage'}
-                        previousMessageClosed={false}
-                        nextMessageFromSystem = {false}/>
+                        body={msg.message_body}
+                        sender={msg.created_by}
+                        sentAt={msg.sentAt}
+                        messageType = {msg.message_type}
+               />
         //var messageType;
         //var sender;
         //var sentAt;

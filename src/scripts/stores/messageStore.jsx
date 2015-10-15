@@ -5,7 +5,7 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [MessageActions],
 
-  onFetchMessageRequest: function(authenticationToken, currentConversationId){
+  onFetchMessagesRequest: function(authenticationToken, currentConversationId){
     request.get("http://localhost:3000/api/v1/conversations/"+ currentConversationId +"/messages/full")
         .query({ authentication_token: authenticationToken })
         .end(function(err, res){
