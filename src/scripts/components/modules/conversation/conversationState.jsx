@@ -4,7 +4,7 @@ module.exports = React.createClass({
   componentDidMount: function(){
     this.props.statusChanel.bind('new_status', function(status){
       if(status.conversation_id == this.props.conversationId){
-        this.setState({status: status.new_status})
+        this.setState({state: status.new_status})
       }else{
         return
       }
@@ -12,9 +12,9 @@ module.exports = React.createClass({
   },
 
   render: function (){
-    var status = this.props.status;
+    var state = this.props.state;
     var display = "glyphicon pull-right";
-    switch (status){
+    switch (state){
       case "escalated":
         display = display + " glyphicon-exclamation-sign-default";
         break;

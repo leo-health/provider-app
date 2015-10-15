@@ -24,7 +24,7 @@ module.exports = Reflux.createStore({
             })
   },
 
-  onFetchConversationRequestCompleted: function(response, status){
+  onFetchConversationRequestCompleted: function(response, state){
     var conversations = response.data.conversations;
     if (conversations.length > 0){
       var firstConversationId = response.data.conversations[0].id;

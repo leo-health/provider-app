@@ -18,7 +18,7 @@ module.exports = React.createClass({
                         guardian = {conversation.primary_guardian}
                         patients = {conversation.users.patients}
                         createdAt = {conversation.last_message_created_at }
-                        conversationStatus = {conversation.status}
+                        conversationState = {conversation.state}
                         messages = {conversation.messages}
                         statusChanel = {that.props.statusChanel}
           />

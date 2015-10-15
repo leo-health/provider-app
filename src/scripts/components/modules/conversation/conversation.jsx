@@ -3,7 +3,7 @@ var Reflux = require('reflux');
 var _ = require('lodash');
 var moment = require('moment');
 var ConversationStore = require('../../../stores/conversationStore');
-var ConversationStatus = require("./conversationStatus");
+var ConversationState = require("./conversationState");
 var ConversationPatient = require("./conversationPatient");
 var MessageActions = require('../../../actions/messageActions');
 var ConversationActions = require('../../../actions/conversationActions');
@@ -54,7 +54,7 @@ module.exports = React.createClass({
           </h6>
           <p className = "patientList">
             {patients}
-            <ConversationStatus status = {conversationStatus} conversationId = {conversationId} statusChanel = {this.props.statusChanel}/>
+            <ConversationState state = {conversationStatus} conversationId = {conversationId} statusChanel = {this.props.statusChanel}/>
           </p>
           <p className="list-group-item-text">
             {lastMessage}
