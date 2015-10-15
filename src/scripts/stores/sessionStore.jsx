@@ -36,10 +36,10 @@ module.exports = Reflux.createStore({
 
   onLoginRequestCompleted: function(response){
     localStorage["authenticationToken"]=response.data.session.authentication_token;
-    localStorage["firstName"]=response.data.session.user.first_name;
-    localStorage["lastName"]=response.data.session.user.last_name;
-    localStorage["title"]=response.data.session.user.title;
-    localStorage["email"]=response.data.session.user.email;
+    localStorage["firstName"]=response.data.user.first_name;
+    localStorage["lastName"]=response.data.user.last_name;
+    localStorage["title"]=response.data.user.title;
+    localStorage["email"]=response.data.user.email;
     this.trigger(this.getSession());
   },
 
