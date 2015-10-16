@@ -8,9 +8,8 @@ module.exports = React.createClass({
     e.preventDefault();
     var note = this.refs.note.getDOMNode().value.trim();
     var conversationId = this.props.conversationId;
-    var escalatedToId = this.state.escalatedToID;
+    var escalatedToId = this.state.escalatedToId;
     var priority = this.state.priority;
-    debugger
     ConversationActions.escalateConversationRequest( localStorage.authenticationToken,
                                                      conversationId,
                                                      escalatedToId,
