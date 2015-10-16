@@ -34,7 +34,6 @@ module.exports = Reflux.createStore({
     }
     this.trigger({ status: response.status,
                    conversations: conversations,
-                   init: true,
                    conversationState: state
                   });
   },

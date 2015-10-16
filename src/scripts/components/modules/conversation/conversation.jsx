@@ -9,20 +9,15 @@ var MessageActions = require('../../../actions/messageActions');
 var ConversationActions = require('../../../actions/conversationActions');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
+  getInitialState: function () {
+    return {selectedConversation: 0}
+  },
 
-  handleOnClick: function(){
+  handleOnClick: function(event){
+    debugger;
     this.setState({selectedConversation: this.props.reactKey});
     //ConversationActions.selectConversation(this.props.reactKey);
     MessageActions.fetchMessagesRequest(localStorage.authenticationToken, this.props.conversationId);
-  },
-
-  onStatusChange: function(status){
-    this.setState(status);
-  },
-
-  getInitialState: function () {
-    return {selectedConversation: 0}
   },
 
   render: function () {

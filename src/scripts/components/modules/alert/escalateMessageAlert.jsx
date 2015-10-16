@@ -15,6 +15,7 @@ module.exports = React.createClass({
                                                      escalatedToId,
                                                      note,
                                                      priority )
+    React.findDOMNode(this).remove();
   },
 
   setEscalatedTo: function(e){
