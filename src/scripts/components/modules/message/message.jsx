@@ -43,7 +43,7 @@ module.exports = React.createClass({
       <div>
         <small> {sentAt} </small>
         <strong>{sender}</strong>
-        {messageBody}
+        &nbsp;{messageBody}
         <hr/>
       </div>
     )

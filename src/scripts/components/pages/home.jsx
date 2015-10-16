@@ -20,7 +20,7 @@ module.exports = React.createClass({
 
   componentWillMount: function(){
     this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
-    this.statusChanel = this.pusher.subscribe('newStatus' + localStorage.email);
+    this.stateChanel = this.pusher.subscribe('newState' + localStorage.email);
     this.messageChanel = this.pusher.subscribe('newMessage' + localStorage.email);
   },
 
@@ -57,10 +57,10 @@ module.exports = React.createClass({
           </div>
           <div className="row">
             <div id="left" className="col-lg-3">
-              <ConversationList statusChanel={this.statusChanel} conversations={conversations}/>
+              <ConversationList stateChanel={this.stateChanel} conversations={conversations}/>
             </div>
             <div id="middle" className="col-lg-6">
-              <MessageList messageChanel={this.messageChanel} statusChanel={this.statusChanel}/>
+              <MessageList messageChanel={this.messageChanel} stateChanel={this.stateChanel}/>
             </div>
             <div id="right" className="col-lg-3">
               <NoteList/>

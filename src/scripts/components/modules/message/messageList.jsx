@@ -37,6 +37,8 @@ module.exports = React.createClass({
     this.props.messageChanel.bind('new_message', function(messageId){
       MessageActions.fetchMessageRequest(localStorage.authenticationToken, messageId);
     }, this);
+
+    this.props.mess
   },
 
   componentWillUpdate: function(){
