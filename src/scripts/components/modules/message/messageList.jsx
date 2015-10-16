@@ -62,10 +62,8 @@ module.exports = React.createClass({
 
   render: function () {
     var messages = this.state.messages;
-    if(this.state.new_message){
-      messages.push(this.state.new_message)
-    }
     var currentConversationId = this.state.currentConversationId;
+
     if(messages && messages.length > 0){
       var messages = messages.map(function(msg, i){
         return <Message key={i}

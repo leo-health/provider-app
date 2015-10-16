@@ -2,11 +2,10 @@ var React = require('react');
 
 module.exports = React.createClass({
   componentDidMount: function(){
-    this.props.stateChanel.bind('new_state', function(state){
-      if(state.conversation_id == this.props.conversationId){
-        this.setState({state: state.new_status})
-      }else{
-        return
+    var that = this;
+    this.props.stateChanel.bind('new_state', function(data){
+      if(data.conversation_id == that.props.conversationId){
+        this.setState({state: data.message_type})
       }
     }, this);
   },
