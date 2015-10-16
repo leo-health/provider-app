@@ -39,8 +39,8 @@ module.exports = React.createClass({
     });
 
     return(
-      <div onClick={this.handleOnClick}>
-        <a href="#" className={this.state.selectedConversation == this.props.reactKey ? "list-group-item active" : "list-group-item"}>
+
+        <div href="#" className={this.state.selectedConversation == this.props.reactKey ? "list-group-item active" : "list-group-item"} onClick={this.handleOnClick}>
           <h6 className="list-group-item-heading">{guardian}
             <span className="pull-right">{messageSendAt}</span>
           </h6>
@@ -51,8 +51,8 @@ module.exports = React.createClass({
           <p className="list-group-item-text">
             {lastMessage}
           </p>
-        </a>
-      </div>
+        </div>
+
     )
   }
 });

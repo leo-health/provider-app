@@ -5,7 +5,7 @@ module.exports = React.createClass({
     return (
       <div className="panel panel-heading">
         <form className="form">
-          <input type="text" className="" placeholder="Find family"/>
+          <input type="text" className="form-control" placeholder="Find family"/>
         </form>
       </div>
     )
