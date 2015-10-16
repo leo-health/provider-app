@@ -9,15 +9,14 @@ var MessageActions = require('../../../actions/messageActions');
 var ConversationActions = require('../../../actions/conversationActions');
 
 module.exports = React.createClass({
-  getInitialState: function () {
-    return {selectedConversation: 0}
-  },
-
-  handleOnClick: function(event){
-    debugger;
+  handleOnClick: function(e){
     this.setState({selectedConversation: this.props.reactKey});
     //ConversationActions.selectConversation(this.props.reactKey);
     MessageActions.fetchMessagesRequest(localStorage.authenticationToken, this.props.conversationId);
+  },
+
+  getInitialState: function () {
+    return {selectedConversation: 0}
   },
 
   render: function () {
