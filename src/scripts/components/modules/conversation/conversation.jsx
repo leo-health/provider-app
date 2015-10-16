@@ -12,15 +12,13 @@ module.exports = React.createClass({
   mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
 
   handleOnClick: function(){
-    ConversationActions.selectConversation(this.props.reactKey);
+    this.setState({selectedConversation: this.props.reactKey});
+    //ConversationActions.selectConversation(this.props.reactKey);
     MessageActions.fetchMessagesRequest(localStorage.authenticationToken, this.props.conversationId);
   },
 
   onStatusChange: function(status){
     this.setState(status);
-    if (status.init){
-      this.setState({selectedConversation: 0})
-    }
   },
 
   getInitialState: function () {
@@ -54,7 +52,7 @@ module.exports = React.createClass({
           </h6>
           <p className = "patientList">
             {patients}
-            <ConversationState state = {conversationStatus} conversationId = {conversationId} statusChanel = {this.props.statusChanel}/>
+            <ConversationState state = {conversationStatus} conversationId = {conversationId} stateChanel = {this.props.stateChanel}/>
           </p>
           <p className="list-group-item-text">
             {lastMessage}

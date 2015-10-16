@@ -1,14 +1,14 @@
 var React = require('react');
 
 module.exports = React.createClass({
-  componentDidMount: function(){
-    var that = this;
-    this.props.stateChanel.bind('new_state', function(data){
-      if(data.conversation_id == that.props.conversationId){
-        this.setState({state: data.message_type})
-      }
-    }, this);
-  },
+  //componentDidMount: function(){
+  //  var that = this;
+  //  this.props.stateChanel.bind('new_state', function(data){
+  //    if(data.conversation_id == that.props.conversationId){
+  //      that.setState({state: data.message_type})
+  //    }
+  //  }, this);
+  //},
 
   render: function (){
     var state = this.props.conversationState;

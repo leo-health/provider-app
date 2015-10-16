@@ -8,8 +8,9 @@ module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
   onFetchConversationRequest: function(authenticationToken, state){
+    var conversationParams;
     if (state.length > 0){
-      var conversationParams = {authentication_token: authenticationToken, state: state}
+      conversationParams = {authentication_token: authenticationToken, state: state}
     }else{
       conversationParams = {authentication_token: authenticationToken}
     }
@@ -43,9 +44,9 @@ module.exports = Reflux.createStore({
                   message: "error fetching conversations"})
   },
 
-  onSelectConversation: function(selectedConversation){
-    this.trigger({selectedConversation: selectedConversation})
-  },
+  //onSelectConversation: function(selectedConversation){
+  //  this.trigger({selectedConversation: selectedConversation})
+  //},
 
   onCloseConversationRequest: function(authenticationToken, conversationId){
     request.put('http://localhost:3000/api/v1/conversations/' + conversationId + '/close')
