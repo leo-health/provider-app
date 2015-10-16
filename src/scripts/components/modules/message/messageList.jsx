@@ -33,12 +33,19 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
+    var that = this;
     MessageActions.fetchStaffRequest(localStorage.authenticationToken);
-    this.props.messageChanel.bind('new_message', function(messageId){
-      MessageActions.fetchMessageRequest(localStorage.authenticationToken, messageId);
+    this.props.messageChanel.bind('new_message', function(data){
+      if(that.state.currentConversationId == data.conversation_id){
+        MessageActions.fetchMessageRequest(localStorage.authenticationToken, data.message_id);
+      }
     }, this);
 
-    this.props.mess
+    this.props.stateChanel.bind('new_state', function(data){
+      if(that.state.currentConversationId == data.conversation_id){
+        this.setState({messages: that.state.messages.concat(data)})
+      }
+    })
   },
 
   componentWillUpdate: function(){

@@ -2,9 +2,9 @@ var React = require('react');
 
 module.exports = React.createClass({
   componentDidMount: function(){
-    this.props.statusChanel.bind('new_status', function(status){
-      if(status.conversation_id == this.props.conversationId){
-        this.setState({state: status.new_status})
+    this.props.stateChanel.bind('new_state', function(state){
+      if(state.conversation_id == this.props.conversationId){
+        this.setState({state: state.new_status})
       }else{
         return
       }
@@ -12,7 +12,7 @@ module.exports = React.createClass({
   },
 
   render: function (){
-    var state = this.props.state;
+    var state = this.props.conversationState;
     var display = "glyphicon pull-right";
     switch (state){
       case "escalated":
