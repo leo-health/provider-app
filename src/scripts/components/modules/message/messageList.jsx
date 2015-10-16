@@ -43,7 +43,7 @@ module.exports = React.createClass({
 
     this.props.stateChanel.bind('new_state', function(data){
       if(that.state.currentConversationId == data.conversation_id){
-        this.setState({messages: that.state.messages.concat(data)})
+        that.setState({messages: that.state.messages.concat(data)})
       }
     })
   },
@@ -70,7 +70,7 @@ module.exports = React.createClass({
                         body={msg.message_body}
                         sender={msg.created_by}
                         sentAt={msg.created_at}
-                        esclated_to = {msg.escalated_to}
+                        escalatedTo = {msg.escalated_to}
                         messageType = {msg.message_type}
                />
         //var messageType;

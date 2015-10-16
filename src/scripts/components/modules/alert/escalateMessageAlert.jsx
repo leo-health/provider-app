@@ -10,6 +10,7 @@ module.exports = React.createClass({
     var conversationId = this.props.conversationId;
     var escalatedToId = this.state.escalatedToID;
     var priority = this.state.priority;
+    debugger
     ConversationActions.escalateConversationRequest( localStorage.authenticationToken,
                                                      conversationId,
                                                      escalatedToId,
@@ -18,7 +19,7 @@ module.exports = React.createClass({
   },
 
   setEscalatedTo: function(e){
-    this.setState({ escalatedToId: e.target.value })
+    this.setState({ escalatedToId: Number(e.target.value) })
   },
 
   setPriority: function(e){
@@ -26,7 +27,7 @@ module.exports = React.createClass({
   },
 
   getInitialState: function(){
-    return { escalatedToID: this.props.staff[0].id,
+    return { escalatedToId: this.props.staff[0].id,
              priority: 0
            }
   },
@@ -35,7 +36,6 @@ module.exports = React.createClass({
     var staff = this.props.staff;
     staff = staff.map(function(staff, i){
       return <MessageStaff key = {i}
-                           id = {staff.id}
                            staff={staff}
              />
     });

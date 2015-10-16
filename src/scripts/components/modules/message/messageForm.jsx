@@ -48,7 +48,7 @@ module.exports = React.createClass({
               <span className="glyphicon glyphicon-fire"></span> Escalate
             </a>
           </form>
-          <hr />
+          <hr/>
         </div>
       </div>
     )
