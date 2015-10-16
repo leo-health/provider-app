@@ -11,21 +11,11 @@ module.exports = React.createClass({
     var messageBody = this.props.body;
     var escalatedTo = this.props.escalatedTo;
     sender = sender.title + "." + sender.first_name + " " + sender.last_name;
+
     if (escalatedTo){
       escalatedTo = escalatedTo.title + "." + escalatedTo.first_name + " " + escalatedTo.last_name;
     }
 
-    //var showOpenCase= {display: "none"};
-    //var seperateLine = <hr/>;
-
-
-    //if(this.props.previousMessageClosed){
-    //  showOpenCase.display = "block"
-    //}
-    //
-    //if(this.props.nextMessageFromSystem){
-    //  seperateLine = null
-    //}
     var message;
     switch (messageType){
       case "message":

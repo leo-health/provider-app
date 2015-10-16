@@ -23,8 +23,7 @@ module.exports = React.createClass({
       var new_message = { message_body: status.new_message.body,
                           created_by: status.new_message.sender,
                           created_at: status.new_message.created_at,
-                          message_type: status.new_message.type_name };
-
+                          message_type: 'message' };
       this.setState({ messages: this.state.messages.concat(new_message)})
     }else{
       this.setState({ messages: status.messages,
