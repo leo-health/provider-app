@@ -14,7 +14,7 @@ module.exports = React.createClass({
                                                      conversationId,
                                                      escalatedToId,
                                                      note,
-                                                     priority )
+                                                     priority );
     React.findDOMNode(this).remove();
   },
 

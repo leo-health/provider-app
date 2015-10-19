@@ -1,17 +1,13 @@
 var React = require('react');
-var Reflux = require('reflux');
 var _ = require('lodash');
 var moment = require('moment');
-var ConversationStore = require('../../../stores/conversationStore');
 var ConversationState = require("./conversationState");
 var ConversationPatient = require("./conversationPatient");
 var MessageActions = require('../../../actions/messageActions');
-var ConversationActions = require('../../../actions/conversationActions');
 
 module.exports = React.createClass({
   handleOnClick: function(e){
     this.setState({selectedConversation: this.props.reactKey});
-    //ConversationActions.selectConversation(this.props.reactKey);
     MessageActions.fetchMessagesRequest(localStorage.authenticationToken, this.props.conversationId);
   },
 

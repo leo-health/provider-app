@@ -1,7 +1,4 @@
 var React = require('react');
-var Reflux = require('reflux');
-var ConversationActions = require('../../../actions/conversationActions');
-var ConversationStore = require('../../../stores/conversationStore');
 var Conversation = require('./conversation');
 
 module.exports = React.createClass({

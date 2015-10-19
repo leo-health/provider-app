@@ -72,51 +72,6 @@ module.exports = React.createClass({
                         escalatedTo = {msg.escalated_to}
                         messageType = {msg.message_type}
                />
-        //var messageType;
-        //var sender;
-        //var sentAt;
-        //var body;
-        //var previousMessageClosed = false;
-        //var nextMessageFromSystem = false;
-        //if(msg.hasOwnProperty('system_message')){
-        //  sender = msg.system_message.owner;
-        //  body = msg.system_message.key;
-        //  messageType = "systemMessage";
-        //  if (msg.system_message.key == "conversation.conversation_closed"){
-        //    previousMessageClosed = true
-        //  }
-        //}else{
-        //  sender = msg.regular_message.sender;
-        //  sentAt = msg.regular_message.created_at;
-        //  body = msg.regular_message.body;
-        //  messageType = "regularMessage";
-        //
-        //  if (i == 1){
-        //    previousMessageClosed = true
-        //  }
-        //  var next_message = messages.reverse()[i+1];
-        //  if (next_message && next_message.hasOwnProperty('system_message')){
-        //    nextMessageFromSystem = true
-        //  }
-        //}
-        //sender = msg.regular_message.sender;
-        //sentAt = msg.regular_message.created_at;
-        //body = msg.regular_message.body;
-        //messageType = "regularMessage";
-        //if (i == 1){
-        //  previousMessageClosed = true
-        //}
-        //var next_message = messages.reverse()[i+1];
-        //if (next_message && next_message.hasOwnProperty('system_message')){
-        //  nextMessageFromSystem = true
-        //}
-        //return <Message key={i}
-        //                body={body}
-        //                sender={sender}
-        //                sentAt={sentAt}
-        //                messageType = {messageType}
-        //                previousMessageClosed={previousMessageClosed}
-        //                nextMessageFromSystem = {nextMessageFromSystem}/>
       });
     }
     return (

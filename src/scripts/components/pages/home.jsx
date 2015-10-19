@@ -3,7 +3,7 @@ var Reflux = require('reflux');
 var HomeHeader = require('./homeHeader');
 var ConversationActions = require('../../actions/conversationActions');
 var ConversationStore = require('../../stores/conversationStore');
-var FindConversation = require('../modules/search/findConversation');
+var FindFamily = require('../modules/search/findFamily');
 var ConversationList = require('../modules/conversation/conversationList');
 var ConversationHeader = require('../modules/conversation/conversationHeader');
 var MessageList = require('../modules/message/messageList');
@@ -51,7 +51,7 @@ module.exports = React.createClass({
         <div className="container page-header">
           <div className="row">
             <div className="col-lg-3">
-              <FindConversation/>
+              <FindFamily/>
               <ConversationHeader/>
             </div>
           </div>
