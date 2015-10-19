@@ -12,10 +12,6 @@ module.exports = React.createClass({
       tagClass = "primary"
     }
 
-    //<div class="inline-hr">
-    //  <span class="">Case opened by Ben</span>
-    //</div>
-
     return(
       <div className="inline-hr">
         <span className={tagClass}>{message}</span>
