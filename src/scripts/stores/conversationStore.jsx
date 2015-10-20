@@ -56,7 +56,6 @@ module.exports = Reflux.createStore({
   },
 
   onCloseConversationRequestCompleted: function(response){
-    debugger;
     this.trigger({status: response.status})
   },
 

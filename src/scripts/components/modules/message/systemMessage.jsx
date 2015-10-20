@@ -8,7 +8,7 @@ module.exports = React.createClass({
       message = "Case escalated to " + this.props.escalatedTo;
       tagClass = "danger"
     }else{
-      message = "Case closed by " + this.props.sender;
+      message = "Case closed by " + this.props.closedBy;
       tagClass = "primary"
     }
 

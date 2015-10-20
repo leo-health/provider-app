@@ -127,7 +127,7 @@ module.exports = React.createClass({
               <label htmlFor="close-notes" className="control-label">Please enter any relevant notes to explain how the case was resolved.</label>
               <textarea id="close-notes" className="form-control" rows="1" type="text" ref="closureNote"></textarea>
             </div>
-            <button type="submit" className="btn btn-primary btn-sm form"><span className="glyphicon glyphicon-ok"></span> Close Case</button>
+            <button type="submit" className="btn btn-primary btn-sm form" onClick={this.handleClose}><span className="glyphicon glyphicon-ok"></span> Close Case</button>
           </form>
         </div>
 
