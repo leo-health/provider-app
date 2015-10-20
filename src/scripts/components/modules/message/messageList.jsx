@@ -4,14 +4,11 @@ var Message = require('./message');
 var MessageStatus = require('./messageStatus');
 var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
-var ConversationStore = require('../../../stores/conversationStore');
-var UserStore = require('../../../stores/userStore');
 var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.listenTo(MessageStore, 'onStatusChange'),
-    Reflux.connect(UserStore)
+    Reflux.listenTo(MessageStore, 'onStatusChange')
   ],
 
   getInitialState: function(){
@@ -33,7 +30,6 @@ module.exports = React.createClass({
 
   componentDidMount: function(){
     var that = this;
-    MessageActions.fetchStaffRequest(localStorage.authenticationToken);
     this.props.messageChanel.bind('new_message', function(data){
       if(that.state.currentConversationId == data.conversation_id){
         MessageActions.fetchMessageRequest(localStorage.authenticationToken, data.message_id);
@@ -79,7 +75,7 @@ module.exports = React.createClass({
         <div id="conversation-container" className="pre-scrollable panel panel-body" ref="conversationContainer">
           {messages}
         </div>
-        <MessageForm conversationId={currentConversationId} messageContainer={this.refs.conversationContainer} staff={this.state.staff}/>
+        <MessageForm conversationId={currentConversationId} staff={this.state.staff}/>
       </div>
     )
   }
