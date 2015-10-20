@@ -43,13 +43,9 @@ module.exports = Reflux.createStore({
                   message: "error fetching conversations"})
   },
 
-  //onSelectConversation: function(selectedConversation){
-  //  this.trigger({selectedConversation: selectedConversation})
-  //},
-
   onCloseConversationRequest: function(authenticationToken, conversationId, note){
     request.put('http://localhost:3000/api/v1/conversations/' + conversationId + '/close')
-           .query({ authentication_token: authenticationToken })
+           .query({ authentication_token: authenticationToken, note: note })
            .end(function(err, res){
              if(res.ok){
                ConversationActions.closeConversationRequest.completed(res.body)
@@ -60,8 +56,8 @@ module.exports = Reflux.createStore({
   },
 
   onCloseConversationRequestCompleted: function(response){
-    this.trigger({status: response.status,
-                  closedConversation: response.data.conversation})
+    debugger;
+    this.trigger({status: response.status})
   },
 
   onCloseConversationRequestFailed: function(response){
