@@ -1,13 +1,19 @@
 var React = require('react');
+var moment = require('moment');
 
 module.exports = React.createClass({
   render: function(){
+    var sentAt = moment(this.props.sentAt).calendar();
+    var sender = this.props.sender;
     var note = this.props.note;
+    sender = sender.title + ". " + sender.first_name + " " + sender.last_name ;
+
     return(
       <div>
-        <small> 12:02 PM </small>
-        <strong>Dr. Victoria Riese</strong>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+        <small>{sentAt}</small>
+        <strong>{sender}</strong>
+        {note}
+        <hr/>
       </div>
     )
   }
