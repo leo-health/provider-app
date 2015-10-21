@@ -60,10 +60,20 @@ module.exports = React.createClass({
     var currentConversationId = this.state.currentConversationId;
 
     if(messages && messages.length > 0){
+      var count = messages.length;
+      var prevClosed = false;
       var messages = messages.map(function(msg, i){
+        var closed = prevClosed;
+        if(msg.message_type == 'close'){
+          prevClosed = true;
+        }else{
+          prevClosed = false;
+        }
         return <Message key={i}
                         reactKey={i}
                         id={msg.id}
+                        count={count}
+                        closed={closed}
                         body={msg.message_body}
                         sender={msg.created_by}
                         sentAt={msg.created_at}
