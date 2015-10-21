@@ -93,5 +93,9 @@ module.exports = Reflux.createStore({
   onSendMessageRequestFailed: function(response){
     this.trigger({ status: response.status,
                    message: "error sending messages"})
+  },
+
+  onScrollToNote: function(identity){
+    this.trigger({identity: identity})
   }
 });

@@ -10,6 +10,8 @@ module.exports = React.createClass({
     var messageType = this.props.messageType;
     var messageBody = this.props.body;
     var escalatedTo = this.props.escalatedTo;
+    var reactKey = this.props.reactKey;
+    var id = this.props.id;
     sender = sender.title + ". " + sender.first_name + " " + sender.last_name;
 
     if (escalatedTo){
@@ -19,13 +21,13 @@ module.exports = React.createClass({
     var message;
     switch (messageType){
       case "message":
-        message = <RegularMessage sender={sender} sentAt={sentAt} messageBody={messageBody}/>;
+        message = <RegularMessage sender={sender} sentAt={sentAt} messageBody={messageBody} reactKey={reactKey}/>;
         break;
       case "escalation":
-        message = <SystemMessage escalatedTo={escalatedTo} messageType={messageType}/>;
+        message = <SystemMessage id={id} escalatedTo={escalatedTo} messageType={messageType}/>;
         break;
       case "close":
-        message =  <SystemMessage closedBy={sender} messageType={messageType}/>;
+        message =  <SystemMessage id={id} closedBy={sender} messageType={messageType}/>;
         break;
     }
 

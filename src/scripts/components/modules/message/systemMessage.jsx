@@ -1,6 +1,12 @@
 var React = require('react');
+var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
+  handleClick: function(){
+    var identity = this.props.id + this.props.messageType;
+    MessageActions.scrollToNote(identity);
+  },
+
   render: function() {
     var message;
     var tagClass;
@@ -14,7 +20,11 @@ module.exports = React.createClass({
 
     return(
       <div className="inline-hr">
-        <span className={tagClass}>{message}</span>
+        <span className={tagClass}>
+          <a href="#" onClick={this.handleClick}>
+            {message}
+          </a>
+        </span>
       </div>
     )
   }

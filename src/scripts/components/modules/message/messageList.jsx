@@ -62,6 +62,8 @@ module.exports = React.createClass({
     if(messages && messages.length > 0){
       var messages = messages.map(function(msg, i){
         return <Message key={i}
+                        reactKey={i}
+                        id={msg.id}
                         body={msg.message_body}
                         sender={msg.created_by}
                         sentAt={msg.created_at}
