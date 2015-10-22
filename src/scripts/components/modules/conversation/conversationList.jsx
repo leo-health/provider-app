@@ -24,7 +24,6 @@ module.exports = React.createClass({
         var boundClick = this.handleOnClick.bind(this, i, conversation.id);
         return (
           <Conversation key = {i}
-                        reactKey = {i}
                         selected = {selected}
                         conversationId = {conversation.id}
                         lastMessage = {conversation.last_message}

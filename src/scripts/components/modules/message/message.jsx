@@ -4,6 +4,10 @@ var RegularMessage = require('./regularMessage.jsx');
 var SystemMessage = require('./systemMessage.jsx');
 
 module.exports = React.createClass({
+  //componentWillMount: function () {
+  //  debugger
+  //},
+
   render: function () {
     var sentAt = moment(this.props.sentAt).calendar();
     var sender = this.props.sender;
@@ -14,6 +18,8 @@ module.exports = React.createClass({
     var id = this.props.id;
     var count = this.props.count;
     var closed = this.props.closed;
+    var escalated = this.props.escalated;
+    var previousType = this.props.previousType;
     sender = sender.title + ". " + sender.first_name + " " + sender.last_name;
 
     if (escalatedTo){
@@ -28,6 +34,8 @@ module.exports = React.createClass({
                                   messageBody={messageBody}
                                   reactKey={reactKey}
                                   closed={closed}
+                                  escalated={escalated}
+                                  previousType={previousType}
                                   count={count}/>;
         break;
       case "escalation":
