@@ -5,6 +5,7 @@ var MessageStatus = require('./messageStatus');
 var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
 var MessageActions = require('../../../actions/messageActions');
+var prevMessageType;
 
 module.exports = React.createClass({
   mixins: [
@@ -55,21 +56,39 @@ module.exports = React.createClass({
     }
   },
 
+  checkClosedMessage: function(msg){
+    var prevType = prevMessageType;
+    if(msg.message_type == 'close'){
+      prevMessageType = 'close';
+    }else if(msg.message_type == 'escalation'){
+      prevMessageType = 'escalation';
+    }else{
+      prevMessageType = 'message';
+    }
+    return prevType
+  },
+
   render: function () {
     var messages = this.state.messages;
     var currentConversationId = this.state.currentConversationId;
-
     if(messages && messages.length > 0){
+      var count = messages.length;
       var messages = messages.map(function(msg, i){
+        var previousType = this.checkClosedMessage(msg);
         return <Message key={i}
+                        reactKey={i}
+                        id={msg.id}
+                        count={count}
+                        previousType={previousType}
                         body={msg.message_body}
                         sender={msg.created_by}
                         sentAt={msg.created_at}
                         escalatedTo = {msg.escalated_to}
                         messageType = {msg.message_type}
                />
-      });
+      }, this);
     }
+    prevMessageType = 'init';
     return (
       <div>
         <div id="conversation-container" className="pre-scrollable panel panel-body" ref="conversationContainer">

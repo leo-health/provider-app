@@ -12,7 +12,7 @@ module.exports = React.createClass({
 
   onStatusChange: function (status) {
     if(status.messages){
-      var notes = _.filter(status.messages, function(m){return m.message_type != 'message'})
+      var notes = _.filter(status.messages, function(m){return m.message_type != 'message'});
       this.setState({notes: notes})
     }
   },
@@ -21,18 +21,19 @@ module.exports = React.createClass({
     return{ notes: []}
   },
 
-  componentDidMount: function(){
-    NoteActions.fetchNoteRequest(localStorage.authentication_token);
-  },
-
   render: function () {
     var notes = this.state.notes;
     if(notes && notes.length > 0){
+      var initialIdentity = notes[0].id + notes[0].messageType;
       notes = notes.map(function(note, i){
         return <Note key={i}
+                     id={note.id}
                      note={note.note}
                      sender={note.created_by}
-                     sentAt={note.created_at}/>
+                     sentAt={note.created_at}
+                     message={note.message_type}
+                     initialIdentity={initialIdentity}
+               />
       });
     }
     return (
