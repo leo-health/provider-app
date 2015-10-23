@@ -11,9 +11,9 @@ module.exports = React.createClass({
   //},
 
   render: function (){
-    var state = this.props.conversationState;
+    var conversationState = this.props.conversationState;
     var display = "glyphicon pull-right";
-    switch (state){
+    switch (conversationState){
       case "escalated":
         display = display + " glyphicon-exclamation-sign-default";
         break;
