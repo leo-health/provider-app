@@ -7,7 +7,7 @@ module.exports = Reflux.createStore({
   
   onFetchNoteRequest: function (authenticationToken, noteId, messageType) {
     request.get('http://localhost:3000/api/v1/notes/'+ noteId)
-           .query({ authentication_token: authenticationToken, message_type: messageType })
+           .query({ authentication_token: authenticationToken, note_type: messageType })
            .end(function(err, res){
               if(res.ok){
                 NoteActions.fetchNoteRequest.completed(res.body)
