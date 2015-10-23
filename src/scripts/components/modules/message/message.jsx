@@ -4,10 +4,6 @@ var RegularMessage = require('./regularMessage.jsx');
 var SystemMessage = require('./systemMessage.jsx');
 
 module.exports = React.createClass({
-  //componentWillMount: function () {
-  //  debugger
-  //},
-
   render: function () {
     var sentAt = moment(this.props.sentAt).calendar();
     var sender = this.props.sender;
