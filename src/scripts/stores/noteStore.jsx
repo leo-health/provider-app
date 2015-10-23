@@ -5,9 +5,9 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [NoteActions],
   
-  onFetchNoteRequest: function (authenticationToken, conversationId) {
-    request.get('http://localhost:3000/api/v1/conversations/'+ conversationId + '/escalation_notes')
-           .query({ authentication_token: authenticationToken })
+  onFetchNoteRequest: function (authenticationToken, noteId, messageType) {
+    request.get('http://localhost:3000/api/v1/notes/'+ noteId)
+           .query({ authentication_token: authenticationToken, message_type: messageType })
            .end(function(err, res){
               if(res.ok){
                 NoteActions.fetchNoteRequest.completed(res.body)
@@ -19,7 +19,7 @@ module.exports = Reflux.createStore({
 
   onFetchNoteRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   notes: response.data.escalation_notes
+                   new_note: response.data.note
                   })
   },
 

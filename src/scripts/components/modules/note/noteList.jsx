@@ -21,6 +21,14 @@ module.exports = React.createClass({
     return{ notes: []}
   },
 
+  componentDidMount: function(){
+    this.props.stateChanel.bind('new_state', function(data){
+      if(this.state.currentConversationId == data.conversation_id){
+        NoteActions.fetchNoteRequest(localStorage.authenticationToken, data.note_id, data.message_type)
+      }
+    }, this)
+  },
+
   render: function () {
     var notes = this.state.notes;
     if(notes && notes.length > 0){

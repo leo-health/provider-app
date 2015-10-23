@@ -53,7 +53,7 @@ module.exports = React.createClass({
               <MessageList messageChanel={this.messageChanel} stateChanel={this.stateChanel}/>
             </div>
             <div id="right" className="col-lg-3">
-              <NoteList/>
+              <NoteList stateChanel={this.stateChanel}/>
             </div>
           </div>
           <Footer/>
