@@ -2,7 +2,7 @@ var React = require('react');
 
 module.exports = React.createClass({
   removeTopLine: function(){
-    if(this.props.reactKey == 0){
+    if(this.props.reactKey == 0 || this.props.previousType == 'escalation'){
       React.findDOMNode(this.refs[this.props.reactKey]).remove();
     }
   },
@@ -16,20 +16,9 @@ module.exports = React.createClass({
     }
   },
 
-  //removeOpenMessage: function(){
-  //    React.findDOMNode(this.refs["container"]).remove();
-  //},
-
-  removeBottomLine: function(){
-    if(this.props.previousType == 'escalation'){
-      React.findDOMNode(this.refs[this.props.reactKey]).remove();
-    }
-  },
-
   componentDidMount: function(){
     this.removeTopLine();
     this.addOpenMessage();
-    this.removeBottomLine();
   },
 
   render: function() {
