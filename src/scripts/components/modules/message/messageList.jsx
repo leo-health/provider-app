@@ -71,7 +71,7 @@ module.exports = React.createClass({
   render: function () {
     var messages = this.state.messages;
     var currentConversationId = this.state.currentConversationId;
-    if(messages && messages.length > 0){
+    if(messages){
       var count = messages.length;
       var messages = messages.map(function(msg, i){
         var previousType = this.checkClosedMessage(msg);

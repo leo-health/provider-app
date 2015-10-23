@@ -6,7 +6,8 @@ var MessageActions = {
   sendMessageRequest: {asyncResult: true},
   escalateMessageRequest: {asyncResult: true},
   fetchStaffRequest: {asyncResult: true},
-  scrollToNote: {}
+  scrollToNote: {},
+  notifyNoneMessage: {}
 };
 
 module.exports = Reflux.createActions(MessageActions);

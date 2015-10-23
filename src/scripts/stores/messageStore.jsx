@@ -97,5 +97,9 @@ module.exports = Reflux.createStore({
 
   onScrollToNote: function(identity){
     this.trigger({identity: identity})
+  },
+
+  onNotifyNoneMessage: function(){
+    this.trigger({messages: []})
   }
 });
