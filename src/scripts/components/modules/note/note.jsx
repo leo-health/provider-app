@@ -19,16 +19,6 @@ module.exports = React.createClass({
     }
   },
 
-  //componentWillUpdate: function(){
-  //  //debugger
-  //  //if(this.state && this.state.identity){
-  //  //  debugger
-  //  //}
-  //  var identity = this.props.id + this.props.messageType;
-  //  debugger;
-  //  React.findDOMNode(this.refs[identity])
-  //},
-
   render: function(){
     var sentAt = moment(this.props.sentAt).calendar();
     var sender = this.props.sender;
@@ -49,20 +39,3 @@ module.exports = React.createClass({
     )
   }
 });
-
-
-
-
-//"animateNoteById('#closed-123', '#notes-container');"
-
-//function animateNoteById(item, container) {
-//
-//  var itemPositionTop = $(item).position().top;
-//  $(container).animate({scrollTop: itemPositionTop});
-//  if($(item).parent().is("blockquote"))
-//    $(item).unwrap
-//  else
-//    $(item).wrap("<blockquote></blockquote>");
-//}
-
-//"closed-123"

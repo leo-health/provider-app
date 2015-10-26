@@ -1,24 +1,40 @@
 var React = require('react');
 var Reflux = require('reflux');
 var MessageStore = require('../../../stores/messageStore');
+var NoteStore = require('../../../stores/noteStore');
 var NoteActions = require('../../../actions/noteActions');
 var Note = require('./note');
 var _ = require('lodash');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.listenTo(MessageStore, 'onStatusChange')
+    Reflux.listenTo(MessageStore, 'onStatusChange'),
+    Reflux.listenTo(NoteStore, 'onNoteStatusChange')
   ],
 
   onStatusChange: function (status) {
     if(status.messages){
       var notes = _.filter(status.messages, function(m){return m.message_type != 'message'});
-      this.setState({notes: notes})
+      this.setState({notes: notes, currentConversationId: status.currentConversationId})
+    }
+  },
+
+  onNoteStatusChange: function(status){
+    if(status.new_note){
+      this.setState({notes: this.state.notes.concat(status.new_note)})
     }
   },
 
   getInitialState: function(){
     return{ notes: []}
+  },
+
+  componentDidMount: function(){
+    this.props.stateChanel.bind('new_state', function(data){
+      if(data.message_type != "open" && this.state.currentConversationId == data.conversation_id){
+        NoteActions.fetchNoteRequest(localStorage.authenticationToken, data.note_id, data.message_type)
+      }
+    }, this)
   },
 
   render: function () {
