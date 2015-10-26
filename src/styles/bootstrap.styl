@@ -1643,7 +1643,60 @@
 	  padding-left: 15px;
 	  padding-right: 15px;
 	}
-	@media (min-width: 768px) {
+	@media only screen and (min-width: 320px) {
+
+	  /* Small screen, non-retina */
+
+	}
+
+	@media
+	only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 320px),
+	only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 320px),
+	only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 320px),
+	only screen and (        min-device-pixel-ratio: 2)      and (min-width: 320px),
+	only screen and (                min-resolution: 192dpi) and (min-width: 320px),
+	only screen and (                min-resolution: 2dppx)  and (min-width: 320px) {
+
+	  /* Small screen, retina, stuff to override above media query */
+
+	}
+
+	@media only screen and (min-width: 700px) {
+
+	  /* Medium screen, non-retina */
+
+	}
+
+	@media
+	only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 700px),
+	only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 700px),
+	only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 700px),
+	only screen and (        min-device-pixel-ratio: 2)      and (min-width: 700px),
+	only screen and (                min-resolution: 192dpi) and (min-width: 700px),
+	only screen and (                min-resolution: 2dppx)  and (min-width: 700px) {
+
+	  /* Medium screen, retina, stuff to override above media query */
+
+	}
+
+	@media only screen and (min-width: 1300px) {
+
+	  /* Large screen, non-retina */
+
+	}
+
+	@media
+	only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 1300px),
+	only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 1300px),
+	only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 1300px),
+	only screen and (        min-device-pixel-ratio: 2)      and (min-width: 1300px),
+	only screen and (                min-resolution: 192dpi) and (min-width: 1300px),
+	only screen and (                min-resolution: 2dppx)  and (min-width: 1300px) {
+
+	  /* Large screen, retina, stuff to override above media query */
+
+	}
+	/*@media (min-width: 768px) {
 	  .container {
 	    width: 750px;
 	  }
@@ -1666,12 +1719,11 @@
 	  }
 	}
 
-	@media (min-width: 2056px){
+	@media (min-width: 2056px) {
 	  .container {
-		width: 1920px
+	    width: 1920px;
 	  }
-	}
-
+	}*/
 	.container-fluid {
 	  margin-right: auto;
 	  margin-left: auto;
@@ -7600,12 +7652,12 @@
 	  font-size: 18px;
 	  line-height: 24px;
 	}
-	/*Escalation form styles*/
-	#escalation-form {
+	/*Alert form styles*/
+	.alert-form {
 	  color: #fff!important;
 	  font-size:16px;
 	}
-	#escalation-form .form-control {
+	.alert-form .form-control {
 	  color: #fff;
 	}
  }
