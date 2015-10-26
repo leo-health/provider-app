@@ -35,10 +35,10 @@ module.exports = React.createClass({
                                   count={count}/>;
         break;
       case "escalation":
-        message = <SystemMessage id={id} escalatedTo={escalatedTo} messageType={messageType}/>;
+        message = <SystemMessage id={id} escalatedTo={escalatedTo} messageType={messageType} link={this.props.link}/>;
         break;
       case "close":
-        message =  <SystemMessage id={id} closedBy={sender} messageType={messageType}/>;
+        message =  <SystemMessage id={id} closedBy={sender} messageType={messageType} link={this.props.link}/>;
         break;
     }
 

@@ -95,8 +95,8 @@ module.exports = Reflux.createStore({
                    message: "error sending messages"})
   },
 
-  onScrollToNote: function(identity){
-    this.trigger({identity: identity})
+  onScrollToNote: function(noteTarget){
+    this.trigger({noteTarget: noteTarget})
   },
 
   onNotifyNoneMessage: function(){

@@ -84,6 +84,7 @@ module.exports = React.createClass({
                         sentAt={msg.created_at}
                         escalatedTo = {msg.escalated_to}
                         messageType = {msg.message_type}
+                        link={this.props.link}
                />
       }, this);
     }

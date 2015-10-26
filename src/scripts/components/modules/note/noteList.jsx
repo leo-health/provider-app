@@ -47,10 +47,11 @@ module.exports = React.createClass({
                      note={note.note}
                      sender={note.created_by}
                      sentAt={note.created_at}
-                     message={note.message_type}
+                     messageType={note.message_type}
                      initialIdentity={initialIdentity}
+                     element={this.props.element}
                />
-      });
+      }, this);
     }
     return (
       <div id="notes-container" className="pre-scrollable panel panel-body">
