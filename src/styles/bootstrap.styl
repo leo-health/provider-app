@@ -1,4 +1,4 @@
- @css {
+@css {
 	@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
 	/*!
 	 * bootswatch v3.3.5
@@ -1640,10 +1640,63 @@
 	.container {
 	  margin-right: auto;
 	  margin-left: auto;
-	  padding-left: 15px;
-	  padding-right: 15px;
+	  padding-left: 45px;
+	  padding-right: 45px;
 	}
-	@media (min-width: 768px) {
+	@media only screen and (min-width: 320px) {
+
+	  /* Small screen, non-retina */
+
+	}
+
+	@media
+	only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 320px),
+	only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 320px),
+	only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 320px),
+	only screen and (        min-device-pixel-ratio: 2)      and (min-width: 320px),
+	only screen and (                min-resolution: 192dpi) and (min-width: 320px),
+	only screen and (                min-resolution: 2dppx)  and (min-width: 320px) {
+
+	  /* Small screen, retina, stuff to override above media query */
+
+	}
+
+	@media only screen and (min-width: 700px) {
+
+	  /* Medium screen, non-retina */
+
+	}
+
+	@media
+	only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 700px),
+	only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 700px),
+	only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 700px),
+	only screen and (        min-device-pixel-ratio: 2)      and (min-width: 700px),
+	only screen and (                min-resolution: 192dpi) and (min-width: 700px),
+	only screen and (                min-resolution: 2dppx)  and (min-width: 700px) {
+
+	  /* Medium screen, retina, stuff to override above media query */
+
+	}
+
+	@media only screen and (min-width: 1300px) {
+
+	  /* Large screen, non-retina */
+
+	}
+
+	@media
+	only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 1300px),
+	only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 1300px),
+	only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 1300px),
+	only screen and (        min-device-pixel-ratio: 2)      and (min-width: 1300px),
+	only screen and (                min-resolution: 192dpi) and (min-width: 1300px),
+	only screen and (                min-resolution: 2dppx)  and (min-width: 1300px) {
+
+	  /* Large screen, retina, stuff to override above media query */
+
+	}
+	/*@media (min-width: 768px) {
 	  .container {
 	    width: 750px;
 	  }
@@ -1653,25 +1706,16 @@
 	    width: 970px;
 	  }
 	}
-
 	@media (min-width: 1200px) {
 	  .container {
 	    width: 1170px;
 	  }
 	}
-
-	@media (min-width: 1680px) {
+	@media (min-width: 2056px) {
 	  .container {
-	    width: 1600px;
+	    width: 1920px;
 	  }
-	}
-
-	@media (min-width: 2056px){
-	  .container {
-		width: 1920px
-	  }
-	}
-
+	}*/
 	.container-fluid {
 	  margin-right: auto;
 	  margin-left: auto;
@@ -3562,7 +3606,6 @@
 	}
 	.btn-sm,
 	.btn-group-sm > .btn {
-	  margin-right: 5px;
 	  padding: 5px 10px;
 	  font-size: 12px;
 	  line-height: 1.5;
@@ -7600,12 +7643,12 @@
 	  font-size: 18px;
 	  line-height: 24px;
 	}
-	/*Escalation form styles*/
-	#escalation-form {
+	/*Alert form styles*/
+	.alert-form {
 	  color: #fff!important;
 	  font-size:16px;
 	}
-	#escalation-form .form-control {
+	.alert-form .form-control {
 	  color: #fff;
 	}
- }
+}
