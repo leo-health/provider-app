@@ -37,7 +37,7 @@ module.exports = React.createClass({
     }, this);
 
     this.props.stateChanel.bind('new_state', function(data){
-      if(this.state.currentConversationId == data.conversation_id){
+      if(this.state.currentConversationId == data.conversation_id && data.message_type != "open"){
         this.setState({messages: this.state.messages.concat(data)})
       }
     }, this)
