@@ -29,7 +29,7 @@ module.exports = React.createClass({
   },
 
   getInitialState: function(){
-    return{ notes: [], highlightNoteKey: null}
+    return{ notes: [] }
   },
 
   componentDidMount: function(){
@@ -38,6 +38,13 @@ module.exports = React.createClass({
         NoteActions.fetchNoteRequest(localStorage.authenticationToken, data.id, data.message_type)
       }
     }, this)
+  },
+
+  scrollElementIntoView: function(domNode){
+
+    var containerDomNode = React.findDOMNode(domNode);
+    var test = React.findDOMNode(this);
+    test.scrollTop = containerDomNode.scrollHeight;
   },
 
   sethighlightNoteKey: function(notes){
@@ -75,6 +82,7 @@ module.exports = React.createClass({
                      sentAt={note.created_at}
                      messageType={note.message_type}
                      tagName={tagName}
+                     scrollIntoView={this.scrollElementIntoView}
                />
       }, this);
     }
