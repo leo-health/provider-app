@@ -1,12 +1,12 @@
 var React = require('react');
-var MessageActions = require('../../../actions/messageActions');
+var NoteActions = require('../../../actions/noteActions');
 var ReactDOM = require('react-dom');
 var Scroll = require('react-scroll');
 
 module.exports = React.createClass({
   handleClick: function(){
-    var noteTarget = this.props.id + this.props.messageType;
-    MessageActions.scrollToNote(noteTarget);
+    var highlightNoteKey = this.props.id.toString() + this.props.messageType;
+    NoteActions.scrollToNote(highlightNoteKey);
   },
 
   render: function() {
@@ -19,15 +19,11 @@ module.exports = React.createClass({
       message = "Case closed by " + this.props.closedBy;
       tagClass = "primary"
     }
-    var noteTarget = this.props.id.toString() + this.props.messageType;
-    var link = this.props.link;
     return(
       <div className="inline-hr">
-        <link to={noteTarget} spy={true} smooth={true} duration={500}>
-          <span className={tagClass}>
-            {message}
-          </span>
-        </link>
+        <span className={tagClass} onClick={this.handleClick}>
+          {message}
+        </span>
       </div>
     )
   }

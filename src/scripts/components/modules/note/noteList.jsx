@@ -23,10 +23,13 @@ module.exports = React.createClass({
     if(status.new_note){
       this.setState({notes: this.state.notes.concat(status.new_note)})
     }
+    if(status.highlightNoteKey){
+      this.setState(status)
+    }
   },
 
   getInitialState: function(){
-    return{ notes: []}
+    return{ notes: [], highlightNoteKey: null}
   },
 
   componentDidMount: function(){
@@ -37,19 +40,41 @@ module.exports = React.createClass({
     }, this)
   },
 
+  sethighlightNoteKey: function(notes){
+    var initialNoteKey = notes[0].id.toString() + notes[0].message_type;
+    var highlightNoteKey;
+    if(this.state.highlightNoteKey){
+      highlightNoteKey = this.state.highlightNoteKey
+    }else{
+      highlightNoteKey = initialNoteKey
+    }
+    return highlightNoteKey
+  },
+
+  setTagName: function(highlightNoteKey, note){
+    var tagName;
+    if(highlightNoteKey == note.id.toString() + note.message_type) {
+      tagName = 'blockquote'
+    }else{
+      tagName = 'div'
+    }
+    return tagName
+  },
+
   render: function () {
     var notes = this.state.notes;
     if(notes && notes.length > 0){
-      var initialIdentity = notes[0].id + notes[0].messageType;
+      var highlightNoteKey = this.sethighlightNoteKey(notes);
       notes = notes.map(function(note, i){
+        var tagName = this.setTagName(highlightNoteKey, note);
         return <Note key={i}
+                     reactKey={i}
                      id={note.id}
                      note={note.note}
                      sender={note.created_by}
                      sentAt={note.created_at}
                      messageType={note.message_type}
-                     initialIdentity={initialIdentity}
-                     element={this.props.element}
+                     tagName={tagName}
                />
       }, this);
     }

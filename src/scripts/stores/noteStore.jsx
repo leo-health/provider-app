@@ -26,5 +26,9 @@ module.exports = Reflux.createStore({
   onFetchNoteRequestFailed: function(response){
     this.trigger({ status: response.status,
                    message: "error fetching notes"})
+  },
+
+  onScrollToNote: function(highlightNoteKey){
+    this.trigger({highlightNoteKey: highlightNoteKey})
   }
 });
