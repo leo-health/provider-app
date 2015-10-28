@@ -2,7 +2,7 @@ var React = require('react');
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return {conversationState: this.props.conversationState}
+    return {conversationState: null}
   },
 
   componentDidMount: function(){
@@ -14,7 +14,7 @@ module.exports = React.createClass({
   },
 
   render: function (){
-    var conversationState = this.state.conversationState;
+    var conversationState = this.props.conversationState;
     var display = "glyphicon pull-right";
     switch (conversationState){
       case "escalated":
