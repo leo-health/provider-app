@@ -1,7 +1,4 @@
-var React = require('react');
-var Reflux = require('reflux');
-var RegistrationAction = require('../../../actions/registrationActions');
-var Router = require('react-router').Navigation;
+var Router = require('react-router');
 var classnames = require('classnames');
 
 var validation = require('react-validation-mixin');
@@ -26,21 +23,10 @@ var SignUpForm = React.createClass({
     })
   },
 
-  getInitialState: function(){
-    return{
-      message: "",
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: "",
-      passwordconfirmation: ""
-    }
-  },
-
   renderMessage: function(messages, labelText){
     console.log(messages);
     var messageClass = classnames({
-      'text-danger': messages.length !== 0,
+      'text-danger': messages.length > 0,
       'text-muted': messages.length === 0
     });
     var labelToShow = (messages.length === 0 ? labelText : messages[0]);
@@ -48,25 +34,15 @@ var SignUpForm = React.createClass({
   },
 
   getValidatorData: function(){
-    return {
-      firstname: React.findDOMNode(this.refs.firstname).value,
-      lastname: React.findDOMNode(this.refs.lastname).value,
-      email: React.findDOMNode(this.refs.email).value,
-      password: React.findDOMNode(this.refs.password).value,
-      passwordconfirmation: React.findDOMNode(this.refs.passwordconfirmation).value
-    }
+    return this.props;
   },
 
   handleOnSubmit: function (e) {
     e.preventDefault();
 
     var onValidate = function(error, validationErrors) {
-      if(error){
-        console.log(error);
-      } else {
-        console.log(this.props.errors)
-      }
 
+      // This is a placeholder
 
     }
     this.props.validate(onValidate);
@@ -84,15 +60,15 @@ var SignUpForm = React.createClass({
               </div>
               <fieldset>
                 <div className="form-group">
-                  <input type="text" className="form-control" placeholder="First name" onBlur={this.props.handleValidation('firstname')} ref="firstname"/>
+                  <input type="text" className="form-control" placeholder="First name" onChange={this.props.handleValidation('firstname')} ref="firstname"/>
                   {this.renderMessage(this.props.getValidationMessages('firstname'), "first name")}
-                  <input type="text" className="form-control" id="inputLast" placeholder="Last name" onBlur={this.props.handleValidation('lastname')} ref="lastname"/>
+                  <input type="text" className="form-control" id="inputLast" placeholder="Last name" onChange={this.props.handleValidation('lastname')} ref="lastname"/>
                   {this.renderMessage(this.props.getValidationMessages('lastname'), "last name")}
-                  <input type="text" className="form-control" id="inputEmail" placeholder="E-mail address" onBlur={this.props.handleValidation('email')} ref="email"/>
+                  <input type="text" className="form-control" id="inputEmail" placeholder="E-mail address" onChange={this.props.handleValidation('email')} ref="email"/>
                   {this.renderMessage(this.props.getValidationMessages('email'), "e-mail")}
-                  <input type="password" className="form-control" id="inputPassword" placeholder="Password" onBlur={this.props.handleValidation('password')} ref="password"/>
+                  <input type="password" className="form-control" id="inputPassword" placeholder="Password" onChange={this.props.handleValidation('password')} ref="password"/>
                   {this.renderMessage(this.props.getValidationMessages('password'), "password")}
-                  <input type="password" className="form-control" id="inputPasswordConfirm" placeholder="Re-type password" onBlur={this.props.handleValidation('passwordconfirmation')} ref="passwordconfirmation"/>
+                  <input type="password" className="form-control" id="inputPasswordConfirm" placeholder="Re-type password" onChange={this.props.handleValidation('passwordconfirmation')} ref="passwordconfirmation"/>
                   {this.renderMessage(this.props.getValidationMessages('passwordconfirmation'), "password confirmation")}
                 </div>
                 <div className="form-group text-center">
