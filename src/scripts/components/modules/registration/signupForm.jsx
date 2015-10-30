@@ -12,17 +12,17 @@ var strategy = require('joi-validation-strategy');
 
 
 var SignUpForm = React.createClass({
-  mixins: [Router.Navigation, Reflux.connect(RegistrationStore)],
+  mixins: [Router.Navigation, Reflux.listenTo(RegistrationStore, "commonCallback")],
 
   componentWillMount: function(){
-    console.log(this.context.router.getCurrentQuery().token);
+
     RegistrationActions.fetchEnrollmentRequest(this.context.router.getCurrentQuery().token);
   },
 
   validatorTypes: {
     firstname: Joi.string().min(2).trim().required().label("First name"),
     lastname: Joi.string().min(2).trim().required().label("Last name"),
-    email: Joi.string().email().trim().required().label("E-mail address"),
+    email: Joi.string().required().regex(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
     phone: Joi.string().required().regex(/(\(?[0-9]{3}\)?|[0-9]{3}).?[0-9]{3}.?[0-9]{4}/, "US phone number").label("Phone"),
     password: Joi.string().min(8).max(127).trim().required().label("Password"),
     passwordconfirmation: Joi.any().valid(Joi.ref('password')).required().label("Password confirmation").options({
@@ -44,7 +44,41 @@ var SignUpForm = React.createClass({
     return <label className={messageClass}>{labelToShow}</label>
   },
 
- getValidatorData: function(){
+  commonCallback: function(response){
+
+    if(response.status != "error"){
+      switch(response.action) {
+        case "fetch": {
+          this.setState({firstname: response.data.user.first_name});
+          this.setState({lastname: response.data.user.last_name});
+          this.setState({email: response.data.user.email});
+          break;
+        } case "update": {
+          this.transitionTo("success");
+          break;
+        }
+        case "convert": {
+          this.transitionTo("success");
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    }else{
+      this.transitionTo("success");
+    }
+  },
+
+  getInitialState: function() {
+    return({
+      firstname: "",
+      lastname: "",
+      email: ""
+    })
+  },
+
+  getValidatorData: function(){
     return {
       firstname: React.findDOMNode(this.refs.firstname).value,
       lastname: React.findDOMNode(this.refs.lastname).value,
@@ -87,11 +121,11 @@ var SignUpForm = React.createClass({
               </div>
               <fieldset>
                 <div className="form-group">
-                  <input type="text" className="form-control" placeholder="First name" onChange={this.props.handleValidation('firstname')} ref="firstname"/>
+                  <input type="text" className="form-control" placeholder="First name" value={this.state.firstname} onChange={this.props.handleValidation('firstname')} ref="firstname"/>
                   {this.renderMessage(this.props.getValidationMessages('firstname'), "first name")}
-                  <input type="text" className="form-control" placeholder="Last name" onChange={this.props.handleValidation('lastname')} ref="lastname"/>
+                  <input type="text" className="form-control" placeholder="Last name" value={this.state.lastname} onChange={this.props.handleValidation('lastname')} ref="lastname"/>
                   {this.renderMessage(this.props.getValidationMessages('lastname'), "last name")}
-                  <input type="text" className="form-control" placeholder="E-mail address" onChange={this.props.handleValidation('email')} ref="email"/>
+                  <input type="text" className="form-control" placeholder="E-mail address" value={this.state.email} onChange={this.props.handleValidation('email')} ref="email"/>
                   {this.renderMessage(this.props.getValidationMessages('email'), "e-mail")}
                   <input type="text" className="form-control" placeholder="Phone number" onChange={this.props.handleValidation('phone')} ref="phone"/>
                   {this.renderMessage(this.props.getValidationMessages('phone'), "phone")}
