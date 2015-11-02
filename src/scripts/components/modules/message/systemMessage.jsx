@@ -28,8 +28,3 @@ module.exports = React.createClass({
     )
   }
 });
-
-
-//<a href="#" onClick={this.handleClick}>
-//  {message}
-//</a>
