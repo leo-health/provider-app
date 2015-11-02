@@ -138,7 +138,6 @@ gulp.task "webpack-dev-server", (callback) ->
 gulp.task('clean-dest', (done) ->
     del([paths.dest + '/*'], done)
 )
-
 ########################################################
 # Below are the recommended gulp commands for new users
 ########################################################

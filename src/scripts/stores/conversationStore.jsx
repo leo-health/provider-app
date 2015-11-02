@@ -1,6 +1,8 @@
 var Reflux = require('reflux'),
     request = require('superagent'),
-    ConversationActions = require('../actions/conversationActions');
+    ConversationActions = require('../actions/conversationActions'),
+    MessageActions = require('../actions/messageActions'),
+    NoteActions = require('../actions/noteActions');
 
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
@@ -11,20 +13,29 @@ module.exports = Reflux.createStore({
     }else{
       conversationParams = {authentication_token: authenticationToken}
     }
-    request.get('http://localhost:3000/api/v1/conversations')
+    request.get('https://dev.leoforkids.com/api/v1/conversations')
            .query(conversationParams)
            .end(function(err, res){
               if(res.ok){
-                ConversationActions.fetchConversationRequest.completed(res.body)
+                ConversationActions.fetchConversationRequest.completed(res.body, status)
               }else{
                 ConversationActions.fetchConversationRequest.failed(res.body)
               }
             })
   },
 
-  onFetchConversationRequestCompleted: function(response){
+  onFetchConversationRequestCompleted: function(response, status){
+    var conversations = response.data.conversations;
+    if (conversations.length > 0){
+      var firstConversationId = response.data.conversations[0].id;
+      MessageActions.fetchMessagesRequest(localStorage.authenticationToken, firstConversationId);
+      NoteActions.fetchNoteRequest(localStorage.authenticationToken, firstConversationId) ;
+    }
     this.trigger({ status: response.status,
-                   conversations: response.data.conversations })
+                   conversations: conversations,
+                   init: true,
+                   conversationStatus: status
+                  });
   },
 
   onFetchConversationRequestFailed: function(response){
@@ -37,7 +48,7 @@ module.exports = Reflux.createStore({
   },
 
   onCloseConversationRequest: function(authenticationToken, conversationId){
-    request.put('http://localhost:3000/api/v1/conversations/' + conversationId)
+    request.put('https://dev.leoforkids.com/api/v1/conversations/' + conversationId)
         .query({ authentication_token: authenticationToken })
         .end(function(err, res){
           if(res.ok){

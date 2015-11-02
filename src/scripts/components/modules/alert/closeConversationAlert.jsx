@@ -1,10 +1,12 @@
 var React = require('react');
+var Reflux = require('reflux');
 var ConversationActions = require('../../../actions/conversationActions');
 
 module.exports = React.createClass({
   handleClick: function (e) {
     e.preventDefault();
-    ConversationActions.closeConversationRequest(localStorage.authenticationToken, this.props.conversationId)
+    ConversationActions.closeConversationRequest(localStorage.authenticationToken, this.props.conversationId);
+    React.findDOMNode(this).remove();
   },
 
   render: function () {
