@@ -46,10 +46,9 @@ var SignUpForm = React.createClass({
     if(response.status != "error"){
       switch(response.action) {
         case "fetch": {
-          this.setState({
-            firstName: response.data.user.first_name,
-            lastName: response.data.user.last_name,
-            email: response.data.user.email});
+          React.findDOMNode(this.refs.firstName).value = response.data.user.first_name;
+          React.findDOMNode(this.refs.lastName).value = response.data.user.last_name;
+          React.findDOMNode(this.refs.email).value = response.data.user.email;
           break;
         } case "update": {
           this.transitionTo("success");
@@ -66,14 +65,6 @@ var SignUpForm = React.createClass({
     }else{
       this.transitionTo("success");
     }
-  },
-
-  getInitialState: function() {
-    return({
-      firstName: "",
-      lastName: "",
-      email: ""
-    })
   },
 
   getValidatorData: function(){
@@ -93,6 +84,7 @@ var SignUpForm = React.createClass({
       if (error) {
         return;
       } else {
+        debugger
         var registrationParams = {
           firstName: React.findDOMNode(this.refs.firstName).value,
           lastName: React.findDOMNode(this.refs.lastName).value,
@@ -119,11 +111,11 @@ var SignUpForm = React.createClass({
               </div>
               <fieldset>
                 <div className="form-group">
-                  <input type="text" className="form-control" placeholder="First name" value={this.state.firstName} onChange={this.props.handleValidation('firstName')} ref="firstName"/>
+                  <input type="text" className="form-control" placeholder="First name" onChange={this.props.handleValidation('firstName')} ref="firstName"/>
                   {this.renderMessage(this.props.getValidationMessages('firstName'), "first name")}
-                  <input type="text" className="form-control" placeholder="Last name" value={this.state.lastName} onChange={this.props.handleValidation('lastName')} ref="lastName"/>
+                  <input type="text" className="form-control" placeholder="Last name" onChange={this.props.handleValidation('lastName')} ref="lastName"/>
                   {this.renderMessage(this.props.getValidationMessages('lastName'), "last name")}
-                  <input type="text" className="form-control" placeholder="E-mail address" value={this.state.email} onChange={this.props.handleValidation('email')} ref="email"/>
+                  <input type="text" className="form-control" placeholder="E-mail address" onChange={this.props.handleValidation('email')} ref="email"/>
                   {this.renderMessage(this.props.getValidationMessages('email'), "e-mail")}
                   <input type="text" className="form-control" placeholder="Phone number" onChange={this.props.handleValidation('phone')} ref="phone"/>
                   {this.renderMessage(this.props.getValidationMessages('phone'), "phone")}
