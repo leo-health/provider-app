@@ -84,7 +84,6 @@ var SignUpForm = React.createClass({
       if (error) {
         return;
       } else {
-        debugger
         var registrationParams = {
           firstName: React.findDOMNode(this.refs.firstName).value,
           lastName: React.findDOMNode(this.refs.lastName).value,
