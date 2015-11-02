@@ -35,8 +35,8 @@ module.exports = Reflux.createStore({
     request.put("http://localhost:3000/api/v1/enrollments/current")
            .send({
               authentication_token: token,
-              first_name: enrollmentParams.firstname,
-              last_name: enrollmentParams.lastname,
+              first_name: enrollmentParams.firstName,
+              last_name: enrollmentParams.lastName,
               email: enrollmentParams.email,
               phone: enrollmentParams.phone,
               password: enrollmentParams.password
