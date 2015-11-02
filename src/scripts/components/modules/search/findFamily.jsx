@@ -1,34 +1,63 @@
 var React = require('react');
+var Reflux = require('reflux');
+var Autosuggest = require('react-autosuggest');
+var UserActions = require('../../../actions/userActions');
+var UserStore = require('../../../stores/userStore');
+const suburbs = ['Cheltenham', 'Mill Park', 'Mordialloc', 'Nunawading'];
 
 module.exports = React.createClass({
-  getInitialState: function(){
-    return {query: ''}
+  mixins: [
+    Reflux.listenTo(UserStore, 'onStatusChange')
+  ],
+
+  onStatusChange: function(status){
+    if(status.guardians){
+      this.setState({ guardians: status.guardians })
+    }else if(status.patients){
+      this.setState({ patients: status.patients })
+    }else{
+      return
+    }
   },
 
-  componentDidMount: function(){
-    var suggests = new Bloodhound({
-      initialize: false,
-      local: ['dog', 'pig', 'moose'],
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      datumTokenizer: Bloodhound.tokenizers.whitespace
-    });
+  getSuggestions: function(input, callback){
+    if(input.length < 3){ return }
+    this.getFamilyNames(input);
+    if(this.state.guardians){
 
-    var promise = suggests.initialize();
+    }
 
-    promise
-    .done(function() { console.log('ready to go!'); })
-    .fail(function() { console.log('err, something went wrong :('); });
+    callback(null, suggestions)
+  },
+
+  getFamilyNames: function(query){
+    UserActions.fetchGuardians(localStorage.authenticationToken, query)
+  },
+
+  handleChange: function(e){
+    this.setState({ query: e.target.value.trim() })
   },
 
   render: function () {
+    const inputAttributes = {
+      placeholder: 'Find family'
+    };
+
     return (
       <div className="panel panel-heading">
-        <form className="form">
-          <input type="text"
-                 className="form-control"
-                 placeholder="Find family"/>
-        </form>
+        <Autosuggest suggestions={this.getSuggestions}
+                     inputAttributes={inputAttributes}/>
       </div>
     )
   }
 });
+
+//<form className="form">
+//  <input type="text"
+//         ref="suggestion"
+//         className="form-control"
+//         placeholder="Find family"
+//         value={this.state.query}
+//         onChange={this.handleChange}
+//         onBlur={this.hanleChange}/>
+//</form>
