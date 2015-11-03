@@ -4,6 +4,10 @@ var RegularMessage = require('./regularMessage.jsx');
 var SystemMessage = require('./systemMessage.jsx');
 
 module.exports = React.createClass({
+  formatName: function(name){
+    return name.title + ". " + name.first_name + " " + name.last_name;
+  },
+
   render: function () {
     var sentAt = moment(this.props.sentAt).calendar();
     var sender = this.props.sender;
@@ -16,10 +20,9 @@ module.exports = React.createClass({
     var closed = this.props.closed;
     var escalated = this.props.escalated;
     var previousType = this.props.previousType;
-    sender = sender.title + ". " + sender.first_name + " " + sender.last_name;
-
+    sender = this.formatName(sender);
     if (escalatedTo){
-      escalatedTo = escalatedTo.title + ". " + escalatedTo.first_name + " " + escalatedTo.last_name;
+      escalatedTo = this.formatName(escalatedTo);
     }
 
     var message;
