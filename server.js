@@ -1,15 +1,9 @@
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var config = require('./webpack.config.js');
+var express = require("express");
+var app = express();
 
-new WebpackDevServer(webpack(config), {
-  publicPath: 'public',
-  hot: true,
-  historyApiFallback: true
-}).listen(8081, 'localhost', function (err, result) {
-  if (err) {
-    console.log(err);
-  }
+app.use(express.static(__dirname + '/public'))
 
-  console.log('Listening at localhost:8081');
+var port = process.env.PORT || 8081;
+app.listen(port, function() {
+	console.log("Server listening on port " + port);
 });
