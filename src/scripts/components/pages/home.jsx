@@ -9,10 +9,6 @@ var ConversationHeader = require('../modules/conversation/conversationHeader');
 var MessageList = require('../modules/message/messageList');
 var NoteList = require('../modules/note/noteList');
 var Footer = require('./footer');
-var ReactDOM = require('react-dom');
-var Scroll = require('react-scroll');
-var Link = Scroll.Link;
-var Element = Scroll.Element;
 var _ = require('lodash');
 
 module.exports = React.createClass({
@@ -54,10 +50,10 @@ module.exports = React.createClass({
               <ConversationList stateChanel={this.stateChanel} conversations={conversations}/>
             </div>
             <div id="middle" className="col-lg-6">
-              <MessageList messageChanel={this.messageChanel} stateChanel={this.stateChanel} link={Link}/>
+              <MessageList messageChanel={this.messageChanel} stateChanel={this.stateChanel}/>
             </div>
             <div id="right" className="col-lg-3">
-              <NoteList stateChanel={this.stateChanel} element={Element}/>
+              <NoteList stateChanel={this.stateChanel}/>
             </div>
           </div>
           <Footer/>

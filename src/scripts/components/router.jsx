@@ -9,7 +9,9 @@ var App = require('./app'),
     Login = require('./pages/login'),
     Home = require('./pages/home'),
     ResetPassword = require('./pages/resetPassword'),
-    ChangePassword = require('./pages/changePassword');
+    ChangePassword = require('./pages/changePassword'),
+    Registration = require('./pages/registration');
+    Success = require('./pages/success');
 
 var routes = (
   <Route handler={App}>
@@ -17,6 +19,8 @@ var routes = (
     <Route name="login" handler={Login}/>
     <Route name ="resetPassword" handler={ResetPassword} />
     <Route name ="changePassword" handler={ChangePassword} />
+    <Route name ="registration" handler={Registration} />
+    <Route name ="success" handler={Success} />
     <Route name="home" handler={Home}/>
   </Route>
 );
