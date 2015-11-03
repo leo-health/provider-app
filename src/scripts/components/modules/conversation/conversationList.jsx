@@ -1,39 +1,45 @@
 var React = require('react');
-var Reflux = require('reflux');
-var ConversationActions = require('../../../actions/conversationActions');
-var ConversationStore = require('../../../stores/conversationStore');
-var ConversationHeader = require('./conversationHeader');
 var Conversation = require('./conversation');
+var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
-  mixins: [
-    Reflux.connect(ConversationStore)
-  ],
+  handleOnClick: function(i, conversationId){
+    this.setState({selectedConversation: i});
+    MessageActions.fetchMessagesRequest(localStorage.authenticationToken, conversationId);
+  },
 
-  componentWillMount: function(){
-    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open");
+  getInitialState: function () {
+    return {selectedConversation: 0}
+  },
+
+  componentWillReceiveProps: function(){
+    this.setState({selectedConversation: 0});
   },
 
   render: function () {
-    var conversations = this.state.conversations;
-    if (this.state.status == "ok") {
+    var conversations = this.props.conversations;
+    if (conversations) {
       conversations = conversations.map(function(conversation, i){
+        var selected = this.state.selectedConversation == i;
+        var boundClick = this.handleOnClick.bind(this, i, conversation.id);
         return (
           <Conversation key = {i}
-                        reactKey = {i}
-                        conversation_id = {conversation.id}
+                        selected = {selected}
+                        conversationId = {conversation.id}
                         lastMessage = {conversation.last_message}
                         guardian = {conversation.primary_guardian}
                         patients = {conversation.users.patients}
                         createdAt = {conversation.last_message_created_at }
-                        conversationStatus = {conversation.status}
+                        conversationState = {conversation.state}
+                        messages = {conversation.messages}
+                        stateChanel = {this.props.stateChanel}
+                        onClick = {boundClick}
           />
         )
-      })
+      }, this)
     }
     return (
       <div>
-        <ConversationHeader/>
         <div id="content" className="tab-content">
           <div className="tab-pane fade active in" id="all-tab">
             <div className="panel panel-default pre-scrollable-left">
@@ -43,5 +49,5 @@ module.exports = React.createClass({
         </div>
       </div>
     )
-  }      
+  }
 });

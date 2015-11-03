@@ -39,19 +39,19 @@ module.exports = Reflux.createStore({
 
   onResetPasswordRequestFailed: function(response){
     this.trigger({status: response.status,
-                  message: response.data.error_message,
+                  message: response.message.error_message,
                   button: "Try again"})
   },
 
   onChangePasswordRequestCompleted: function(response){
     this.trigger({status: response.status,
-                  message: "Password changed successfully",
+                  message: "Password changed successfully.",
                   button: "Login"})
   },
 
   onChangePasswordRequestFailed: function(response){
     this.trigger({status: response.status,
-                  message: response.data.error_message,
+                  message: response.message.error_message,
                   button: "Submit"})
   }
 });

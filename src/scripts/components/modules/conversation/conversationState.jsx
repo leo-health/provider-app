@@ -1,21 +1,22 @@
 var React = require('react');
 
 module.exports = React.createClass({
-  //componentWillMount: function(){
-  //  this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
-  //  this.statusChanel = this.pusher.subscribe(localStorage.email)
-  //},
-  //
-  //componentDidMount: function(){
-  //  this.messageChanel.bind('new_message', function(message){
-  //    this.setState({messages: this.state.messages.concat(message)})
-  //  }, this);
-  //},
+  getInitialState: function(){
+    return {conversationState: null}
+  },
+
+  componentDidMount: function(){
+    this.props.stateChanel.bind('new_state', function(data){
+      if(data.conversation_id == this.props.conversationId){
+        this.setState({conversationState: data.message_type})
+      }
+    }, this);
+  },
 
   render: function (){
-    var status = this.props.status;
+    var conversationState = this.props.conversationState;
     var display = "glyphicon pull-right";
-    switch (status){
+    switch (conversationState){
       case "escalated":
         display = display + " glyphicon-exclamation-sign-default";
         break;

@@ -3,7 +3,6 @@ var Reflux = require('reflux');
 var PasswordActions = require('../../../actions/passwordActions');
 var PasswordStore = require('../../../stores/passwordStore');
 var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
 var Navigation = Router.Navigation;
 var SuccessAlert = require('../alert/successAlert');
 var ErrorAlert = require('../alert/errorAlert');

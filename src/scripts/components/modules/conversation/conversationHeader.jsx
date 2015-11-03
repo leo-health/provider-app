@@ -2,8 +2,8 @@ var React = require('react');
 var ConversationActions = require('../../../actions/conversationActions');
 
 module.exports = React.createClass({
-  handleClick: function(status){
-    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, status);
+  handleClick: function(state){
+    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, state);
   },
 
   render: function () {

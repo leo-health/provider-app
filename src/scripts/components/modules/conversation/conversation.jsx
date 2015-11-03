@@ -1,35 +1,11 @@
 var React = require('react');
-var Reflux = require('reflux');
 var _ = require('lodash');
 var moment = require('moment');
-var ConversationStore = require('../../../stores/conversationStore');
-var ConversationStatus = require("./conversationStatus");
+var ConversationState = require("./conversationState");
 var ConversationPatient = require("./conversationPatient");
 var MessageActions = require('../../../actions/messageActions');
-var ConversationActions = require('../../../actions/conversationActions');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
-
-  handleOnClick: function(){
-    ConversationActions.selectConversation(this.props.reactKey);
-    var currentConversationId = this.props.conversation_id;
-    var authenticationToken = localStorage.authenticationToken;
-    MessageActions.fetchMessageRequest(authenticationToken, currentConversationId);
-  },
-
-  onStatusChange: function(status){
-    this.setState(status)
-  },
-
-  getInitialState: function () {
-    return {selectedConversation: 0}
-  },
-
-  componentWillMount: function(){
-
-  },
-
   render: function () {
     var lastMessage = this.props.lastMessage.body;
     var guardian = this.props.guardian;
@@ -39,6 +15,8 @@ module.exports = React.createClass({
       lastMessage = shortMessage.substr(0, shortMessage.lastIndexOf(" ")) + "...";
     }
     var messageSendAt = moment(this.props.createdAt).calendar();
+    var conversationState = this.props.conversationState;
+    var conversationId = this.props.conversationId;
     var patients = this.props.patients.map(function(patient){
       return (
         <ConversationPatient key = {patient.id}
@@ -47,19 +25,17 @@ module.exports = React.createClass({
       )
     });
     return(
-      <div onClick={this.handleOnClick}>
-        <a href="#" className={this.state.selectedConversation == this.props.reactKey ? "list-group-item active" : "list-group-item"}>
-          <h6 className="list-group-item-heading">{guardian}
-            <span className="pull-right">{messageSendAt}</span>
-          </h6>
-          <p className = "patientList">
-            {patients}
-            <ConversationStatus status = {this.props.conversationStatus}/>
-          </p>
-          <p className="list-group-item-text">
-            {lastMessage}
-          </p>
-        </a>
+      <div href="#" className={this.props.selected ? "list-group-item active" : "list-group-item"} onClick={this.props.onClick}>
+        <h6 className="list-group-item-heading">{guardian}
+          <span className="pull-right">{messageSendAt}</span>
+        </h6>
+        <p className = "patientList">
+          {patients}
+          <ConversationState conversationState = {conversationState} conversationId = {conversationId} stateChanel = {this.props.stateChanel}/>
+        </p>
+        <p className="list-group-item-text">
+          {lastMessage}
+        </p>
       </div>
     )
   }

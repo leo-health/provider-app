@@ -5,31 +5,77 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [MessageActions],
 
-  onFetchMessageRequest: function(authenticationToken, currentConversationId){
-    request.get("http://localhost:3000/api/v1/conversations/"+ currentConversationId +"/messages")
-           .query({ authentication_token: authenticationToken })
-           .end(function(err, res){
-              if(res.ok){
-                MessageActions.fetchMessageRequest.completed(res.body)
-              }else{
-                MessageActions.fetchMessageRequest.failed(res.body)
-              }
-            });
+  onFetchStaffRequest: function(authenticationToken){
+    request.get('http://localhost:3000/api/v1/staff')
+        .query({authentication_token: authenticationToken})
+        .end(function(err, res){
+          if(res.ok){
+            MessageActions.fetchStaffRequest.completed(res.body)
+          }else{
+            MessageActions.fetchStaffRequest.failed(res.body)
+          }
+        })
   },
 
-  onFetchMessageRequestCompleted: function(response){
+  onFetchStaffRequestCompleted: function(response){
+    this.trigger({status: response.status,
+                  staff: response.data.staff})
+  },
+
+  onFetchStaffRequestFailed: function(response){
+    this.trigger({status: response.status,
+                  message: "error fetching staff"})
+  },
+
+  onFetchMessagesRequest: function(authenticationToken, currentConversationId){
+    request.get("http://localhost:3000/api/v1/conversations/"+ currentConversationId +"/messages/full")
+        .query({ authentication_token: authenticationToken })
+        .end(function(err, res){
+          if(res.ok){
+            MessageActions.fetchMessagesRequest.completed(res.body)
+          }else{
+            MessageActions.fetchMessagesRequest.failed(res.body)
+          }
+        });
+  },
+
+  onFetchMessagesRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   messages: response.data.messages })
+                   messages: response.data.messages.reverse(),
+                   currentConversationId: response.data.conversation_id })
   },
 
-  onFetchMessageRequestFailed: function(response){
+  onFetchMessagesRequestFailed: function(response){
     this.trigger({ status: response.status,
                    message: "error fetching messages"})
   },
 
-  onSendMessageRequest: function(authenticationToken, messageBody, messageType, currentConversationId){
+  onFetchMessageRequest: function(authenticationToken, messageId){
+    request.get("http://localhost:3000/api/v1/messages/"+ messageId)
+      .query({ authentication_token: authenticationToken })
+      .end(function(err, res){
+          if(res.ok){
+            MessageActions.fetchMessageRequest.completed(res.body)
+          }else{
+            MessageActions.fetchMessageRequest.failed(res.body)
+          }
+        })
+
+  },
+
+  onFetchMessageRequestCompleted: function(response){
+    this.trigger({ status: response.status,
+                   new_message: response.data })
+  },
+
+  onFetchMessageRequestFailed: function(response){
+    this.trigger({ status: response.status,
+                   message: 'error fetching message' })
+  },
+
+  onSendMessageRequest: function(authenticationToken, messageBody, typeName, currentConversationId){
     request.post("http://localhost:3000/api/v1/conversations/"+ currentConversationId +"/messages")
-           .send({authentication_token: authenticationToken, body: messageBody, message_type: messageType})
+           .send({authentication_token: authenticationToken, body: messageBody, type_name: typeName})
            .end(function(err, res){
              if(res.ok){
                MessageActions.sendMessageRequest.completed(res.body)
@@ -47,5 +93,9 @@ module.exports = Reflux.createStore({
   onSendMessageRequestFailed: function(response){
     this.trigger({ status: response.status,
                    message: "error sending messages"})
+  },
+
+  onNotifyNoneMessage: function(){
+    this.trigger({messages: []})
   }
 });
