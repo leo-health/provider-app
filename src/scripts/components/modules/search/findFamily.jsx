@@ -30,8 +30,12 @@ module.exports = React.createClass({
     callback(null, suggestions)
   },
 
-  getFamilyNames: function(query){
+  getUserNames: function(query){
     UserActions.fetchGuardians(localStorage.authenticationToken, query)
+  },
+
+  getPatientNames: function(query){
+    UserActions.fetchPatients(localStorage.authenticationToken, query)
   },
 
   handleChange: function(e){
@@ -51,13 +55,3 @@ module.exports = React.createClass({
     )
   }
 });
-
-//<form className="form">
-//  <input type="text"
-//         ref="suggestion"
-//         className="form-control"
-//         placeholder="Find family"
-//         value={this.state.query}
-//         onChange={this.handleChange}
-//         onBlur={this.hanleChange}/>
-//</form>

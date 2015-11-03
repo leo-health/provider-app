@@ -8,7 +8,7 @@ module.exports = Reflux.createStore({
   onFetchGuardians: function (authenticationToken, query) {
     request.get('http://localhost:3000/api/v1/search_guardian')
            .query({ authentication_token: authenticationToken,
-                    first_name: query})
+                    query: query})
            .end(function (err, res) {
              if (res.ok) {
                UserActions.fetchGuardians.completed(res.body)
@@ -20,7 +20,7 @@ module.exports = Reflux.createStore({
 
   onFetchGuardiansCompleted: function(response){
     this.trigger({status: response.status,
-                  guardians: response.data.guardians})
+                  guardians: response.data})
   },
 
   onFetchGuardiansFailed: function(response){
@@ -28,15 +28,26 @@ module.exports = Reflux.createStore({
                    message: 'error fetching guardians'})
   },
 
-  onFetchPatients: function(name){
-
+  onFetchPatients: function(authenticationToken, query){
+    request.get('http://localhost:3000/api/v1/search_patient')
+        .query({ authentication_token: authenticationToken,
+                 query: query})
+        .end(function (err, res) {
+          if (res.ok) {
+            UserActions.fetchPatients.completed(res.body)
+          } else {
+            UserActions.fetchPatients.failed(res.body)
+          }
+        })
   },
 
   onFetchPatientsCompleted: function(response){
-
+    this.trigger({status: response.status,
+                  patients: response.data})
   },
 
   onFetchPatientsFailed: function(response){
-
+    this.trigger({ status: response.status,
+                   message: 'error fetching patients'})
   }
 });
