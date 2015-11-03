@@ -48,7 +48,7 @@ module.exports = React.createClass({
   },
 
   sethighlightNoteKey: function(notes){
-    var initialNoteKey = notes[0].id.toString() + notes[0].message_type;
+    var initialNoteKey = _.first(notes).id.toString() + _.first(notes).message_type;
     var highlightNoteKey;
     if(this.state.highlightNoteKey){
       highlightNoteKey = this.state.highlightNoteKey

@@ -1,7 +1,5 @@
 var React = require('react');
 var NoteActions = require('../../../actions/noteActions');
-var ReactDOM = require('react-dom');
-var Scroll = require('react-scroll');
 
 module.exports = React.createClass({
   handleClick: function(){
@@ -28,8 +26,3 @@ module.exports = React.createClass({
     )
   }
 });
-
-
-//<a href="#" onClick={this.handleClick}>
-//  {message}
-//</a>

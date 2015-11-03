@@ -23,7 +23,8 @@ module.exports = React.createClass({
   getInitialState: function(){
     var loginStatus = getStateFromStores();
     var currentRouteName = this.context.router.getCurrentPathname();
-    if (currentRouteName=="/resetPassword" || currentRouteName=="/changePassword"){
+
+    if (["/resetPassword", "/changePassword", "/registration", "/success"].indexOf(currentRouteName) > -1) {
       return loginStatus
     }
     else if(loginStatus.isLoggedIn){
