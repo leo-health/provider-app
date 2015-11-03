@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 
 var UserActions = {
-  fetchGuardians: {asyncResult: true},
+  fetchUsers: {asyncResult: true},
   fetchPatients: {asyncResult: true}
 };
 

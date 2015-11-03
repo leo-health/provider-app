@@ -10,48 +10,68 @@ module.exports = React.createClass({
     Reflux.listenTo(UserStore, 'onStatusChange')
   ],
 
-  onStatusChange: function(status){
-    if(status.guardians){
-      this.setState({ guardians: status.guardians })
-    }else if(status.patients){
-      this.setState({ patients: status.patients })
-    }else{
-      return
+  getInitialState: function () {
+    return { query: ''}
+  },
+
+  onStatusChange: function(results){
+    var suggestions = [];
+    suggestions.unshift({ sectionName : 'Patients', suggestions : results.patients || [] });
+    suggestions.unshift({ sectionName : 'Users', suggestions : results.users || [] });
+    this.setState(
+      () => {
+        this.searchResultsHandler(null, suggestions);
+      }
+    );
+  },
+
+  getSuggestions: function(query, callback){
+    if(query.length > 1){
+      this.getFamilyNames(query);
+      this.searchResultsHandler=callback;
     }
   },
 
-  getSuggestions: function(input, callback){
-    if(input.length < 3){ return }
-    this.getFamilyNames(input);
-    if(this.state.guardians){
-
-    }
-
-    callback(null, suggestions)
-  },
-
-  getUserNames: function(query){
-    UserActions.fetchGuardians(localStorage.authenticationToken, query)
-  },
-
-  getPatientNames: function(query){
-    UserActions.fetchPatients(localStorage.authenticationToken, query)
+  getFamilyNames: function(query){
+    UserActions.fetchUsers(localStorage.authenticationToken, query);
   },
 
   handleChange: function(e){
     this.setState({ query: e.target.value.trim() })
   },
 
-  render: function () {
-    const inputAttributes = {
-      placeholder: 'Find family'
-    };
+  getSuggestionValue: function(suggestionObj){
+    return suggestionObj.first_name + " " + suggestionObj.last_name
+  },
 
+  renderSuggestion: function(suggestion, input){
+    suggestion = suggestion.first_name + " " + suggestion.last_name;
+    return(<span>{suggestion}</span>)
+  },
+
+  handleSearchChange: function (query) {
+    this.setState({
+      query: query
+    })
+  },
+
+  handleSelectedSuggest: function(){
+    debugger
+  },
+
+  render: function () {
     return (
-      <div className="panel panel-heading">
-        <Autosuggest suggestions={this.getSuggestions}
-                     inputAttributes={inputAttributes}/>
-      </div>
+        <div className="panel panel-heading">
+          <Autosuggest inputAttributes={{
+                         placeholder: 'Find family',
+                         onChange: this.handleSearchChange
+                       }}
+                       suggestions={this.getSuggestions}
+                       suggestionValue={this.getSuggestionValue}
+                       suggestionRenderer={this.renderSuggestion}
+                       onSuggestionSelected={this.handleSelectedSuggest}
+                       showWhen={input => input.trim().length >= 2}/>
+        </div>
     )
   }
 });
