@@ -25,6 +25,11 @@ module.exports = {
   resolveLoader: {
     modulesDirectories: ['..', 'node_modules']
   },
+  node: {
+    net : 'empty',
+    tls : 'empty',
+    dns : 'empty'
+  },
   plugins: [
     new webpack.DefinePlugin({
       // This has effect on the react lib size.
