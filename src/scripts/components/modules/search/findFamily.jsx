@@ -3,7 +3,7 @@ var Reflux = require('reflux');
 var Autosuggest = require('react-autosuggest');
 var UserActions = require('../../../actions/userActions');
 var UserStore = require('../../../stores/userStore');
-const suburbs = ['Cheltenham', 'Mill Park', 'Mordialloc', 'Nunawading'];
+var ConversationActions = require('../../../actions/conversationActions');
 
 module.exports = React.createClass({
   mixins: [
@@ -50,28 +50,30 @@ module.exports = React.createClass({
   },
 
   handleSearchChange: function (query) {
-    this.setState({
-      query: query
-    })
+    this.setState({ query: query })
   },
 
-  handleSelectedSuggest: function(){
-    debugger
+  handleSelectedSuggest: function(suggestion, event){
+    if(suggestion.role === 'patient' || suggestion.role == 'guardian'){
+      ConversationActions.fetchConversationByFamily(localStorage.authenticationToken, suggestion.family_id)
+    }else{
+      ConversationActions.fetchStaffConversation(localStorage.authenticationToken, suggestion.id)
+    }
   },
 
   render: function () {
     return (
-        <div className="panel panel-heading">
-          <Autosuggest inputAttributes={{
-                         placeholder: 'Find family',
-                         onChange: this.handleSearchChange
-                       }}
-                       suggestions={this.getSuggestions}
-                       suggestionValue={this.getSuggestionValue}
-                       suggestionRenderer={this.renderSuggestion}
-                       onSuggestionSelected={this.handleSelectedSuggest}
-                       showWhen={input => input.trim().length >= 2}/>
-        </div>
+      <div className="panel panel-heading">
+        <Autosuggest inputAttributes={{
+                       placeholder: 'Find family',
+                       onChange: this.handleSearchChange
+                     }}
+                     suggestions={this.getSuggestions}
+                     suggestionValue={this.getSuggestionValue}
+                     suggestionRenderer={this.renderSuggestion}
+                     onSuggestionSelected={this.handleSelectedSuggest}
+                     showWhen={input => input.trim().length >= 2}/>
+      </div>
     )
   }
 });
