@@ -81,6 +81,11 @@ module.exports = React.createClass({
     }
   },
 
+  handleCloseForm: function(e){
+    e.preventDefault();
+    this.setState({action: "message"})
+  },
+
   render: function () {
     var staff = this.state.staff;
     if(staff && staff.length > 0){
@@ -94,7 +99,7 @@ module.exports = React.createClass({
     return (
       <div>
         <div id="escalation-form" className="alert alert-dismissible alert-default" style={this.showComponent('escalate')}>
-          <button type="button" className="close" data-dismiss="alert">×</button>
+          <button type="button" className="close" onClick={this.handleCloseForm}>×</button>
           <form className="form">
             <div className="form-group">
               <label htmlFor="provider-select" className="control-label"> Assign this conversation to </label>&nbsp;
@@ -121,7 +126,7 @@ module.exports = React.createClass({
         </div>
 
         <div id="close-form" className="alert alert-dismissible alert-default" style={this.showComponent('close')}>
-          <button type="button" className="close" data-dismiss="alert">×</button>
+          <button type="button" className="close" onClick={this.handleCloseForm}>×</button>
           <form className="form alert-form">
             <div className="form-group">
               <label htmlFor="close-notes" className="control-label">Please enter any relevant notes to explain how the case was resolved.</label>
