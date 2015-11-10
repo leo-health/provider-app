@@ -50,11 +50,6 @@ module.exports = React.createClass({
                   </div>
                   <div className="form-group">
                     <input type="password" className="form-control" id="inputPassword" placeholder="Password" ref="password"/>
-                    <div className="checkbox">
-                      <label>
-                        <input type="checkbox"/> Save password
-                      </label>
-                    </div>
                   </div>
                   <div className="form-group">
                       <button type="submit" className="btn btn-primary">Login</button>&nbsp;
