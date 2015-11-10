@@ -20,11 +20,19 @@ module.exports = React.createClass({
     this.setState(status);
   },
 
+  componentDidMount: function(){
+    if(!this.isLocalStorageNameSupported()){
+      this.setState({ status: "error",
+                      message: "Provider app is not supported under incognito mode."
+                    });
+    }
+  },
+
   handleOnSubmit: function(e){
     e.preventDefault();
     var email = this.refs.email.getDOMNode().value.trim();
     var password = this.refs.password.getDOMNode().value.trim();
-    if (!email || !password){
+    if (!this.isLocalStorageNameSupported() || !email || !password){
       return
     }
     var loginParam = {email: email, password: password};
@@ -32,7 +40,21 @@ module.exports = React.createClass({
   },
 
   handleOnForget: function(){
-    this.transitionTo('resetPassword');
+    if(this.isLocalStorageNameSupported()){
+      this.transitionTo('resetPassword');
+    }
+  },
+
+  isLocalStorageNameSupported: function (){
+    var testKey = 'test', storage = window.localStorage;
+    try {
+      storage.setItem(testKey, '1');
+      storage.removeItem(testKey);
+      return true
+    }
+    catch (error) {
+      return false;
+    }
   },
 
   render: function(){
@@ -52,8 +74,8 @@ module.exports = React.createClass({
                     <input type="password" className="form-control" id="inputPassword" placeholder="Password" ref="password"/>
                   </div>
                   <div className="form-group">
-                      <button type="submit" className="btn btn-primary">Login</button>&nbsp;
-                      <button type="button" className="btn btn-default" onClick={this.handleOnForget}>Forgot?</button>
+                    <button type="submit" className="btn btn-primary">Login</button>&nbsp;
+                    <button type="button" className="btn btn-default" onClick={this.handleOnForget}>Forgot?</button>
                   </div>
                 </fieldset>
               </form>
