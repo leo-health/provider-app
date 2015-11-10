@@ -113,12 +113,12 @@ module.exports = Reflux.createStore({
            .query({ authentication_token: authenticationToken })
            .end(function(err, res){
              if(res.ok){
-               ConversationActions.fetchConversationByFamily.completed(res.body)
+               ConversationActions.fetchStaffConversation.completed(res.body)
              }
            })
   },
 
-  onFetchStaffConversationCompleted: function(){
+  onFetchStaffConversationCompleted: function(response){
     this.trigger({ status: response.status,
                    selectedConversation: response.data.conversations,
                    search: true })
