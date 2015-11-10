@@ -10,7 +10,7 @@ module.exports = React.createClass({
 
   onStatusChange: function(status){
     if(status.staff){
-      this.setState({staff: status.staff})
+      this.setState({ staff: status.staff, escalatedToId: status.staff[0].id })
     }
   },
 
