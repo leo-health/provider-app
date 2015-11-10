@@ -41,9 +41,9 @@ module.exports = {
   module: {
     loaders: commonLoaders.concat([
       { test: /\.styl$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus')},
-      { test: /\.cjsx$/, loaders: ['coffee', 'cjsx']},
+      { test: /\.cjsx$/, loaders: ['react-hot', 'coffee', 'cjsx']},
       { test: /\.coffee$/, loader: 'coffee' },
-      { test: /\.jsx$|\.js$/, loader: ['react-hot', 'jsx-loader?harmony'] }
+      { test: /\.jsx$|\.js$/, loader: 'jsx-loader?harmony' }
     ])
   }
 };
