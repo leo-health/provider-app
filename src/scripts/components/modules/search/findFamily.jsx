@@ -68,11 +68,13 @@ module.exports = React.createClass({
                        placeholder: 'Find family',
                        onChange: this.handleSearchChange
                      }}
+                     className="form-control"
                      suggestions={this.getSuggestions}
                      suggestionValue={this.getSuggestionValue}
                      suggestionRenderer={this.renderSuggestion}
                      onSuggestionSelected={this.handleSelectedSuggest}
                      showWhen={input => input.trim().length >= 2}/>
+        <div>wtf</div>
       </div>
     )
   }
