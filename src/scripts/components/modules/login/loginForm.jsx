@@ -23,7 +23,7 @@ module.exports = React.createClass({
   componentDidMount: function(){
     if(!this.isLocalStorageNameSupported()){
       this.setState({ status: "error",
-                      message: "Provider app is not supported under incognito mode."
+                      message: "The provider app is not supported for use in private browsing modes."
                     });
     }
   },
