@@ -32,7 +32,7 @@ module.exports = React.createClass({
       "": this.state.search
     });
     return (
-      <ul className="nav nav-tabs conversation-header">
+      <ul className="nav nav-tabs">
         <li className={initialTabClass} onClick={this.handleClick.bind(this, 'open')}>
           <a href="#open" data-toggle="tab">
             <span className="glyphicon glyphicon glyphicon-star-empty" aria-hidden="false"></span> Open
