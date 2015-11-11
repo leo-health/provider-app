@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var Message = require('./message');
 var MessageStatus = require('./messageStatus');
@@ -44,13 +45,13 @@ module.exports = React.createClass({
   },
 
   componentWillUpdate: function(){
-    var node = React.findDOMNode(this.refs.conversationContainer);
+    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
     this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
   },
 
   componentDidUpdate: function(){
     if (this.shouldScrollBottom){
-      var node = React.findDOMNode(this.refs.conversationContainer);
+      var node = ReactDom.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight;
     }
   },

@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var MessageStore = require('../../../stores/messageStore');
 var NoteStore = require('../../../stores/noteStore');
@@ -42,8 +43,8 @@ module.exports = React.createClass({
 
   scrollElementIntoView: function(domNode){
 
-    var containerDomNode = React.findDOMNode(domNode);
-    var test = React.findDOMNode(this);
+    var containerDomNode = ReactDom.findDOMNode(domNode);
+    var test = ReactDom.findDOMNode(this);
     test.scrollTop = containerDomNode.scrollHeight;
   },
 

@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var Router = require('react-router');
 
@@ -46,9 +47,9 @@ var SignUpForm = React.createClass({
     if(response.status != "error"){
       switch(response.action) {
         case "fetch": {
-          React.findDOMNode(this.refs.firstName).value = response.data.user.first_name;
-          React.findDOMNode(this.refs.lastName).value = response.data.user.last_name;
-          React.findDOMNode(this.refs.email).value = response.data.user.email;
+          ReactDom.findDOMNode(this.refs.firstName).value = response.data.user.first_name;
+          ReactDom.findDOMNode(this.refs.lastName).value = response.data.user.last_name;
+          ReactDom.findDOMNode(this.refs.email).value = response.data.user.email;
           break;
         } case "update": {
           this.transitionTo("success");
@@ -69,12 +70,12 @@ var SignUpForm = React.createClass({
 
   getValidatorData: function(){
     return {
-      firstName: React.findDOMNode(this.refs.firstName).value,
-      lastName: React.findDOMNode(this.refs.lastName).value,
-      email: React.findDOMNode(this.refs.email).value,
-      phone: React.findDOMNode(this.refs.phone).value,
-      password: React.findDOMNode(this.refs.password).value,
-      passwordConfirmation: React.findDOMNode(this.refs.passwordConfirmation).value
+      firstName: ReactDom.findDOMNode(this.refs.firstName).value,
+      lastName: ReactDom.findDOMNode(this.refs.lastName).value,
+      email: ReactDom.findDOMNode(this.refs.email).value,
+      phone: ReactDom.findDOMNode(this.refs.phone).value,
+      password: ReactDom.findDOMNode(this.refs.password).value,
+      passwordConfirmation: ReactDom.findDOMNode(this.refs.passwordConfirmation).value
     }
   },
 
@@ -85,11 +86,11 @@ var SignUpForm = React.createClass({
         return;
       } else {
         var registrationParams = {
-          firstName: React.findDOMNode(this.refs.firstName).value,
-          lastName: React.findDOMNode(this.refs.lastName).value,
-          email: React.findDOMNode(this.refs.email).value,
-          phone: React.findDOMNode(this.refs.phone).value,
-          password: React.findDOMNode(this.refs.password).value
+          firstName: ReactDom.findDOMNode(this.refs.firstName).value,
+          lastName: ReactDom.findDOMNode(this.refs.lastName).value,
+          email: ReactDom.findDOMNode(this.refs.email).value,
+          phone: ReactDom.findDOMNode(this.refs.phone).value,
+          password: ReactDom.findDOMNode(this.refs.password).value
         }
         RegistrationActions.updateEnrollmentRequest(registrationParams, this.context.router.getCurrentQuery().token)
       }
