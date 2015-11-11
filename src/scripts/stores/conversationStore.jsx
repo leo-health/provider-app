@@ -14,7 +14,7 @@ module.exports = Reflux.createStore({
     }else{
       conversationParams = {authentication_token: authenticationToken}
     }
-    request.get('http://localhost:3000/api/v1/conversations')
+    request.get(leo.API_URL+"/conversations")
            .query(conversationParams)
            .end(function(err, res){
               if(res.ok){
@@ -46,7 +46,7 @@ module.exports = Reflux.createStore({
   },
 
   onCloseConversationRequest: function(authenticationToken, conversationId, note){
-    request.put('http://localhost:3000/api/v1/conversations/' + conversationId + '/close')
+    request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
            .query({ authentication_token: authenticationToken, note: note })
            .end(function(err, res){
              if(res.ok){
@@ -72,7 +72,7 @@ module.exports = Reflux.createStore({
                        note: note,
                        priority: priority
                       };
-    request.put('http://localhost:3000/api/v1/conversations/' + conversationId + '/escalate')
+    request.put(leo.API_URL+"/conversations/" + conversationId + "/escalate")
            .query(escalateParams)
            .end(function(err, res){
               if(res.ok){
