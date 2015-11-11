@@ -1,6 +1,7 @@
 var React = require('react');
 var Conversation = require('./conversation');
 var MessageActions = require('../../../actions/messageActions');
+var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
   handleOnClick: function(i, conversationId){
@@ -9,11 +10,17 @@ module.exports = React.createClass({
   },
 
   getInitialState: function () {
-    return {selectedConversation: 0}
+    return {selectedConversation: 0, isInfiniteLoading: false}
   },
 
   componentWillReceiveProps: function(){
     this.setState({selectedConversation: 0});
+  },
+
+  elementInfiniteLoad: function() {
+    return <div className="infinite-list-item">
+      Loading...
+    </div>;
   },
 
   render: function () {
@@ -39,13 +46,16 @@ module.exports = React.createClass({
       }, this)
     }
     return (
-      <div>
-        <div id="content" className="tab-content">
-          <div className="tab-pane fade active in" id="all-tab">
-            <div className="panel panel-default pre-scrollable-left">
-              {conversations}
-            </div>
-          </div>
+      <div id="content" className="tab-content">
+        <div className="tab-pane fade active in" id="all-tab">
+          <Infinite className="panel panel-default pre-scrollable-left"
+                    elementHeight={40}
+                    containerHeight={250}
+                    onInfiniteLoad={this.handleInfiniteLoad}
+                    loadingSpinnerDelegate={this.elementInfiniteLoad}
+                    isInfiniteLoading={this.state.isInfiniteLoading}>
+            {conversations}
+          </Infinite>
         </div>
       </div>
     )
