@@ -7,7 +7,7 @@ module.exports = Reflux.createStore({
 
 
   onFetchEnrollmentRequest: function(token){
-    request.get("https://dev.leoforkids.com/api/v1/enrollments/current")
+    request.get(leo.API_URL+"/enrollments/current")
            .query({ authentication_token: token })
            .end(function(err, res){
               if(res.ok){
@@ -32,7 +32,7 @@ module.exports = Reflux.createStore({
   },
 
   onUpdateEnrollmentRequest: function(enrollmentParams, token){
-    request.put("https://dev.leoforkids.com/api/v1/enrollments/current")
+    request.put(leo.API_URL+"/enrollments/current")
            .send({
               authentication_token: token,
               first_name: enrollmentParams.firstName,
@@ -70,7 +70,7 @@ module.exports = Reflux.createStore({
   },
 
   onConvertEnrollmentRequest: function(user, token){
-    request.post("https://dev.leoforkids.com/api/v1/users")
+    request.post(leo.API_URL+"/users")
            .send({
               first_name: user.first_name,
               last_name: user.last_name,

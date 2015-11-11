@@ -6,7 +6,7 @@ module.exports = Reflux.createStore({
   listenables: [NoteActions],
 
   onFetchNoteRequest: function (authenticationToken, noteId, messageType) {
-    request.get('https://dev.leoforkids.com/api/v1/notes/'+ noteId)
+    request.get(leo.API_URL+"/notes/"+ noteId)
            .query({ authentication_token: authenticationToken, note_type: messageType })
            .end(function(err, res){
               if(res.ok){

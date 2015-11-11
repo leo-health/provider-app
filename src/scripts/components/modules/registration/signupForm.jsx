@@ -27,7 +27,7 @@ var SignUpForm = React.createClass({
     passwordConfirmation: Joi.any().valid(Joi.ref('password')).required().label("Password confirmation").options({
       language: {
         any: {
-          allowOnly: 'does not match password'
+          allowOnly: "does not match password"
         }
       }
     })
@@ -35,8 +35,8 @@ var SignUpForm = React.createClass({
 
   renderMessage: function(messages, labelText){
     var messageClass = classnames({
-      'text-danger': messages.length > 0,
-      'text-muted': messages.length === 0
+      "text-danger": messages.length > 0,
+      "text-muted": messages.length === 0
     });
     var labelToShow = (messages.length === 0 ? labelText : messages[0]);
     return <label className={messageClass}>{labelToShow}</label>

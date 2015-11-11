@@ -6,7 +6,7 @@ module.exports = Reflux.createStore({
   listenables: [MessageActions],
 
   onFetchStaffRequest: function(authenticationToken){
-    request.get('https://dev.leoforkids.com/api/v1/staff')
+    request.get(leo.API_URL+"/staff")
         .query({authentication_token: authenticationToken})
         .end(function(err, res){
           if(res.ok){
@@ -28,7 +28,7 @@ module.exports = Reflux.createStore({
   },
 
   onFetchMessagesRequest: function(authenticationToken, currentConversationId){
-    request.get("https://dev.leoforkids.com/api/v1/conversations/"+ currentConversationId +"/messages/full")
+    request.get(leo.API_URL+"/conversations/"+ currentConversationId +"/messages/full")
         .query({ authentication_token: authenticationToken })
         .end(function(err, res){
           if(res.ok){
@@ -51,7 +51,7 @@ module.exports = Reflux.createStore({
   },
 
   onFetchMessageRequest: function(authenticationToken, messageId){
-    request.get("https://dev.leoforkids.com/api/v1/messages/"+ messageId)
+    request.get(leo.API_URL+"/messages/"+ messageId)
       .query({ authentication_token: authenticationToken })
       .end(function(err, res){
           if(res.ok){
@@ -70,11 +70,11 @@ module.exports = Reflux.createStore({
 
   onFetchMessageRequestFailed: function(response){
     this.trigger({ status: response.status,
-                   message: 'error fetching message' })
+                   message: "error fetching message" })
   },
 
   onSendMessageRequest: function(authenticationToken, messageBody, typeName, currentConversationId){
-    request.post("https://dev.leoforkids.com/api/v1/conversations/"+ currentConversationId +"/messages")
+    request.post(leo.API_URL+"/conversations/"+ currentConversationId +"/messages")
            .send({authentication_token: authenticationToken, body: messageBody, type_name: typeName})
            .end(function(err, res){
              if(res.ok){
