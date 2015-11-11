@@ -43,17 +43,17 @@ module.exports = React.createClass({
     }, this)
   },
 
-  //componentWillUpdate: function(){
-  //  var node = React.findDOMNode(this.refs.conversationContainer);
-  //  this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-  //},
+  componentWillUpdate: function(){
+    var node = React.findDOMNode(this.refs.conversationContainer);
+    this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+  },
 
-  //componentDidUpdate: function(){
-  //  if (this.shouldScrollBottom){
-  //    var node = React.findDOMNode(this.refs.conversationContainer);
-  //    node.scrollTop = node.scrollHeight;
-  //  }
-  //},
+  componentDidUpdate: function(){
+    if (this.shouldScrollBottom){
+      var node = React.findDOMNode(this.refs.conversationContainer);
+      node.scrollTop = node.scrollHeight;
+    }
+  },
 
   checkClosedMessage: function(msg){
     var prevType = prevMessageType;

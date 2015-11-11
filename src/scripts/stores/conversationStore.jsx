@@ -90,5 +90,37 @@ module.exports = Reflux.createStore({
   onEscalateConversationRequestFailed: function(response){
     this.trigger({status: response.status,
                   message: "error escalating conversation"})
+  },
+
+  onFetchConversationByFamily: function (authenticationToken, familyId) {
+    request.get('http://localhost:3000/api/v1/families/' + familyId + '/conversation')
+           .query({ authentication_token: authenticationToken })
+           .end(function(err, res){
+             if(res.ok){
+               ConversationActions.fetchConversationByFamily.completed(res.body)
+             }
+           })
+  },
+
+  onFetchConversationByFamilyCompleted: function(response){
+    this.trigger({ status: response.status,
+                   conversations: [response.data.conversation],
+                   search: true })
+  },
+
+  onFetchStaffConversation: function(authenticationToken, staffId){
+    request.get('http://localhost:3000/api/v1/staff/' + staffId + '/conversations')
+           .query({ authentication_token: authenticationToken })
+           .end(function(err, res){
+             if(res.ok){
+               ConversationActions.fetchStaffConversation.completed(res.body)
+             }
+           })
+  },
+
+  onFetchStaffConversationCompleted: function(response){
+    this.trigger({ status: response.status,
+                   selectedConversation: response.data.conversations,
+                   search: true })
   }
 });

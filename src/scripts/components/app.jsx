@@ -37,7 +37,6 @@ module.exports = React.createClass({
 
   onSessionChange: function(status){
     this.setState(status);
-
     if(this.state.isLoggedIn){
       this.transitionTo('home')
     }else{

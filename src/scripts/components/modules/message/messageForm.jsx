@@ -10,7 +10,7 @@ module.exports = React.createClass({
 
   onStatusChange: function(status){
     if(status.staff){
-      this.setState({staff: status.staff})
+      this.setState({ staff: status.staff, escalatedToId: status.staff[0].id })
     }
   },
 
@@ -81,6 +81,11 @@ module.exports = React.createClass({
     }
   },
 
+  handleCloseForm: function(e){
+    e.preventDefault();
+    this.setState({action: "message"})
+  },
+
   render: function () {
     var staff = this.state.staff;
     if(staff && staff.length > 0){
@@ -94,7 +99,7 @@ module.exports = React.createClass({
     return (
       <div>
         <div id="escalation-form" className="alert alert-dismissible alert-default" style={this.showComponent('escalate')}>
-          <button type="button" className="close" data-dismiss="alert">×</button>
+          <button type="button" className="close" onClick={this.handleCloseForm}>×</button>
           <form className="form">
             <div className="form-group">
               <label htmlFor="provider-select" className="control-label"> Assign this conversation to </label>&nbsp;
@@ -121,7 +126,7 @@ module.exports = React.createClass({
         </div>
 
         <div id="close-form" className="alert alert-dismissible alert-default" style={this.showComponent('close')}>
-          <button type="button" className="close" data-dismiss="alert">×</button>
+          <button type="button" className="close" onClick={this.handleCloseForm}>×</button>
           <form className="form alert-form">
             <div className="form-group">
               <label htmlFor="close-notes" className="control-label">Please enter any relevant notes to explain how the case was resolved.</label>
@@ -140,10 +145,10 @@ module.exports = React.createClass({
           </div>
           <div className="">
             <form>
-              <a href="#" className="btn btn-success btn-sm" onClick={this.handleSendMessage}>
+              <a href="#" className="btn btn-success btn-sm message-button" onClick={this.handleSendMessage}>
                 <span className="glyphicon glyphicon-ok"></span>Send
               </a>
-              <a href="#" className="btn btn-primary btn-sm" onClick={this.showClose}>
+              <a href="#" className="btn btn-primary btn-sm message-button" onClick={this.showClose}>
                 <span className="glyphicon glyphicon-ok"></span> Close Case
               </a>
               <a href="#" className="btn btn-danger btn-sm" onClick={this.showEscalation}>
