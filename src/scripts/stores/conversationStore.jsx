@@ -8,6 +8,7 @@ module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
   onFetchConversationRequest: function(authenticationToken, state, page){
+    if( state === "all" ){ state = null };
     request.get(leo.API_URL+"/conversations")
            .query({authentication_token: authenticationToken, state: state, page: page})
            .end(function(err, res){
@@ -21,6 +22,7 @@ module.exports = Reflux.createStore({
 
   onFetchConversationRequestCompleted: function(response, state, page){
     var conversations = response.data.conversations;
+    if( !state ){ state = "all" }
     if (conversations.length > 0){
       var firstConversationId = response.data.conversations[0].id;
       MessageActions.fetchMessagesRequest(localStorage.authenticationToken, firstConversationId);
@@ -31,6 +33,7 @@ module.exports = Reflux.createStore({
     this.trigger({ status: response.status,
                    conversations: conversations,
                    conversationState: state,
+                   maxPage: response.data.max_page,
                    page: page
                   });
   },

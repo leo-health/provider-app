@@ -14,7 +14,8 @@ module.exports = React.createClass({
              isInfiniteLoading: false,
              conversationState: 'open',
              page: 1,
-             conversations: []
+             conversations: [],
+             maxPage: 1
     }
   },
 
@@ -22,20 +23,19 @@ module.exports = React.createClass({
     //to make sure the converation state is being tracked
     if(status.conversationState && status.conversationState != this.state.conversationState){
       this.setState({ conversationState: status.conversationState,
+                      page: 1,
                       selectedConversation: 0 })
     }
-    if(status.conversations && status.page === 1){
-      this.setState({ conversations: status.conversations, page: 2})
+    if(status.conversations){
+      if(this.state.page === 1){
+        this.setState({ conversations: status.conversations,
+                        page: this.state.page + 1 })
+      }else{
+        this.setState({ conversations: this.state.conversations.concat(status.conversations),
+                        page: this.state.page + 1,
+                        isInfiniteLoading: false })
+      }
     }
-    if(status.conversations && status.page !== 1){
-      this.setState({ conversations: this.state.conversations.concat(status.conversations),
-                      page: this.state.page + 1,
-                      isInfiniteLoading: false })
-    }
-  },
-
-  componentDidMount: function(){
-    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open", 1);
   },
 
   handleOnClick: function(i, conversationId){
@@ -49,11 +49,23 @@ module.exports = React.createClass({
             </div>)
   },
 
+  buildElements: function(start, end) {
+    var elements = [];
+    for (var i = start; i < end; i++) {
+      elements.push(<ListItem key={i} index={i}/>)
+    }
+    return elements;
+  },
+
+
   handleInfiniteLoad: function () {
-    this.setState({ isInfiniteLoading: true });
-    ConversationActions.fetchMoreConversation(localStorage.authenticationToken,
-                                              this.state.conversationState,
-                                              this.state.page )
+    debugger
+    if( this.state.page <= this.state.maxPage){
+      this.setState({ isInfiniteLoading: true });
+      ConversationActions.fetchConversationRequest( localStorage.authenticationToken,
+                                                    this.state.conversationState,
+                                                    this.state.page )
+    }
   },
 
   render: function () {
@@ -80,11 +92,12 @@ module.exports = React.createClass({
       <div id="content" className="tab-content">
         <div className="tab-pane fade active in" id="all-tab">
           <Infinite className="panel panel-default pre-scrollable-left"
-                    containerHeight={800}
-                    elementHeight={40}
-                    onInfiniteLoad={this.handleInfiniteLoad} //comunicate to api here
-                    loadingSpinnerDelegate={this.elementInfiniteLoad} //this is the spinner
-                    isInfiniteLoading={this.state.isInfiniteLoading} //descide if spinner is showing
+                    containerHeight={window.innerHeight}
+                    elementHeight={500}
+                    infiniteLoadBeginEdgeOffset={7}
+                    loadingSpinnerDelegate={this.elementInfiniteLoad()}
+                    isInfiniteLoading={this.state.isInfiniteLoading}
+                    onInfiniteLoad={this.handleInfiniteLoad}
                     >
             {conversations}
           </Infinite>
