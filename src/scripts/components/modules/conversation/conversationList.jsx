@@ -21,16 +21,17 @@ module.exports = React.createClass({
   onStatusChange: function(status){
     //to make sure the converation state is being tracked
     if(status.conversationState && status.conversationState != this.state.conversationState){
-      this.setState({conversationState: status.conversationState})
+      this.setState({ conversationState: status.conversationState,
+                      selectedConversation: 0 })
     }
     if(status.conversations && status.page === 1){
       this.setState({ conversations: status.conversations, page: 2})
     }
     if(status.conversations && status.page !== 1){
       this.setState({ conversations: this.state.conversations.concat(status.conversations),
-                      page: this.state.page + 1 })
+                      page: this.state.page + 1,
+                      isInfiniteLoading: false })
     }
-
   },
 
   componentDidMount: function(){
@@ -39,14 +40,7 @@ module.exports = React.createClass({
 
   handleOnClick: function(i, conversationId){
     this.setState({selectedConversation: i});
-    MessageActions.fetchConversationRequest( localStorage.authenticationToken,
-                                             this.state.conversationState,
-                                             this.state.page );
-  },
-
-
-  componentWillReceiveProps: function(){
-    this.setState({selectedConversation: 0});
+    MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId);
   },
 
   elementInfiniteLoad: function() {
@@ -56,6 +50,7 @@ module.exports = React.createClass({
   },
 
   handleInfiniteLoad: function () {
+    this.setState({ isInfiniteLoading: true });
     ConversationActions.fetchMoreConversation(localStorage.authenticationToken,
                                               this.state.conversationState,
                                               this.state.page )
@@ -85,11 +80,12 @@ module.exports = React.createClass({
       <div id="content" className="tab-content">
         <div className="tab-pane fade active in" id="all-tab">
           <Infinite className="panel panel-default pre-scrollable-left"
+                    containerHeight={800}
                     elementHeight={40}
                     onInfiniteLoad={this.handleInfiniteLoad} //comunicate to api here
                     loadingSpinnerDelegate={this.elementInfiniteLoad} //this is the spinner
                     isInfiniteLoading={this.state.isInfiniteLoading} //descide if spinner is showing
-                    useWindowAsScrollContainer>
+                    >
             {conversations}
           </Infinite>
         </div>
