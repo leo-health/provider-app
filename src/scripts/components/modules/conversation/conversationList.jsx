@@ -12,7 +12,7 @@ module.exports = React.createClass({
   getInitialState: function () {
     return { selectedConversation: 0,
              isInfiniteLoading: false,
-             onversationState: 'open',
+             conversationState: 'open',
              page: 1,
              conversations: []
     }
@@ -24,10 +24,11 @@ module.exports = React.createClass({
       this.setState({conversationState: status.conversationState})
     }
     if(status.conversations && status.page === 1){
-      this.setState({ conversations: status.conversations })
+      this.setState({ conversations: status.conversations, page: 2})
     }
     if(status.conversations && status.page !== 1){
-      this.setState({ conversations: this.state.conversations.concat(status.conversations) })
+      this.setState({ conversations: this.state.conversations.concat(status.conversations),
+                      page: this.state.page + 1 })
     }
 
   },
@@ -38,7 +39,9 @@ module.exports = React.createClass({
 
   handleOnClick: function(i, conversationId){
     this.setState({selectedConversation: i});
-    MessageActions.fetchMessagesRequest(localStorage.authenticationToken, conversationId);
+    MessageActions.fetchConversationRequest( localStorage.authenticationToken,
+                                             this.state.conversationState,
+                                             this.state.page );
   },
 
 
