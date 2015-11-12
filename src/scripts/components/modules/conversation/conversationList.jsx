@@ -1,26 +1,43 @@
 var React = require('react');
+var Reflux = require('reflux');
 var Conversation = require('./conversation');
+var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
+var ConversationStore = require('../../../stores/conversationStore');
 var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
+  mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
+
+  getInitialState: function () {
+    return { selectedConversation: 0, isInfiniteLoading: false, conversationState: 'open'}
+  },
+
+  onStatusChange: function(status){
+    if(status.conversationState && status.conversationState != this.state.conversationState){
+      this.setState({conversationState: status.conversationState})
+    }
+  },
+
   handleOnClick: function(i, conversationId){
     this.setState({selectedConversation: i});
     MessageActions.fetchMessagesRequest(localStorage.authenticationToken, conversationId);
   },
 
-  getInitialState: function () {
-    return {selectedConversation: 0, isInfiniteLoading: false}
-  },
 
   componentWillReceiveProps: function(){
     this.setState({selectedConversation: 0});
   },
 
   elementInfiniteLoad: function() {
-    return <div className="infinite-list-item">
-      Loading...
-    </div>;
+    return( <div className="infinite-list-item">
+             Loading...
+            </div>)
+  },
+
+  handleInfiniteLoad: function () {
+    ConversationActions.fetchConversationRequest(localStorage.authenticationToken,
+                                                 this.state.conversationState)
   },
 
   render: function () {
@@ -35,10 +52,9 @@ module.exports = React.createClass({
                         conversationId = {conversation.id}
                         lastMessage = {conversation.last_message}
                         guardian = {conversation.primary_guardian}
-                        patients = {conversation.users.patients}
+                        patients = {conversation.patients}
                         createdAt = {conversation.last_message_created_at }
                         conversationState = {conversation.state}
-                        messages = {conversation.messages}
                         stateChanel = {this.props.stateChanel}
                         onClick = {boundClick}
           />
@@ -50,10 +66,10 @@ module.exports = React.createClass({
         <div className="tab-pane fade active in" id="all-tab">
           <Infinite className="panel panel-default pre-scrollable-left"
                     elementHeight={40}
-                    containerHeight={250}
-                    onInfiniteLoad={this.handleInfiniteLoad}
-                    loadingSpinnerDelegate={this.elementInfiniteLoad}
-                    isInfiniteLoading={this.state.isInfiniteLoading}>
+                    onInfiniteLoad={this.handleInfiniteLoad} //comunicate to api here
+                    loadingSpinnerDelegate={this.elementInfiniteLoad} //this is the spinner
+                    isInfiniteLoading={this.state.isInfiniteLoading} //descide if spinner is showing
+                    useWindowAsScrollContainer>
             {conversations}
           </Infinite>
         </div>

@@ -7,7 +7,7 @@ var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
   render: function () {
-    var lastMessage = this.props.lastMessage.body;
+    var lastMessage = this.props.lastMessage;
     var guardian = this.props.guardian;
     guardian = guardian.title + guardian.first_name + " " + guardian.last_name;
     if( lastMessage.length > 150 ){
