@@ -7,25 +7,19 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
-  onFetchConversationRequest: function(authenticationToken, state){
-    var conversationParams;
-    if (state.length > 0){
-      conversationParams = {authentication_token: authenticationToken, state: state}
-    }else{
-      conversationParams = {authentication_token: authenticationToken}
-    }
+  onFetchConversationRequest: function(authenticationToken, state, page){
     request.get(leo.API_URL+"/conversations")
-           .query(conversationParams)
+           .query({authentication_token: authenticationToken, state: state, page: page})
            .end(function(err, res){
               if(res.ok){
-                ConversationActions.fetchConversationRequest.completed(res.body, state)
+                ConversationActions.fetchConversationRequest.completed(res.body, state, page)
               }else{
                 ConversationActions.fetchConversationRequest.failed(res.body)
               }
             })
   },
 
-  onFetchConversationRequestCompleted: function(response, state){
+  onFetchConversationRequestCompleted: function(response, state, page){
     var conversations = response.data.conversations;
     if (conversations.length > 0){
       var firstConversationId = response.data.conversations[0].id;
@@ -36,7 +30,8 @@ module.exports = Reflux.createStore({
 
     this.trigger({ status: response.status,
                    conversations: conversations,
-                   conversationState: state
+                   conversationState: state,
+                   page: page
                   });
   },
 

@@ -10,13 +10,30 @@ module.exports = React.createClass({
   mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
 
   getInitialState: function () {
-    return { selectedConversation: 0, isInfiniteLoading: false, conversationState: 'open'}
+    return { selectedConversation: 0,
+             isInfiniteLoading: false,
+             onversationState: 'open',
+             page: 1,
+             conversations: []
+    }
   },
 
   onStatusChange: function(status){
+    //to make sure the converation state is being tracked
     if(status.conversationState && status.conversationState != this.state.conversationState){
       this.setState({conversationState: status.conversationState})
     }
+    if(status.conversations && status.page === 1){
+      this.setState({ conversations: status.conversations })
+    }
+    if(status.conversations && status.page !== 1){
+      this.setState({ conversations: this.state.conversations.concat(status.conversations) })
+    }
+
+  },
+
+  componentDidMount: function(){
+    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, "open", 1);
   },
 
   handleOnClick: function(i, conversationId){
@@ -36,31 +53,31 @@ module.exports = React.createClass({
   },
 
   handleInfiniteLoad: function () {
-    ConversationActions.fetchConversationRequest(localStorage.authenticationToken,
-                                                 this.state.conversationState)
+    ConversationActions.fetchMoreConversation(localStorage.authenticationToken,
+                                              this.state.conversationState,
+                                              this.state.page )
   },
 
   render: function () {
-    var conversations = this.props.conversations;
-    if (conversations && conversations.length > 0) {
-      conversations = conversations.map(function(conversation, i){
-        var selected = this.state.selectedConversation == i;
-        var boundClick = this.handleOnClick.bind(this, i, conversation.id);
-        return (
-          <Conversation key = {i}
-                        selected = {selected}
-                        conversationId = {conversation.id}
-                        lastMessage = {conversation.last_message}
-                        guardian = {conversation.primary_guardian}
-                        patients = {conversation.patients}
-                        createdAt = {conversation.last_message_created_at }
-                        conversationState = {conversation.state}
-                        stateChanel = {this.props.stateChanel}
-                        onClick = {boundClick}
-          />
-        )
-      }, this)
-    }
+    var conversations = this.state.conversations;
+    conversations = conversations.map(function(conversation, i){
+      var selected = this.state.selectedConversation == i;
+      var boundClick = this.handleOnClick.bind(this, i, conversation.id);
+      return (
+        <Conversation key = {i}
+                      selected = {selected}
+                      conversationId = {conversation.id}
+                      lastMessage = {conversation.last_message}
+                      guardian = {conversation.primary_guardian}
+                      patients = {conversation.patients}
+                      createdAt = {conversation.last_message_created_at }
+                      conversationState = {conversation.state}
+                      stateChanel = {this.props.stateChanel}
+                      onClick = {boundClick}
+        />
+      )
+    }, this);
+
     return (
       <div id="content" className="tab-content">
         <div className="tab-pane fade active in" id="all-tab">
