@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var PasswordActions = require('../../../actions/passwordActions');
 var PasswordStore = require('../../../stores/passwordStore');
@@ -29,8 +30,8 @@ module.exports = React.createClass({
   handleOnSubmit: function(e){
     e.preventDefault();
     if(this.state.button == "Submit"){
-      var password = this.refs.password.getDOMNode().value.trim();
-      var passwordConfirmation = this.refs.passwordConfirmation.getDOMNode().value.trim();
+      var password = ReactDom.findDOMNode(this.refs.password).value.trim();
+      var passwordConfirmation = ReactDom.findDOMNode(this.refs.passwordConfirmation).value.trim();
       if(password.length < 8){
         this.setState({status: "fail", message: "The password should be at least 8 characters long."});
         return
