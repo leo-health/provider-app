@@ -31,13 +31,13 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    this.props.messageChanel.bind('new_message', function(data){
+    this.props.messageChannel.bind('new_message', function(data){
       if(this.state.currentConversationId == data.conversation_id){
         MessageActions.fetchMessageRequest(localStorage.authenticationToken, data.message_id);
       }
     }, this);
 
-    this.props.stateChanel.bind('new_state', function(data){
+    this.props.stateChannel.bind('new_state', function(data){
       if(this.state.currentConversationId == data.conversation_id && data.message_type != "open"){
         this.setState({messages: this.state.messages.concat(data)})
       }

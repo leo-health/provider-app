@@ -11,8 +11,8 @@ var _ = require('lodash');
 module.exports = React.createClass({
   componentWillMount: function(){
     this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
-    this.stateChanel = this.pusher.subscribe('newState' + localStorage.email);
-    this.messageChanel = this.pusher.subscribe('newMessage' + localStorage.email);
+    this.stateChannel = this.pusher.subscribe('newState' + localStorage.email);
+    this.messageChannel = this.pusher.subscribe('newMessage' + localStorage.email);
   },
 
   render: function() {
@@ -28,13 +28,13 @@ module.exports = React.createClass({
           </div>
           <div className="row">
             <div id="left" className="col-lg-3">
-              <ConversationList stateChanel={this.stateChanel}/>
+              <ConversationList stateChannel={this.stateChannel}/>
             </div>
             <div id="middle" className="col-lg-6">
-              <MessageList messageChanel={this.messageChanel} stateChanel={this.stateChanel}/>
+              <MessageList messageChannel={this.messageChannel} stateChannel={this.stateChannel}/>
             </div>
             <div id="right" className="col-lg-3">
-              <NoteList stateChanel={this.stateChanel}/>
+              <NoteList stateChannel={this.stateChannel}/>
             </div>
           </div>
           <Footer/>

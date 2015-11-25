@@ -62,7 +62,7 @@ module.exports = React.createClass({
                       patients = {conversation.patients}
                       createdAt = {conversation.last_message_created_at }
                       conversationState = {conversation.state}
-                      stateChanel = {this.props.stateChanel}
+                      stateChannel = {this.props.stateChannel}
                       onClick = {boundClick}
         />
       )

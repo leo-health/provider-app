@@ -31,7 +31,7 @@ module.exports = React.createClass({
         </h6>
         <p className = "patientList">
           {patients}
-          <ConversationState conversationState = {conversationState} conversationId = {conversationId} stateChanel = {this.props.stateChanel}/>
+          <ConversationState conversationState = {conversationState} conversationId = {conversationId} stateChannel = {this.props.stateChannel}/>
         </p>
         <p className="list-group-item-text">
           {lastMessage}
