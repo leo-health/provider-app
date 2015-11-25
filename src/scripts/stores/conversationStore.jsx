@@ -8,7 +8,6 @@ module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
   onFetchConversationRequest: function(authenticationToken, state, page){
-    if( state === "all" ){ state = null };
     request.get(leo.API_URL+"/conversations")
            .query({authentication_token: authenticationToken, state: state, page: page})
            .end(function(err, res){
