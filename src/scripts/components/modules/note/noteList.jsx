@@ -42,7 +42,6 @@ module.exports = React.createClass({
   },
 
   scrollElementIntoView: function(domNode){
-
     var containerDomNode = ReactDom.findDOMNode(domNode);
     var test = ReactDom.findDOMNode(this);
     test.scrollTop = containerDomNode.scrollHeight;

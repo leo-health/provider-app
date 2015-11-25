@@ -11,7 +11,6 @@ module.exports = React.createClass({
 
   getInitialState: function () {
     return { selectedConversation: 0,
-             isInfiniteLoading: false,
              conversationState: 'open',
              page: 1,
              conversations: [],
@@ -20,21 +19,21 @@ module.exports = React.createClass({
   },
 
   onStatusChange: function(status){
-    //to make sure the converation state is being tracked
     if(status.conversationState && status.conversationState != this.state.conversationState){
       this.setState({ conversationState: status.conversationState,
                       page: 1,
-                      selectedConversation: 0 })
+                      selectedConversation: 0,
+                      maxPage: 1,
+                      conversations: []
+                     });
     }
-    if(status.conversations){
-      if(this.state.page === 1){
-        this.setState({ conversations: status.conversations,
-                        page: this.state.page + 1 })
-      }else{
-        this.setState({ conversations: this.state.conversations.concat(status.conversations),
-                        page: this.state.page + 1,
-                        isInfiniteLoading: false })
-      }
+
+    if(status.conversations) {
+      this.setState({
+        conversations: this.state.conversations.concat(status.conversations),
+        page: this.state.page += 1,
+        maxPage: status.maxPage
+      })
     }
   },
 
@@ -43,28 +42,9 @@ module.exports = React.createClass({
     MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId);
   },
 
-  elementInfiniteLoad: function() {
-    return( <div className="infinite-list-item">
-             Loading...
-            </div>)
-  },
-
-  buildElements: function(start, end) {
-    var elements = [];
-    for (var i = start; i < end; i++) {
-      elements.push(<ListItem key={i} index={i}/>)
-    }
-    return elements;
-  },
-
-
   handleInfiniteLoad: function () {
-    debugger
-    if( this.state.page <= this.state.maxPage){
-      this.setState({ isInfiniteLoading: true });
-      ConversationActions.fetchConversationRequest( localStorage.authenticationToken,
-                                                    this.state.conversationState,
-                                                    this.state.page )
+    if(this.state.page <= this.state.maxPage){
+      ConversationActions.fetchConversationRequest( localStorage.authenticationToken, this.state.conversationState, this.state.page )
     }
   },
 
@@ -93,10 +73,8 @@ module.exports = React.createClass({
         <div className="tab-pane fade active in" id="all-tab">
           <Infinite className="panel panel-default pre-scrollable-left"
                     containerHeight={window.innerHeight}
-                    elementHeight={500}
+                    elementHeight={80}
                     infiniteLoadBeginEdgeOffset={7}
-                    loadingSpinnerDelegate={this.elementInfiniteLoad()}
-                    isInfiniteLoading={this.state.isInfiniteLoading}
                     onInfiniteLoad={this.handleInfiniteLoad}
                     >
             {conversations}
