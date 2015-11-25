@@ -20,7 +20,8 @@ module.exports = Reflux.createStore({
 
   onFetchUsersCompleted: function(response){
     this.trigger({status: response.status,
-                  users: response.data.users,
+                  guardians: response.data.guardians,
+                  staff: response.data.staff,
                   patients: response.data.patients})
   },
 
