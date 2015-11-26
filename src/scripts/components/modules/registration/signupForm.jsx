@@ -5,7 +5,7 @@ var Router = require('react-router');
 
 var RegistrationActions = require('../../../actions/registrationActions');
 var RegistrationStore = require('../../../stores/registrationStore');
-var classnames = require('classnames');
+var classNames = require('classnames');
 
 var validation = require('react-validation-mixin');
 var Joi = require('joi');
@@ -35,7 +35,7 @@ var SignUpForm = React.createClass({
   },
 
   renderMessage: function(messages, labelText){
-    var messageClass = classnames({
+    var messageClass = classNames({
       "text-danger": messages.length > 0,
       "text-muted": messages.length === 0
     });
