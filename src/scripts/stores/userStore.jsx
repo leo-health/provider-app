@@ -6,7 +6,7 @@ module.exports = Reflux.createStore({
   listenables: [UserActions],
 
   onFetchUsers: function (authenticationToken, query) {
-    request.get('http://localhost:3000/api/v1/search_user')
+    request.get(leo.API_URL+'/search_user')
            .query({ authentication_token: authenticationToken,
                     query: query})
            .end(function (err, res) {
