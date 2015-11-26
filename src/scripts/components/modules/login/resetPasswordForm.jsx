@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var PasswordActions = require('../../../actions/passwordActions');
 var PasswordStore = require('../../../stores/passwordStore');
@@ -25,7 +26,7 @@ module.exports = React.createClass({
   handleOnSubmit: function (e) {
     e.preventDefault();
     if (this.state.button == "Submit" || this.state.button == "Try again"){
-      var email = this.refs.email.getDOMNode().value.trim();
+      var email = ReactDom.findDOMNode(this.refs.email).value.trim();
       if (!email){
         return
       }

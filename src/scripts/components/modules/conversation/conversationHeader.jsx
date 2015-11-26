@@ -18,7 +18,7 @@ module.exports = React.createClass({
   },
 
   handleClick: function(state){
-    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, state);
+    ConversationActions.fetchConversationRequest(localStorage.authenticationToken, state, 1);
   },
 
   render: function () {
@@ -48,7 +48,7 @@ module.exports = React.createClass({
             <span className="glyphicon glyphicon-ok-circle" aria-hidden="false"></span> Closed
           </a>
         </li>
-        <li className={navTabClass} onClick={this.handleClick.bind(this, '')}>
+        <li className={navTabClass} onClick={this.handleClick.bind(this, null)}>
           <a href="#all-tab" data-toggle="tab">All</a>
         </li>
       </ul>

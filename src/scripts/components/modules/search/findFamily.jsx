@@ -17,7 +17,8 @@ module.exports = React.createClass({
   onStatusChange: function(results){
     var suggestions = [];
     suggestions.unshift({ sectionName : 'Patients', suggestions : results.patients || [] });
-    suggestions.unshift({ sectionName : 'Users', suggestions : results.users || [] });
+    suggestions.unshift({ sectionName : 'Guardians', suggestions : results.guardians || [] });
+    suggestions.unshift({ sectionName : 'Staff', suggestions : results.staff || [] });
     this.setState(
       () => {
         this.searchResultsHandler(null, suggestions);
@@ -54,7 +55,7 @@ module.exports = React.createClass({
   },
 
   handleSelectedSuggest: function(suggestion, event){
-    if(suggestion.role === 'patient' || suggestion.role == 'guardian'){
+    if(suggestion.role.name === 'patient' || suggestion.role.name == 'guardian'){
       ConversationActions.fetchConversationByFamily(localStorage.authenticationToken, suggestion.family_id)
     }else{
       ConversationActions.fetchStaffConversation(localStorage.authenticationToken, suggestion.id)

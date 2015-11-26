@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var Message = require('./message');
 var MessageStatus = require('./messageStatus');
@@ -30,13 +31,13 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    this.props.messageChanel.bind('new_message', function(data){
+    this.props.messageChannel.bind('new_message', function(data){
       if(this.state.currentConversationId == data.conversation_id){
         MessageActions.fetchMessageRequest(localStorage.authenticationToken, data.message_id);
       }
     }, this);
 
-    this.props.stateChanel.bind('new_state', function(data){
+    this.props.stateChannel.bind('new_state', function(data){
       if(this.state.currentConversationId == data.conversation_id && data.message_type != "open"){
         this.setState({messages: this.state.messages.concat(data)})
       }
@@ -44,13 +45,13 @@ module.exports = React.createClass({
   },
 
   componentWillUpdate: function(){
-    var node = React.findDOMNode(this.refs.conversationContainer);
+    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
     this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
   },
 
   componentDidUpdate: function(){
     if (this.shouldScrollBottom){
-      var node = React.findDOMNode(this.refs.conversationContainer);
+      var node = ReactDom.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight;
     }
   },

@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var moment = require('moment');
 
@@ -9,7 +10,7 @@ module.exports = React.createClass({
 
   ensueVisible: function(){
     if(this.props.tagName === 'blockquote'){
-      this.props.scrollIntoView(React.findDOMNode(this));
+      this.props.scrollIntoView(ReactDom.findDOMNode(this));
     }
   },
 

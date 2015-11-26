@@ -1,18 +1,18 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 
 module.exports = React.createClass({
   removeTopLine: function(){
     if(this.props.reactKey == 0 || this.props.previousType == 'escalation'){
-      React.findDOMNode(this.refs[this.props.reactKey]).remove();
+      ReactDom.findDOMNode(this.refs[this.props.reactKey]).remove();
     }
   },
 
   addOpenMessage: function(){
     if((this.props.count > 1 && this.props.reactKey == 1) || (this.props.previousType == 'close')){
-      React.findDOMNode(this.refs[this.props.reactKey]).remove();
+      ReactDom.findDOMNode(this.refs[this.props.reactKey]).remove();
       var openMessage = React.createElement('span', null, 'Case opened by ' + this.props.sender);
-      React.render(openMessage, document.getElementById(this.props.reactKey))
-
+      ReactDom.render(openMessage, document.getElementById(this.props.reactKey))
     }
   },
 

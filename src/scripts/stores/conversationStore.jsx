@@ -7,26 +7,21 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
-  onFetchConversationRequest: function(authenticationToken, state){
-    var conversationParams;
-    if (state.length > 0){
-      conversationParams = {authentication_token: authenticationToken, state: state}
-    }else{
-      conversationParams = {authentication_token: authenticationToken}
-    }
+  onFetchConversationRequest: function(authenticationToken, state, page){
     request.get(leo.API_URL+"/conversations")
-           .query(conversationParams)
+           .query({authentication_token: authenticationToken, state: state, page: page})
            .end(function(err, res){
               if(res.ok){
-                ConversationActions.fetchConversationRequest.completed(res.body, state)
+                ConversationActions.fetchConversationRequest.completed(res.body, state, page)
               }else{
                 ConversationActions.fetchConversationRequest.failed(res.body)
               }
             })
   },
 
-  onFetchConversationRequestCompleted: function(response, state){
+  onFetchConversationRequestCompleted: function(response, state, page){
     var conversations = response.data.conversations;
+    if( !state ){ state = "all" }
     if (conversations.length > 0){
       var firstConversationId = response.data.conversations[0].id;
       MessageActions.fetchMessagesRequest(localStorage.authenticationToken, firstConversationId);
@@ -36,7 +31,9 @@ module.exports = Reflux.createStore({
 
     this.trigger({ status: response.status,
                    conversations: conversations,
-                   conversationState: state
+                   conversationState: state,
+                   maxPage: response.data.max_page,
+                   page: page
                   });
   },
 
@@ -93,7 +90,7 @@ module.exports = Reflux.createStore({
   },
 
   onFetchConversationByFamily: function (authenticationToken, familyId) {
-    request.get('http://localhost:3000/api/v1/families/' + familyId + '/conversation')
+    request.get(leo.API_URL+'/families/' + familyId + '/conversation')
            .query({ authentication_token: authenticationToken })
            .end(function(err, res){
              if(res.ok){
@@ -105,22 +102,22 @@ module.exports = Reflux.createStore({
   onFetchConversationByFamilyCompleted: function(response){
     this.trigger({ status: response.status,
                    conversations: [response.data.conversation],
-                   search: true })
+                   conversationState: Date.now() })
   },
 
   onFetchStaffConversation: function(authenticationToken, staffId){
-    request.get('http://localhost:3000/api/v1/staff/' + staffId + '/conversations')
+    request.get(leo.API_URL+'/staff/' + staffId + '/conversations')
            .query({ authentication_token: authenticationToken })
            .end(function(err, res){
              if(res.ok){
-               ConversationActions.fetchStaffConversation.completed(res.body)
+               ConversationActions.fetchStaffConversation.completed(res.body, staffId)
              }
            })
   },
 
-  onFetchStaffConversationCompleted: function(response){
+  onFetchStaffConversationCompleted: function(response, staffId){
     this.trigger({ status: response.status,
-                   selectedConversation: response.data.conversations,
-                   search: true })
+                   conversations: response.data.conversations,
+                   conversationState: Date.now() })
   }
 });

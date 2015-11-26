@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 //# Assign React to Window so the Chrome React Dev Tools will work.
 window.React = React;
 
@@ -26,5 +27,5 @@ var routes = (
 );
 
 Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.getElementById("container"));
+  ReactDom.render(<Handler/>, document.getElementById("container"));
 });

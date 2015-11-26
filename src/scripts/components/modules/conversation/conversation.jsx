@@ -7,7 +7,7 @@ var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
   render: function () {
-    var lastMessage = this.props.lastMessage.body;
+    var lastMessage = this.props.lastMessage;
     var guardian = this.props.guardian;
     guardian = guardian.title + guardian.first_name + " " + guardian.last_name;
     if( lastMessage.length > 150 ){
@@ -31,7 +31,7 @@ module.exports = React.createClass({
         </h6>
         <p className = "patientList">
           {patients}
-          <ConversationState conversationState = {conversationState} conversationId = {conversationId} stateChanel = {this.props.stateChanel}/>
+          <ConversationState conversationState = {conversationState} conversationId = {conversationId} stateChannel = {this.props.stateChannel}/>
         </p>
         <p className="list-group-item-text">
           {lastMessage}

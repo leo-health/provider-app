@@ -1,5 +1,6 @@
 var Reflux = require('reflux');
 var React = require('react');
+var ReactDom = require('react-dom');
 var LoginAction = require('../../../actions/loginActions');
 var SessionStore = require('../../../stores/sessionStore');
 var Router = require('react-router');
@@ -30,8 +31,8 @@ module.exports = React.createClass({
 
   handleOnSubmit: function(e){
     e.preventDefault();
-    var email = this.refs.email.getDOMNode().value.trim();
-    var password = this.refs.password.getDOMNode().value.trim();
+    var email = ReactDom.findDOMNode(this.refs.email).value.trim();
+    var password = ReactDom.findDOMNode(this.refs.password).value.trim();
     if (!this.isLocalStorageNameSupported() || !email || !password){
       return
     }
