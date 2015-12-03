@@ -86,7 +86,7 @@ module.exports = React.createClass({
                />
       }, this);
     }else{
-      notes = <div className="">This is an empty state</div>;
+      notes = <div className=""> Be the first to share context with your colleagues when escalating and closing conversations. Remember to use search to find and check in on your patients! </div>;
     }
     return (
       <div id="notes-container" className="pre-scrollable panel panel-body">

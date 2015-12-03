@@ -66,7 +66,7 @@ module.exports = React.createClass({
     return (
       <div className="panel panel-heading">
         <Autosuggest inputAttributes={{
-                       placeholder: 'Find family',
+                       placeholder: 'Find conversations by patient or guardian name',
                        onChange: this.handleSearchChange
                      }}
                      suggestions={this.getSuggestions}

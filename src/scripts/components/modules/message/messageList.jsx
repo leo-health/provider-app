@@ -91,7 +91,7 @@ module.exports = React.createClass({
                  />
         }, this);
       } else {
-        messages = <div className="">This is an empty state</div>;
+        messages = <div className=""> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
       }
     prevMessageType = 'init';
     return (

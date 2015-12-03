@@ -70,7 +70,7 @@ module.exports = React.createClass({
       )
     }, this);
     } else {
-      conversations = <div className="">This is an empty state</div>;
+      conversations = <div className=""> There are no more {this.state.conversationState} conversations for you to review. Please be sure to review the other sections. </div>;
     }
     return (
       <div id="content" className="tab-content">
