@@ -50,24 +50,28 @@ module.exports = React.createClass({
 
   render: function () {
     var conversations = this.state.conversations;
-    conversations = conversations.map(function(conversation, i){
-      var selected = this.state.selectedConversation == i;
-      var boundClick = this.handleOnClick.bind(this, i, conversation.id);
-      return (
-        <Conversation key = {i}
-                      selected = {selected}
-                      conversationId = {conversation.id}
-                      lastMessage = {conversation.last_message}
-                      guardian = {conversation.primary_guardian}
-                      patients = {conversation.patients}
-                      createdAt = {conversation.last_message_created_at }
-                      conversationState = {conversation.state}
-                      stateChannel = {this.props.stateChannel}
-                      onClick = {boundClick}
-        />
+
+    if(conversations && conversations.length > 0){
+      conversations = conversations.map(function(conversation, i){
+        var selected = this.state.selectedConversation == i;
+        var boundClick = this.handleOnClick.bind(this, i, conversation.id);
+        return (
+          <Conversation key = {i}
+                        selected = {selected}
+                        conversationId = {conversation.id}
+                        lastMessage = {conversation.last_message}
+                        guardian = {conversation.primary_guardian}
+                        patients = {conversation.patients}
+                        createdAt = {conversation.last_message_created_at }
+                        conversationState = {conversation.state}
+                        stateChannel = {this.props.stateChannel}
+                        onClick = {boundClick}
+          />
       )
     }, this);
-
+    } else {
+      conversations = <div className="">This is an empty state</div>;
+    }
     return (
       <div id="content" className="tab-content">
         <div className="tab-pane fade active in" id="all-tab">

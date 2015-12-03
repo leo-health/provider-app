@@ -70,25 +70,29 @@ module.exports = React.createClass({
 
   render: function () {
     var messages = this.state.messages;
-    var currentConversationId = this.state.currentConversationId;
-    if(messages){
-      var count = messages.length;
-      var messages = messages.map(function(msg, i){
-        var previousType = this.checkClosedMessage(msg);
-        return <Message key={i}
-                        reactKey={i}
-                        id={msg.id}
-                        count={count}
-                        previousType={previousType}
-                        body={msg.message_body}
-                        sender={msg.created_by}
-                        sentAt={msg.created_at}
-                        escalatedTo = {msg.escalated_to}
-                        messageType = {msg.message_type}
-                        link={this.props.link}
-               />
-      }, this);
-    }
+
+      var currentConversationId = this.state.currentConversationId;
+
+      if(messages && messages.length > 0){
+        var count = messages.length;
+        var messages = messages.map(function(msg, i){
+          var previousType = this.checkClosedMessage(msg);
+          return <Message key={i}
+                          reactKey={i}
+                          id={msg.id}
+                          count={count}
+                          previousType={previousType}
+                          body={msg.message_body}
+                          sender={msg.created_by}
+                          sentAt={msg.created_at}
+                          escalatedTo = {msg.escalated_to}
+                          messageType = {msg.message_type}
+                          link={this.props.link}
+                 />
+        }, this);
+      } else {
+        messages = <div className="">This is an empty state</div>;
+      }
     prevMessageType = 'init';
     return (
       <div>

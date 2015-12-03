@@ -85,6 +85,8 @@ module.exports = React.createClass({
                      scrollIntoView={this.scrollElementIntoView}
                />
       }, this);
+    }else{
+      notes = <div className="">This is an empty state</div>;
     }
     return (
       <div id="notes-container" className="pre-scrollable panel panel-body">
