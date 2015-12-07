@@ -20,12 +20,13 @@ module.exports = React.createClass({
 
   onStatusChange: function(status){
     if(status.conversationState && status.conversationState != this.state.conversationState){
-      this.setState({ conversationState: status.conversationState,
-                      page: 1,
-                      selectedConversation: 0,
-                      maxPage: 1,
-                      conversations: []
-                     });
+      this.setState({
+        conversationState: status.conversationState,
+        page: 1,
+        selectedConversation: 0,
+        maxPage: 1,
+        conversations: []
+      });
     }
 
     if(status.conversations) {
@@ -55,6 +56,7 @@ module.exports = React.createClass({
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversation == i;
         var boundClick = this.handleOnClick.bind(this, i, conversation.id);
+
         return (
           <Conversation key = {i}
                         selected = {selected}
@@ -70,8 +72,9 @@ module.exports = React.createClass({
       )
     }, this);
     } else {
-      conversations = <div className=""> There are no more {this.state.conversationState} conversations for you to review. Please be sure to review the other sections. </div>;
+      conversations = <div> There are no more {this.state.conversationState} conversations for you to review. Please be sure to review the other sections. </div>;
     }
+
     return (
       <div id="content" className="tab-content">
         <div className="tab-pane fade active in" id="all-tab">
