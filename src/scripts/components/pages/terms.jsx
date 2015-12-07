@@ -6,16 +6,13 @@ module.exports = React.createClass({
 <section class="ppn">
 <header data-role="page-header">
     <section data-role="company">
-        <h1>{{ org.name }}</h1>
-        <h2>{{ org.subtitle }}</h2>
+        <h1>Leo Health</h1>
+        <h2>Pediatrics</h2>
     </section>
     <section data-role="contact">
         <address>
-            {{ org.address.address1 }}<br>
-            {{ org.address.address2 }}<br>
-            {{ org.address.city }}, {{ org.address.state }} {{ org.address.zip }}<br/>
-            <abbr title="Phone">P:</abbr> {{ org.phone }}<br/>
-            <abbr title="Fax">F:</abbr> {{ org.fax }}
+            33 W 17th Street<br/>
+            New York, NY 10011<br/>
         </address>
     </section>
 </header>
@@ -32,15 +29,7 @@ module.exports = React.createClass({
 
 <section data-role="section-body">
 
-<article data-ng-show="org.ppn.introduction">
-    <h2>{{ org.ppn.introduction.title }}</h2>
-    <article>
-        {{ org.ppn.introduction.text }}
-    </article>
-</article>
-
 <section data-role="item-links">
-    <a href="">a</a><a href="">a</a><a href="">a</a><a href="">a</a><a href="">a</a>
 </section>
 
 
@@ -49,14 +38,14 @@ module.exports = React.createClass({
     <section data-role="contents">
         <h2>You have the right to:</h2>
         <ul>
-            <li>Get a copy of your paper or electronic medical record
-            <li>Correct your paper or electronic medical record
-            <li>Request confidential communication
-            <li>Ask us to limit the information we share
-            <li>Get a list of those with whom we’ve shared your information
-            <li>Get a copy of this privacy notice
-            <li>Choose someone to act for you
-            <li>File a complaint if you believe your privacy rights have been violated
+            <li>Get a copy of your paper or electronic medical record</li>
+            <li>Correct your paper or electronic medical record</li>
+            <li>Request confidential communication</li>
+            <li>Ask us to limit the information we share</li>
+            <li>Get a list of those with whom we’ve shared your information</li>
+            <li>Get a copy of this privacy notice</li>
+            <li>Choose someone to act for you</li>
+            <li>File a complaint if you believe your privacy rights have been violated</li>
         </ul>
         <a data-ng-click="showMoreInfo()" data-role="more-info">See more information on these rights and how to exercise
             them</a>
@@ -72,9 +61,9 @@ module.exports = React.createClass({
                 <dd>
                     <ul>
                         <li>You can ask to see or get an electronic or paper copy of your medical record and other health
-                            information we have about you. Ask us how to do this.
+                            information we have about you. Ask us how to do this.</li>
                         <li>We will provide a copy or a summary of your health information, usually within 30 days of your
-                            request. We may charge a reasonable, cost-based fee.
+                            request. We may charge a reasonable, cost-based fee.</li>
                     </ul>
                 </dd>
             </dl>
@@ -85,8 +74,8 @@ module.exports = React.createClass({
                 <dd>
                     <ul>
                         <li>You can ask us to correct health information about you that you think is incorrect or
-                            incomplete. Ask us how to do this.
-                        <li>We may say “no” to your request, but we’ll tell you why in writing within 60 days.
+                            incomplete. Ask us how to do this.</li>
+                        <li>We may say “no” to your request, but we’ll tell you why in writing within 60 days.</li>
                     </ul>
                 </dd>
             </dl>
@@ -96,8 +85,8 @@ module.exports = React.createClass({
                 <dd>
                     <ul>
                         <li>You can ask us to contact you in a specific way (for example, home or office phone) or to send
-                            mail to a different address.
-                        <li>We will say “yes” to all reasonable requests.
+                            mail to a different address.</li>
+                        <li>We will say “yes” to all reasonable requests.</li>
                     </ul>
                 </dd>
             </dl>
@@ -108,10 +97,10 @@ module.exports = React.createClass({
                     <ul>
                         <li>You can ask us not to use or share certain health information for treatment, payment, or our
                             operations. We are not required to agree to your request, and we may say “no” if it would affect
-                            your care.
+                            your care.</li>
                         <li>If you pay for a service or health care item out-of-pocket in full, you can ask us not to share
                             that information for the purpose of payment or our operations with your health insurer. We will
-                            say “yes” unless a law requires us to share that information.
+                            say “yes” unless a law requires us to share that information.</li>
                     </ul>
                 </dd>
             </dl>
@@ -121,11 +110,11 @@ module.exports = React.createClass({
                 <dd>
                     <ul>
                         <li>You can ask for a list (accounting) of the times we’ve shared your health information for six
-                            years prior to the date you ask, who we shared it with, and why.
+                            years prior to the date you ask, who we shared it with, and why.</li>
                         <li>We will include all the disclosures except for those about treatment, payment, and health care
                             operations, and certain other disclosures (such as any you asked us to make). We’ll provide one
                             accounting a year for free but will charge a reasonable, cost-based fee if you ask for another
-                            one within 12 months.
+                            one within 12 months.</li>
                     </ul>
                 </dd>
             </dl>
@@ -142,8 +131,8 @@ module.exports = React.createClass({
                 <dd>
                     <ul>
                         <li>If you have given someone medical power of attorney or if someone is your legal guardian, that
-                            person can exercise your rights and make choices about your health information.
-                        <li>We will make sure the person has this authority and can act for you before we take any action.
+                            person can exercise your rights and make choices about your health information.</li>
+                        <li>We will make sure the person has this authority and can act for you before we take any action.</li>
                     </ul>
                 </dd>
             </dl>
@@ -153,7 +142,7 @@ module.exports = React.createClass({
                 <dd>
                     <ul>
                         <li>You can complain if you feel we have violated your rights by contacting us using the information
-                            on page 1.
+                            on page 1.</li>
                         <li>You can file a complaint with the U.S. Department of Health and Human Services Office for Civil
                             Rights by sending a letter to
                             <br/><br/>
@@ -165,7 +154,7 @@ module.exports = React.createClass({
                                     href="http://www.hhs.gov/ocr/privacy/hipaa/complaints/" target="_blank">HHS.GOV Complaints
                                 <i class="fa fa-external-link"></i></a>.
                         </li>
-                        <li>We will not retaliate against you for filing a complaint.
+                        <li>We will not retaliate against you for filing a complaint.</li>
                     </ul>
                 </dd>
             </dl>
@@ -180,12 +169,12 @@ module.exports = React.createClass({
     <section data-role="contents">
         <h2>You have some choices in the way that we use and share information as we:</h2>
         <ul>
-            <li>Tell family and friends about your condition
-            <li>Provide disaster relief
-            <li>Include you in a hospital directory
-            <li>Provide mental health care
-            <li>Market our services and sell your information
-            <li>Raise funds
+            <li>Tell family and friends about your condition</li>
+            <li>Provide disaster relief</li>
+            <li>Include you in a hospital directory</li>
+            <li>Provide mental health care</li>
+            <li>Market our services and sell your information</li>
+            <li>Raise funds</li>
         </ul>
         <a data-ng-click="showMoreInfo()" data-role="more-info">See more information on these choices and how to exercise
             them</a>
@@ -200,9 +189,9 @@ module.exports = React.createClass({
                 <dt>In these cases, you have both the right and choice to tell us to:</dt>
                 <dd>
                     <ul>
-                        <li>Share information with your family, close friends, or others involved in your care
-                        <li>Share information in a disaster relief situation
-                        <li>Include your information in a hospital directory
+                        <li>Share information with your family, close friends, or others involved in your care</li>
+                        <li>Share information in a disaster relief situation</li>
+                        <li>Include your information in a hospital directory</li>
                     </ul>
                 </dd>
                 <dd>
@@ -216,9 +205,9 @@ module.exports = React.createClass({
                 <dt>In these cases we never share your information unless you give us written permission:</dt>
                 <dd>
                     <ul>
-                        <li>Marketing purposes
-                        <li>Sale of your information
-                        <li>Most sharing of psychotherapy notes
+                        <li>Marketing purposes</li>
+                        <li>Sale of your information</li>
+                        <li>Most sharing of psychotherapy notes</li>
                     </ul>
                 </dd>
             </dl>
@@ -227,7 +216,7 @@ module.exports = React.createClass({
                 <dt>In the case of fundraising:</dt>
                 <dd>
                     <ul>
-                        <li>We may contact you for fundraising efforts, but you can tell us not to contact you again.
+                        <li>We may contact you for fundraising efforts, but you can tell us not to contact you again.</li>
                     </ul>
                 </dd>
             </dl>
@@ -241,16 +230,16 @@ module.exports = React.createClass({
     <section data-role="contents">
         <h2>We may use and share your information as we:</h2>
         <ul>
-            <li>Treat you
-            <li>Run our organization
-            <li>Bill for your services
-            <li>Help with public health and safety issues
-            <li>Do research
-            <li>Comply with the law
-            <li>Respond to organ and tissue donation requests
-            <li>Work with a medical examiner or funeral director
-            <li>Address workers’ compensation, law enforcement, and other government requests
-            <li>Respond to lawsuits and legal actions
+            <li>Treat you</li>
+            <li>Run our organization</li>
+            <li>Bill for your services</li>
+            <li>Help with public health and safety issues</li>
+            <li>Do research</li>
+            <li>Comply with the law</li>
+            <li>Respond to organ and tissue donation requests</li>
+            <li>Work with a medical examiner or funeral director</li>
+            <li>Address workers’ compensation, law enforcement, and other government requests</li>
+            <li>Respond to lawsuits and legal actions</li>
         </ul>
         <a data-ng-click="showMoreInfo()" data-role="more-info">See more information on these uses and disclosures</a>
 
@@ -317,11 +306,11 @@ module.exports = React.createClass({
                     <ul>
                         <li> We can share health information about you for certain situations such as:
                             <ul>
-                                <li>Preventing disease
-                                <li>Helping with product recalls
-                                <li>Reporting adverse reactions to medications
-                                <li>Reporting suspected abuse, neglect, or domestic violence
-                                <li>Preventing or reducing a serious threat to anyone’s health or safety
+                                <li>Preventing disease</li>
+                                <li>Helping with product recalls</li>
+                                <li>Reporting adverse reactions to medications</li>
+                                <li>Reporting suspected abuse, neglect, or domestic violence</li>
+                                <li>Preventing or reducing a serious threat to anyone’s health or safety</li>
                             </ul>
                         </li>
                     </ul>
@@ -384,11 +373,11 @@ module.exports = React.createClass({
                     <ul>
                         <li>We can use or share health information about you:
                             <ul>
-                                <li>For workers’ compensation claims
-                                <li>For law enforcement purposes or with a law enforcement official
-                                <li>With health oversight agencies for activities authorized by law
+                                <li>For workers’ compensation claims</li>
+                                <li>For law enforcement purposes or with a law enforcement official</li>
+                                <li>With health oversight agencies for activities authorized by law</li>
                                 <li>For special government functions such as military, national security, and presidential
-                                    protective services
+                                    protective services</li>
                             </ul>
                         </li>
                     </ul>
@@ -420,7 +409,7 @@ module.exports = React.createClass({
 
         <section>
             <h2>Electronic Access</h2>
-            {{ org.name }} provides electronic access to your health information via PatientPrivilege.
+            Leo Health provides electronic access to your health information via PatientPrivilege.
         </section>
     </section>
 </article>
@@ -428,12 +417,12 @@ module.exports = React.createClass({
 <article data-role="em" data-type="responsibilities">
     <header><span>Our Responsibilities</span></header>
     <ul>
-        <li>We are required by law to maintain the privacy and security of your protected health information.
+        <li>We are required by law to maintain the privacy and security of your protected health information.</li>
         <li>We will let you know promptly if a breach occurs that may have compromised the privacy or security of your
-            information.
-        <li>We must follow the duties and privacy practices described in this notice and give you a copy of it.
+            information.</li>
+        <li>We must follow the duties and privacy practices described in this notice and give you a copy of it.</li>
         <li>We will not use or share your information other than as described here unless you tell us we can in writing.
-            If you tell us we can, you may change your mind at any time. Let us know in writing if you change your mind.
+            If you tell us we can, you may change your mind at any time. Let us know in writing if you change your mind.</li>
     </ul>
 
     <section class="container">
@@ -451,25 +440,12 @@ module.exports = React.createClass({
                 The new notice will be available upon request, in our office, and on our web site.</p>
         </section>
 
-        <p>This notice is effective as of <strong>{{ org.ppn.effectiveDate | date:'MM/dd/yyyy hh:mma' }}</strong></p>
+        <p>This notice is effective as of <strong>12/01/2015</strong></p>
 
-        <p><strong>{{ org.ppn.applicability }}</strong></p>
-        <p><strong>{{ org.ppn.privacyOfficer }}</strong></p>
+        <p><strong>Nayan Jain, Chief Privacy Officer</strong></p>
     </section>
 </article>
 </section>
-</section>
-
-<section data-role="agreement">
-    <label>
-        <input type="checkbox" data-ng-model="patientSigned"> {{ org.ppn.signOff }}
-    </label>
-
-    <button class="hidden-print" data-ng-disabled="!patientSigned" data-role="sign-agreement">I agree, continue</button>
-</section>
-
-<section class="visible-print">
-    Printed on {{ $date | date:'MM/dd/yyyy @ h:mma'}}
 </section>
 
 </section>
