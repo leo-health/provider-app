@@ -52,7 +52,7 @@ module.exports = React.createClass({
   render: function () {
     var conversations = this.state.conversations;
 
-    if(conversations && conversations.length > 0){
+    if(conversations.length > 0){
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversation == i;
         var boundClick = this.handleOnClick.bind(this, i, conversation.id);
