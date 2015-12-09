@@ -95,8 +95,10 @@ module.exports = React.createClass({
     prevMessageType = 'init';
     return (
       <div>
-        <div id="conversation-container" className="pre-scrollable panel panel-body" ref="conversationContainer">
-          {messages}
+        <div id="chatbox" className="pre-scrollable panel panel-body">
+          <div id="chatmessages" ref="conversationContainer">
+            {messages}
+          </div>
         </div>
         <MessageForm conversationId={currentConversationId} staff={this.state.staff}/>
       </div>
