@@ -85,6 +85,8 @@ module.exports = React.createClass({
                      scrollIntoView={this.scrollElementIntoView}
                />
       }, this);
+    }else{
+      notes = <div> Be the first to share context with your colleagues when escalating and closing conversations. Remember to use search to find and check in on your patients! </div>;
     }
     return (
       <div id="notes-container" className="pre-scrollable panel panel-body">

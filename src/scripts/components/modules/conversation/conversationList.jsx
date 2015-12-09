@@ -20,12 +20,13 @@ module.exports = React.createClass({
 
   onStatusChange: function(status){
     if(status.conversationState && status.conversationState != this.state.conversationState){
-      this.setState({ conversationState: status.conversationState,
-                      page: 1,
-                      selectedConversation: 0,
-                      maxPage: 1,
-                      conversations: []
-                     });
+      this.setState({
+        conversationState: status.conversationState,
+        page: 1,
+        selectedConversation: 0,
+        maxPage: 1,
+        conversations: []
+      });
     }
 
     if(status.conversations) {
@@ -50,24 +51,28 @@ module.exports = React.createClass({
 
   render: function () {
     var conversations = this.state.conversations;
-    conversations = conversations.map(function(conversation, i){
-      var selected = this.state.selectedConversation == i;
-      var boundClick = this.handleOnClick.bind(this, i, conversation.id);
-      return (
-        <Conversation key = {i}
-                      selected = {selected}
-                      conversationId = {conversation.id}
-                      lastMessage = {conversation.last_message}
-                      primaryGuardian = {conversation.primary_guardian}
-                      guardians = {conversation.guardians}
-                      patients = {conversation.patients}
-                      createdAt = {conversation.last_message_created_at }
-                      conversationState = {conversation.state}
-                      stateChannel = {this.props.stateChannel}
-                      onClick = {boundClick}
-        />
+    if(conversations.length > 0){
+      conversations = conversations.map(function(conversation, i){
+        var selected = this.state.selectedConversation == i;
+        var boundClick = this.handleOnClick.bind(this, i, conversation.id);
+
+        return (
+          <Conversation key = {i}
+                        selected = {selected}
+                        conversationId = {conversation.id}
+                        lastMessage = {conversation.last_message}
+                        guardian = {conversation.primary_guardian}
+                        patients = {conversation.patients}
+                        createdAt = {conversation.last_message_created_at }
+                        conversationState = {conversation.state}
+                        stateChannel = {this.props.stateChannel}
+                        onClick = {boundClick}
+          />
       )
     }, this);
+    } else {
+      conversations = <div> There are no more {this.state.conversationState} conversations for you to review. Please be sure to review the other sections. </div>;
+    }
 
     return (
       <div id="content" className="tab-content">

@@ -11,8 +11,9 @@ var App = require('./app'),
     Home = require('./pages/home'),
     ResetPassword = require('./pages/resetPassword'),
     ChangePassword = require('./pages/changePassword'),
-    Registration = require('./pages/registration');
-    Success = require('./pages/success');
+    Registration = require('./pages/registration'),
+    Success = require('./pages/success'),
+    Terms = require('./pages/terms');
 
 var routes = (
   <Route handler={App}>
@@ -23,6 +24,7 @@ var routes = (
     <Route name ="registration" handler={Registration} />
     <Route name ="success" handler={Success} />
     <Route name="home" handler={Home}/>
+    <Route name="terms" handler={Terms}/>
   </Route>
 );
 
