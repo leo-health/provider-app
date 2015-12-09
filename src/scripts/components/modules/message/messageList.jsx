@@ -71,7 +71,7 @@ module.exports = React.createClass({
   render: function () {
     var messages = this.state.messages;
     var currentConversationId = this.state.currentConversationId;
-    if(messages){
+    if(messages && messages.length > 0){
       var count = messages.length;
       var messages = messages.map(function(msg, i){
         var previousType = this.checkClosedMessage(msg);
@@ -88,7 +88,10 @@ module.exports = React.createClass({
                         link={this.props.link}
                />
       }, this);
+    } else {
+      messages = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
     }
+
     prevMessageType = 'init';
     return (
       <div>
