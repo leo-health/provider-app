@@ -51,18 +51,17 @@ module.exports = React.createClass({
 
   render: function () {
     var conversations = this.state.conversations;
-
     if(conversations.length > 0){
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversation == i;
         var boundClick = this.handleOnClick.bind(this, i, conversation.id);
-
         return (
           <Conversation key = {i}
                         selected = {selected}
                         conversationId = {conversation.id}
                         lastMessage = {conversation.last_message}
-                        guardian = {conversation.primary_guardian}
+                        primaryGuardian = {conversation.primary_guardian}
+                        guardians = {conversation.guardians}
                         patients = {conversation.patients}
                         createdAt = {conversation.last_message_created_at }
                         conversationState = {conversation.state}
