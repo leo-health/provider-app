@@ -32,7 +32,7 @@ module.exports = React.createClass({
       )
     }.bind(this));
 
-    var secondaryGuardians = _.remove(this.props.guardians, function(guardian){
+    var secondaryGuardians = _.filter(this.props.guardians, function(guardian){
       return guardian.id !=  this.props.primaryGuardian.id
     }.bind(this));
 
