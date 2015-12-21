@@ -74,7 +74,6 @@ module.exports = React.createClass({
     if(messages && messages.length > 0){
       var count = messages.length;
       var messages = messages.map(function(msg, i){
-        var previousType = this.checkClosedMessage(msg);
         return <Message key={i}
                         reactKey={i}
                         id={msg.id}
@@ -85,8 +84,11 @@ module.exports = React.createClass({
                         sentAt={msg.created_at}
                         escalatedTo = {msg.escalated_to}
                         messageType = {msg.message_type}
+                        typeName = {msg.type_name}
+                        image = {msg.image}
                         link={this.props.link}
-               />
+            />
+        var previousType = this.checkClosedMessage(msg);
       }, this);
     } else {
       messages = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;

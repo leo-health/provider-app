@@ -22,6 +22,12 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var typeName = this.props.typeName;
+    var image = this.props.image;
+    if(typeName === "image"){
+      var image = <blockquote><a href={image.url} target="blank"><img className="img-chat" src={image.primary_1x.url}/></a></blockquote>
+    }
+
     return(
       <div>
         <div className='inline-hr' id={this.props.reactKey} ref="container">
@@ -30,6 +36,7 @@ module.exports = React.createClass({
         <small> {this.props.sentAt} </small>
         <strong>{this.props.sender}</strong>
         &nbsp;{this.props.messageBody}
+        {image}
       </div>
     )
   }
