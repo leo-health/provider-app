@@ -17,15 +17,20 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    this.removeTopLine();
-    this.addOpenMessage();
+    if(this.props.sender !== "Leo Bot"){
+      this.removeTopLine();
+      this.addOpenMessage();
+    }
   },
 
   render: function() {
     var typeName = this.props.typeName;
-    var image = this.props.image;
+    var body = this.props.messageBody;
+    var message;
     if(typeName === "image"){
-      var image = <blockquote><a href={image.url} target="blank"><img className="img-chat" src={image.primary_1x.url}/></a></blockquote>
+      message = <blockquote><a href={body.url} target="blank"><img className="img-chat" src={body.primary_1x.url}/></a></blockquote>
+    }else{
+      message = body
     }
 
     return(
@@ -35,8 +40,8 @@ module.exports = React.createClass({
         </div>
         <small> {this.props.sentAt} </small>
         <strong>{this.props.sender}</strong>
-        &nbsp;{this.props.messageBody}
-        {image}
+        &nbsp;
+        {message}
       </div>
     )
   }

@@ -57,13 +57,15 @@ module.exports = React.createClass({
   },
 
   checkClosedMessage: function(msg){
-    var prevType = prevMessageType;
+    var prevType = prevMessageType || 'close';
     if(msg.message_type == 'close'){
       prevMessageType = 'close';
     }else if(msg.message_type == 'escalation'){
       prevMessageType = 'escalation';
     }else{
-      prevMessageType = 'message';
+      if(msg.created_by.role.name !== 'bot'){
+        prevMessageType = 'message';
+      }
     }
     return prevType
   },
@@ -85,9 +87,9 @@ module.exports = React.createClass({
                         escalatedTo = {msg.escalated_to}
                         messageType = {msg.message_type}
                         typeName = {msg.type_name}
-                        image = {msg.image}
                         link={this.props.link}
             />
+
         var previousType = this.checkClosedMessage(msg);
       }, this);
     } else {

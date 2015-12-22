@@ -6,7 +6,7 @@ var SystemMessage = require('./systemMessage.jsx');
 module.exports = React.createClass({
   formatName: function(name){
     if(name.title){
-      return name.title + ". " + name.first_name + " " + name.last_name;
+      return name.title + name.first_name + " " + name.last_name;
     }else{
       return name.first_name + " " + name.last_name;
     }
@@ -25,8 +25,8 @@ module.exports = React.createClass({
     var escalated = this.props.escalated;
     var previousType = this.props.previousType;
     var typeName = this.props.typeName;
-    var image = this.props.image;
     sender = this.formatName(sender);
+
     if (escalatedTo){
       escalatedTo = this.formatName(escalatedTo);
     }
@@ -42,7 +42,6 @@ module.exports = React.createClass({
                                   escalated={escalated}
                                   typeName={typeName}
                                   previousType={previousType}
-                                  image={image}
                                   count={count}/>;
         break;
       case "escalation":
