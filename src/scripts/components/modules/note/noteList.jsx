@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
   onStatusChange: function (status) {
     if(status.messages){
-      var notes = _.filter(status.messages, function(m){return m.message_type != 'message'});
+      var notes = _.filter(status.messages, function(m){return m.message_type != 'message' || m.message_type != 'bot_message'});
       this.setState({notes: notes, currentConversationId: status.currentConversationId})
     }
   },
@@ -71,6 +71,7 @@ module.exports = React.createClass({
   render: function () {
     var notes = this.state.notes;
     if(notes && notes.length > 0){
+      debugger
       var highlightNoteKey = this.sethighlightNoteKey(notes);
       notes = notes.map(function(note, i){
         var tagName = this.setTagName(highlightNoteKey, note);

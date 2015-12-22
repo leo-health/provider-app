@@ -26,6 +26,7 @@ module.exports = React.createClass({
       this.setState({ messages: this.state.messages.concat(new_message)})
     }else{
       this.setState({ messages: status.messages,
+                      initMessageId: status.initMessageId,
                       currentConversationId: status.currentConversationId })
     }
   },
@@ -56,42 +57,34 @@ module.exports = React.createClass({
     }
   },
 
-  checkClosedMessage: function(msg){
-    var prevType = prevMessageType || 'close';
-    if(msg.message_type == 'close'){
-      prevMessageType = 'close';
-    }else if(msg.message_type == 'escalation'){
-      prevMessageType = 'escalation';
-    }else{
-      if(msg.created_by.role.name !== 'bot'){
-        prevMessageType = 'message';
-      }
-    }
-    return prevType
-  },
-
   render: function () {
     var messages = this.state.messages;
     var currentConversationId = this.state.currentConversationId;
+    var initMessageId = this.state.initMessageId;
+
     if(messages && messages.length > 0){
       var count = messages.length;
-      var messages = messages.map(function(msg, i){
-        return <Message key={i}
-                        reactKey={i}
-                        id={msg.id}
-                        count={count}
-                        previousType={previousType}
-                        body={msg.message_body}
-                        sender={msg.created_by}
-                        sentAt={msg.created_at}
-                        escalatedTo = {msg.escalated_to}
-                        messageType = {msg.message_type}
-                        typeName = {msg.type_name}
-                        link={this.props.link}
+      var prevType = 'close';
+      for(var i = 0; i < messages.length; i++){
+        var tmpPrevType = messages[i].message_type;
+        var msg = messages[i];
+
+        messages[i] =  <Message key={i}
+                                reactKey={i}
+                                id={msg.id}
+                                count={count}
+                                prevType={prevType}
+                                body={msg.message_body}
+                                sender={msg.created_by}
+                                sentAt={msg.created_at}
+                                escalatedTo = {msg.escalated_to}
+                                messageType = {msg.message_type}
+                                typeName = {msg.type_name}
+                                link={this.props.link}
             />
 
-        var previousType = this.checkClosedMessage(msg);
-      }, this);
+        tmpPrevType === 'bot_message' ? prevType : prevType = tmpPrevType;
+      }
     } else {
       messages = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
     }

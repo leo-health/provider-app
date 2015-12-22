@@ -23,10 +23,9 @@ module.exports = React.createClass({
     var count = this.props.count;
     var closed = this.props.closed;
     var escalated = this.props.escalated;
-    var previousType = this.props.previousType;
+    var prevType = this.props.prevType;
     var typeName = this.props.typeName;
     sender = this.formatName(sender);
-
     if (escalatedTo){
       escalatedTo = this.formatName(escalatedTo);
     }
@@ -34,6 +33,7 @@ module.exports = React.createClass({
     var message;
     switch (messageType){
       case "message":
+      case "bot_message":
         message = <RegularMessage sender={sender}
                                   sentAt={sentAt}
                                   messageBody={messageBody}
@@ -41,7 +41,7 @@ module.exports = React.createClass({
                                   closed={closed}
                                   escalated={escalated}
                                   typeName={typeName}
-                                  previousType={previousType}
+                                  prevType={prevType}
                                   count={count}/>;
         break;
       case "escalation":
