@@ -42,6 +42,7 @@ module.exports = Reflux.createStore({
   onFetchMessagesRequestCompleted: function(response){
     this.trigger({ status: response.status,
                    messages: response.data.messages.reverse(),
+                   initMessageId: response.data.init_message_id,
                    currentConversationId: response.data.conversation_id })
   },
 
