@@ -65,11 +65,11 @@ module.exports = React.createClass({
     if(messages && messages.length > 0){
       var count = messages.length;
       var prevType = 'close';
+      var messageElements = [];
       for(var i = 0; i < messages.length; i++){
-        var tmpPrevType = messages[i].message_type;
         var msg = messages[i];
 
-        messages[i] =  <Message key={i}
+        messageElements[i] =  <Message key={i}
                                 reactKey={i}
                                 id={msg.id}
                                 count={count}
@@ -83,10 +83,10 @@ module.exports = React.createClass({
                                 link={this.props.link}
             />
 
-        tmpPrevType === 'bot_message' ? prevType : prevType = tmpPrevType;
+        messages[i].message_type === 'bot_message' ? prevType : prevType = messages[i].message_type;
       }
     } else {
-      messages = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
+      messageElements = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
     }
 
     prevMessageType = 'init';
@@ -94,7 +94,7 @@ module.exports = React.createClass({
       <div>
         <div id="chatbox" className="pre-scrollable panel panel-body">
           <div id="chatmessages" ref="conversationContainer">
-            {messages}
+            {messageElements}
           </div>
         </div>
         <MessageForm conversationId={currentConversationId} staff={this.state.staff}/>
