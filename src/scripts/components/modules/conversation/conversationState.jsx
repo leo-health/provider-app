@@ -21,10 +21,10 @@ module.exports = React.createClass({
         display = display + " glyphicon-exclamation-sign-default";
         break;
       case "open":
-        display = display + " glyphicon-star";
+        display = display + " glyphicon-star-empty";
         break;
       case "closed":
-        display =  display + " glyphicon-ok-sign";
+        display =  display + " glyphicon-ok-circle";
         break;
     }
     return(
