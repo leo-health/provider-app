@@ -6,7 +6,7 @@ var SystemMessage = require('./systemMessage.jsx');
 module.exports = React.createClass({
   formatName: function(name){
     if(name.title){
-      return name.title + name.first_name + " " + name.last_name;
+      return name.title + " " + name.first_name + " " + name.last_name;
     }else{
       return name.first_name + " " + name.last_name;
     }

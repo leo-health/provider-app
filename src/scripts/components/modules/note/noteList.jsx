@@ -71,7 +71,6 @@ module.exports = React.createClass({
   render: function () {
     var notes = this.state.notes;
     if(notes && notes.length > 0){
-      debugger
       var highlightNoteKey = this.sethighlightNoteKey(notes);
       notes = notes.map(function(note, i){
         var tagName = this.setTagName(highlightNoteKey, note);
