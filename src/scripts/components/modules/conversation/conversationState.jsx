@@ -1,4 +1,5 @@
 var React = require('react');
+var classNames = require('classnames');
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -15,20 +16,14 @@ module.exports = React.createClass({
 
   render: function (){
     var conversationState = this.props.conversationState;
-    var display = "glyphicon pull-right";
-    switch (conversationState){
-      case "escalated":
-        display = display + " glyphicon-exclamation-sign-default";
-        break;
-      case "open":
-        display = display + " glyphicon-star-empty";
-        break;
-      case "closed":
-        display =  display + " glyphicon-ok-circle";
-        break;
-    }
+    var stateClasses = classNames({
+      'glyphicon glyphicon-exclamation-sign-default pull-right': conversationState === "escalated",
+      'glyphicon glyphicon-star-empty pull-right': conversationState === "open",
+      'glyphicon glyphicon-ok-circle pull-right': conversationState === "closed"
+    });
+
     return(
-      <span className = {display} aria-hidden = "true"></span>
+      <span className = {stateClasses} aria-hidden = "true"></span>
     )
   }
 });
