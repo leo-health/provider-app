@@ -147,7 +147,7 @@ module.exports = React.createClass({
           <div className="">
             <form>
               <a href="#" className="btn btn-success btn-sm message-button" onClick={this.handleSendMessage}>
-                <span className="glyphicon glyphicon-ok"></span>Send
+                <span className="glyphicon glyphicon-ok"></span> Send
               </a>
               <a href="#" className="btn btn-primary btn-sm message-button" onClick={this.showClose}>
                 <span className="glyphicon glyphicon-ok"></span> Close Case
