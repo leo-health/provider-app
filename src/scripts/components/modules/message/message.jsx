@@ -1,16 +1,10 @@
 var React = require('react');
 var moment = require('moment');
+var leoUtil = require('../../../utils/common').StringUtils;
 var RegularMessage = require('./regularMessage.jsx');
 var SystemMessage = require('./systemMessage.jsx');
 
 module.exports = React.createClass({
-  formatName: function(name){
-    if(name.title){
-      return name.title + " " + name.first_name + " " + name.last_name;
-    }else{
-      return name.first_name + " " + name.last_name;
-    }
-  },
 
   render: function () {
     var sentAt = moment(this.props.sentAt).calendar();
@@ -25,9 +19,9 @@ module.exports = React.createClass({
     var escalated = this.props.escalated;
     var prevType = this.props.prevType;
     var typeName = this.props.typeName;
-    sender = this.formatName(sender);
+    sender = leoUtil.formatName(sender);
     if (escalatedTo){
-      escalatedTo = this.formatName(escalatedTo);
+      escalatedTo = leoUtil.formatName(escalatedTo);
     }
 
     var message;
