@@ -2,7 +2,7 @@ var StringUtils = {};
 
 StringUtils = {
   formatName: function(userNameObject) {
-    return (userNameObject.title === null) ? "" : ((userNameObject.title + ". ")  + userNameObject.first_name + " " + userNameObject.last_name);
+    return ((userNameObject.title === null ? "" : (userNameObject.title + ". "))  + userNameObject.first_name + " " + userNameObject.last_name);
   },
   shorten: function(fullStr, len) {
     len = typeof len !== 'undefined' ?  len : 150;
