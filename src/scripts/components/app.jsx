@@ -24,7 +24,7 @@ module.exports = React.createClass({
     var loginStatus = getStateFromStores();
     var currentRouteName = this.context.router.getCurrentPathname();
 
-    if (["/resetPassword", "/changePassword", "/registration", "/success", "/terms"].indexOf(currentRouteName) > -1) {
+    if (["/resetPassword", "/changePassword", "/registration", "/success", "/terms", "/acceptInvitation"].indexOf(currentRouteName) > -1) {
       return loginStatus
     }
     else if(loginStatus.isLoggedIn){
