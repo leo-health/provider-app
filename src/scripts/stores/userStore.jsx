@@ -28,5 +28,18 @@ module.exports = Reflux.createStore({
   onFetchUsersFailed: function(response){
     this.trigger({ status: response.status,
                    message: 'error fetching guardians'})
+  },
+
+  onSignUpUser: function(authenticationToken){
+    request.post(leo.API_URL + "/users")
+           .send({ authentication_token: authenticationToken })
+           .end(function(err, res){
+              UserActions.signUpUser.completed(res.body)
+            });
+  },
+
+  onSignUpUserCompleted: function (response){
+    this.trigger({ status: response.status,
+                   sign_up: true })
   }
 });
