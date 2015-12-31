@@ -51,13 +51,12 @@ module.exports = Reflux.createStore({
   },
 
   onUpdateEnrollmentRequestCompleted: function(response){
-
     var user_data = {
       first_name: response.data.user.first_name,
       last_name: response.data.user.last_name,
       phone: response.data.user.phone
-    }
-    RegistrationActions.convertEnrollmentRequest(user_data, response.data.session.authentication_token);
+    };
+
     this.trigger({ action: "update",
                    status: response.status,
                    data: response.data });
@@ -67,36 +66,5 @@ module.exports = Reflux.createStore({
     this.trigger({ action: "update",
                    status: response.status,
                    message: "There was an error updating your enrollment information."});
-  },
-
-  onConvertEnrollmentRequest: function(user, token){
-    request.post(leo.API_URL+"/users")
-           .send({
-              first_name: user.first_name,
-              last_name: user.last_name,
-              phone: user.phone,
-              authentication_token: token
-            })
-           .end(function(err, res){
-              if(res.ok){
-                RegistrationActions.convertEnrollmentRequest.completed(res.body);
-              }else{
-                RegistrationActions.convertEnrollmentRequest.failed(res.body);
-              }
-            });
-  },
-
-  onConvertEnrollmentRequestCompleted: function(response){
-
-    this.trigger({
-                   action: "convert",
-                   status: response.status,
-                   data: response.data });
-  },
-
-  onConvertEnrollmentRequestFailed: function(response){
-    this.trigger({ action: "convert",
-                   status: response.status,
-                   message: "There was an error processing your registration request."})
   }
 });

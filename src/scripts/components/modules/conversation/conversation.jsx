@@ -1,5 +1,6 @@
 var React = require('react');
 var _ = require('lodash');
+var leoUtil = require('../../../utils/common').StringUtils;
 var moment = require('moment');
 var ConversationState = require("./conversationState");
 var ConversationPatient = require("./conversationPatient");
@@ -7,24 +8,18 @@ var ConversationGuardian = require("./conversationGuardian");
 var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
-  formatName: function(name){
-    return name.title + name.first_name + " " + name.last_name;
-  },
 
   render: function () {
     var lastMessage = this.props.lastMessage;
     var primaryGuardian = this.props.primaryGuardian;
-    primaryGuardian = primaryGuardian.title + primaryGuardian.first_name + " " + primaryGuardian.last_name;
-    if( lastMessage.length > 150 ){
-      var shortMessage = lastMessage.substr(0, 150);
-      lastMessage = shortMessage.substr(0, shortMessage.lastIndexOf(" ")) + "...";
-    }
+    primaryGuardian = leoUtil.formatName(primaryGuardian);
+    lastMessage = leoUtil.shorten(lastMessage);
 
     var messageSendAt = moment(this.props.createdAt).calendar();
     var conversationState = this.props.conversationState;
     var conversationId = this.props.conversationId;
     var patients = this.props.patients.map(function(patient){
-      var patientName = this.formatName(patient);
+      var patientName = leoUtil.formatName(patient);
       return (
         <ConversationPatient key = {patient.id}
                              patient = {patientName}
@@ -37,7 +32,7 @@ module.exports = React.createClass({
     }.bind(this));
 
     secondaryGuardians = secondaryGuardians.map(function(guardian){
-      var guardianName = this.formatName(guardian);
+      var guardianName = leoUtil.formatName(guardian);
       return(
         <ConversationGuardian key={guardian.id}
                               guardian = {guardianName}/>
