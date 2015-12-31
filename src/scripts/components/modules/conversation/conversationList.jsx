@@ -10,11 +10,12 @@ module.exports = React.createClass({
   mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
 
   getInitialState: function () {
-    return { selectedConversation: 0,
-             conversationState: 'open',
-             page: 1,
-             conversations: [],
-             maxPage: 1
+    return {
+      selectedConversation: 0,
+      conversationState: 'open',
+      page: 1,
+      conversations: undefined,
+      maxPage: 1
     }
   },
 
@@ -31,7 +32,15 @@ module.exports = React.createClass({
 
     if(status.conversations) {
       this.setState({
-        conversations: this.state.conversations.concat(status.conversations),
+        conversations: status.conversations,
+        page: this.state.page += 1,
+        maxPage: status.maxPage
+      })
+    }
+
+    if(status.newConversations) {
+      this.setState({
+        conversations: this.state.conversations.concat(status.newConversations),
         page: this.state.page += 1,
         maxPage: status.maxPage
       })
@@ -51,6 +60,10 @@ module.exports = React.createClass({
 
   render: function () {
     var conversations = this.state.conversations;
+    if(!conversations){
+      conversations = <div></div>
+    }
+
     if(conversations.length > 0){
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversation == i;
@@ -68,9 +81,11 @@ module.exports = React.createClass({
                         stateChannel = {this.props.stateChannel}
                         onClick = {boundClick}
           />
-      )
-    }, this);
-    } else {
+        )
+      }, this);
+    }
+
+    if(conversations.length === 0){
       conversations = <div> There are no more {this.state.conversationState} conversations for you to review. Please be sure to review the other sections. </div>;
     }
 
