@@ -21,7 +21,10 @@ module.exports = Reflux.createStore({
 
   onFetchConversationRequestCompleted: function(response, state, page){
     var conversations = response.data.conversations;
-    if( !state ){ state = "all" }
+    if( !state ){
+      state = "all"
+    }
+
     if (conversations.length > 0){
       var firstConversationId = response.data.conversations[0].id;
       MessageActions.fetchMessagesRequest(localStorage.authenticationToken, firstConversationId);
@@ -29,12 +32,20 @@ module.exports = Reflux.createStore({
       MessageActions.notifyNoneMessage();
     }
 
-    this.trigger({ status: response.status,
-                   conversations: conversations,
-                   conversationState: state,
-                   maxPage: response.data.max_page,
-                   page: page
-                  });
+    var response = {
+      status: response.status,
+      conversationState: state,
+      maxPage: response.data.max_page,
+      page: page
+    };
+
+    if(page === 1){
+      response.conversations = conversations
+    }else{
+      response.newConversations = conversations
+    }
+
+    this.trigger(response);
   },
 
   onFetchConversationRequestFailed: function(response){
