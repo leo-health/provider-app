@@ -32,23 +32,17 @@ module.exports = Reflux.createStore({
       MessageActions.notifyNoneMessage();
     }
 
-    var response;
+    var response = {
+      status: response.status,
+      conversationState: state,
+      maxPage: response.data.max_page,
+      page: page
+    };
+
     if(page === 1){
-      response = {
-        status: response.status,
-        conversations: conversations,
-        conversationState: state,
-        maxPage: response.data.max_page,
-        page: page
-      }
+      response.conversations = conversations
     }else{
-      response = {
-        status: response.status,
-        newConversations: conversations,
-        conversationState: state,
-        maxPage: response.data.max_page,
-        page: page
-      }
+      response.newConversations = conversations
     }
 
     this.trigger(response);
