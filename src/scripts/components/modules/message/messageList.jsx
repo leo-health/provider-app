@@ -6,7 +6,6 @@ var MessageStatus = require('./messageStatus');
 var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
 var MessageActions = require('../../../actions/messageActions');
-var prevMessageType;
 
 module.exports = React.createClass({
   mixins: [
@@ -23,11 +22,17 @@ module.exports = React.createClass({
                           created_by: status.new_message.sender,
                           created_at: status.new_message.created_at,
                           message_type: 'message' };
-      this.setState({ messages: this.state.messages.concat(new_message)})
+
+      this.setState({
+                      messages: this.state.messages.concat(new_message)
+                    })
+
     }else{
-      this.setState({ messages: status.messages,
+      this.setState({
+                      messages: status.messages,
                       initMessageId: status.initMessageId,
-                      currentConversationId: status.currentConversationId })
+                      currentConversationId: status.currentConversationId
+                    })
     }
   },
 
@@ -60,27 +65,25 @@ module.exports = React.createClass({
   render: function () {
     var messages = this.state.messages;
     var currentConversationId = this.state.currentConversationId;
-    var initMessageId = this.state.initMessageId;
 
     if(messages && messages.length > 0){
       var count = messages.length;
       var prevType = 'close';
       var messageElements = [];
       for(var i = 0; i < messages.length; i++){
-        var msg = messages[i];
 
         messageElements[i] =  <Message key={i}
-                                reactKey={i}
-                                id={msg.id}
-                                count={count}
-                                prevType={prevType}
-                                body={msg.message_body}
-                                sender={msg.created_by}
-                                sentAt={msg.created_at}
-                                escalatedTo = {msg.escalated_to}
-                                messageType = {msg.message_type}
-                                typeName = {msg.type_name}
-                                link={this.props.link}
+                                       reactKey={i}
+                                       id={msg.id}
+                                       count={count}
+                                       prevType={prevType}
+                                       body={msg.message_body}
+                                       sender={msg.created_by}
+                                       sentAt={msg.created_at}
+                                       escalatedTo = {msg.escalated_to}
+                                       messageType = {msg.message_type}
+                                       typeName = {msg.type_name}
+                                       link={this.props.link}
             />
 
         messages[i].message_type === 'bot_message' ? prevType : prevType = messages[i].message_type;
@@ -89,7 +92,6 @@ module.exports = React.createClass({
       messageElements = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
     }
 
-    prevMessageType = 'init';
     return (
       <div>
         <div id="chatbox" className="pre-scrollable panel panel-body">
