@@ -21,7 +21,7 @@ module.exports = React.createClass({
   },
 
   onStatusChange: function(status){
-    if(status.new_message){
+    if(status.newMessage){
       var new_message = { message_body: status.new_message.body,
                           created_by: status.new_message.sender,
                           created_at: status.new_message.created_at,
@@ -36,7 +36,7 @@ module.exports = React.createClass({
 
     if(status.newBatchMessages){
       this.setState({
-        messages: status.newBatchMessages,
+        messages: this.state.messages.concat(status.newBatchMessages),
         currentConversationId: status.currentConversationId,
         page: this.state.page += 1
       })
@@ -44,9 +44,10 @@ module.exports = React.createClass({
 
     if(status.messages){
       this.setState({
-                      messages: status.messages,
-                      currentConversationId: status.currentConversationId
-                    })
+        messages: status.messages,
+        currentConversationId: status.currentConversationId,
+        page: this.state.page += 1
+      })
     }
   },
 
@@ -67,20 +68,25 @@ module.exports = React.createClass({
     }, this)
   },
 
-  componentWillUpdate: function(){
-    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-    this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-  },
-
-  componentDidUpdate: function(){
-    if (this.shouldScrollBottom){
-      var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-      node.scrollTop = node.scrollHeight;
-    }
-  },
+  //componentWillUpdate: function(){
+  //  var node = ReactDom.findDOMNode(this.refs.conversationContainer);
+  //  this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+  //},
+  //
+  //componentDidUpdate: function(){
+  //  if (this.shouldScrollBottom){
+  //    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
+  //    node.scrollTop = node.scrollHeight;
+  //  }
+  //},
 
   handleInfiniteLoad: function(){
-    MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId);
+    var conversationId = this.state.currentConversationId;
+    var page = this.state.page;
+    var offset = this.state.offset;
+    if(conversationId){
+      MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId, page, offset);
+    }
   },
 
   render: function () {
@@ -118,16 +124,17 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <div id="chatbox" className="pre-scrollable panel panel-body">
-            <Infinite id="chatmessages"
-                      ref="conversationContainer"
-                      containerHeight={window.innerHeight}
-                      elementHeight={50}
-                      infiniteLoadBeginEdgeOffset={7}
-                      >
-              {messageElements}
-            </Infinite>
-        </div>
+        <Infinite className="pre-scrollable panel panel-body"
+                  ref="conversationContainer"
+                  containerHeight={window.innerHeight}
+                  elementHeight={40}
+                  onInfiniteLoad={this.handleInfiniteLoad}
+                  infiniteLoadBeginEdgeOffset={300}
+                  displayBottomUpwards
+                  >
+          {messageElements}
+        </Infinite>
+
         <MessageForm conversationId={currentConversationId} staff={this.state.staff}/>
       </div>
     )

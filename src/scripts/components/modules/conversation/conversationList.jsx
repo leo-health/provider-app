@@ -49,7 +49,7 @@ module.exports = React.createClass({
 
   handleOnClick: function(i, conversationId){
     this.setState({selectedConversation: i});
-    MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId);
+    MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId, 1, 0);
   },
 
   handleInfiniteLoad: function () {

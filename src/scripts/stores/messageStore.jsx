@@ -43,6 +43,8 @@ module.exports = Reflux.createStore({
   },
 
   onFetchMessagesRequestCompleted: function(response, page){
+    var messages = response.data.messages.reverse();
+
     var response = {
       status: response.status,
       initMessageId: response.data.init_message_id,
@@ -50,9 +52,9 @@ module.exports = Reflux.createStore({
     };
 
     if(page == 1){
-      response.messages = response.data.messages.reverse()
+      response.messages = messages
     }else{
-      response.newBatchMessages = response.data.messages.reverse()
+      response.newBatchMessages = messages
     }
 
     this.trigger(response)
@@ -78,7 +80,7 @@ module.exports = Reflux.createStore({
 
   onFetchMessageRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   new_message: response.data })
+                   newMessage: response.data })
   },
 
   onFetchMessageRequestFailed: function(response){
