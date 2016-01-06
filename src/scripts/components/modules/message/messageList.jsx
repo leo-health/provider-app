@@ -13,7 +13,11 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    return{ messages: undefined, init: true }
+    return{ messages: undefined,
+            init: true,
+            page: 1,
+            offset: 0
+          }
   },
 
   onStatusChange: function(status){
@@ -24,13 +28,23 @@ module.exports = React.createClass({
                           message_type: 'message' };
 
       this.setState({
-                      messages: this.state.messages.concat(new_message)
+                      messages: this.state.messages.concat(new_message),
+                      offset: this.state.offset += 1
                     })
 
-    }else{
+    }
+
+    if(status.newBatchMessages){
+      this.setState({
+        messages: status.newBatchMessages,
+        currentConversationId: status.currentConversationId,
+        page: this.state.page += 1
+      })
+    }
+
+    if(status.messages){
       this.setState({
                       messages: status.messages,
-                      initMessageId: status.initMessageId,
                       currentConversationId: status.currentConversationId
                     })
     }
@@ -45,7 +59,10 @@ module.exports = React.createClass({
 
     this.props.stateChannel.bind('new_state', function(data){
       if(this.state.currentConversationId == data.conversation_id && data.message_type != "open"){
-        this.setState({messages: this.state.messages.concat(data)})
+        this.setState({
+                        messages: this.state.messages.concat(data),
+                        offset: this.state.offset += 1
+                      })
       }
     }, this)
   },
@@ -63,7 +80,7 @@ module.exports = React.createClass({
   },
 
   handleInfiniteLoad: function(){
-
+    MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId);
   },
 
   render: function () {
@@ -96,7 +113,6 @@ module.exports = React.createClass({
         messages[i].message_type === 'bot_message' ? prevType : prevType = messages[i].message_type;
       }
     } else {
-      debugger
       var messageElements = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
     }
 

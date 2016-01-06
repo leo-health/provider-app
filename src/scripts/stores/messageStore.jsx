@@ -27,23 +27,35 @@ module.exports = Reflux.createStore({
                   message: "error fetching staff"})
   },
 
-  onFetchMessagesRequest: function(authenticationToken, currentConversationId){
+  onFetchMessagesRequest: function(authenticationToken, currentConversationId, page, offset){
     request.get(leo.API_URL+"/conversations/"+ currentConversationId +"/messages/full")
-        .query({ authentication_token: authenticationToken })
+        .query({ authentication_token: authenticationToken,
+                 page: page,
+                 offset: offset
+                })
         .end(function(err, res){
           if(res.ok){
-            MessageActions.fetchMessagesRequest.completed(res.body)
+            MessageActions.fetchMessagesRequest.completed(res.body, page)
           }else{
             MessageActions.fetchMessagesRequest.failed(res.body)
           }
         });
   },
 
-  onFetchMessagesRequestCompleted: function(response){
-    this.trigger({ status: response.status,
-                   messages: response.data.messages.reverse(),
-                   initMessageId: response.data.init_message_id,
-                   currentConversationId: response.data.conversation_id })
+  onFetchMessagesRequestCompleted: function(response, page){
+    var response = {
+      status: response.status,
+      initMessageId: response.data.init_message_id,
+      currentConversationId: response.data.conversation_id
+    };
+
+    if(page == 1){
+      response.messages = response.data.messages.reverse()
+    }else{
+      response.newBatchMessages = response.data.messages.reverse()
+    }
+
+    this.trigger(response)
   },
 
   onFetchMessagesRequestFailed: function(response){
