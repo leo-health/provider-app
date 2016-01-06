@@ -13,7 +13,7 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    return{ messages: [], init: true }
+    return{ messages: undefined, init: true }
   },
 
   onStatusChange: function(status){
@@ -62,16 +62,23 @@ module.exports = React.createClass({
     }
   },
 
+  handleInfiniteLoad: function(){
+
+  },
+
   render: function () {
     var messages = this.state.messages;
     var currentConversationId = this.state.currentConversationId;
 
-    if(messages && messages.length > 0){
+    if(!messages){
+      var messageElements= <div></div>
+    }else if (messages && messages.length > 0){
       var count = messages.length;
       var prevType = 'close';
       var messageElements = [];
-      for(var i = 0; i < messages.length; i++){
 
+      for(var i = 0; i < messages.length; i++){
+        var msg = messages[i];
         messageElements[i] =  <Message key={i}
                                        reactKey={i}
                                        id={msg.id}
@@ -89,15 +96,21 @@ module.exports = React.createClass({
         messages[i].message_type === 'bot_message' ? prevType : prevType = messages[i].message_type;
       }
     } else {
-      messageElements = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
+      debugger
+      var messageElements = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
     }
 
     return (
       <div>
         <div id="chatbox" className="pre-scrollable panel panel-body">
-          <div id="chatmessages" ref="conversationContainer">
-            {messageElements}
-          </div>
+            <Infinite id="chatmessages"
+                      ref="conversationContainer"
+                      containerHeight={window.innerHeight}
+                      elementHeight={50}
+                      infiniteLoadBeginEdgeOffset={7}
+                      >
+              {messageElements}
+            </Infinite>
         </div>
         <MessageForm conversationId={currentConversationId} staff={this.state.staff}/>
       </div>

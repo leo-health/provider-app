@@ -62,9 +62,7 @@ module.exports = React.createClass({
     var conversations = this.state.conversations;
     if(!conversations){
       conversations = <div></div>
-    }
-
-    if(conversations.length > 0){
+    }else if (conversations.length > 0){
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversation == i;
         var boundClick = this.handleOnClick.bind(this, i, conversation.id);
@@ -83,9 +81,7 @@ module.exports = React.createClass({
           />
         )
       }, this);
-    }
-
-    if(conversations.length === 0){
+    } else {
       conversations = <div> There are no more {this.state.conversationState} conversations for you to review. Please be sure to review the other sections. </div>;
     }
 
