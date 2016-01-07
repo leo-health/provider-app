@@ -13,19 +13,22 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    return{ messages: undefined,
-            init: true,
-            page: 1,
-            offset: 0
-          }
+    return{
+      messages: undefined,
+      init: true,
+      page: 1,
+      offset: 0
+    }
   },
 
   onStatusChange: function(status){
     if(status.newMessage){
-      var new_message = { message_body: status.new_message.body,
-                          created_by: status.new_message.sender,
-                          created_at: status.new_message.created_at,
-                          message_type: 'message' };
+      var new_message = {
+        message_body: status.new_message.body,
+        created_by: status.new_message.sender,
+        created_at: status.new_message.created_at,
+        message_type: 'message'
+      };
 
       this.setState({
                       messages: this.state.messages.concat(new_message),
@@ -61,31 +64,32 @@ module.exports = React.createClass({
     this.props.stateChannel.bind('new_state', function(data){
       if(this.state.currentConversationId == data.conversation_id && data.message_type != "open"){
         this.setState({
-                        messages: this.state.messages.concat(data),
-                        offset: this.state.offset += 1
-                      })
+          messages: this.state.messages.concat(data),
+          offset: this.state.offset += 1
+        })
       }
     }, this)
   },
 
-  //componentWillUpdate: function(){
-  //  var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-  //  this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-  //},
-  //
-  //componentDidUpdate: function(){
-  //  if (this.shouldScrollBottom){
-  //    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-  //    node.scrollTop = node.scrollHeight;
-  //  }
-  //},
+  componentWillUpdate: function(){
+    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
+    this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+  },
+
+  componentDidUpdate: function(){
+    if (this.shouldScrollBottom){
+      var node = ReactDom.findDOMNode(this.refs.conversationContainer);
+      node.scrollTop = node.scrollHeight;
+    }
+  },
 
   handleInfiniteLoad: function(){
     var conversationId = this.state.currentConversationId;
-    var page = this.state.page;
-    var offset = this.state.offset;
     if(conversationId){
-      MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId, page, offset);
+      MessageActions.fetchMessagesRequest( localStorage.authenticationToken,
+                                           this.state.currentConversationId,
+                                           this.state.page,
+                                           this.state.offset);
     }
   },
 
@@ -129,7 +133,7 @@ module.exports = React.createClass({
                   containerHeight={window.innerHeight}
                   elementHeight={40}
                   onInfiniteLoad={this.handleInfiniteLoad}
-                  infiniteLoadBeginEdgeOffset={300}
+                  infiniteLoadBeginEdgeOffset={50}
                   displayBottomUpwards
                   >
           {messageElements}
