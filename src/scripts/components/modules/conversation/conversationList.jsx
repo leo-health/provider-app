@@ -54,7 +54,8 @@ module.exports = React.createClass({
 
   handleInfiniteLoad: function () {
     if(this.state.page <= this.state.maxPage){
-      ConversationActions.fetchConversationRequest( localStorage.authenticationToken, this.state.conversationState, this.state.page )
+      var state = this.state.conversationState === "all" ? null : this.state.conversationState
+      ConversationActions.fetchConversationRequest( localStorage.authenticationToken, state, this.state.page )
     }
   },
 
