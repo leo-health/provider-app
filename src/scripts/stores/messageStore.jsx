@@ -108,9 +108,5 @@ module.exports = Reflux.createStore({
   onSendMessageRequestFailed: function(response){
     this.trigger({ status: response.status,
                    message: "error sending messages"})
-  },
-
-  onNotifyNoneMessage: function(){
-    this.trigger({messages: []})
   }
 });
