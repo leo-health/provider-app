@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var Conversation = require('./conversation');
 var ConversationActions = require('../../../actions/conversationActions');
@@ -53,20 +54,19 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    var state = this.state.conversationState === "all" ? null : this.state.conversationState;
-    ConversationActions.fetchConversationRequest( localStorage.authenticationToken, state, this.state.page )
+    ConversationActions.fetchConversationRequest( localStorage.authenticationToken, this.state.conversationState, this.state.page )
   },
 
-  //handleInfiniteLoad: function () {
-  //  if(this.state.page <= this.state.maxPage){
-  //    var state = this.state.conversationState === "all" ? null : this.state.conversationState
-  //    ConversationActions.fetchConversationRequest( localStorage.authenticationToken, state, this.state.page )
-  //  }
-  //},
+  handleScroll: function() {
+    var node = ReactDom.findDOMNode(this.refs.conversationList);
+    if(node.scrollTop + node.offsetHeight === node.scrollHeight){
+      var state = this.state.conversationState === "all" ? null : this.state.conversationState;
+      ConversationActions.fetchConversationRequest( localStorage.authenticationToken, state, this.state.page )
+    }
+  },
 
   render: function () {
     var conversations = this.state.conversations;
-    debugger
     if(!conversations){
       conversations = <div></div>
     }else if (conversations.length > 0){
@@ -93,11 +93,12 @@ module.exports = React.createClass({
     }
 
     return (
-      <div id="content" className="tab-content">
-        <div className="tab-pane fade active in panel panel-default pre-scrollable-left" id="all-tab">
+        <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
+             id="all-tab"
+             ref="conversationList"
+             onScroll={this.handleScroll}>
             {conversations}
         </div>
-      </div>
     )
   }
 });
