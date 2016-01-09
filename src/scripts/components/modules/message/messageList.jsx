@@ -48,7 +48,7 @@ module.exports = React.createClass({
       this.setState({
         messages: status.messages,
         currentConversationId: status.currentConversationId,
-        page: this.state.page += 1
+        page: 2
       })
     }
   },
