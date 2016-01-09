@@ -18,9 +18,7 @@ module.exports = React.createClass({
   handleSendMessage: function(e){
     e.preventDefault();
     var messageBody= ReactDom.findDOMNode(this.refs.message).value.trim();
-    if (!messageBody){
-      return
-    }
+    if (!messageBody) return;
     var typeName="text";
     var currentConversationId=this.props.conversationId;
     MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, typeName, currentConversationId);

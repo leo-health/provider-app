@@ -22,11 +22,11 @@ module.exports = React.createClass({
   },
 
   onStatusChange: function(status){
-    if(status.newMessage){
+    if(status.newMessage){gi
       var new_message = {
-        message_body: status.new_message.body,
-        created_by: status.new_message.sender,
-        created_at: status.new_message.created_at,
+        message_body: status.newMessage.body,
+        created_by: status.newMessage.sender,
+        created_at: status.newMessage.created_at,
         message_type: 'message'
       };
 
