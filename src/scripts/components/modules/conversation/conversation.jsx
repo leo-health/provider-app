@@ -8,7 +8,6 @@ var ConversationGuardian = require("./conversationGuardian");
 var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
-
   render: function () {
     var lastMessage = this.props.lastMessage;
     var primaryGuardian = this.props.primaryGuardian;

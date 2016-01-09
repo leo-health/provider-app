@@ -31,15 +31,14 @@ module.exports = React.createClass({
       };
 
       this.setState({
-                      messages: this.state.messages.concat(new_message),
-                      offset: this.state.offset += 1
-                    })
-
+        messages: this.state.messages.concat(new_message),
+        offset: this.state.offset += 1
+      })
     }
 
     if(status.newBatchMessages){
       this.setState({
-        messages: this.state.messages.concat(status.newBatchMessages),
+        messages: status.newBatchMessages.concat(this.state.messages),
         currentConversationId: status.currentConversationId,
         page: this.state.page += 1
       })
@@ -83,9 +82,11 @@ module.exports = React.createClass({
     }
   },
 
-  handleInfiniteLoad: function(){
+  handleScroll: function(){
+    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
     var conversationId = this.state.currentConversationId;
-    if(conversationId){
+
+    if(conversationId && node.scrollTop === 0){
       MessageActions.fetchMessagesRequest( localStorage.authenticationToken,
                                            this.state.currentConversationId,
                                            this.state.page,
@@ -128,17 +129,11 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <Infinite className="pre-scrollable panel panel-body"
-                  ref="conversationContainer"
-                  containerHeight={window.innerHeight}
-                  elementHeight={40}
-                  onInfiniteLoad={this.handleInfiniteLoad}
-                  infiniteLoadBeginEdgeOffset={50}
-                  displayBottomUpwards
-                  >
-          {messageElements}
-        </Infinite>
-
+        <div id="chatbox" className="pre-scrollable panel panel-body">
+          <div id="chatmessages" ref="conversationContainer" onScroll={this.handleScroll}>
+            {messageElements}
+          </div>
+        </div>
         <MessageForm conversationId={currentConversationId} staff={this.state.staff}/>
       </div>
     )
