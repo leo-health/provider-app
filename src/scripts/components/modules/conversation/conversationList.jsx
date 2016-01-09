@@ -52,15 +52,21 @@ module.exports = React.createClass({
     MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId, 1, 0);
   },
 
-  handleInfiniteLoad: function () {
-    if(this.state.page <= this.state.maxPage){
-      var state = this.state.conversationState === "all" ? null : this.state.conversationState
-      ConversationActions.fetchConversationRequest( localStorage.authenticationToken, state, this.state.page )
-    }
+  componentDidMount: function() {
+    var state = this.state.conversationState === "all" ? null : this.state.conversationState;
+    ConversationActions.fetchConversationRequest( localStorage.authenticationToken, state, this.state.page )
   },
+
+  //handleInfiniteLoad: function () {
+  //  if(this.state.page <= this.state.maxPage){
+  //    var state = this.state.conversationState === "all" ? null : this.state.conversationState
+  //    ConversationActions.fetchConversationRequest( localStorage.authenticationToken, state, this.state.page )
+  //  }
+  //},
 
   render: function () {
     var conversations = this.state.conversations;
+    debugger
     if(!conversations){
       conversations = <div></div>
     }else if (conversations.length > 0){
@@ -88,15 +94,8 @@ module.exports = React.createClass({
 
     return (
       <div id="content" className="tab-content">
-        <div className="tab-pane fade active in" id="all-tab">
-          <Infinite className="panel panel-default pre-scrollable-left"
-                    containerHeight={window.innerHeight}
-                    elementHeight={80}
-                    infiniteLoadBeginEdgeOffset={7}
-                    onInfiniteLoad={this.handleInfiniteLoad}
-                    >
+        <div className="tab-pane fade active in panel panel-default pre-scrollable-left" id="all-tab">
             {conversations}
-          </Infinite>
         </div>
       </div>
     )
