@@ -22,7 +22,7 @@ module.exports = React.createClass({
   },
 
   onStatusChange: function(status){
-    if(status.newMessage){gi
+    if(status.newMessage){
       var new_message = {
         message_body: status.newMessage.body,
         created_by: status.newMessage.sender,
