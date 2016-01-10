@@ -27,9 +27,7 @@ module.exports = Reflux.createStore({
 
     if (conversations.length > 0){
       var firstConversationId = response.data.conversations[0].id;
-      MessageActions.fetchMessagesRequest(localStorage.authenticationToken, firstConversationId);
-    }else{
-      MessageActions.notifyNoneMessage();
+      MessageActions.fetchMessagesRequest(localStorage.authenticationToken, firstConversationId, 1, 0);
     }
 
     var response = {

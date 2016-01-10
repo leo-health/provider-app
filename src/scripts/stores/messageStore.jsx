@@ -27,23 +27,37 @@ module.exports = Reflux.createStore({
                   message: "error fetching staff"})
   },
 
-  onFetchMessagesRequest: function(authenticationToken, currentConversationId){
+  onFetchMessagesRequest: function(authenticationToken, currentConversationId, page, offset){
     request.get(leo.API_URL+"/conversations/"+ currentConversationId +"/messages/full")
-        .query({ authentication_token: authenticationToken })
+        .query({ authentication_token: authenticationToken,
+                 page: page,
+                 offset: offset
+                })
         .end(function(err, res){
           if(res.ok){
-            MessageActions.fetchMessagesRequest.completed(res.body)
+            MessageActions.fetchMessagesRequest.completed(res.body, page)
           }else{
             MessageActions.fetchMessagesRequest.failed(res.body)
           }
         });
   },
 
-  onFetchMessagesRequestCompleted: function(response){
-    this.trigger({ status: response.status,
-                   messages: response.data.messages.reverse(),
-                   initMessageId: response.data.init_message_id,
-                   currentConversationId: response.data.conversation_id })
+  onFetchMessagesRequestCompleted: function(response, page){
+    var messages = response.data.messages.reverse();
+
+    var response = {
+      status: response.status,
+      initMessageId: response.data.init_message_id,
+      currentConversationId: response.data.conversation_id
+    };
+
+    if(page == 1){
+      response.messages = messages
+    }else{
+      response.newBatchMessages = messages
+    }
+
+    this.trigger(response)
   },
 
   onFetchMessagesRequestFailed: function(response){
@@ -66,7 +80,7 @@ module.exports = Reflux.createStore({
 
   onFetchMessageRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   new_message: response.data })
+                   newMessage: response.data })
   },
 
   onFetchMessageRequestFailed: function(response){
@@ -88,15 +102,11 @@ module.exports = Reflux.createStore({
 
   onSendMessageRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   new_message: response.data})
+                   newMessage: response.data})
   },
 
   onSendMessageRequestFailed: function(response){
     this.trigger({ status: response.status,
                    message: "error sending messages"})
-  },
-
-  onNotifyNoneMessage: function(){
-    this.trigger({messages: []})
   }
 });

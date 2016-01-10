@@ -47,7 +47,7 @@ module.exports = React.createClass({
     test.scrollTop = containerDomNode.scrollHeight;
   },
 
-  sethighlightNoteKey: function(notes){
+  setHighlightNoteKey: function(notes){
     var initialNoteKey = _.first(notes).id.toString() + _.first(notes).message_type;
     var highlightNoteKey;
     if(this.state.highlightNoteKey){
@@ -69,9 +69,13 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var notes = this.state.notes;
+    var notes = _.filter(this.state.notes, function(n){
+      return n.note !== ""
+    });
+
     if(notes && notes.length > 0){
-      var highlightNoteKey = this.sethighlightNoteKey(notes);
+      var highlightNoteKey = this.setHighlightNoteKey(notes);
+
       notes = notes.map(function(note, i){
         var tagName = this.setTagName(highlightNoteKey, note);
         return <Note key={i}

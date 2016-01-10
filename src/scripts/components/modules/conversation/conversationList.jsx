@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var Conversation = require('./conversation');
 var ConversationActions = require('../../../actions/conversationActions');
@@ -49,12 +50,18 @@ module.exports = React.createClass({
 
   handleOnClick: function(i, conversationId){
     this.setState({selectedConversation: i});
-    MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId);
+    MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId, 1, 0);
   },
 
-  handleInfiniteLoad: function () {
-    if(this.state.page <= this.state.maxPage){
-      ConversationActions.fetchConversationRequest( localStorage.authenticationToken, this.state.conversationState, this.state.page )
+  componentDidMount: function() {
+    ConversationActions.fetchConversationRequest( localStorage.authenticationToken, this.state.conversationState, this.state.page )
+  },
+
+  handleScroll: function() {
+    var node = ReactDom.findDOMNode(this.refs.conversationList);
+    if(node.scrollTop + node.offsetHeight === node.scrollHeight){
+      var state = this.state.conversationState === "all" ? null : this.state.conversationState;
+      ConversationActions.fetchConversationRequest( localStorage.authenticationToken, state, this.state.page )
     }
   },
 
@@ -62,9 +69,7 @@ module.exports = React.createClass({
     var conversations = this.state.conversations;
     if(!conversations){
       conversations = <div></div>
-    }
-
-    if(conversations.length > 0){
+    }else if (conversations.length > 0){
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversation == i;
         var boundClick = this.handleOnClick.bind(this, i, conversation.id);
@@ -83,25 +88,17 @@ module.exports = React.createClass({
           />
         )
       }, this);
-    }
-
-    if(conversations.length === 0){
+    } else {
       conversations = <div> There are no more {this.state.conversationState} conversations for you to review. Please be sure to review the other sections. </div>;
     }
 
     return (
-      <div id="content" className="tab-content">
-        <div className="tab-pane fade active in" id="all-tab">
-          <Infinite className="panel panel-default pre-scrollable-left"
-                    containerHeight={window.innerHeight}
-                    elementHeight={80}
-                    infiniteLoadBeginEdgeOffset={7}
-                    onInfiniteLoad={this.handleInfiniteLoad}
-                    >
+        <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
+             id="all-tab"
+             ref="conversationList"
+             onScroll={this.handleScroll}>
             {conversations}
-          </Infinite>
         </div>
-      </div>
     )
   }
 });

@@ -18,9 +18,7 @@ module.exports = React.createClass({
   handleSendMessage: function(e){
     e.preventDefault();
     var messageBody= ReactDom.findDOMNode(this.refs.message).value.trim();
-    if (!messageBody){
-      return
-    }
+    if (!messageBody) return;
     var typeName="text";
     var currentConversationId=this.props.conversationId;
     MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, typeName, currentConversationId);
@@ -34,14 +32,16 @@ module.exports = React.createClass({
     var escalatedToId = this.state.escalatedToId;
     var priority = this.state.priority;
     ConversationActions.escalateConversationRequest( localStorage.authenticationToken, conversationId, escalatedToId, note, priority );
-    this.setState({action: "message"})
+    this.setState({action: "message"});
+    ReactDom.findDOMNode(this.refs.escalationNote).value = "";
   },
 
   handleClose: function (e) {
     e.preventDefault();
     var note = ReactDom.findDOMNode(this.refs.closureNote).value.trim();
     ConversationActions.closeConversationRequest(localStorage.authenticationToken, this.props.conversationId, note);
-    this.setState({action: "message"})
+    this.setState({action: "message"});
+    ReactDom.findDOMNode(this.refs.closureNote).value = "";
   },
 
   showClose: function(e){
