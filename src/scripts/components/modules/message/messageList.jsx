@@ -23,7 +23,7 @@ module.exports = React.createClass({
 
   onStatusChange: function(status){
     if(status.newMessage){
-      var new_message = {
+      var newMessage = {
         message_body: status.newMessage.body,
         created_by: status.newMessage.sender,
         created_at: status.newMessage.created_at,
@@ -31,7 +31,7 @@ module.exports = React.createClass({
       };
 
       this.setState({
-        messages: this.state.messages.concat(new_message),
+        messages: this.state.messages.concat(newMessage),
         offset: this.state.offset += 1
       })
     }
@@ -70,13 +70,8 @@ module.exports = React.createClass({
     }, this)
   },
 
-  componentWillUpdate: function(){
-    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-    this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-  },
-
   componentDidUpdate: function(){
-    if (this.shouldScrollBottom){
+    if (this.state.page < 3){
       var node = ReactDom.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight;
     }
