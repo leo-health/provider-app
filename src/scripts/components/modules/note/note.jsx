@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var moment = require('moment');
+var leoUtil = require('../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   componentDidUpdate: function(prevProps){
@@ -15,10 +16,11 @@ module.exports = React.createClass({
   },
 
   render: function(){
-    var sentAt = moment(this.props.sentAt).calendar();
+    var sentAt = moment(this.props.sentAt).calendar() + " ";
     var sender = this.props.sender;
     var note = this.props.note;
-    sender = sender.title + ". " + sender.first_name + " " + sender.last_name ;
+    sender = leoUtil.formatName(sender) + " ";
+
     return(
       <div>
         <this.props.tagName>
