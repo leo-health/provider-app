@@ -96,7 +96,7 @@ module.exports = React.createClass({
     if(!messages){
       var messageElements= <div></div>
     }else if (messages && messages.length > 0){
-      var prevType = 'close';
+      var prevType = 'init';
       var messageElements = [];
 
       for(var i = 0; i < messages.length; i++){

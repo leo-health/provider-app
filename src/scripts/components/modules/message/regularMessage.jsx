@@ -3,24 +3,13 @@ var ReactDom = require('react-dom');
 
 module.exports = React.createClass({
   removeTopLine: function(){
-    if(this.props.prevType == 'escalation'){
+    if(this.props.prevType == 'escalation' || this.props.prevType == 'close'){
       ReactDom.findDOMNode(this.refs[this.props.reactKey]).remove();
-    }
-  },
-
-  addOpenMessage: function(){
-    if(this.props.prevType == 'close'){
-      ReactDom.findDOMNode(this.refs[this.props.reactKey]).remove();
-      var openMessage = React.createElement('span', null, 'Case opened by ' + this.props.sender);
-      ReactDom.render(openMessage, document.getElementById(this.props.reactKey))
     }
   },
 
   componentDidMount: function(){
-    if(this.props.sender !== "Leo Bot"){
       this.removeTopLine();
-      this.addOpenMessage();
-    }
   },
 
   render: function() {

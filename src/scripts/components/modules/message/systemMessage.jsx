@@ -10,11 +10,13 @@ module.exports = React.createClass({
   render: function() {
     var message;
     var tagClass;
+    var sentAt = this.props.sentAt;
+
     if (this.props.messageType == "escalation"){
-      message = "Case escalated to " + this.props.escalatedTo;
+      message = "Case was escalated to " + this.props.escalatedTo + " " + sentAt;
       tagClass = "danger"
     }else{
-      message = "Case closed by " + this.props.closedBy;
+      message = "Case was closed by " + this.props.closedBy + " " + sentAt;
       tagClass = "primary"
     }
     return(
