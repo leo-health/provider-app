@@ -96,7 +96,6 @@ module.exports = React.createClass({
     if(!messages){
       var messageElements= <div></div>
     }else if (messages && messages.length > 0){
-      var count = messages.length;
       var prevType = 'close';
       var messageElements = [];
 
@@ -105,7 +104,6 @@ module.exports = React.createClass({
         messageElements[i] =  <Message key={i}
                                        reactKey={i}
                                        id={msg.id}
-                                       count={count}
                                        prevType={prevType}
                                        body={msg.message_body}
                                        sender={msg.created_by}

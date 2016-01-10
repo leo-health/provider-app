@@ -14,35 +14,42 @@ module.exports = React.createClass({
     var escalatedTo = this.props.escalatedTo;
     var reactKey = this.props.reactKey;
     var id = this.props.id;
-    var count = this.props.count;
-    var closed = this.props.closed;
-    var escalated = this.props.escalated;
     var prevType = this.props.prevType;
     var typeName = this.props.typeName;
     sender = leoUtil.formatName(sender);
-    if (escalatedTo){
-      escalatedTo = leoUtil.formatName(escalatedTo);
-    }
+
+    if (escalatedTo) escalatedTo = leoUtil.formatName(escalatedTo);
 
     var message;
     switch (messageType){
       case "message":
+        message = <RegularMessage sender={sender}
+                                  sentAt={sentAt}
+                                  messageBody={messageBody}
+                                  reactKey={reactKey}
+                                  typeName={typeName}
+                                  prevType={prevType}/>;
+
+        break;
       case "bot_message":
         message = <RegularMessage sender={sender}
                                   sentAt={sentAt}
                                   messageBody={messageBody}
                                   reactKey={reactKey}
-                                  closed={closed}
-                                  escalated={escalated}
                                   typeName={typeName}
-                                  prevType={prevType}
-                                  count={count}/>;
+                                  prevType={prevType}/>;
         break;
       case "escalation":
-        message = <SystemMessage id={id} escalatedTo={escalatedTo} messageType={messageType} link={this.props.link}/>;
+        message = <SystemMessage id={id}
+                                 escalatedTo={escalatedTo}
+                                 messageType={messageType}
+                                 link={this.props.link}/>;
         break;
       case "close":
-        message =  <SystemMessage id={id} closedBy={sender} messageType={messageType} link={this.props.link}/>;
+        message =  <SystemMessage id={id}
+                                  closedBy={sender}
+                                  messageType={messageType}
+                                  link={this.props.link}/>;
         break;
     }
 
