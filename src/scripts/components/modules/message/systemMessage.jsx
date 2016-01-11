@@ -4,6 +4,7 @@ var NoteActions = require('../../../actions/noteActions');
 module.exports = React.createClass({
   handleClick: function(){
     var highlightNoteKey = this.props.id.toString() + this.props.messageType;
+
     NoteActions.scrollToNote(highlightNoteKey);
   },
 
@@ -13,10 +14,10 @@ module.exports = React.createClass({
     var sentAt = this.props.sentAt;
 
     if (this.props.messageType == "escalation"){
-      message = "Case was escalated to " + this.props.escalatedTo + " " + sentAt;
+      message = "Case was escalated to " + this.props.escalatedTo;
       tagClass = "danger"
     }else{
-      message = "Case was closed by " + this.props.closedBy + " " + sentAt;
+      message = "Case was closed by " + this.props.closedBy;
       tagClass = "primary"
     }
     return(
