@@ -2,8 +2,15 @@ var StringUtils = {};
 
 StringUtils = {
   formatName: function(userNameObject) {
-    return (((userNameObject.title === null || 0 === userNameObject.title.length) ? "" : (userNameObject.title + ". "))  + userNameObject.first_name + " " + userNameObject.last_name);
+    var userName = (((userNameObject.title === null || 0 === userNameObject.title.length) ? "" : (userNameObject.title + " "))  + userNameObject.first_name + " " + userNameObject.last_name);
+    if(userNameObject.credentials){
+      var credential = userNameObject.credentials[0];
+      userName = userName + " " + credential
+    }
+
+    return userName
   },
+
   shorten: function(fullStr, len) {
     len = typeof len !== 'undefined' ?  len : 150;
     if(fullStr.length > len) {
