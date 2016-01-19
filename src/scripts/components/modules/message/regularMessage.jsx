@@ -25,10 +25,11 @@ module.exports = React.createClass({
 
   render: function() {
     var typeName = this.props.typeName;
-    var body = this.props.messageBody;
+    var body = this.props.body;
     var message;
+
     if(typeName === "image"){
-      message = <blockquote><a href={body.url} target="blank"><img className="img-chat" src={body.primary_1x.url}/></a></blockquote>
+      message = <blockquote><a href={body.url} target="blank"><img className="img-chat" src={body.url}/></a></blockquote>
     }else{
       message = body
     }
