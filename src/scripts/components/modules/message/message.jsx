@@ -10,7 +10,7 @@ module.exports = React.createClass({
     var sentAt = moment(this.props.sentAt).calendar();
     var sender = this.props.sender;
     var messageType = this.props.messageType;
-    var messageBody = this.props.body;
+    var body = this.props.body;
     var escalatedTo = this.props.escalatedTo;
     var reactKey = this.props.reactKey;
     var id = this.props.id;
@@ -30,7 +30,7 @@ module.exports = React.createClass({
       case "bot_message":
         message = <RegularMessage sender={sender}
                                   sentAt={sentAt}
-                                  messageBody={messageBody}
+                                  body={body}
                                   reactKey={reactKey}
                                   closed={closed}
                                   escalated={escalated}
