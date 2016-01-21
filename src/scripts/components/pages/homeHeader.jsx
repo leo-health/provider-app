@@ -33,9 +33,6 @@ module.exports = React.createClass({
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a href="https://www.zendesk.com/">Help</a>
-                </li>
-                <li>
                   <a href="../login/">Welcome, {title}. {firstName} {lastName}</a>
                 </li>
                 <li>
