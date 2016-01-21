@@ -33,8 +33,6 @@ module.exports = React.createClass({
                                   sentAt={sentAt}
                                   body={body}
                                   reactKey={reactKey}
-                                  closed={closed}
-                                  escalated={escalated}
                                   typeName={typeName}
                                   prevType={prevType}
                   />;
