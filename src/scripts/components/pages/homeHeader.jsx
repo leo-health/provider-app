@@ -30,16 +30,6 @@ module.exports = React.createClass({
             <div className="navbar-collapse collapse" id="navbar-main">
               <ul className="nav navbar-nav">
                 <li><a href="../" className="navbar-brand"><img src="../images/leo.png" alt="..." /></a></li>
-                <li className="dropdown">
-                  <a className="dropdown-toggle" data-toggle="dropdown" href="#" id="features">Features <span className="caret"></span></a>
-                  <ul className="dropdown-menu" aria-labelledby="features">
-                    <li><a href="../messaging/">Messaging</a></li>
-                    <li className="divider"></li>
-                    <li><a href="">Dashboard</a></li>
-                    <li><a href="">Settings</a></li>
-                    <li><a onClick={this.handleOnLogout}><strong>Log Out</strong></a></li>
-                  </ul>
-                </li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li>
@@ -47,6 +37,9 @@ module.exports = React.createClass({
                 </li>
                 <li>
                   <a href="../login/">Welcome, {title}. {firstName} {lastName}</a>
+                </li>
+                <li>
+                  <a onClick={this.handleOnLogout}><strong>logout</strong></a>
                 </li>
               </ul>
             </div>
