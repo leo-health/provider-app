@@ -27,8 +27,18 @@ module.exports = React.createClass({
     var message;
     switch (messageType){
       case "message":
-      case "bot_message":
         message = <RegularMessage sender={sender}
+                                  sentAt={sentAt}
+                                  body={body}
+                                  reactKey={reactKey}
+                                  closed={closed}
+                                  escalated={escalated}
+                                  typeName={typeName}
+                                  prevType={prevType}
+                                  count={count}/>;
+        break
+      case "bot_message":
+        message = <RegularMessage sender={"Leo"}
                                   sentAt={sentAt}
                                   body={body}
                                   reactKey={reactKey}
