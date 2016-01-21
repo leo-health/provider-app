@@ -103,15 +103,18 @@ module.exports = Reflux.createStore({
            .query({ authentication_token: authenticationToken })
            .end(function(err, res){
              if(res.ok){
-               ConversationActions.fetchConversationByFamily.completed(res.body)
+               ConversationActions.fetchConversationByFamily.completed(res.body, authenticationToken)
              }
            })
   },
 
-  onFetchConversationByFamilyCompleted: function(response){
+  onFetchConversationByFamilyCompleted: function(response, authenticationToken){
+    var conversation = response.data.conversation;
     this.trigger({ status: response.status,
-                   conversations: [response.data.conversation],
-                   conversationState: Date.now() })
+                   conversations: [conversation],
+                   conversationState: Date.now() });
+
+    MessageActions.fetchMessagesRequest(authenticationToken, conversation.id, 1, 0)
   },
 
   onFetchStaffConversation: function(authenticationToken, staffId){
@@ -119,14 +122,18 @@ module.exports = Reflux.createStore({
            .query({ authentication_token: authenticationToken })
            .end(function(err, res){
              if(res.ok){
-               ConversationActions.fetchStaffConversation.completed(res.body, staffId)
+               ConversationActions.fetchStaffConversation.completed(res.body, authenticationToken)
              }
            })
   },
 
-  onFetchStaffConversationCompleted: function(response, staffId){
+  onFetchStaffConversationCompleted: function(response, authenticationToken){
+    var conversations = response.data.conversations;
+
     this.trigger({ status: response.status,
-                   conversations: response.data.conversations,
-                   conversationState: Date.now() })
+                   conversations: conversations,
+                   conversationState: Date.now() });
+
+    MessageActions.fetchMessagesRequest(authenticationToken, conversations[0].id, 1, 0)
   }
 });
