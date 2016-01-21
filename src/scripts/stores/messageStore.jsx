@@ -1,6 +1,7 @@
 var Reflux = require('reflux'),
     request = require('superagent'),
-    MessageActions = require('../actions/messageActions');
+    MessageActions = require('../actions/messageActions'),
+    _ = require('lodash');
 
 module.exports = Reflux.createStore({
   listenables: [MessageActions],
@@ -18,8 +19,9 @@ module.exports = Reflux.createStore({
   },
 
   onFetchStaffRequestCompleted: function(response){
+    var staff = _.filter(response.data.staff, function(staff){ return staff.id !== 1 });
     this.trigger({status: response.status,
-                  staff: response.data.staff})
+                  staff: staff})
   },
 
   onFetchStaffRequestFailed: function(response){
