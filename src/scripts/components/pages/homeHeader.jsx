@@ -1,21 +1,20 @@
 var React = require('react');
 var LoginAction = require('../../actions/loginActions');
 var Router = require('react-router');
+var leoUtil = require('../../utils/common').StringUtils;
 
 module.exports = React.createClass({
 
   handleOnLogout: function(){
     var authenticationToken = localStorage.authenticationToken;
-    if(!authenticationToken){
-      return
-    }
+    if(!authenticationToken) return;
     LoginAction.logoutRequest(authenticationToken)
   },
 
   render: function() {
-    var firstName = localStorage["firstName"];
-    var lastName = localStorage["lastName"];
-    var title = localStorage["title"];
+    var user;
+    if(localStorage.user) user = leoUtil.formatName(JSON.parse(localStorage.user));
+
     return (
       <div>
         <div className="navbar navbar-default navbar-fixed-top">
@@ -33,7 +32,7 @@ module.exports = React.createClass({
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a href="../login/">Welcome, {title}. {firstName} {lastName}</a>
+                  <a href="../login/">Welcome, {user}</a>
                 </li>
                 <li>
                   <a onClick={this.handleOnLogout}><strong>logout</strong></a>
