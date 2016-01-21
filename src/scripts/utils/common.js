@@ -3,7 +3,7 @@ var StringUtils = {};
 StringUtils = {
   formatName: function(userNameObject) {
     var userName = (((userNameObject.title === null || 0 === userNameObject.title.length) ? "" : (userNameObject.title + " "))  + userNameObject.first_name + " " + userNameObject.last_name);
-    if(userNameObject.credentials){
+    if(userNameObject.credentials && userNameObject.credentials.length > 0){
       var credential = userNameObject.credentials[0];
       userName = userName + " " + credential
     }
