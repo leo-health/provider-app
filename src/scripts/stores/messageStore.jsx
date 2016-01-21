@@ -31,17 +31,17 @@ module.exports = Reflux.createStore({
 
   onFetchMessagesRequest: function(authenticationToken, currentConversationId, page, offset){
     request.get(leo.API_URL+"/conversations/"+ currentConversationId +"/messages/full")
-        .query({ authentication_token: authenticationToken,
-                 page: page,
-                 offset: offset
-                })
-        .end(function(err, res){
-          if(res.ok){
-            MessageActions.fetchMessagesRequest.completed(res.body, page)
-          }else{
-            MessageActions.fetchMessagesRequest.failed(res.body)
-          }
-        });
+           .query({ authentication_token: authenticationToken,
+                    page: page,
+                    offset: offset
+                   })
+           .end(function(err, res){
+             if(res.ok){
+               MessageActions.fetchMessagesRequest.completed(res.body, page)
+             }else{
+               MessageActions.fetchMessagesRequest.failed(res.body)
+             }
+           });
   },
 
   onFetchMessagesRequestCompleted: function(response, page){

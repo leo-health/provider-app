@@ -24,7 +24,7 @@ module.exports = React.createClass({
   onStatusChange: function(status){
     if(status.newMessage){
       var newMessage = {
-        message_body: status.newMessage.body,
+        body: status.newMessage.body,
         created_by: status.newMessage.sender,
         created_at: status.newMessage.created_at,
         message_type: 'message'
@@ -105,7 +105,7 @@ module.exports = React.createClass({
                                        reactKey={i}
                                        id={msg.id}
                                        prevType={prevType}
-                                       body={msg.message_body}
+                                       body={msg.body}
                                        sender={msg.created_by}
                                        sentAt={msg.created_at}
                                        escalatedTo = {msg.escalated_to}
