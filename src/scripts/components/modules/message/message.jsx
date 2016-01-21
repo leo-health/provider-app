@@ -26,7 +26,7 @@ module.exports = React.createClass({
                                   reactKey={reactKey}
                                   typeName={typeName}
                                   prevType={prevType}
-                                  count={count}/>;
+                  />;
         break;
       case "bot_message":
         message = <RegularMessage sender={"Leo"}
@@ -37,7 +37,7 @@ module.exports = React.createClass({
                                   escalated={escalated}
                                   typeName={typeName}
                                   prevType={prevType}
-                                  count={count}/>;
+                  />;
 
         break;
       case "escalation":
