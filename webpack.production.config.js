@@ -33,11 +33,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       // This has effect on the react lib size.
-      "process.env": {
-        NODE_ENV: JSON.stringify("production")
-      },
       "leo" : {
-        API_URL: JSON.stringify("https://dev.leoforkids.com/api/v1")
+        API_URL: JSON.stringify(process.env.API_URL)
       }
     }),
     new webpack.IgnorePlugin(/vertx/),
