@@ -20,13 +20,22 @@ module.exports = React.createClass({
     if (escalatedTo) escalatedTo = leoUtil.formatName(escalatedTo);
     switch (messageType){
       case "message":
-      case "bot_message":
         message = <RegularMessage sender={sender}
                                   sentAt={sentAt}
                                   body={body}
                                   reactKey={reactKey}
                                   typeName={typeName}
-                                  prevType={prevType}/>;
+                                  prevType={prevType}
+                  />;
+        break;
+      case "bot_message":
+        message = <RegularMessage sender={"Leo"}
+                                  sentAt={sentAt}
+                                  body={body}
+                                  reactKey={reactKey}
+                                  typeName={typeName}
+                                  prevType={prevType}
+                  />;
 
         break;
       case "escalation":
