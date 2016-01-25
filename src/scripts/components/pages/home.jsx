@@ -11,8 +11,9 @@ var _ = require('lodash');
 module.exports = React.createClass({
   componentWillMount: function(){
     this.pusher = new Pusher('218006d766a6d76e8672', {encrypted: true});
-    this.stateChannel = this.pusher.subscribe('newState' + localStorage.email);
-    this.messageChannel = this.pusher.subscribe('newMessage' + localStorage.email);
+    var email = JSON.parse(localStorage.user).email;
+    this.stateChannel = this.pusher.subscribe('newState' + email);
+    this.messageChannel = this.pusher.subscribe('newMessage' + email);
   },
 
   render: function() {
