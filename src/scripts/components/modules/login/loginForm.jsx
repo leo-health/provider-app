@@ -79,6 +79,9 @@ module.exports = React.createClass({
                     <button type="button" className="btn btn-default" onClick={this.handleOnForget}>Forgot?</button>
                   </div>
                 </fieldset>
+                <p>
+                  by logging in to the app you agree our <a href="/#/terms">Terms of Use</a>
+                </p>
               </form>
             </div>
           </div>
