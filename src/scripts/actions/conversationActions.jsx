@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 
 var ConversationActions = {
-  fetchConversationRequest: {asyncResult: true},
+  fetchConversationsRequest: {asyncResult: true},
   fetchConversationByFamily: {asyncResult: true},
   fetchStaffConversation: {asyncResult: true},
   closeConversationRequest: {asyncResult: true},

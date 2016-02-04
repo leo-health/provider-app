@@ -54,14 +54,14 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    ConversationActions.fetchConversationRequest( localStorage.authenticationToken, this.state.conversationState, this.state.page )
+    ConversationActions.fetchConversationsRequest( localStorage.authenticationToken, this.state.conversationState, this.state.page )
   },
 
   handleScroll: function() {
     var node = ReactDom.findDOMNode(this.refs.conversationList);
     if(node.scrollTop + node.offsetHeight === node.scrollHeight){
       var state = this.state.conversationState === "all" ? null : this.state.conversationState;
-      ConversationActions.fetchConversationRequest( localStorage.authenticationToken, state, this.state.page )
+      ConversationActions.fetchConversationsRequest( localStorage.authenticationToken, state, this.state.page )
     }
   },
 

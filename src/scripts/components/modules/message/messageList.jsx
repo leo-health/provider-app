@@ -15,6 +15,7 @@ module.exports = React.createClass({
   getInitialState: function(){
     return{
       messages: undefined,
+      currentConversationId: undefined,
       init: true,
       page: 1,
       offset: 0

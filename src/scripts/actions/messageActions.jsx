@@ -6,6 +6,7 @@ var MessageActions = {
   sendMessageRequest: {asyncResult: true},
   escalateMessageRequest: {asyncResult: true},
   fetchStaffRequest: {asyncResult: true},
+  emptyMessageList: {}
 };
 
 module.exports = Reflux.createActions(MessageActions);
