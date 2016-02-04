@@ -7,25 +7,26 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
-  onFetchConversationRequest: function(authenticationToken, state, page){
+  onFetchConversationsRequest: function(authenticationToken, state, page){
     request.get(leo.API_URL+"/conversations")
            .query({authentication_token: authenticationToken, state: state, page: page})
            .end(function(err, res){
               if(res.ok){
-                ConversationActions.fetchConversationRequest.completed(res.body, state, page)
+                ConversationActions.fetchConversationsRequest.completed(res.body, state, page)
               }else{
-                ConversationActions.fetchConversationRequest.failed(res.body)
+                ConversationActions.fetchConversationsRequest.failed(res.body)
               }
             })
   },
 
-  onFetchConversationRequestCompleted: function(response, state, page){
+  onFetchConversationsRequestCompleted: function(response, state, page){
     var conversations = response.data.conversations;
     if( !state ){
       state = "all"
     }
-
+    debugger
     if (conversations.length > 0 && page === 1){
+      debugger
       var firstConversationId = response.data.conversations[0].id;
       MessageActions.fetchMessagesRequest(localStorage.authenticationToken, firstConversationId, 1, 0);
     }
@@ -46,7 +47,7 @@ module.exports = Reflux.createStore({
     this.trigger(response);
   },
 
-  onFetchConversationRequestFailed: function(response){
+  onFetchConversationsRequestFailed: function(response){
     this.trigger({status: response.status,
                   message: "error fetching conversations"})
   },
