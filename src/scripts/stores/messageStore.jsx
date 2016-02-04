@@ -48,8 +48,6 @@ module.exports = Reflux.createStore({
     var messages = response.data.messages.reverse();
 
     var response = {
-      status: response.status,
-      initMessageId: response.data.init_message_id,
       currentConversationId: response.data.conversation_id
     };
 
@@ -110,5 +108,12 @@ module.exports = Reflux.createStore({
   onSendMessageRequestFailed: function(response){
     this.trigger({ status: response.status,
                    message: "error sending messages"})
+  },
+
+  onEmptyMessageList: function() {
+    this.trigger({
+      messages: [],
+      currentConversationId: undefined
+    })
   }
 });

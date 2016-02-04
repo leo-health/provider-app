@@ -24,11 +24,14 @@ module.exports = Reflux.createStore({
     if( !state ){
       state = "all"
     }
-    debugger
-    if (conversations.length > 0 && page === 1){
-      debugger
-      var firstConversationId = response.data.conversations[0].id;
-      MessageActions.fetchMessagesRequest(localStorage.authenticationToken, firstConversationId, 1, 0);
+
+    if (page === 1){
+      if(conversations.length > 0){
+        var firstConversationId = response.data.conversations[0].id;
+        MessageActions.fetchMessagesRequest(localStorage.authenticationToken, firstConversationId, 1, 0);
+      }else{
+        MessageActions.emptyMessageList()
+      }
     }
 
     var response = {
