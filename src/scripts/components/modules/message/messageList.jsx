@@ -28,7 +28,8 @@ module.exports = React.createClass({
         body: status.newMessage.body,
         created_by: status.newMessage.sender,
         created_at: status.newMessage.created_at,
-        message_type: 'message'
+        message_type: 'message',
+        type_name: status.newMessage.type_name
       };
 
       this.setState({
