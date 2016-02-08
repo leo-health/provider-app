@@ -11,9 +11,9 @@ var _ = require('lodash');
 module.exports = React.createClass({
   componentWillMount: function(){
     this.pusher = new Pusher(leo.PUSHER_APPLICATION_KEY, {encrypted: true});
-    if (sessionStorage.user) var email = JSON.parse(sessionStorage.user).email;
-    this.stateChannel = this.pusher.subscribe('newState' + email);
-    this.messageChannel = this.pusher.subscribe('newMessage' + email);
+    if (sessionStorage.user) var id = JSON.parse(sessionStorage.user).id;
+    this.stateChannel = this.pusher.subscribe('newState' + id);
+    this.messageChannel = this.pusher.subscribe('newMessage' + id);
   },
 
   render: function() {
