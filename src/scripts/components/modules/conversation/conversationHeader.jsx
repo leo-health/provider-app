@@ -23,14 +23,15 @@ module.exports = React.createClass({
 
   render: function () {
     var isSearch = false;
-    if(this.state.search){ }
     var initialTabClass = classNames({
       "": this.state.search,
       "active": !this.state.search
     });
+
     var navTabClass = classNames({
       "": this.state.search
     });
+
     return (
       <ul className="nav nav-tabs">
         <li className={initialTabClass} onClick={this.handleClick.bind(this, 'open')}>
