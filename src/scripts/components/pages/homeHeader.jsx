@@ -6,14 +6,14 @@ var leoUtil = require('../../utils/common').StringUtils;
 module.exports = React.createClass({
 
   handleOnLogout: function(){
-    var authenticationToken = localStorage.authenticationToken;
+    var authenticationToken = sessionStorage.authenticationToken;
     if(!authenticationToken) return;
     LoginAction.logoutRequest(authenticationToken)
   },
 
   render: function() {
     var user;
-    if(localStorage.user) user = leoUtil.formatName(JSON.parse(localStorage.user));
+    if(sessionStorage.user) user = leoUtil.formatName(JSON.parse(sessionStorage.user));
 
     return (
       <div>

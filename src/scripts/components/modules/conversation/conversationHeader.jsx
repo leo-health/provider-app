@@ -18,7 +18,7 @@ module.exports = React.createClass({
   },
 
   handleClick: function(state){
-    ConversationActions.fetchConversationsRequest(localStorage.authenticationToken, state, 1);
+    ConversationActions.fetchConversationsRequest(sessionStorage.authenticationToken, state, 1);
   },
 
   render: function () {

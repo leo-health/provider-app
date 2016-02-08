@@ -35,8 +35,8 @@ module.exports = Reflux.createStore({
   },
 
   onLoginRequestCompleted: function(response){
-    localStorage['authenticationToken']=response.data.session.authentication_token;
-    localStorage['user']=JSON.stringify(response.data.user);
+    sessionStorage['authenticationToken']=response.data.session.authentication_token;
+    sessionStorage['user']=JSON.stringify(response.data.user);
     this.trigger(this.getSession());
   },
 
@@ -45,8 +45,8 @@ module.exports = Reflux.createStore({
   },
 
   onLogoutRequestCompleted: function(response){
-    localStorage.removeItem('authenticationToken');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('authenticationToken');
+    sessionStorage.removeItem('user');
     this.trigger(this.getSession());
   },
 
@@ -55,6 +55,6 @@ module.exports = Reflux.createStore({
   },
 
   isLoggedIn: function(){
-    return !!localStorage['authenticationToken'];
+    return !!sessionStorage['authenticationToken'];
   }
 });

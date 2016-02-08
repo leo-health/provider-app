@@ -36,7 +36,7 @@ module.exports = React.createClass({
   componentDidMount: function(){
     this.props.stateChannel.bind('new_state', function(data){
       if(data.message_type != "open" && this.state.currentConversationId == data.conversation_id){
-        NoteActions.fetchNoteRequest(localStorage.authenticationToken, data.id, data.message_type)
+        NoteActions.fetchNoteRequest(sessionStorage.authenticationToken, data.id, data.message_type)
       }
     }, this)
   },
