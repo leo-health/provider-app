@@ -21,7 +21,7 @@ module.exports = React.createClass({
     if (!messageBody) return;
     var typeName="text";
     var currentConversationId=this.props.conversationId;
-    MessageActions.sendMessageRequest( localStorage.authenticationToken, messageBody, typeName, currentConversationId);
+    MessageActions.sendMessageRequest( sessionStorage.authenticationToken, messageBody, typeName, currentConversationId);
     ReactDom.findDOMNode(this.refs.message).value = "";
   },
 
@@ -31,7 +31,7 @@ module.exports = React.createClass({
     var conversationId = this.props.conversationId;
     var escalatedToId = this.state.escalatedToId;
     var priority = this.state.priority;
-    ConversationActions.escalateConversationRequest( localStorage.authenticationToken, conversationId, escalatedToId, note, priority );
+    ConversationActions.escalateConversationRequest( sessionStorage.authenticationToken, conversationId, escalatedToId, note, priority );
     this.setState({action: "message"});
     ReactDom.findDOMNode(this.refs.escalationNote).value = "";
   },
@@ -39,7 +39,7 @@ module.exports = React.createClass({
   handleClose: function (e) {
     e.preventDefault();
     var note = ReactDom.findDOMNode(this.refs.closureNote).value.trim();
-    ConversationActions.closeConversationRequest(localStorage.authenticationToken, this.props.conversationId, note);
+    ConversationActions.closeConversationRequest(sessionStorage.authenticationToken, this.props.conversationId, note);
     this.setState({action: "message"});
     ReactDom.findDOMNode(this.refs.closureNote).value = "";
   },
@@ -71,7 +71,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    MessageActions.fetchStaffRequest(localStorage.authenticationToken);
+    MessageActions.fetchStaffRequest(sessionStorage.authenticationToken);
   },
 
   showComponent: function(name){

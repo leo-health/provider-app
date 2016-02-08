@@ -58,7 +58,7 @@ module.exports = React.createClass({
   componentDidMount: function(){
     this.props.messageChannel.bind('new_message', function(data){
       if(this.state.currentConversationId == data.conversation_id){
-        MessageActions.fetchMessageRequest(localStorage.authenticationToken, data.message_id);
+        MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
       }
     }, this);
 
@@ -84,7 +84,7 @@ module.exports = React.createClass({
     var conversationId = this.state.currentConversationId;
 
     if(conversationId && node.scrollTop === 0){
-      MessageActions.fetchMessagesRequest( localStorage.authenticationToken,
+      MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken,
                                            this.state.currentConversationId,
                                            this.state.page,
                                            this.state.offset);

@@ -34,7 +34,7 @@ module.exports = React.createClass({
   },
 
   getFamilyNames: function(query){
-    UserActions.fetchUsers(localStorage.authenticationToken, query);
+    UserActions.fetchUsers(sessionStorage.authenticationToken, query);
   },
 
   handleChange: function(e){
@@ -56,9 +56,9 @@ module.exports = React.createClass({
 
   handleSelectedSuggest: function(suggestion, event){
     if(suggestion.role.name === 'patient' || suggestion.role.name === 'guardian'){
-      ConversationActions.fetchConversationByFamily(localStorage.authenticationToken, suggestion.family_id)
+      ConversationActions.fetchConversationByFamily(sessionStorage.authenticationToken, suggestion.family_id)
     }else{
-      ConversationActions.fetchStaffConversation(localStorage.authenticationToken, suggestion.id)
+      ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, suggestion.id)
     }
   },
 

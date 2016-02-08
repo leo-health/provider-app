@@ -50,18 +50,18 @@ module.exports = React.createClass({
 
   handleOnClick: function(i, conversationId){
     this.setState({selectedConversation: i});
-    MessageActions.fetchMessagesRequest( localStorage.authenticationToken, conversationId, 1, 0);
+    MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
   },
 
   componentDidMount: function() {
-    ConversationActions.fetchConversationsRequest( localStorage.authenticationToken, this.state.conversationState, this.state.page )
+    ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.state.conversationState, this.state.page )
   },
 
   handleScroll: function() {
     var node = ReactDom.findDOMNode(this.refs.conversationList);
     if(node.scrollTop + node.offsetHeight === node.scrollHeight){
       var state = this.state.conversationState === "all" ? null : this.state.conversationState;
-      ConversationActions.fetchConversationsRequest( localStorage.authenticationToken, state, this.state.page )
+      ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, state, this.state.page )
     }
   },
 

@@ -22,7 +22,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    if(!this.isLocalStorageNameSupported()){
+    if(!this.isSessionStorageNameSupported()){
       this.setState({ status: "error",
                       message: "The provider app is not supported for use in private browsing modes."
                     });
@@ -33,7 +33,7 @@ module.exports = React.createClass({
     e.preventDefault();
     var email = ReactDom.findDOMNode(this.refs.email).value.trim();
     var password = ReactDom.findDOMNode(this.refs.password).value.trim();
-    if (!this.isLocalStorageNameSupported() || !email || !password){
+    if (!this.isSessionStorageNameSupported() || !email || !password){
       return
     }
     var loginParam = {email: email, password: password};
@@ -41,13 +41,13 @@ module.exports = React.createClass({
   },
 
   handleOnForget: function(){
-    if(this.isLocalStorageNameSupported()){
+    if(this.isSessionStorageNameSupported()){
       this.transitionTo('resetPassword');
     }
   },
 
-  isLocalStorageNameSupported: function (){
-    var testKey = 'test', storage = window.localStorage;
+  isSessionStorageNameSupported: function (){
+    var testKey = 'test', storage = window.sessionStorage;
     try {
       storage.setItem(testKey, '1');
       storage.removeItem(testKey);
