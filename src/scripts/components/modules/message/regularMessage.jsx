@@ -18,7 +18,7 @@ module.exports = React.createClass({
     var message;
 
     if(typeName === "image"){
-      message = <blockquote><a href={body.full_size_image_url} target="blank"><img className="img-chat" src={body.web_app_image_url}/></a></blockquote>
+      message = <blockquote><a href={body.full_size_image_url} target="blank"><div className="img-wrapper"><span className="img-helper"></span><img className="img-chat" src={body.web_app_image_url}/></div></a></blockquote>
     }else{
       message = body
     }
