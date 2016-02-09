@@ -4,6 +4,7 @@ var Autosuggest = require('react-autosuggest');
 var UserActions = require('../../../actions/userActions');
 var UserStore = require('../../../stores/userStore');
 var ConversationActions = require('../../../actions/conversationActions');
+var leoUtil = require('../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   mixins: [
@@ -42,12 +43,15 @@ module.exports = React.createClass({
   },
 
   getSuggestionValue: function(suggestionObj){
-    return suggestionObj.first_name + " " + suggestionObj.last_name
+    var displayName = leoUtil.formatName(suggestionObj);
+    if(suggestionObj.role === 'patient') displayName = displayName + " " + suggestionObj.birth_date;
+    return displayName
   },
 
   renderSuggestion: function(suggestion, input){
-    suggestion = suggestion.first_name + " " + suggestion.last_name;
-    return(<span>{suggestion}</span>)
+    var displayName = leoUtil.formatName(suggestion);
+    if(suggestion.role === 'patient') displayName = displayName + " " + suggestion.birth_date;
+    return(<span>{displayName}</span>)
   },
 
   handleSearchChange: function (query) {
@@ -55,7 +59,7 @@ module.exports = React.createClass({
   },
 
   handleSelectedSuggest: function(suggestion, event){
-    if(suggestion.role.name === 'patient' || suggestion.role.name === 'guardian'){
+    if(suggestion.role === 'patient' || suggestion.role === 'guardian'){
       ConversationActions.fetchConversationByFamily(sessionStorage.authenticationToken, suggestion.family_id)
     }else{
       ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, suggestion.id)

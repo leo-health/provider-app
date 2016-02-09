@@ -93,7 +93,7 @@ module.exports = React.createClass({
       notes = <div> Be the first to share context with your colleagues when escalating and closing conversations. Remember to use search to find and check in on your patients! </div>;
     }
     return (
-      <div id="notes-container" className="pre-scrollable panel panel-body">
+      <div className="pre-scrollable panel panel-body">
         <h4>Notes</h4>
         {notes}
       </div>
