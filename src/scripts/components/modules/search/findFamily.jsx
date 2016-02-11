@@ -1,5 +1,6 @@
 var React = require('react');
 var Reflux = require('reflux');
+var moment = require('moment');
 var Autosuggest = require('react-autosuggest');
 var UserActions = require('../../../actions/userActions');
 var UserStore = require('../../../stores/userStore');
@@ -44,14 +45,19 @@ module.exports = React.createClass({
 
   getSuggestionValue: function(suggestionObj){
     var displayName = leoUtil.formatName(suggestionObj);
-    if(suggestionObj.role === 'patient') displayName = displayName + " " + suggestionObj.birth_date;
+    if(suggestionObj.role.name === 'patient') displayName = this.formatDisplay(displayName, suggestionObj);
     return displayName
   },
 
   renderSuggestion: function(suggestion, input){
     var displayName = leoUtil.formatName(suggestion);
-    if(suggestion.role === 'patient') displayName = displayName + " " + suggestion.birth_date;
+    if(suggestion.role.name === 'patient') displayName = this.formatDisplay(displayName, suggestion);
     return(<span>{displayName}</span>)
+  },
+
+  formatDisplay: function(name, object){
+    var birthDate = moment(object.birth_date).subtract(10, 'days').calendar();
+    return name + " " + birthDate + " " + object.sex;
   },
 
   handleSearchChange: function (query) {
