@@ -89,7 +89,12 @@ module.exports = React.createClass({
         )
       }, this);
     } else {
-      conversations = <div> There are no more {this.state.conversationState} conversations for you to review. Please be sure to review the other sections. </div>;
+      var state = this.state.conversationState;
+      if(state === parseInt(state, 10)){
+        conversations = <div>There is no matching conversation.</div>
+      }else{
+        conversations = <div> There are no more {state} conversations for you to review. Please be sure to review the other sections. </div>;
+      }
     }
 
     return (
