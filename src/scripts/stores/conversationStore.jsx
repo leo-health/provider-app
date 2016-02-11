@@ -137,7 +137,10 @@ module.exports = Reflux.createStore({
     this.trigger({ status: response.status,
                    conversations: conversations,
                    conversationState: Date.now() });
-
-    MessageActions.fetchMessagesRequest(authenticationToken, conversations[0].id, 1, 0)
+    if(conversations.length > 0){
+      MessageActions.fetchMessagesRequest(authenticationToken, conversations[0].id, 1, 0)
+    }else{
+      MessageActions.emptyMessageList()
+    }
   }
 });
