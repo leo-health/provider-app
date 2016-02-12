@@ -12,7 +12,7 @@ module.exports = React.createClass({
     var tagClass;
 
     if (this.props.messageType == "escalation"){
-      message = "Case was escalated to " + this.props.escalatedTo;
+      message = "Case was assigned to " + this.props.escalatedTo;
       tagClass = "danger"
     }else{
       message = "Case was closed by " + this.props.closedBy;

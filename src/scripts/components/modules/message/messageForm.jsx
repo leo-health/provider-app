@@ -153,7 +153,7 @@ module.exports = React.createClass({
                 <span className="glyphicon glyphicon-ok"></span> Close Case
               </a>
               <a href="#" className="btn btn-danger btn-sm" onClick={this.showEscalation}>
-                <span className="glyphicon glyphicon-fire"></span> Escalate
+                <span className="glyphicon glyphicon-fire"></span> Assign
               </a>
             </form>
             <hr/>

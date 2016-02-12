@@ -41,7 +41,7 @@ module.exports = React.createClass({
         </li>
         <li className={navTabClass} onClick={this.handleClick.bind(this, 'escalated')}>
           <a href="#escalated" data-toggle="tab">
-            <span className="glyphicon glyphicon-exclamation-sign-default" aria-hidden="false"></span> Escalated
+            <span className="glyphicon glyphicon-exclamation-sign-default" aria-hidden="false"></span> Assigned
           </a>
         </li>
         <li className={navTabClass} onClick={this.handleClick.bind(this, 'closed')}>
