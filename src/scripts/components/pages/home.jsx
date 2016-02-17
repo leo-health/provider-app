@@ -28,15 +28,13 @@ module.exports = React.createClass({
 
     var id = this.getUserId();
     this.pusher.subscribe('presence-provider_app');
-    this.stateChannel = this.pusher.subscribe('private-newState' + id);
-    this.messageChannel = this.pusher.subscribe('private-newMessage' + id);
+    this.channel = this.pusher.subscribe('private-' + id);
   },
 
   unsubscribeFromPusher: function(){
     var id = this.getUserId();
     this.pusher.unsubscribe('presence-provider_app');
-    this.pusher.unsubscribe('private-newState' + id);
-    this.pusher.unsubscribe('private-newMessage' + id);
+    this.pusher.unsubscribe('private-' + id);
   },
 
   getUserId: function(){
@@ -56,13 +54,13 @@ module.exports = React.createClass({
           </div>
           <div className="row">
             <div id="left" className="col-lg-3">
-              <ConversationList stateChannel={this.stateChannel}/>
+              <ConversationList channel={this.channel}/>
             </div>
             <div id="middle" className="col-lg-6">
-              <MessageList messageChannel={this.messageChannel} stateChannel={this.stateChannel}/>
+              <MessageList channel={this.channel}/>
             </div>
             <div id="right" className="col-lg-3">
-              <NoteList stateChannel={this.stateChannel}/>
+              <NoteList channel={this.channel}/>
             </div>
           </div>
           <Footer/>

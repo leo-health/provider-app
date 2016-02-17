@@ -48,7 +48,7 @@ module.exports = React.createClass({
         </div>
         <p className = "patientList">
           {patients}
-          <ConversationState conversationState = {conversationState} conversationId = {conversationId} stateChannel = {this.props.stateChannel}/>
+          <ConversationState conversationState = {conversationState} conversationId = {conversationId} channel = {this.props.channel}/>
         </p>
         <p className="list-group-item-text">
           {lastMessage}
