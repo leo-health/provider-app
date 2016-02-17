@@ -7,7 +7,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    this.props.stateChannel.bind('new_state', function(data){
+    this.props.channel.bind('new_state', function(data){
       if(data.conversation_id == this.props.conversationId){
         this.setState({conversationState: data.message_type})
       }
