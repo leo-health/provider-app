@@ -11,7 +11,7 @@ module.exports = Reflux.createStore({
   listenables: [LoginActions],
 
   onLoginRequest: function(loginParam){
-    request.post('http://localhost:3000/api/v1/login')
+    request.post(leo.API_URL+"/login")
            .send({ email: loginParam.email, password: loginParam.password })
            .end(function(err, res){
              if (res.ok){
@@ -23,7 +23,7 @@ module.exports = Reflux.createStore({
   },
 
   onLogoutRequest: function(authenticationToken){
-    request.del('http://localhost:3000/api/v1/logout')
+    request.del(leo.API_URL+"/logout")
            .send({ authentication_token: authenticationToken })
            .end(function(err,res){
              if (res.ok){
@@ -35,11 +35,8 @@ module.exports = Reflux.createStore({
   },
 
   onLoginRequestCompleted: function(response){
-    localStorage["authenticationToken"]=response.data.session.authentication_token;
-    localStorage["firstName"]=response.data.session.user.first_name;
-    localStorage["lastName"]=response.data.session.user.last_name;
-    localStorage["title"]=response.data.session.user.title;
-    localStorage["email"]=response.data.session.user.email;
+    sessionStorage['authenticationToken']=response.data.session.authentication_token;
+    sessionStorage['user']=JSON.stringify(response.data.user);
     this.trigger(this.getSession());
   },
 
@@ -48,11 +45,8 @@ module.exports = Reflux.createStore({
   },
 
   onLogoutRequestCompleted: function(response){
-    localStorage.removeItem("authenticationToken");
-    localStorage.removeItem("firstName");
-    localStorage.removeItem("lastName");
-    localStorage.removeItem("title");
-    localStorage.removeItem("email");
+    sessionStorage.removeItem('authenticationToken');
+    sessionStorage.removeItem('user');
     this.trigger(this.getSession());
   },
 
@@ -61,6 +55,6 @@ module.exports = Reflux.createStore({
   },
 
   isLoggedIn: function(){
-    return !!localStorage["authenticationToken"];
+    return !!sessionStorage['authenticationToken'];
   }
 });

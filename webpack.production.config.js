@@ -25,11 +25,17 @@ module.exports = {
   resolveLoader: {
     modulesDirectories: ['..', 'node_modules']
   },
+  node: {
+    net : 'empty',
+    tls : 'empty',
+    dns : 'empty'
+  },
   plugins: [
     new webpack.DefinePlugin({
       // This has effect on the react lib size.
-      "process.env": {
-        NODE_ENV: JSON.stringify("production")
+      "leo" : {
+        API_URL: JSON.stringify(process.env.API_URL),
+        PUSHER_APPLICATION_KEY: JSON.stringify(process.env.PUSHER_APPLICATION_KEY)
       }
     }),
     new webpack.IgnorePlugin(/vertx/),
@@ -45,6 +51,7 @@ module.exports = {
     loaders: commonLoaders.concat([
       { test: /\.styl$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus')},
       { test: /\.cjsx$/, loaders: ['react-hot', 'coffee', 'cjsx']},
+      // todo: remove coffee loader
       { test: /\.coffee$/, loader: 'coffee' },
       { test: /\.jsx$|\.js$/, loader: 'jsx-loader?harmony' }
     ])

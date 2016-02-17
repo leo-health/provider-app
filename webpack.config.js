@@ -24,7 +24,19 @@ module.exports = {
   resolveLoader: {
     modulesDirectories: ['node_modules']
   },
+  node: {
+    net : 'empty',
+    tls : 'empty',
+    dns : 'empty'
+  },
   plugins: [
+    new webpack.DefinePlugin({
+      // This has effect on the react lib size.
+      "leo" : {
+        API_URL: JSON.stringify(process.env.API_URL),
+        PUSHER_APPLICATION_KEY: JSON.stringify(process.env.PUSHER_APPLICATION_KEY)
+      }
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.IgnorePlugin(/vertx/) // https://github.com/webpack/webpack/issues/353

@@ -1,60 +1,146 @@
 var Reflux = require('reflux'),
     request = require('superagent'),
-    ConversationActions = require('../actions/conversationActions');
+    ConversationActions = require('../actions/conversationActions'),
+    MessageActions = require('../actions/messageActions'),
+    NoteActions = require('../actions/noteActions');
 
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
-  onFetchConversationRequest: function(authenticationToken, status){
-    if (status.length > 0){
-      var conversationParams = {authentication_token: authenticationToken, status: status}
-    }else{
-      conversationParams = {authentication_token: authenticationToken}
-    }
-    request.get('http://localhost:3000/api/v1/conversations')
-           .query(conversationParams)
+  onFetchConversationsRequest: function(authenticationToken, state, page){
+    request.get(leo.API_URL+"/conversations")
+           .query({authentication_token: authenticationToken, state: state, page: page})
            .end(function(err, res){
               if(res.ok){
-                ConversationActions.fetchConversationRequest.completed(res.body)
+                ConversationActions.fetchConversationsRequest.completed(res.body, state, page)
               }else{
-                ConversationActions.fetchConversationRequest.failed(res.body)
+                ConversationActions.fetchConversationsRequest.failed(res.body)
               }
             })
   },
 
-  onFetchConversationRequestCompleted: function(response){
-    this.trigger({ status: response.status,
-                   conversations: response.data.conversations })
+  onFetchConversationsRequestCompleted: function(response, state, page){
+    var conversations = response.data.conversations;
+    if( !state ){
+      state = "all"
+    }
+
+    if (page === 1){
+      if(conversations.length > 0){
+        var firstConversationId = response.data.conversations[0].id;
+        MessageActions.fetchMessagesRequest(sessionStorage.authenticationToken, firstConversationId, 1, 0);
+      }else{
+        MessageActions.emptyMessageList()
+      }
+    }
+
+    var response = {
+      status: response.status,
+      conversationState: state,
+      maxPage: response.data.max_page,
+      page: page
+    };
+
+    if(page === 1){
+      response.conversations = conversations
+    }else{
+      response.newConversations = conversations
+    }
+
+    this.trigger(response);
   },
 
-  onFetchConversationRequestFailed: function(response){
+  onFetchConversationsRequestFailed: function(response){
     this.trigger({status: response.status,
                   message: "error fetching conversations"})
   },
 
-  onSelectConversation: function(selectedConversation){
-    this.trigger({selectedConversation: selectedConversation})
-  },
-
-  onCloseConversationRequest: function(authenticationToken, conversationId){
-    request.put('http://localhost:3000/api/v1/conversations/' + conversationId)
-        .query({ authentication_token: authenticationToken })
-        .end(function(err, res){
-          if(res.ok){
-            ConversationActions.closeConversationRequest.completed(res.body)
-          }else{
-            ConversationActions.closeConversationRequest.failed(res.body)
-          }
-        })
+  onCloseConversationRequest: function(authenticationToken, conversationId, note){
+    request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
+           .query({ authentication_token: authenticationToken, note: note })
+           .end(function(err, res){
+             if(res.ok){
+               ConversationActions.closeConversationRequest.completed(res.body)
+             }else{
+               ConversationActions.closeConversationRequest.failed(res.body)
+             }
+           })
   },
 
   onCloseConversationRequestCompleted: function(response){
-    this.trigger({status: response.status,
-                  closedConversation: response.data.conversation})
+    this.trigger({status: response.status})
   },
 
   onCloseConversationRequestFailed: function(response){
     this.trigger({status: response.status,
                   message: "error closing conversation"})
+  },
+
+  onEscalateConversationRequest: function(authenticationToken, conversationId, escalatedToId, note, priority){
+    escalateParams = { authentication_token: authenticationToken,
+                       escalated_to_id: escalatedToId,
+                       note: note,
+                       priority: priority
+                      };
+    request.put(leo.API_URL+"/conversations/" + conversationId + "/escalate")
+           .query(escalateParams)
+           .end(function(err, res){
+              if(res.ok){
+                ConversationActions.escalateConversationRequest.completed(res.body)
+              }else{
+                ConversationActions.escalateConversationRequest.failed(res.body)
+              }
+            })
+  },
+
+  onEscalateConversationRequestCompleted: function(response){
+    this.trigger({status: response.status})
+  },
+
+  onEscalateConversationRequestFailed: function(response){
+    this.trigger({status: response.status,
+                  message: "error escalating conversation"})
+  },
+
+  onFetchConversationByFamily: function (authenticationToken, familyId) {
+    request.get(leo.API_URL+'/families/' + familyId + '/conversation')
+           .query({ authentication_token: authenticationToken })
+           .end(function(err, res){
+             if(res.ok){
+               ConversationActions.fetchConversationByFamily.completed(res.body, authenticationToken)
+             }
+           })
+  },
+
+  onFetchConversationByFamilyCompleted: function(response, authenticationToken){
+    var conversation = response.data.conversation;
+    this.trigger({ status: response.status,
+                   conversations: [conversation],
+                   conversationState: Date.now() });
+
+    MessageActions.fetchMessagesRequest(authenticationToken, conversation.id, 1, 0)
+  },
+
+  onFetchStaffConversation: function(authenticationToken, staffId){
+    request.get(leo.API_URL+'/staff/' + staffId + '/conversations')
+           .query({ authentication_token: authenticationToken })
+           .end(function(err, res){
+             if(res.ok){
+               ConversationActions.fetchStaffConversation.completed(res.body, authenticationToken)
+             }
+           })
+  },
+
+  onFetchStaffConversationCompleted: function(response, authenticationToken){
+    var conversations = response.data.conversations;
+
+    this.trigger({ status: response.status,
+                   conversations: conversations,
+                   conversationState: Date.now() });
+    if(conversations.length > 0){
+      MessageActions.fetchMessagesRequest(authenticationToken, conversations[0].id, 1, 0)
+    }else{
+      MessageActions.emptyMessageList()
+    }
   }
 });

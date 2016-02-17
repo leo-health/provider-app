@@ -1,15 +1,15 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var PasswordActions = require('../../../actions/passwordActions');
 var PasswordStore = require('../../../stores/passwordStore');
 var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
 var Navigation = Router.Navigation;
 var SuccessAlert = require('../alert/successAlert');
 var ErrorAlert = require('../alert/errorAlert');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(PasswordStore, "onResetChange"), Router.Navigation],
+  mixins: [Reflux.listenTo(PasswordStore, "onResetChange"), Navigation],
 
   getInitialState: function(){
     return{
@@ -25,8 +25,8 @@ module.exports = React.createClass({
 
   handleOnSubmit: function (e) {
     e.preventDefault();
-    if (this.state.button=="Submit" || this.state.button == "Try again"){
-      var email = this.refs.email.getDOMNode().value.trim();
+    if (this.state.button == "Submit" || this.state.button == "Try again"){
+      var email = ReactDom.findDOMNode(this.refs.email).value.trim();
       if (!email){
         return
       }

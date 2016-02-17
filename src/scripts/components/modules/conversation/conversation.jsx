@@ -1,65 +1,58 @@
 var React = require('react');
-var Reflux = require('reflux');
 var _ = require('lodash');
+var leoUtil = require('../../../utils/common').StringUtils;
 var moment = require('moment');
-var ConversationStore = require('../../../stores/conversationStore');
-var ConversationStatus = require("./conversationStatus");
+var ConversationState = require("./conversationState");
 var ConversationPatient = require("./conversationPatient");
+var ConversationGuardian = require("./conversationGuardian");
 var MessageActions = require('../../../actions/messageActions');
-var ConversationActions = require('../../../actions/conversationActions');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
-
-  handleOnClick: function(){
-    ConversationActions.selectConversation(this.props.reactKey);
-    var currentConversationId = this.props.conversation_id;
-    var authenticationToken = localStorage.authenticationToken;
-    MessageActions.fetchMessageRequest(authenticationToken, currentConversationId);
-  },
-
-  onStatusChange: function(status){
-    this.setState(status)
-  },
-
-  getInitialState: function () {
-    return {selectedConversation: 0}
-  },
-
-  componentWillMount: function(){
-
-  },
-
   render: function () {
-    var lastMessage = this.props.lastMessage.body;
-    var guardian = this.props.guardian;
-    guardian = guardian.title + guardian.first_name + " " + guardian.last_name;
-    if( lastMessage.length > 150 ){
-      var shortMessage = lastMessage.substr(0, 150);
-      lastMessage = shortMessage.substr(0, shortMessage.lastIndexOf(" ")) + "...";
-    }
+    var lastMessage = this.props.lastMessage;
+    var primaryGuardian = this.props.primaryGuardian;
+    primaryGuardian = leoUtil.formatName(primaryGuardian);
+    lastMessage = leoUtil.shorten(lastMessage);
+
     var messageSendAt = moment(this.props.createdAt).calendar();
+    var conversationState = this.props.conversationState;
+    var conversationId = this.props.conversationId;
     var patients = this.props.patients.map(function(patient){
+      var patientName = leoUtil.formatName(patient);
       return (
         <ConversationPatient key = {patient.id}
-                             patient = { patient.first_name + " " + patient.last_name}
+                             patient = {patientName}
         />
       )
-    });
+    }.bind(this));
+
+    var secondaryGuardians = _.filter(this.props.guardians, function(guardian){
+      return guardian.id !=  this.props.primaryGuardian.id
+    }.bind(this));
+
+    secondaryGuardians = secondaryGuardians.map(function(guardian){
+      var guardianName = leoUtil.formatName(guardian);
+      return(
+        <ConversationGuardian key={guardian.id}
+                              guardian = {guardianName}/>
+      )
+    }.bind(this));
+
     return(
-      <div onClick={this.handleOnClick}>
-        <a href="#" className={this.state.selectedConversation == this.props.reactKey ? "list-group-item active" : "list-group-item"}>
-          <h6 className="list-group-item-heading">{guardian}
-            <span className="pull-right">{messageSendAt}</span>
-          </h6>
-          <p className = "patientList">
-            {patients}
-            <ConversationStatus status = {this.props.conversationStatus}/>
-          </p>
-          <p className="list-group-item-text">
-            {lastMessage}
-          </p>
-        </a>
+      <div href="#" className={this.props.selected ? "list-group-item active" : "list-group-item"} onClick={this.props.onClick}>
+        <h6 className="list-group-item-heading">{primaryGuardian}
+          <span className="pull-right">{messageSendAt}</span>
+        </h6>
+        <div>
+          {secondaryGuardians}
+        </div>
+        <p className = "patientList">
+          {patients}
+          <ConversationState conversationState = {conversationState} conversationId = {conversationId} stateChannel = {this.props.stateChannel}/>
+        </p>
+        <p className="list-group-item-text">
+          {lastMessage}
+        </p>
       </div>
     )
   }

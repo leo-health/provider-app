@@ -11,24 +11,16 @@ var SessionStore = require('../stores/sessionStore'),
     RouteStore = require('../stores/routerStore'),
     PasswordStore = require('../stores/passwordStore');
 
-var Footer = require('./pages/footer');
-
-function getStateFromStores(){
-  return {
-    isLoggedIn: SessionStore.isLoggedIn()
-  }
-}
-
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(SessionStore, "onSessionChange"), Navigation],
+  mixins: [Reflux.listenTo(SessionStore, "onStatusChange"), Navigation],
 
   getInitialState: function(){
-    var loginStatus = getStateFromStores();
+    var loginStatus = SessionStore.getSession();
     var currentRouteName = this.context.router.getCurrentPathname();
-    if (currentRouteName=="/resetPassword" || currentRouteName=="/changePassword"){
+
+    if (["/resetPassword", "/changePassword", "/registration", "/success", "/terms", "/acceptInvitation"].indexOf(currentRouteName) > -1) {
       return loginStatus
-    }
-    else if(loginStatus.isLoggedIn){
+    }else if(loginStatus.isLoggedIn){
       this.transitionTo('home')
     }else{
       this.transitionTo('login')
@@ -36,9 +28,8 @@ module.exports = React.createClass({
     return loginStatus;
   },
 
-  onSessionChange: function(status){
+  onStatusChange: function(status){
     this.setState(status);
-
     if(this.state.isLoggedIn){
       this.transitionTo('home')
     }else{
@@ -50,7 +41,6 @@ module.exports = React.createClass({
     return(
       <div className = "container">
         <RouteHandler/>
-        <Footer/>
       </div>
     );
   }

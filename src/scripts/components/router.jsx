@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDom = require('react-dom');
 //# Assign React to Window so the Chrome React Dev Tools will work.
 window.React = React;
 
@@ -9,7 +10,11 @@ var App = require('./app'),
     Login = require('./pages/login'),
     Home = require('./pages/home'),
     ResetPassword = require('./pages/resetPassword'),
-    ChangePassword = require('./pages/changePassword');
+    ChangePassword = require('./pages/changePassword'),
+    Registration = require('./pages/registration'),
+    Success = require('./pages/success'),
+    AcceptInvitation = require('./pages/acceptInvitation'),
+    Terms = require('./pages/terms');
 
 var routes = (
   <Route handler={App}>
@@ -17,10 +22,14 @@ var routes = (
     <Route name="login" handler={Login}/>
     <Route name ="resetPassword" handler={ResetPassword} />
     <Route name ="changePassword" handler={ChangePassword} />
+    <Route name ="registration" handler={Registration} />
+    <Route name ="success" handler={Success} />
+    <Route name ="acceptInvitation" handler={AcceptInvitation} />
     <Route name="home" handler={Home}/>
+    <Route name="terms" handler={Terms}/>
   </Route>
 );
 
 Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.getElementById("container"));
+  ReactDom.render(<Handler/>, document.getElementById("container"));
 });

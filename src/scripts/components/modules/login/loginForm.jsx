@@ -1,5 +1,6 @@
 var Reflux = require('reflux');
 var React = require('react');
+var ReactDom = require('react-dom');
 var LoginAction = require('../../../actions/loginActions');
 var SessionStore = require('../../../stores/sessionStore');
 var Router = require('react-router');
@@ -20,11 +21,19 @@ module.exports = React.createClass({
     this.setState(status);
   },
 
+  componentDidMount: function(){
+    if(!this.isSessionStorageNameSupported()){
+      this.setState({ status: "error",
+                      message: "The provider app is not supported for use in private browsing modes."
+                    });
+    }
+  },
+
   handleOnSubmit: function(e){
     e.preventDefault();
-    var email = this.refs.email.getDOMNode().value.trim();
-    var password = this.refs.password.getDOMNode().value.trim();
-    if (!email || !password){
+    var email = ReactDom.findDOMNode(this.refs.email).value.trim();
+    var password = ReactDom.findDOMNode(this.refs.password).value.trim();
+    if (!this.isSessionStorageNameSupported() || !email || !password){
       return
     }
     var loginParam = {email: email, password: password};
@@ -32,7 +41,21 @@ module.exports = React.createClass({
   },
 
   handleOnForget: function(){
-    this.transitionTo('resetPassword');
+    if(this.isSessionStorageNameSupported()){
+      this.transitionTo('resetPassword');
+    }
+  },
+
+  isSessionStorageNameSupported: function (){
+    var testKey = 'test', storage = window.sessionStorage;
+    try {
+      storage.setItem(testKey, '1');
+      storage.removeItem(testKey);
+      return true
+    }
+    catch (error) {
+      return false;
+    }
   },
 
   render: function(){
@@ -50,19 +73,15 @@ module.exports = React.createClass({
                   </div>
                   <div className="form-group">
                     <input type="password" className="form-control" id="inputPassword" placeholder="Password" ref="password"/>
-                    <div className="checkbox">
-                      <label>
-                        <input type="checkbox"/> Save password
-                      </label>
-                    </div>
                   </div>
                   <div className="form-group">
-                    <div className="col-lg-12">
-                      <button type="submit" className="btn btn-primary">Login</button>&nbsp;
-                      <button type="button" className="btn btn-default" onClick={this.handleOnForget}>Forgot?</button>
-                    </div>
+                    <button type="submit" className="btn btn-primary">Login</button>&nbsp;
+                    <button type="button" className="btn btn-default" onClick={this.handleOnForget}>Forgot?</button>
                   </div>
                 </fieldset>
+                <p>
+                  by logging in to the app you agree our <a href="/#/terms">Terms of Use</a>
+                </p>
               </form>
             </div>
           </div>
