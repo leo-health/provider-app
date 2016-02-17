@@ -10,10 +10,37 @@ var _ = require('lodash');
 
 module.exports = React.createClass({
   componentWillMount: function(){
-    this.pusher = new Pusher(leo.PUSHER_APPLICATION_KEY, {encrypted: true});
-    if (sessionStorage.user) var id = JSON.parse(sessionStorage.user).id;
-    this.stateChannel = this.pusher.subscribe('newState' + id);
-    this.messageChannel = this.pusher.subscribe('newMessage' + id);
+    this.subscribeToPusher();
+  },
+
+  componentWillUnmount: function () {
+    this.unsubscribeFromPusher();
+  },
+
+  subscribeToPusher: function(){
+    this.pusher = new Pusher(leo.PUSHER_APPLICATION_KEY, {
+      encrypted: true,
+      authEndpoint: leo.API_URL+"/pusher/auth",
+      auth: {
+        params: { authentication_token: sessionStorage.authenticationToken }
+      }
+    });
+
+    var id = this.getUserId();
+    this.pusher.subscribe('presence-provider_app');
+    this.stateChannel = this.pusher.subscribe('private-newState' + id);
+    this.messageChannel = this.pusher.subscribe('private-newMessage' + id);
+  },
+
+  unsubscribeFromPusher: function(){
+    var id = this.getUserId();
+    this.pusher.unsubscribe('presence-provider_app');
+    this.pusher.unsubscribe('private-newState' + id);
+    this.pusher.unsubscribe('private-newMessage' + id);
+  },
+
+  getUserId: function(){
+    if (sessionStorage.user) return JSON.parse(sessionStorage.user).id;
   },
 
   render: function() {
