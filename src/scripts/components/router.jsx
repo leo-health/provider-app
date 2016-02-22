@@ -14,7 +14,8 @@ var App = require('./app'),
     Registration = require('./pages/registration'),
     Success = require('./pages/success'),
     AcceptInvitation = require('./pages/acceptInvitation'),
-    Terms = require('./pages/terms');
+    Terms = require('./pages/terms'),
+    Privacy = require('./pages/privacy');
 
 var routes = (
   <Route handler={App}>
@@ -27,6 +28,7 @@ var routes = (
     <Route name ="acceptInvitation" handler={AcceptInvitation} />
     <Route name="home" handler={Home}/>
     <Route name="terms" handler={Terms}/>
+    <Route name="privacy" handler={Privacy}/>
   </Route>
 );
 
