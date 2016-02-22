@@ -3,452 +3,155 @@ var React = require('react');
 module.exports = React.createClass({
   render: function(){
     return(
-<section class="ppn">
-<header data-role="page-header">
-    <section data-role="company">
-        <h1>Leo Health</h1>
-        <h2>Pediatrics</h2>
-    </section>
-    <section data-role="contact">
-        <address>
-            33 W 17th Street<br/>
-            New York, NY 10011<br/>
-        </address>
-    </section>
-</header>
+        <div>
+            <h1>Leo Health - Terms of Service</h1>
+            <p className="text-muted">Last updated: February 22, 2016</p>
 
-<section class="notice-body">
-<header data-role="section-header">
-    <h1><span>Your Information.</span> <span>Your Rights.</span> <span>Our Responsibilities.</span></h1>
-    <section>
-        <p>This notice describes how medical information about you may be used and disclosed and how you can get access
-            to this information.</p>
-        <strong>Please review it carefully</strong>
-    </section>
-</header>
+            <p>The following terms and conditions govern your use of the Leo Health website and/or mobile applications (the "App") (and any other websites or applications owned and/or controlled by Leo Health, however branded) (collectively the "Website"), and all content, services and products available therein (collectively, the "Leo Health Services").  The Leo Health Services are owned and operated by Leo Health, Inc., a Delaware corporation (referred to as "Leo Health").  The Leo Health Services are offered subject to your acceptance, without modification, of all of the terms and conditions contained herein and all other operating rules, policies (including, without limitation, Leo Health's Privacy Policy) and procedures that may be published from time to time on www.LeoHealth.com and websites owned and/or controlled by Leo Health, all of which are hereby incorporated by reference (collectively, the "Terms of Service").</p>
+            <p>Please read these Terms of Service carefully before accessing or using the Website or Leo Health Services.  These Terms of Service contain a legally binding contract governing your use of the Leo Health Services.  By accessing or using any part of the Website or the Leo Health Services, you agree to become bound by the terms and conditions of these Terms of Service as evidenced by your click of the "I accept" button.  If you do not agree to all the terms and conditions of these Terms of Service, then you may not access the Website or use the Leo Health Services.</p>
+            <p>You may not use the Leo Health Services and you may not accept these Terms of Service if you are not of a legal age to form a binding contract with Leo Health or if you do not have legal authority as the parent or guardian of a minor child to use the Leo Health Services.  The terms "you" and "your" shall also include any minor children on whose behalf you use the Leo Health Services.  Before you continue, you should print or save a local copy of these Terms of Service for your records.</p>
 
-<section data-role="section-body">
+            <h3>Your Registration Information</h3>
+            <p>In order to access certain features of the Website and Leo Health Services, you may be required to register to create an account ("Account") and become a Leo Health member ("Member"), and supply certain information about yourself ("Registration Information"). You agree and understand that you are responsible for maintaining the confidentiality of your password, which, together with your login ID, allows you to access the Leo Health Services.  Leo Health will not review the Account information for accuracy, legality or non-infringement, and is not responsible for the content of the Account information.</p>
+            <p>By providing us with your e-mail address, you agree to receive all required notices electronically at that e-mail address. It is your responsibility to update or change the e-mail address on file with us. If you become aware of any unauthorized use of your Registration Information or Account, you agree to immediately notify Leo Health.</p>
+            <p>Your right to access and use the Website and the Leo Health Services is personal to you and is not transferable by you to any other person or entity.  You are only entitled to access and use the Website and Leo Health Services for lawful purposes.  You are solely responsible for all transmissions that occur through the use of your Account.</p>
 
-<section data-role="item-links">
-</section>
+            <h3>Description of the Service</h3>
+            <p>Leo Health provides a platform in which you may communicate with healthcare providers, maintain your medical record and access educational articles concerning your health.  The Website and Leo Health Services are not intended to, and should not be relied upon to provide financial, health, or legal advice.  Leo Health will retrieve Member information maintained by your healthcare provider's electronic health record ("Provider EHR").</p>
 
+            <h3>Third Party Links</h3>
+            <p>The Website may contain links to third party websites or resources offered by third parties that may be complementary to your use of the Leo Health Services.  Leo Health does not endorse, warrant or guarantee the products, materials or services provided by these third parties and Leo Health is not an agent or broker or otherwise responsible for the activities or policies of those third party websites.  These third party sites are governed by their own privacy policies and terms of service.  Leo Health is not responsible for the information and security or privacy practices of these third party websites.</p>
 
-<article data-type="rights" data-pl-more-info>
-    <header><span>Your Rights</span></header>
-    <section data-role="contents">
-        <h2>You have the right to:</h2>
-        <ul>
-            <li>Get a copy of your paper or electronic medical record</li>
-            <li>Correct your paper or electronic medical record</li>
-            <li>Request confidential communication</li>
-            <li>Ask us to limit the information we share</li>
-            <li>Get a list of those with whom we’ve shared your information</li>
-            <li>Get a copy of this privacy notice</li>
-            <li>Choose someone to act for you</li>
-            <li>File a complaint if you believe your privacy rights have been violated</li>
-        </ul>
-        <a data-ng-click="showMoreInfo()" data-role="more-info">See more information on these rights and how to exercise
-            them</a>
+            <h3>Rights You Grant to Leo Health</h3>
+            <p>By submitting information, data, passwords, usernames, PINs, other log-in information, materials and other content ("Content") to Leo Health through the Service, you are granting a license to Leo Health to use the Content for the purpose of providing the Leo Health Services.  Leo Health may use, disclose and store the Content, but only as described in the Leo Health Privacy Policy.  By submitting any Content to Leo Health, you represent that you are entitled to submit it to Leo Health, without any obligation by Leo Health to pay any fees or other limitations.  By using the Leo Health Services, you expressly authorize Leo Health to access your personally identifiable information maintained by your healthcare providers.</p>
 
-        <section data-role="more-info-contents">
-            <header>
-                <h3>When it comes to your health information, you have certain rights.</h3>
-                <h4>This section explains your rights and some of our responsibilities to help you.</h4>
-            </header>
+            <h3>Leo Health's Intellectual Property Rights</h3>
+            <p>The contents of the Website and Leo Health Services, including its user interface design (e.g., logos and button icons, images, graphics, text), photographs, editorial content, notices, software and other material are protected under both United States and other applicable copyright, trademark and other laws.  The content of the Website belong or are licensed to Leo Health.  Leo Health grants you the right to view and use the Website subject to the terms and conditions of these Terms of Service.  You may download or print a copy of information provided on the Website for your personal, internal and non-commercial use only.  Any distribution, reprint or electronic reproduction of any content from the Website, in whole or in part, for any other purpose is expressly prohibited without our prior written consent.</p>
 
-            <dl>
-                <dt>Get an electronic or paper copy of your medical record</dt>
-                <dd>
-                    <ul>
-                        <li>You can ask to see or get an electronic or paper copy of your medical record and other health
-                            information we have about you. Ask us how to do this.</li>
-                        <li>We will provide a copy or a summary of your health information, usually within 30 days of your
-                            request. We may charge a reasonable, cost-based fee.</li>
-                    </ul>
-                </dd>
-            </dl>
+            <h3>General Prohibitions</h3>
+            <p>You agree that you will not do any of the following:</p>
+            <div className="list-group">
+                <a href="#" className="list-group-item">
+                    Use any scraper, crawler, robot, spider, deep link or other similar automated data gathering or extraction tools, program, algorithm or methodology to access, acquire, copy or monitor the Website, or any portion of the Website, without Leo Health's express written consent, which may be withheld in Leo Health's sole discretion;
+                </a>
+                <a href="#" className="list-group-item">
+                    Attempt to decipher, decompile, disassemble, or reverse-engineer any of the software comprising or in any way making up a part of the Website or the Leo Health Service;
+                </a>
+                <a href="#" className="list-group-item">
+                    Use the Website or Leo Health Services to transmit, copy, reproduce, republish, upload, post, transmit, e-mail, or distribute in any way material or content that infringes any copyright, trademark, proprietary, or other right of any party or that violates these Terms of Service;
+                </a>
+                <a href="#" className="list-group-item">
+                    Copy (except as set forth above for noncommercial personal use), modify, distribute, create any derivative or compilation work from, or display Leo Health's name or logo, or any text, graphic images, or other content from the Website or redeliver such content using framing or similar technology;
+                </a>
+                <a href="#" className="list-group-item">
+                    Use any device designed to provide repeated automated access to the Website other than those made generally available by Leo Health;
+                </a>
+                <a href="#" className="list-group-item">
+                    Collect, harvest, or store personal data about other users (other than your minor children) on the Website or the Service;
+                </a>
+                <a href="#" className="list-group-item">
+                    Upload, e-mail or otherwise transmit to Leo Health or through the Website or any Leo Health computer network any of the following: a sexually-explicit image or statement; advertising, promotional, or other unauthorized communication, including without limitation, “junk mail,” surveys, unsolicited e-mail, “spam,” “chain letters,” “pyramid schemes,” or other inappropriate or prohibited materials; and any material that contains viruses, Trojan horses, worms, time bombs, cancelbots, easter eggs, or any other computer code, files or programs that might interrupt, limit or interfere with, damage, surreptitiously intercept or expropriate any system, data or information related to the Website or any computer software, hardware or communications equipment that is owned, leased or used by Leo Health;
+                </a>
+                <a href="#" className="list-group-item">
+                    Use the Website or Service to post or transmit any threatening, false, misleading, abusive, harassing, libelous, defamatory, vulgar, obscene, scandalous, inflammatory, or profane material or any material that could constitute or encourage conduct that would be considered a criminal offense, give rise to civil liability, or otherwise violate any applicable local, state, national, or international law;
+                </a>
+                <a href="#" className="list-group-item">
+                    Take any action that imposes, or may impose, in Leo Health's sole discretion, an unreasonable or disproportionately large load on Leo Health's computer system or infrastructure;
+                </a>
+                <a href="#" className="list-group-item">
+                    Interfere or attempt to interfere with the proper working of the Website, the Leo Health Service, or any activities conducted on the Website;
+                </a>
+                <a href="#" className="list-group-item">
+                    Use the Website or Leo Health Services for a commercial purpose; or
+                </a>
+                <a href="#" className="list-group-item">
+                    Bypass measures used by Leo Health to prevent or restrict access to the Website or the Leo Health Service, violate or attempt to violate the security or authentication measures of the system, or attempt to prove, scan, or test the vulnerability of a system or network without proper written authorization from Leo Health.
+                </a>
+            </div>
 
+            <h3>Content You Provide or Transmit</h3>
+            <p>With respect to any Content you submit to or through the Website or Leo Health Services (whether by e-mail, a user submission form, or otherwise), you represent and warrant that:</p>
+            <div className="list-group">
+                <a href="#" className="list-group-item">
+                    The Content does not infringe the proprietary rights, including but not limited to the copyright, patent, trademark, trade secret, right of publicity, right of personality, or privacy rights, of any third party;
+                </a>
+                <a href="#" className="list-group-item">
+                    The Content does not contain or install any viruses, worms, malware, Trojan horses or other harmful or destructive content;
+                </a>
+                <a href="#" className="list-group-item">
+                    The Content is not spam, is not machine or randomly-generated, and does not contain unethical or unwanted commercial content designed to drive traffic to third party sites or boost the search engine rankings of third party sites, or to further unlawful acts (such as phishing) or mislead recipients as to the source of the material (such as spoofing);
+                </a>
+                <a href="#" className="list-group-item">
+                    The Content is not pornographic, does not contain threats or incite violence towards individuals or entities, and does not violate the privacy or publicity rights of any third party;
+                </a>
+                <a href="#" className="list-group-item">
+                    The Content is not getting advertised via unwanted electronic messages such as spam links on newsgroups, email lists, other blogs and web sites, and similar unsolicited promotional methods;
+                </a>
+                <a href="#" className="list-group-item">
+                    You will not purposefully provide inaccurate, misleading or false Content; and
+                </a>
+                <a href="#" className="list-group-item">
+                    The Content is not identified in a manner that misleads readers into thinking that you are another person.
+                </a>
+            </div>
+            <p>Without limiting any of the foregoing representations and warranties, Leo Health has the right (though not the obligation) to, in Leo Health's sole discretion, (i) refuse or delete any Content that, in Leo Health's reasonable opinion, violates any Leo Health policy or is in any way harmful or objectionable, or (ii) terminate or deny access to and use of the Website or Leo Health Services to any individual or entity for any reason.  Leo Health will notify you of such termination via the e-mail address you provided in your Account.</p>
+            <p>By submitting Content and any feedback to Leo Health, you grant Leo Health a world-wide, royalty-free, and non-exclusive license to reproduce, modify, adapt and publish the Content, subject to the terms and conditions of these Terms of Service and the Privacy Policy.</p>
 
-            <dl>
-                <dt>Ask us to correct your medical record</dt>
-                <dd>
-                    <ul>
-                        <li>You can ask us to correct health information about you that you think is incorrect or
-                            incomplete. Ask us how to do this.</li>
-                        <li>We may say “no” to your request, but we’ll tell you why in writing within 60 days.</li>
-                    </ul>
-                </dd>
-            </dl>
+            <h3>DISCLAIMER OF WARRANTIES</h3>
+            <p>TO THE EXTENT PERMITTED BY APPLICABLE LAW, YOU AGREE THAT THE WEBSITE, THE LEO HEALTH SERVICES, AND ALL INFORMATION, SOFTWARE AND CONTENT AVAILABLE THROUGH THE WEBSITE OR THE LEO HEALTH SERVICES, ARE FURNISHED FOR GENERAL INFORMATIONAL PURPOSES ONLY, AND ARE FURNISHED TO YOU ON AN “AS IS” AND “AS AVAILABLE” BASIS WITHOUT ANY IMPLIED OR EXPRESSED WARRANTY OF ANY KIND (INCLUDING WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, SUITABILITY, SECURITY, CORRECTNESS AND NON-INFRINGEMENT).  LEO HEALTH AND ITS OWNERS, OFFICERS, DIRECTORS, EMPLOYEES, CONTRACTORS, AGENTS, AND AFFILIATES (COLLECTIVELY, THE “LEO HEALTH PARTIES”) MAKE NO REPRESENTATION OR WARRANTY REGARDING, ARE NOT RESPONSIBLE FOR, AND DISCLAIM ALL LIABILITY FOR, THE CONTINUED AVAILABILITY, RELIABILITY, ACCURACY, RESULTS OR PERFORMANCE OF THE WEBSITE, LEO HEALTH SERVICES OR ANY MATERIAL ON THE WEBSITE, THE PERFORMANCE OF THE INTERNET, THE DOWNLOADING COMPATIBILITY OF ANY MATERIALS OR SOFTWARE WITH YOUR COMPUTER SYSTEM, THE EXISTENCE OF ANY VIRUS, WORM, MALICIOUS CODE OR OTHER DISABLING DEVICE FROM ANY SOURCE, THE UNAUTHORIZED ACCESS TO OR USE OF YOUR INFORMATION BY A PARTY OTHER THAN LEO HEALTH, ANY TECHNICAL FAILURES (INCLUDING HARDWARE OR SOFTWARE FAILURES), INCOMPLETE, SCRAMBLED, OR DELAYED COMPUTER TRANSMISSIONS, AND/OR TECHNICAL INACCURACIES, OR LOSS OR USE OF DATA, AS WELL AS UNAUTHORIZED ACCESS OF USER TRANSMISSIONS BY THIRD PARTIES ARISING OUT OF OR RELATED TO THESE TERMS OF SERVICE. NO ONE IS AUTHORIZED TO MAKE ANY WARRANTY ON LEO HEALTH'S BEHALF, AND YOU CANNOT RELY ON ANY OTHER STATEMENT OF WARRANTY. YOU ASSUME RESPONSIBILITY FOR THE ACCURACY, APPROPRIATENESS, AND LEGALITY OF ANY INFORMATION YOU SUPPLY TO LEO HEALTH. IF YOU LIVE IN A STATE THAT DOES NOT ALLOW THE WAIVER OF CERTAIN WARRANTIES DESCRIBED IN THIS SECTION, SOME OF THESE WAIVERS MAY NOT APPLY TO YOU.</p>
+            <p>Your access and use of the Website and Leo Health Services may be interrupted from time to time for any of several reasons, including, without limitation, the malfunction of equipment, periodic updating, maintenance or repair of the Website, or other actions that Leo Health, in its sole discretion, may elect to take.  Leo Health cannot always foresee or anticipate technical or other difficulties, which may result in failure to obtain data or loss of data, personalization settings or other service interruptions.  Leo Health cannot assume responsibility for the timeliness, accuracy, deletion, non-delivery or failure to store any user data, communications or personalization settings. For example, when displayed through the Leo Health Services, Account Information is only as fresh as the time shown, which reflects when the information is obtained from a Provider EHR.  Such information may be more up-to-date when obtained directly from your healthcare provider.</p>
 
-            <dl>
-                <dt>Request confidential communications</dt>
-                <dd>
-                    <ul>
-                        <li>You can ask us to contact you in a specific way (for example, home or office phone) or to send
-                            mail to a different address.</li>
-                        <li>We will say “yes” to all reasonable requests.</li>
-                    </ul>
-                </dd>
-            </dl>
+            <h3>No Advice</h3>
+            <p>Neither the Website, nor the Leo Health Services are intended to, and should not be relied upon to provide legal, health or financial advice. Leo Health is not a healthcare provider and is not licensed to practice medicine. The Website and Leo Health Services are intended only to assist you in organizing, understanding and communicating with your healthcare provider. Your personal healthcare related situation is unique, and any information and educational materials obtained through the Website and/or Leo Health Services may not be appropriate for your situation. If you have any questions regarding your healthcare please contact your healthcare provider directly.</p>
+            <p><strong>IF YOU HAVE A MEDICAL EMERGENCY OR URGENT MEDICAL MATTERS PLEASE CONTACT YOUR HEALTHCARE PROVIDER DIRECTLY, DIAL 911, OR GO TO AN EMERGENCY ROOM.</strong></p>
 
-            <dl>
-                <dt>Ask us to limit what we use or share</dt>
-                <dd>
-                    <ul>
-                        <li>You can ask us not to use or share certain health information for treatment, payment, or our
-                            operations. We are not required to agree to your request, and we may say “no” if it would affect
-                            your care.</li>
-                        <li>If you pay for a service or health care item out-of-pocket in full, you can ask us not to share
-                            that information for the purpose of payment or our operations with your health insurer. We will
-                            say “yes” unless a law requires us to share that information.</li>
-                    </ul>
-                </dd>
-            </dl>
+            <h3>Privacy</h3>
+            <p>Your use of the Website and/or Leo Health Services is also subject to Leo Health's Privacy Policy, which is incorporated herein by reference in its entirety.</p>
 
-            <dl>
-                <dt>Get a list of those with whom we’ve shared information</dt>
-                <dd>
-                    <ul>
-                        <li>You can ask for a list (accounting) of the times we’ve shared your health information for six
-                            years prior to the date you ask, who we shared it with, and why.</li>
-                        <li>We will include all the disclosures except for those about treatment, payment, and health care
-                            operations, and certain other disclosures (such as any you asked us to make). We’ll provide one
-                            accounting a year for free but will charge a reasonable, cost-based fee if you ask for another
-                            one within 12 months.</li>
-                    </ul>
-                </dd>
-            </dl>
+            <h3>LIMITATION OF LIABILITY</h3>
+            <p>YOU AGREE THAT THE LEO HEALTH PARTIES ARE NOT LIABLE FOR ANY CONSEQUENTIAL, SPECIAL, INDIRECT, EXEMPLARY, OR PUNITIVE DAMAGES.  IN NO EVENT SHALL THE LEO HEALTH PARTIES' TOTAL LIABILITY TO YOU FOR ANY DAMAGES, LOSSES, FEES AND EXPENSES (INCLUDING ATTORNEYS' FEES AND COSTS), WHETHER IN CONTRACT, TORT, TRESPASS OR OTHERWISE EXCEED THE AMOUNT (IF ANY) PAID BY YOU TO LEO HEALTH TO PURCHASE THE PARTICULAR PRODUCTS OR LEO HEALTH SERVICES WHICH FORM THE BASIS OF YOUR CLAIM, OR ONE HUNDRED UNITED STATES DOLLARS (U.S. $100.00) IF YOU HAVE NOT PAID ANY AMOUNTS TO LEO HEALTH.  IF YOU LIVE IN A STATE THAT DOES NOT ALLOW THE LIMITATIONS OR DAMAGES WAIVERS DESCRIBED IN THIS SECTION, SOME OF THESE LIMITATIONS OR WAIVERS MAY NOT APPLY TO YOU.  YOU AGREE TO PROMPTLY NOTIFY LEO HEALTH IN WRITING IF YOU BELIEVE YOU HAVE ANY CLAIM AGAINST THE LEO HEALTH PARTIES, AND, IN ANY EVENT, YOU AGREE THAT ANY CLAIM NOT BROUGHT WITHIN ONE (1) YEAR OF YOUR DISCOVERY SHALL BE DEEMED WAIVED AND RELEASED.</p>
 
-            <dl>
-                <dt>Get a copy of this privacy notice</dt>
-                <dd>You can ask for a paper copy of this notice at any time, even if you have agreed to receive the notice
-                    electronically. We will provide you with a paper copy promptly.
-                </dd>
-            </dl>
+            <h3>Indemnification</h3>
+            <p>You agree to indemnify, defend and hold harmless the Leo Health Parties from and against any and all claims and expenses, including attorneys' fees, arising out of: (i) your breach of these Terms of Service; (ii) your use or misuse of the Website or the Leo Health Services; (iii) violation of any person's or entity's legal rights (including, without limitation, copyright, patent, trade secret, trademark, or other proprietary rights, or publicity, contract, moral, or privacy rights); (iv) violation of any applicable law, rule, or regulation; (v) negligence, recklessness, or misconduct; or (vi) unauthorized use of your Account information by a party other than Leo Health.</p>
 
-            <dl>
-                <dt>Choose someone to act for you</dt>
-                <dd>
-                    <ul>
-                        <li>If you have given someone medical power of attorney or if someone is your legal guardian, that
-                            person can exercise your rights and make choices about your health information.</li>
-                        <li>We will make sure the person has this authority and can act for you before we take any action.</li>
-                    </ul>
-                </dd>
-            </dl>
+            <h3>Modifications</h3>
+            <p>Leo Health reserves the right, at its sole discretion, to modify or replace any part of these Terms of Service.  If we make material revisions to these Terms of Service, we will use the date at the top of these Terms of Service to indicate the date it was last revised.  The revised Terms of Service will be effective immediately upon posting on this Website.  It is your responsibility to check these Terms of Service periodically for changes.  Your continued use of or access to the Website or Leo Health Services following the posting of any changes to these Terms of Service constitutes acceptance of those changes.  Leo Health may also, in the future, offer new Leo Health Services and/or features through the Website (including, the release of new tools and resources).  Such new features and/or Leo Health Services shall be subject to these Terms of Service.</p>
 
-            <dl>
-                <dt>File a complaint if you feel your rights are violated</dt>
-                <dd>
-                    <ul>
-                        <li>You can complain if you feel we have violated your rights by contacting us using the information
-                            on page 1.</li>
-                        <li>You can file a complaint with the U.S. Department of Health and Human Services Office for Civil
-                            Rights by sending a letter to
-                            <br/><br/>
-                            <address>
-                                200 Independence Avenue, S.W.<br/>
-                                Washington, D.C. 20201
-                            </address>
-                            by calling 1-877-696-6775, or visiting <a
-                                    href="http://www.hhs.gov/ocr/privacy/hipaa/complaints/" target="_blank">HHS.GOV Complaints
-                                <i class="fa fa-external-link"></i></a>.
-                        </li>
-                        <li>We will not retaliate against you for filing a complaint.</li>
-                    </ul>
-                </dd>
-            </dl>
-        </section>
-    </section>
+            <h3>Governing Law and Dispute Resolution</h3>
+            <p>These Terms of Service, and your relationship with Leo Health under these Terms of Service, shall be governed by the laws of the State of New York without regard to its conflict or choice of law provisions.</p>
+            <p>If a dispute arises between you and the Leo Health Parties, you agree to work in good faith to quickly and amicably resolve the dispute.  All disputes, claims, or controversies (each a “Claim”) arising under or relating to these Terms of Service, the Website, or the Leo Health Services that cannot be resolved informally, will be finally resolved by binding arbitration as described herein.</p>
+            <p>Any dispute arising under or related to these Terms of Service, the Website, or the Leo Health Services (including the arbitrability of such a dispute and the existence, validity, interpretation, performance, termination, or breach thereof) shall be finally settled by binding arbitration by a single arbitrator in accordance with the then-current Commercial Arbitration Rules of the American Arbitration Association ("AAA"), with the arbitration to be commenced no later than one (1) year after such Claim accrues (in absence of which it shall be deemed forever waived).  A judgment upon an arbitrator's award may be entered by any court of competent jurisdiction.  To the extent permitted by applicable law, you agree that there shall be no class action arbitration related to these Terms of Service, the Website, or the Leo Health Services.  All parties shall bear their own expenses, except that the parties shall equally share the expenses of the arbitrator (except for the required non-refundable filing fees which shall be paid solely by the party asserting the related Claim).  The above obligations to arbitrate shall not prevent a party from seeking a preliminary injunction, temporary restraining order, specific performance or other procedures in a court of competent jurisdiction to obtain interim relief when deemed necessary by such court to preserve the status quo or prevent irreparable injury pending resolution by arbitration of the actual dispute.</p>
+            <p>Exclusive jurisdiction and venue for arbitration or any other legal action or proceeding in any way related to the Website, the Leo Health Services, or these Terms of Service shall be in Manhattan, New York.  Any matter brought before a court shall be brought solely in the state or federal courts located in Manhattan, New York.  Notwithstanding the foregoing, in the event of a dispute in which Leo Health alleges that you have violated any of Leo Health's intellectual property rights, the foregoing arbitration obligations shall not apply, and Leo Health shall have the right to proceed against you in any manner warranted under law.</p>
+            <p>You acknowledge and understand that, with respect to any dispute with the Leo Health Parties, arising out of or relating to your use of the Website, the Leo Health Services, or these Terms of Service:</p>
+            <div className="list-group">
+                <a href="#" className="list-group-item">
+                    You are giving up your right to have a trial by jury; and
+                </a>
+                <a href="#" className="list-group-item">
+                    You are giving up your right to serve as a representative, as a private attorney general, or in any other representative capacity, or to participate as a member of a class of claimants, in any lawsuit involving any such dispute.
+                </a>
+            </div>
 
-</article>
+            <h3>Miscellaneous</h3>
+            <p>For purposes of these Terms of Service, the parties hereto shall be independent contractors and neither shall at any time be considered an agent or employee of the other.  No joint venture, partnership, or like relationship is created between the parties by these Terms of Service.</p>
+            <p>If any portion of these Terms of Service is deemed unlawful, void or unenforceable by any arbitrator or court of competent jurisdiction, these Terms of Service as a whole shall not be deemed unlawful, void or unenforceable, but only that portion of these Terms of Service that is unlawful, void or unenforceable shall be stricken from these Terms of Service.</p>
+            <p>You agree that if Leo Health does not exercise or enforce any legal right or remedy which is contained in the Terms of Service (or which Leo Health has the benefit of under any applicable law), this will not be taken to be a formal waiver of Leo Health's rights and that those rights or remedies will still be available to Leo Health.</p>
+            <p>All covenants, terms and conditions, representations and warranties which by their nature should survive that termination of these Terms of Service shall survive your acceptance of these Terms of Service and the termination of these Terms of Service (e.g., limitation of liability, disclaimer of warranties, dispute resolution, and indemnification), regardless of the cause of such termination.</p>
+            <p>These Terms of Service, along with the Leo Health Privacy Policy, constitute the entire and exclusive understanding and Terms of Service between Leo Health and you regarding the Website, Leo Health Services and Content, and supersede and replace any and all prior oral or written understandings or terms of service between Leo Health and you regarding the Website and the Leo Health Services.</p>
+            <p>Nothing in these Terms of Services, express or implied, is intended to confer upon any other person or entity any rights or remedies of any nature whatsoever under or by reason of these Terms of Services.</p>
+            <p>Leo Health may assign or transfer these Terms of Service, at its sole discretion and without restriction.  These Terms of Service will bind and inure to the benefit of the parties, their successors and assigns.</p>
 
-
-<article data-type="choices" data-pl-more-info>
-    <header><span>Your Choices</span></header>
-    <section data-role="contents">
-        <h2>You have some choices in the way that we use and share information as we:</h2>
-        <ul>
-            <li>Tell family and friends about your condition</li>
-            <li>Provide disaster relief</li>
-            <li>Include you in a hospital directory</li>
-            <li>Provide mental health care</li>
-            <li>Market our services and sell your information</li>
-            <li>Raise funds</li>
-        </ul>
-        <a data-ng-click="showMoreInfo()" data-role="more-info">See more information on these choices and how to exercise
-            them</a>
-        <section data-role="more-info-contents">
-            <header>
-                <h3>For certain health information, you can tell us your choices about what we share.</h3>
-                <h4>If you have a clear preference for how we share your information in the situations described below, talk
-                    to us. Tell us what you want us to do, and we will follow your instructions.</h4>
-            </header>
-
-            <dl>
-                <dt>In these cases, you have both the right and choice to tell us to:</dt>
-                <dd>
-                    <ul>
-                        <li>Share information with your family, close friends, or others involved in your care</li>
-                        <li>Share information in a disaster relief situation</li>
-                        <li>Include your information in a hospital directory</li>
-                    </ul>
-                </dd>
-                <dd>
-                    <em>If you are not able to tell us your preference, for example if you are unconscious, we may go ahead
-                        and share your information if we believe it is in your best interest. We may also share your
-                        information when needed to lessen a serious and imminent threat to health or safety.</em>
-                </dd>
-            </dl>
-
-            <dl>
-                <dt>In these cases we never share your information unless you give us written permission:</dt>
-                <dd>
-                    <ul>
-                        <li>Marketing purposes</li>
-                        <li>Sale of your information</li>
-                        <li>Most sharing of psychotherapy notes</li>
-                    </ul>
-                </dd>
-            </dl>
-
-            <dl>
-                <dt>In the case of fundraising:</dt>
-                <dd>
-                    <ul>
-                        <li>We may contact you for fundraising efforts, but you can tell us not to contact you again.</li>
-                    </ul>
-                </dd>
-            </dl>
-        </section>
-    </section>
-</article>
-
-
-<article data-type="uses" data-pl-more-info>
-    <header><span>Our Uses and Disclosures</span></header>
-    <section data-role="contents">
-        <h2>We may use and share your information as we:</h2>
-        <ul>
-            <li>Treat you</li>
-            <li>Run our organization</li>
-            <li>Bill for your services</li>
-            <li>Help with public health and safety issues</li>
-            <li>Do research</li>
-            <li>Comply with the law</li>
-            <li>Respond to organ and tissue donation requests</li>
-            <li>Work with a medical examiner or funeral director</li>
-            <li>Address workers’ compensation, law enforcement, and other government requests</li>
-            <li>Respond to lawsuits and legal actions</li>
-        </ul>
-        <a data-ng-click="showMoreInfo()" data-role="more-info">See more information on these uses and disclosures</a>
-
-        <section data-role="more-info-contents">
-            <header>
-                <h3>How do we typically use or share your health information?</h3>
-                <h4>We typically use or share your health information in the following ways.</h4>
-            </header>
-
-            <dl>
-                <dt>Treat you</dt>
-                <dd>
-                    <ul>
-                        <li>We can use your health information and share it with other professionals who are treating you.
-                        </li>
-                    </ul>
-                </dd>
-                <dd data-role="example">
-                    <span>Example:</span> A doctor treating you for an injury asks another doctor about your overall health
-                    condition.
-                </dd>
-            </dl>
-
-            <dl>
-                <dt>Run our organization</dt>
-                <dd>
-                    <ul>
-                        <li>We can use and share your health information to run our practice, improve your care, and contact
-                            you when necessary.
-                        </li>
-                    </ul>
-                </dd>
-                <dd data-role="example">
-                    <span>Example:</span> We use health information about you to manage your treatment and services.
-                </dd>
-            </dl>
-
-            <dl>
-                <dt>Bill for your services</dt>
-                <dd>
-                    <ul>
-                        <li>We can use and share your health information to bill and get payment from health plans or other
-                            entities.
-                        </li>
-                    </ul>
-                </dd>
-                <dd data-role="example">
-                    <span>Example:</span> We give information about you to your health insurance plan so it will pay for
-                    your services.
-                </dd>
-            </dl>
-
-
-            <header>
-                <h3>How else can we use or share your health information?</h3>
-                <h4>We are allowed or required to share your information in other ways – usually in ways that contribute to
-                    the public good, such as public health and research. We have to meet many conditions in the law before
-                    we can share your information for these purposes. For more information see: <a href="http://www.hhs.gov/ocr/privacy/hipaa/understanding/consumers/index.html" target="_blank">HHS.GOV consumer home <i class="fa fa-external-link"></i></a>.</h4>
-            </header>
-
-            <dl>
-                <dt>Help with public health and safety issues</dt>
-                <dd>
-                    <ul>
-                        <li> We can share health information about you for certain situations such as:
-                            <ul>
-                                <li>Preventing disease</li>
-                                <li>Helping with product recalls</li>
-                                <li>Reporting adverse reactions to medications</li>
-                                <li>Reporting suspected abuse, neglect, or domestic violence</li>
-                                <li>Preventing or reducing a serious threat to anyone’s health or safety</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </dd>
-                <dd data-role="example"></dd>
-            </dl>
-
-            <dl>
-                <dt>Do research</dt>
-                <dd>
-                    <ul>
-                        <li>We can use or share your information for health research.</li>
-                    </ul>
-                </dd>
-                <dd data-role="example"></dd>
-            </dl>
-
-
-            <dl>
-                <dt>Comply with the law</dt>
-                <dd>
-                    <ul>
-                        <li>We will share information about you if state or federal laws require it, including with the
-                            Department of Health and Human Services if it wants to see that we’re complying with federal
-                            privacy law.
-                        </li>
-                    </ul>
-                </dd>
-                <dd data-role="example"></dd>
-            </dl>
-
-
-            <dl>
-                <dt>Respond to organ and tissue donation requests</dt>
-                <dd>
-                    <ul>
-                        <li>We can share health information about you with organ procurement organizations.</li>
-                    </ul>
-                </dd>
-                <dd data-role="example"></dd>
-            </dl>
-
-
-            <dl>
-                <dt>Work with a medical examiner or funeral director</dt>
-                <dd>
-                    <ul>
-                        <li>We can share health information with a coroner, medical examiner, or funeral director when an
-                            individual dies.
-                        </li>
-                    </ul>
-                </dd>
-                <dd data-role="example"></dd>
-            </dl>
-
-
-            <dl>
-                <dt>Address workers’ compensation, law enforcement, and other government requests</dt>
-                <dd>
-                    <ul>
-                        <li>We can use or share health information about you:
-                            <ul>
-                                <li>For workers’ compensation claims</li>
-                                <li>For law enforcement purposes or with a law enforcement official</li>
-                                <li>With health oversight agencies for activities authorized by law</li>
-                                <li>For special government functions such as military, national security, and presidential
-                                    protective services</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </dd>
-                <dd data-role="example"></dd>
-            </dl>
-
-
-            <dl>
-                <dt>Respond to lawsuits and legal actions</dt>
-                <dd>
-                    <ul>
-                        <li>We can share health information about you in response to a court or administrative order, or in
-                            response to a subpoena.
-                        </li>
-                    </ul>
-                </dd>
-                <dd data-role="example"></dd>
-            </dl>
-        </section>
-
-        <section data-ng-show="getSpecialNotes()">
-            <h2>Special Notes</h2>
-        </section>
-
-        <section data-ng-show="getStateLaws()">
-            <h2>Applicable State and Other Laws</h2>
-        </section>
-
-        <section>
-            <h2>Electronic Access</h2>
-            Leo Health provides electronic access to your health information via PatientPrivilege.
-        </section>
-    </section>
-</article>
-
-<article data-role="em" data-type="responsibilities">
-    <header><span>Our Responsibilities</span></header>
-    <ul>
-        <li>We are required by law to maintain the privacy and security of your protected health information.</li>
-        <li>We will let you know promptly if a breach occurs that may have compromised the privacy or security of your
-            information.</li>
-        <li>We must follow the duties and privacy practices described in this notice and give you a copy of it.</li>
-        <li>We will not use or share your information other than as described here unless you tell us we can in writing.
-            If you tell us we can, you may change your mind at any time. Let us know in writing if you change your mind.</li>
-    </ul>
-
-    <section class="container">
-        <section>
-            For more information see: <a
-                href="http://www.hhs.gov/ocr/privacy/hipaa/understanding/consumers/noticepp.html" target="_blank">HHS.GOV consumer notice<i
-                class="fa fa-external-link"></i></a>.
-        </section>
-
-        <section>
-            <strong>Changes to the Terms of this Notice</strong>
-
-            <p>We can change the terms of this notice, and the changes will apply to all information we have about
-                you.
-                The new notice will be available upon request, in our office, and on our web site.</p>
-        </section>
-
-        <p>This notice is effective as of <strong>12/01/2015</strong></p>
-
-        <p><strong>Nayan Jain, Chief Privacy Officer</strong></p>
-    </section>
-</article>
-</section>
-</section>
-
-</section>
+            <h3>Contacting Us</h3>
+            <p>If you desire to not receive any further information from Leo Health and to not access the Website and Leo Health Services please contact Leo Health as directed below.  Leo Health will honor your request of termination in a timely manner subject to the survival clause above.  These Terms of Service shall govern the relationship between you and Leo Health prior to the effective date of your termination.</p>
+            <p>If you have any questions about these Terms of Service, please contact us at:</p>
+            <blockquote>
+                <p>Leo Health, Inc.<br />
+                16 W 22nd Street<br />
+                6th Floor<br />
+                New York, NY 10010<br />
+                <a href="mailto:info@leohealth.com?Subject=Terms%20of%20Service%20Inquiry" target="_top">info@leohealth.com</a></p>
+            </blockquote>
+        </div>
     )
   }
 });
