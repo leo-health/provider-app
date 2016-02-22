@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react'),
+    ContactUs = require('../modules/info/contactUs');
 
 module.exports = React.createClass({
   render: function(){
@@ -144,13 +145,7 @@ module.exports = React.createClass({
             <h3>Contacting Us</h3>
             <p>If you desire to not receive any further information from Leo Health and to not access the Website and Leo Health Services please contact Leo Health as directed below.  Leo Health will honor your request of termination in a timely manner subject to the survival clause above.  These Terms of Service shall govern the relationship between you and Leo Health prior to the effective date of your termination.</p>
             <p>If you have any questions about these Terms of Service, please contact us at:</p>
-            <blockquote>
-                <p>Leo Health, Inc.<br />
-                16 W 22nd Street<br />
-                6th Floor<br />
-                New York, NY 10010<br />
-                <a href="mailto:info@leohealth.com?Subject=Terms%20of%20Service%20Inquiry" target="_top">info@leohealth.com</a></p>
-            </blockquote>
+            <ContactUs />
         </div>
     )
   }

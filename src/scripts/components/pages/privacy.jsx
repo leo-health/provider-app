@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react'),
+    ContactUs = require('../modules/info/contactUs');
 
 module.exports = React.createClass({
   render: function(){
@@ -59,13 +60,7 @@ module.exports = React.createClass({
 
             <h3>Any Questions?</h3>
             <p>If you have any questions or comments about this Privacy Policy, please contact us using the following contact information:</p>
-            <blockquote>
-                <p>Leo Health, Inc.<br />
-                16 W 22nd Street<br />
-                6th Floor<br />
-                New York, NY 10010<br />
-                <a href="mailto:info@leohealth.com?Subject=Privacy%20Policy%20Inquiry" target="_top">info@leohealth.com</a></p>
-            </blockquote>
+            <ContactUs />
         </div>
     )
   }
