@@ -25,16 +25,16 @@ module.exports = React.createClass({
             <h3>Our Use of Your Information</h3>
             <p>We use your information to provide you with:</p>
             <div className="list-group">
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     The Leo Health Services, including your Leo Health account.
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Direct communications with you, which may include messages regarding Leo Health Services we believe you may be interested in.
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Surveys about your provider, lifestyle habits, wellness, and other relevant information.
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Customer service.
                 </a>
             </div>
