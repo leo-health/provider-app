@@ -6,16 +6,14 @@ module.exports = React.createClass({
 		<div className="row">
 			<div className="col-lg-offset-4 col-lg-4 col-lg-offset-4 jumbotron">
 			    <div className="text-center">
-			      <a href="../" className=""><img src="../images/leo.png" alt="..." /></a>
+			      <img src="../images/leo.png"/>
 			      <h5>That was easy, <br/> all you have to do now is get the app.</h5>
 			      <br/>
-			      <a href="../">
-			        <img src="../images/screenshot.png" alt="..." />
-			      </a>
+			      <img src="../images/screenshot.png"/>
 			    </div>
 			    <br/>
 			    <div className="text-center">
-			      <a href="../" className=""><img src="../images/download.png" alt="..." /></a>
+			      <img src="../images/download.png"/>
 			    </div>
 			</div>
 		</div>
