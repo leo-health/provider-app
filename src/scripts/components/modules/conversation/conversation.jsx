@@ -14,7 +14,7 @@ module.exports = React.createClass({
     primaryGuardian = leoUtil.formatName(primaryGuardian);
     lastMessage = leoUtil.shorten(lastMessage);
 
-    var messageSendAt = moment(this.props.createdAt).calendar();
+    var messageSendAt = moment(this.props.createdAt).format('L');
     var conversationState = this.props.conversationState;
     var conversationId = this.props.conversationId;
     var patients = this.props.patients.map(function(patient){
