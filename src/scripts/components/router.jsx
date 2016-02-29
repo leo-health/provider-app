@@ -30,7 +30,7 @@ var routes = (
     <Route name="home" handler={Home}/>
     <Route name="terms" handler={Terms}/>
     <Route name="privacy" handler={Privacy}/>
-    <Route name="404" handler={FourOhFour}/>
+    <NotFoundRoute handler={FourOhFour} />
   </Route>
 );
 
