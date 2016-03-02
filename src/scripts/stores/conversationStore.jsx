@@ -21,9 +21,6 @@ module.exports = Reflux.createStore({
 
   onFetchConversationsRequestCompleted: function(response, state, page){
     var conversations = response.data.conversations;
-    if( !state ){
-      state = "all"
-    }
 
     if (page === 1){
       if(conversations.length > 0){
