@@ -121,7 +121,7 @@ module.exports = React.createClass({
               <textarea id="escalation-notes" className="form-control" rows="1" type="text" ref="escalationNote"></textarea>
             </div>
             <button type="submit" className="btn btn-danger btn-sm form" onClick={this.handleEscalate}>
-              <span className="glyphicon glyphicon-fire"></span> Escalate
+              <span className="glyphicon glyphicon-fire"></span> Assign
             </button>
           </form>
         </div>
