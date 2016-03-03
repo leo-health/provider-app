@@ -35,54 +35,44 @@ module.exports = React.createClass({
     }
 
     var noteDisplayString;
-    if (messageType === "close") {
+    switch (messageType) {
 
-      noteDisplayString = `${sentAt} - ${sender} closed this case`;
-    } else if (messageType == "escalation" && escalatedTo) {
+      case "close":
 
-      if (currentUser && currentUser.id === escalatedTo.id) {
-          if (sender.id === escalatedTo.id) {
-            // You assigned this case to yourself
-            escalatedTo = "yourself";
-          } else {
-            // X assigned this case to you
-            escalatedTo = "you";
-          }
-      } else {
+        noteDisplayString = `${sentAt} - ${sender} closed this case`;
+        break;
+
+      case "escalation":
+
+        if (currentUser && escalatedTo && currentUser.id === escalatedTo.id) {
+          escalatedTo = this.props.sender.id === escalatedTo.id ? "yourself" : "you";
+        } else {
           // X assigned this case to Y
           escalatedTo = leoUtil.formatName(escalatedTo);
-      }
-      noteDisplayString = `${sentAt} - ${sender} assigned this case to ${escalatedTo}`
+        }
+        noteDisplayString = `${sentAt} - ${sender} assigned this case to ${escalatedTo}`
+        break;
 
-    } else {
+      default:
 
-      // default for other messageTypes if needed
-      noteDisplayString = sentAt;
+        noteDisplayString = sentAt;
+        break;
     }
 
+    var optionalBreak;
     var style;
     if(this.props.tagName === 'blockquote'){
-      if(messageType === "escalation"){
-        style = { borderLeft: '#FF6666 5px solid'}
-      }else{
-        style = { borderLeft: '#21a4f3 5px solid'}
-      }
-      return(
-        <div>
-          <this.props.tagName style={style}>
-            <small>{noteDisplayString}</small>
-            <strong>{sender} </strong>{note}
-          </this.props.tagName>
-          <hr/>
-        </div>
-      )
+      var color = messageType === "escalation" ? "#FF6666" : "#21a4f3";
+      style = { borderLeft: `${color} 5px solid`}
+    } else {
+      optionalBreak = <br></br>
     }
 
     return(
       <div>
         <this.props.tagName style={style}>
           <small>{noteDisplayString}</small>
-          <br></br>
+          {optionalBreak}
           <strong>{sender} </strong>{note}
         </this.props.tagName>
         <hr/>
