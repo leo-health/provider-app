@@ -85,6 +85,7 @@ module.exports = React.createClass({
                      sender={note.created_by}
                      sentAt={note.created_at}
                      messageType={note.message_type}
+                     escalatedTo={note.escalated_to}
                      tagName={tagName}
                      scrollIntoView={this.scrollElementIntoView}
                />
