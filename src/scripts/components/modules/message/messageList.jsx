@@ -56,20 +56,20 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    this.props.channel.bind('new_message', function(data){
-      if(this.state.currentConversationId == data.conversation_id){
-        MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
-      }
-    }, this);
-
-    this.props.channel.bind('new_state', function(data){
-      if(this.state.currentConversationId == data.conversation_id && data.message_type != "open"){
-        this.setState({
-          messages: this.state.messages.concat(data),
-          offset: this.state.offset += 1
-        })
-      }
-    }, this)
+    //this.props.channel.bind('new_message', function(data){
+    //  if(this.state.currentConversationId == data.conversation_id){
+    //    MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
+    //  }
+    //}, this);
+    //
+    //this.props.channel.bind('new_state', function(data){
+    //  if(this.state.currentConversationId == data.conversation_id && data.message_type != "open"){
+    //    this.setState({
+    //      messages: this.state.messages.concat(data),
+    //      offset: this.state.offset += 1
+    //    })
+    //  }
+    //}, this)
   },
 
   componentDidUpdate: function(){

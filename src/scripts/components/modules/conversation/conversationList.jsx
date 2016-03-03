@@ -61,7 +61,7 @@ module.exports = React.createClass({
     var node = ReactDom.findDOMNode(this.refs.conversationList);
     if(node.scrollTop + node.offsetHeight === node.scrollHeight){
       //var state = this.state.conversationState === "all" ? null : this.state.conversationState;
-      var state = this.state.conversationState
+      var state = this.state.conversationState;
       ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, state, this.state.page )
     }
   },
@@ -84,7 +84,6 @@ module.exports = React.createClass({
                         patients = {conversation.patients}
                         createdAt = {conversation.last_message_created_at }
                         conversationState = {conversation.state}
-                        channel = {this.props.channel}
                         onClick = {boundClick}
           />
         )

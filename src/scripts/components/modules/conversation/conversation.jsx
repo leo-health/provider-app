@@ -20,9 +20,7 @@ module.exports = React.createClass({
     var patients = this.props.patients.map(function(patient){
       var patientName = leoUtil.formatName(patient);
       return (
-        <ConversationPatient key = {patient.id}
-                             patient = {patientName}
-        />
+        <ConversationPatient key = {patient.id} patient = {patientName}/>
       )
     }.bind(this));
 
@@ -33,8 +31,7 @@ module.exports = React.createClass({
     secondaryGuardians = secondaryGuardians.map(function(guardian){
       var guardianName = leoUtil.formatName(guardian);
       return(
-        <ConversationGuardian key={guardian.id}
-                              guardian = {guardianName}/>
+        <ConversationGuardian key={guardian.id} guardian = {guardianName}/>
       )
     }.bind(this));
 
@@ -48,7 +45,7 @@ module.exports = React.createClass({
         </div>
         <p className = "patientList">
           {patients}
-          <ConversationState conversationState = {conversationState} conversationId = {conversationId} channel = {this.props.channel}/>
+          <ConversationState conversationState = {conversationState} conversationId = {conversationId}/>
         </p>
         <p className="list-group-item-text">
           {lastMessage}
