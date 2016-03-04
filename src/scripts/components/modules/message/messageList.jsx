@@ -13,6 +13,7 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
+    this.shouldScrollToBottom = true; // scroll to bottom on initial load
     return{
       messages: undefined,
       currentConversationId: undefined,
@@ -70,16 +71,32 @@ module.exports = React.createClass({
         })
       }
     }, this)
+
+    this.scrollToBottomIfNeeded();
+  },
+
+  componentWillUpdate: function() {
+
+    // scroll to the bottom only if the user is already at the bottom
+    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
+    this.shouldScrollToBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight;
   },
 
   componentDidUpdate: function(){
-    if (this.state.page < 3){
+
+    this.scrollToBottomIfNeeded();
+  },
+
+  scrollToBottomIfNeeded: function() {
+
+    if (this.shouldScrollToBottom) {
       var node = ReactDom.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight;
     }
   },
 
   handleScroll: function(){
+
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
     var conversationId = this.state.currentConversationId;
 

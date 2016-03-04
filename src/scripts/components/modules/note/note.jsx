@@ -11,7 +11,7 @@ module.exports = React.createClass({
 
   ensueVisible: function(){
     if(this.props.tagName === 'blockquote'){
-      this.props.scrollIntoView(ReactDom.findDOMNode(this));
+      ReactDom.findDOMNode(this).scrollIntoView();
     }
   },
 

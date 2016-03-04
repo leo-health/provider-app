@@ -14,9 +14,17 @@ module.exports = React.createClass({
   ],
 
   onStatusChange: function (status) {
+
+    var notes;
     if(status.messages){
-      var notes = _.filter(status.messages, function(m){return !m.message_type.includes('message', 'bot_message')});
-      this.setState({notes: notes, currentConversationId: status.currentConversationId})
+      notes = status.messages;
+    } else if (status.newBatchMessages) {
+      notes = status.newBatchMessages.concat(this.state.notes);
+    }
+
+    if (notes) {
+      var notes = _.filter(notes, function(m){return !m.message_type.includes('message', 'bot_message')});
+      this.setState({notes: notes, currentConversationId: status.currentConversationId});
     }
   },
 
@@ -39,12 +47,6 @@ module.exports = React.createClass({
         NoteActions.fetchNoteRequest(sessionStorage.authenticationToken, data.id, data.message_type)
       }
     }, this)
-  },
-
-  scrollElementIntoView: function(domNode){
-    var containerDomNode = ReactDom.findDOMNode(domNode);
-    var test = ReactDom.findDOMNode(this);
-    test.scrollTop = containerDomNode.scrollHeight;
   },
 
   setHighlightNoteKey: function(notes){
@@ -86,7 +88,6 @@ module.exports = React.createClass({
                      sentAt={note.created_at}
                      messageType={note.message_type}
                      tagName={tagName}
-                     scrollIntoView={this.scrollElementIntoView}
                />
       }, this);
     }else{
