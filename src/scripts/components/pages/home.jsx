@@ -13,10 +13,6 @@ module.exports = React.createClass({
     this.subscribeToPusher();
   },
 
-  componentWillUnmount: function () {
-    this.unsubscribeFromPusher();
-  },
-
   subscribeToPusher: function(){
     this.pusher = new Pusher(leo.PUSHER_APPLICATION_KEY, {
       encrypted: true,
@@ -28,13 +24,15 @@ module.exports = React.createClass({
 
     var id = this.getUserId();
     this.pusher.subscribe('presence-provider_app');
-    //this.channel = this.pusher.subscribe('private-' + id);
+  },
+
+  componentWillUnmount: function () {
+    this.unsubscribeFromPusher();
   },
 
   unsubscribeFromPusher: function(){
     var id = this.getUserId();
     this.pusher.unsubscribe('presence-provider_app');
-    //this.pusher.unsubscribe('private-' + id);
   },
 
   getUserId: function(){

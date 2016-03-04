@@ -57,18 +57,6 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    var channel = this.props.pusher.subscribe('private-conversation' + this.state.currentConversationId);
-    channel.bind('new_message', function(data){
-      MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
-    }, this);
-
-    channel.bind('new_state', function(data){
-      this.setState({
-        messages: this.state.messages.concat(data),
-        offset: this.state.offset += 1
-      })
-    }, this);
-
     this.scrollToBottomIfNeeded();
   },
 
@@ -77,12 +65,23 @@ module.exports = React.createClass({
     this.shouldScrollToBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight;
   },
 
-  componentDidUpdate: function() {
+  componentDidUpdate: function(prevProps, prevState) {
+    this.subscribeToPusher(prevState.currentConversationId, this.state.currentConversationId);
     this.scrollToBottomIfNeeded();
   },
 
-  scrollToBottomIfNeeded: function() {
+  subscribeToPusher: function(prevConversationId, currentConversationId) {
+    if ( currentConversationId && currentConversationId != prevConversationId ){
+      if (prevConversationId) this.props.pusher.unsubscribe('private-conversation' + prevConversationId);
+      var channel = this.props.pusher.subscribe('private-conversation' + currentConversationId);
+      channel.bind('new_message', function(data){
+        var currentUser = JSON.parse(sessionStorage.user);
+        if (currentUser.id != data.sender_id) MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
+      }, this);
+    }
+  },
 
+  scrollToBottomIfNeeded: function() {
     if (this.shouldScrollToBottom) {
       var node = ReactDom.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight;

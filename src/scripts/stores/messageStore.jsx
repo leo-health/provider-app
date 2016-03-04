@@ -51,12 +51,7 @@ module.exports = Reflux.createStore({
       currentConversationId: response.data.conversation_id
     };
 
-    if(page == 1){
-      response.messages = messages
-    }else{
-      response.newBatchMessages = messages
-    }
-
+    page == 1 ? response.messages = messages : response.newBatchMessages = messages;
     this.trigger(response)
   },
 
