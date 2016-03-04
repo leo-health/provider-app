@@ -56,6 +56,18 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
+    var channel = this.props.pusher.subscribe('private-conversation' + this.state.currentConversationId)
+    channel.bind('new_message', function(data){
+      MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
+    }, this);
+
+    channel.bind('new_state', function(data){
+      this.setState({
+        messages: this.state.messages.concat(data),
+        offset: this.state.offset += 1
+      })
+    }, this);
+
     //this.props.channel.bind('new_message', function(data){
     //  if(this.state.currentConversationId == data.conversation_id){
     //    MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
@@ -114,7 +126,7 @@ module.exports = React.createClass({
                                        messageType = {msg.message_type}
                                        typeName = {msg.type_name}
                                        link={this.props.link}
-            />
+        />;
 
         messages[i].message_type === 'bot_message' ? prevType : prevType = messages[i].message_type;
       }
