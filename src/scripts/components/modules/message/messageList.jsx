@@ -99,10 +99,7 @@ module.exports = React.createClass({
     }
   },
 
-  render: function () {
-    var messages = this.state.messages;
-    var currentConversationId = this.state.currentConversationId;
-
+  renderMessages: function(messages) {
     if(!messages){
       var messageElements= <div></div>
     }else if (messages && messages.length > 0){
@@ -122,7 +119,7 @@ module.exports = React.createClass({
                                        messageType = {msg.message_type}
                                        typeName = {msg.type_name}
                                        link={this.props.link}
-        />;
+         />;
 
         messages[i].message_type === 'bot_message' ? prevType : prevType = messages[i].message_type;
       }
@@ -130,11 +127,19 @@ module.exports = React.createClass({
       var messageElements = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
     }
 
+    return messageElements
+  },
+
+  render: function () {
+    var messages = this.state.messages;
+    var currentConversationId = this.state.currentConversationId;
+    messages = this.renderMessages(messages);
+
     return (
       <div>
         <div id="chatbox" className="pre-scrollable panel panel-body">
           <div id="chatmessages" ref="conversationContainer" onScroll={this.handleScroll}>
-            {messageElements}
+            {messages}
           </div>
         </div>
         <MessageForm conversationId={currentConversationId} staff={this.state.staff}/>
