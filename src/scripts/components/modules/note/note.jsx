@@ -11,7 +11,7 @@ module.exports = React.createClass({
 
   ensueVisible: function(){
     if(this.props.tagName === 'blockquote'){
-      this.props.scrollIntoView(ReactDom.findDOMNode(this));
+      ReactDom.findDOMNode(this).scrollIntoView();
     }
   },
 
@@ -20,21 +20,60 @@ module.exports = React.createClass({
     var sender = this.props.sender;
     var note = this.props.note;
     var messageType = this.props.messageType;
-    sender = leoUtil.formatName(sender) + " ";
+    var escalatedTo = this.props.escalatedTo;
+
+    var currentUser;
+    if(sessionStorage.user) {
+      currentUser = JSON.parse(sessionStorage.user);
+      if (currentUser.id == sender.id) {
+        // You closed this case
+        sender = "You"
+      }
+    } else {
+      // X closed this case
+      sender = leoUtil.formatName(sender);
+    }
+
+    var noteDisplayString;
+    switch (messageType) {
+
+      case "close":
+
+        noteDisplayString = `${sentAt} - ${sender} closed this case`;
+        break;
+
+      case "escalation":
+
+        if (currentUser && escalatedTo && currentUser.id === escalatedTo.id) {
+          escalatedTo = this.props.sender.id === escalatedTo.id ? "yourself" : "you";
+        } else {
+          // X assigned this case to Y
+          escalatedTo = leoUtil.formatName(escalatedTo);
+        }
+        noteDisplayString = `${sentAt} - ${sender} assigned this case to ${escalatedTo}`
+        break;
+
+      default:
+
+        noteDisplayString = sentAt;
+        break;
+    }
+
+    var optionalBreak;
     var style;
     if(this.props.tagName === 'blockquote'){
-      if(messageType === "escalation"){
-        style = { borderLeft: '#FF6666 5px solid'}
-      }else{
-        style = { borderLeft: '#21a4f3 5px solid'}
-      }
+      var color = messageType === "escalation" ? "#FF6666" : "#21a4f3";
+      style = { borderLeft: `${color} 5px solid`}
+    } else {
+      optionalBreak = <br></br>
     }
 
     return(
       <div>
         <this.props.tagName style={style}>
-          <small>{sentAt}</small>
-          <strong>{sender}</strong>{note}
+          <small>{noteDisplayString}</small>
+          {optionalBreak}
+          <strong>{sender} </strong>{note}
         </this.props.tagName>
         <hr/>
       </div>

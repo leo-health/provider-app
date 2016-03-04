@@ -13,6 +13,7 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
+    this.shouldScrollToBottom = true; // scroll to bottom on initial load
     return{
       messages: undefined,
       currentConversationId: undefined,
@@ -56,7 +57,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    var channel = this.props.pusher.subscribe('private-conversation' + this.state.currentConversationId)
+    var channel = this.props.pusher.subscribe('private-conversation' + this.state.currentConversationId);
     channel.bind('new_message', function(data){
       MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
     }, this);
@@ -68,33 +69,29 @@ module.exports = React.createClass({
       })
     }, this);
 
-    //this.props.channel.bind('new_message', function(data){
-    //  if(this.state.currentConversationId == data.conversation_id){
-    //    MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
-    //  }
-    //}, this);
-    //
-    //this.props.channel.bind('new_state', function(data){
-    //  if(this.state.currentConversationId == data.conversation_id && data.message_type != "open"){
-    //    this.setState({
-    //      messages: this.state.messages.concat(data),
-    //      offset: this.state.offset += 1
-    //    })
-    //  }
-    //}, this)
+    this.scrollToBottomIfNeeded();
   },
 
-  componentDidUpdate: function(){
-    if (this.state.page < 3){
+  componentWillUpdate: function() {
+    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
+    this.shouldScrollToBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight;
+  },
+
+  componentDidUpdate: function() {
+    this.scrollToBottomIfNeeded();
+  },
+
+  scrollToBottomIfNeeded: function() {
+
+    if (this.shouldScrollToBottom) {
       var node = ReactDom.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight;
     }
   },
 
-  handleScroll: function(){
+  handleScroll: function() {
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
     var conversationId = this.state.currentConversationId;
-
     if(conversationId && node.scrollTop === 0){
       MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken,
                                            this.state.currentConversationId,
