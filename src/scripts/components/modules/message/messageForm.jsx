@@ -113,9 +113,8 @@ module.exports = React.createClass({
               <label className="control-label"> with a priority level of</label>
               <select className="form-control"
                       onChange={this.setPriority}
-                  >
+              >
                 <option value={0}>standard</option>
-                <option value={1}>high</option>
               </select>
               <label className="control-label">Please enter any relevant notes to help the assignee resolve the case.</label>
               <textarea id="escalation-notes" className="form-control" rows="1" type="text" ref="escalationNote"></textarea>
