@@ -9,11 +9,8 @@ var MessageActions = require('../../../actions/messageActions');
 
 module.exports = React.createClass({
   render: function () {
-    var lastMessage = this.props.lastMessage;
-    var primaryGuardian = this.props.primaryGuardian;
-    primaryGuardian = leoUtil.formatName(primaryGuardian);
-    lastMessage = leoUtil.shorten(lastMessage);
-
+    if (this.props.primaryGuardian) var primaryGuardian =  leoUtil.formatName(this.props.primaryGuardian);
+    if (this.props.lastMessage) var lastMessage = leoUtil.shorten(this.props.lastMessage);
     var messageSendAt = moment(this.props.createdAt).format('L');
     var conversationState = this.props.conversationState;
     var conversationId = this.props.conversationId;
