@@ -25,10 +25,6 @@ module.exports = React.createClass({
         notes: this.state.notes.concat(status.newNote)
       })
     }
-
-    if(status.highlightNoteKey) {
-      this.setState(status)
-    }
   },
 
   onMessageStatusChange: function(status) {
