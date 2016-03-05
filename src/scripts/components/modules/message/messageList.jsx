@@ -5,12 +5,16 @@ var Message = require('./message');
 var MessageStatus = require('./messageStatus');
 var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
+var NoteStore = require('../../../stores/noteStore');
+var ConversationStore = require('../../../stores/conversationStore');
 var MessageActions = require('../../../actions/messageActions');
 var NoteActions = require('../../../actions/noteActions');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.listenTo(MessageStore, 'onStatusChange')
+    Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
+    Reflux.listenTo(NoteStore, 'onNoteStatusChange'),
+    Reflux.listenTo(ConversationStore, 'onConversationStatusChange')
   ],
 
   getInitialState: function(){
@@ -24,8 +28,26 @@ module.exports = React.createClass({
     }
   },
 
-  onStatusChange: function(status){
-    if(status.newMessage){
+  onConversationStatusChange: function(status){
+    if(status.newNote) {
+      this.setState({
+        messages: this.state.messages.concat(status.newNote),
+        offset: this.state.offset += 1
+      })
+    }
+  },
+
+  onNoteStatusChange: function(status){
+    if(status.newNote) {
+      this.setState({
+        messages: this.state.messages.concat(status.newNote),
+        offset: this.state.offset += 1
+      })
+    }
+  },
+
+  onMessageStatusChange: function(status){
+    if(status.newMessage) {
       var newMessage = {
         body: status.newMessage.body,
         created_by: status.newMessage.sender,
@@ -48,7 +70,7 @@ module.exports = React.createClass({
       })
     }
 
-    if(status.messages){
+    if(status.messages) {
       this.setState({
         messages: status.messages,
         currentConversationId: status.currentConversationId,
@@ -57,7 +79,7 @@ module.exports = React.createClass({
     }
   },
 
-  componentDidMount: function(){
+  componentDidMount: function() {
     this.scrollToBottomIfNeeded();
   },
 
@@ -82,8 +104,9 @@ module.exports = React.createClass({
     }
   },
 
-  fetchNewMessage: function(data){
+  fetchNewMessage: function(data) {
     var currentUser = JSON.parse(sessionStorage.user);
+
     if (currentUser.id != data.sender_id) {
       if (data.message_type === "message") {
         MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.id);
