@@ -6,6 +6,7 @@ var MessageStatus = require('./messageStatus');
 var MessageForm = require('./messageForm');
 var MessageStore = require('../../../stores/messageStore');
 var MessageActions = require('../../../actions/messageActions');
+var NoteActions = require('../../../actions/noteActions');
 
 module.exports = React.createClass({
   mixins: [
@@ -71,13 +72,24 @@ module.exports = React.createClass({
   },
 
   subscribeToPusher: function(prevConversationId, currentConversationId) {
-    if ( currentConversationId && currentConversationId != prevConversationId ){
+    if ( currentConversationId && currentConversationId != prevConversationId ) {
+
       if (prevConversationId) this.props.pusher.unsubscribe('private-conversation' + prevConversationId);
       var channel = this.props.pusher.subscribe('private-conversation' + currentConversationId);
       channel.bind('new_message', function(data){
-        var currentUser = JSON.parse(sessionStorage.user);
-        if (currentUser.id != data.sender_id) MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.message_id);
+        this.fetchNewMessage(data)
       }, this);
+    }
+  },
+
+  fetchNewMessage: function(data){
+    var currentUser = JSON.parse(sessionStorage.user);
+    if (currentUser.id != data.sender_id) {
+      if (data.message_type === "message") {
+        MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.id);
+      } else{
+        NoteActions.fetchNoteRequest(sessionStorage.authenticationToken, data.id, data.message_type)
+      }
     }
   },
 
