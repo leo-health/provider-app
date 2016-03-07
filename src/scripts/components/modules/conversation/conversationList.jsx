@@ -48,10 +48,12 @@ module.exports = React.createClass({
       })
     }
 
-    if(status.newConversation && status.newConversation.state){
+    if(status.newConversation && status.newConversation.state === this.state.conversationState){
+     this.state.conversations.unshift(status.newConversation);
      this.setState({
-       conversations: this.state.conversations.unshift(status.newConversations),
-       offset: this.state.offset += 1
+       conversations: this.state.conversations,
+       offset: this.state.offset += 1,
+       selectedConversation: this.state.selectedConversation += 1
      })
     }
   },
@@ -73,7 +75,7 @@ module.exports = React.createClass({
   },
 
   fetchNewConversation: function(id) {
-    ConversationActions.fetchConversationById(id, sessionStorage.authenticationToken)
+    ConversationActions.fetchConversationById(sessionStorage.authenticationToken, id)
   },
 
   handleScroll: function() {

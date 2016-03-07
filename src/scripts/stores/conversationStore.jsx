@@ -166,7 +166,7 @@ module.exports = Reflux.createStore({
            })
   },
 
-  onFetchConversationByIdCompleted: function(){
+  onFetchConversationByIdCompleted: function(response){
     this.trigger({
       newConversation: response.data.conversation
     })
