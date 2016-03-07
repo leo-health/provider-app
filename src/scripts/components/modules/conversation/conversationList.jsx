@@ -16,7 +16,8 @@ module.exports = React.createClass({
       conversationState: 'open',
       page: 1,
       conversations: undefined,
-      maxPage: 1
+      maxPage: 1,
+      offset: 0
     }
   },
 
@@ -46,6 +47,13 @@ module.exports = React.createClass({
         maxPage: status.maxPage
       })
     }
+
+    if(status.newConversation && status.newConversation.state){
+     this.setState({
+       conversations: this.state.conversations.unshift(status.newConversations),
+       offset: this.state.offset += 1
+     })
+    }
   },
 
   handleOnClick: function(i, conversationId){
@@ -53,16 +61,28 @@ module.exports = React.createClass({
     MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
   },
 
+  componentWillMount: function () {
+    ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.state.conversationState, this.state.page );
+  },
+
   componentDidMount: function() {
-    ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.state.conversationState, this.state.page )
+    var channel = this.props.pusher.subscribe('private-conversation');
+    channel.bind('new_conversation', function(data){
+      if(data.conversation_state === this.state.conversationState) this.fetchNewConversation(data.id)
+    }, this);
+  },
+
+  fetchNewConversation: function(id) {
+    ConversationActions.fetchConversationById(id, sessionStorage.authenticationToken)
   },
 
   handleScroll: function() {
     var node = ReactDom.findDOMNode(this.refs.conversationList);
     if(node.scrollTop + node.offsetHeight === node.scrollHeight){
-      //var state = this.state.conversationState === "all" ? null : this.state.conversationState;
-      var state = this.state.conversationState;
-      ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, state, this.state.page )
+      ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken,
+                                                     this.state.conversationState,
+                                                     this.state.page,
+                                                     this.state.offset)
     }
   },
 
