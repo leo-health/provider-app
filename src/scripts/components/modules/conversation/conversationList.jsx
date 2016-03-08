@@ -5,10 +5,16 @@ var Conversation = require('./conversation');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
+var MessageStore = require('../../../stores/messageStore');
+var NoteStore = require('../../../stores/noteStore');
 var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
+  mixins: [
+    Reflux.listenTo(ConversationStore, "onConversationStatusChange"),
+    Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
+    Reflux.listenTo(NoteStore, 'onNoteStatusChange')
+  ],
 
   getInitialState: function () {
     return {
@@ -21,7 +27,19 @@ module.exports = React.createClass({
     }
   },
 
-  onStatusChange: function(status){
+  onNoteStatusChange: function(status){
+
+  },
+
+  //onMessageStatusChange: function(status){
+  //  if(status.newMessage) {
+  //    this.setState({
+  //      conversations: conversations
+  //    })
+  //  }
+  //},
+
+  onConversationStatusChange: function(status){
     if(status.conversationState && status.conversationState != this.state.conversationState){
       this.setState({
         conversationState: status.conversationState,
@@ -107,6 +125,7 @@ module.exports = React.createClass({
                         createdAt = {conversation.last_message_created_at }
                         conversationState = {conversation.state}
                         onClick = {boundClick}
+                        pusher = {this.props.pusher}
           />
         )
       }, this);

@@ -6,8 +6,32 @@ var ConversationState = require("./conversationState");
 var ConversationPatient = require("./conversationPatient");
 var ConversationGuardian = require("./conversationGuardian");
 var MessageActions = require('../../../actions/messageActions');
+var NoteActions = require('../../../actions/noteActions');
 
 module.exports = React.createClass({
+  componentWillMount: function() {
+    var channel = this.props.pusher.subscribe('private-conversation' + this.props.conversationId);
+    channel.bind('new_message', function(data){
+      this.fetchNewMessage(data)
+    }, this);
+  },
+
+  fetchNewMessage: function(data) {
+    var currentUser = JSON.parse(sessionStorage.user);
+
+    if (currentUser.id != data.sender_id) {
+      if (data.message_type === "message") {
+        MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.id);
+      } else{
+        NoteActions.fetchNoteRequest(sessionStorage.authenticationToken, data.id, data.message_type)
+      }
+    }
+  },
+
+  componentWillUnmount: function() {
+    this.props.pusher.unsubscribe('private-conversation' + this.props.conversationId);
+  },
+
   render: function () {
     if (this.props.primaryGuardian) var primaryGuardian =  leoUtil.formatName(this.props.primaryGuardian);
     if (this.props.lastMessage) var lastMessage = leoUtil.shorten(this.props.lastMessage);
@@ -15,9 +39,8 @@ module.exports = React.createClass({
     var conversationState = this.props.conversationState;
     var conversationId = this.props.conversationId;
     var patients = this.props.patients.map(function(patient){
-      var patientName = leoUtil.formatName(patient);
       return (
-        <ConversationPatient key = {patient.id} patient = {patientName}/>
+        <ConversationPatient key = {patient.id} patient = {leoUtil.formatName(patient)}/>
       )
     }.bind(this));
 
@@ -26,9 +49,8 @@ module.exports = React.createClass({
     }.bind(this));
 
     secondaryGuardians = secondaryGuardians.map(function(guardian){
-      var guardianName = leoUtil.formatName(guardian);
       return(
-        <ConversationGuardian key={guardian.id} guardian = {guardianName}/>
+        <ConversationGuardian key={guardian.id} guardian = {leoUtil.formatName(guardian)}/>
       )
     }.bind(this));
 

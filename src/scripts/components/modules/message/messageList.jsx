@@ -18,7 +18,7 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    this.shouldScrollToBottom = true; // scroll to bottom on initial load
+    this.shouldScrollToBottom = true;
     return{
       messages: undefined,
       currentConversationId: undefined,
@@ -89,32 +89,33 @@ module.exports = React.createClass({
   },
 
   componentDidUpdate: function(prevProps, prevState) {
-    this.subscribeToPusher(prevState.currentConversationId, this.state.currentConversationId);
+    //this.subscribeToPusher(prevState.currentConversationId, this.state.currentConversationId);
     this.scrollToBottomIfNeeded();
   },
 
-  subscribeToPusher: function(prevConversationId, currentConversationId) {
-    if ( currentConversationId && currentConversationId != prevConversationId ) {
-
-      if (prevConversationId) this.props.pusher.unsubscribe('private-conversation' + prevConversationId);
-      var channel = this.props.pusher.subscribe('private-conversation' + currentConversationId);
-      channel.bind('new_message', function(data){
-        this.fetchNewMessage(data)
-      }, this);
-    }
-  },
-
-  fetchNewMessage: function(data) {
-    var currentUser = JSON.parse(sessionStorage.user);
-
-    if (currentUser.id != data.sender_id) {
-      if (data.message_type === "message") {
-        MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.id);
-      } else{
-        NoteActions.fetchNoteRequest(sessionStorage.authenticationToken, data.id, data.message_type)
-      }
-    }
-  },
+  //
+  //subscribeToPusher: function(prevConversationId, currentConversationId) {
+  //  if ( currentConversationId && currentConversationId != prevConversationId ) {
+  //
+  //    if (prevConversationId) this.props.pusher.unsubscribe('private-conversation' + prevConversationId);
+  //    var channel = this.props.pusher.subscribe('private-conversation' + currentConversationId);
+  //    channel.bind('new_message', function(data){
+  //      this.fetchNewMessage(data)
+  //    }, this);
+  //  }
+  //},
+  //
+  //fetchNewMessage: function(data) {
+  //  var currentUser = JSON.parse(sessionStorage.user);
+  //
+  //  if (currentUser.id != data.sender_id) {
+  //    if (data.message_type === "message") {
+  //      MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.id);
+  //    } else{
+  //      NoteActions.fetchNoteRequest(sessionStorage.authenticationToken, data.id, data.message_type)
+  //    }
+  //  }
+  //},
 
   scrollToBottomIfNeeded: function() {
     if (this.shouldScrollToBottom) {
