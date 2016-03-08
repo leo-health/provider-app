@@ -5,15 +5,11 @@ var Conversation = require('./conversation');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
-var MessageStore = require('../../../stores/messageStore');
-var NoteStore = require('../../../stores/noteStore');
 var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.listenTo(ConversationStore, "onConversationStatusChange"),
-    Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
-    Reflux.listenTo(NoteStore, 'onNoteStatusChange')
+    Reflux.listenTo(ConversationStore, "onConversationStatusChange")
   ],
 
   getInitialState: function () {
@@ -26,18 +22,6 @@ module.exports = React.createClass({
       offset: 0
     }
   },
-
-  onNoteStatusChange: function(status){
-
-  },
-
-  //onMessageStatusChange: function(status){
-  //  if(status.newMessage) {
-  //    this.setState({
-  //      conversations: conversations
-  //    })
-  //  }
-  //},
 
   onConversationStatusChange: function(status){
     if(status.conversationState && status.conversationState != this.state.conversationState){
@@ -92,6 +76,10 @@ module.exports = React.createClass({
     }, this);
   },
 
+  componentWillUnmount: function () {
+    this.props.pusher.unsubscribe('private-conversation')
+  },
+
   fetchNewConversation: function(id) {
     ConversationActions.fetchConversationById(sessionStorage.authenticationToken, id)
   },
@@ -118,7 +106,7 @@ module.exports = React.createClass({
           <Conversation key = {i}
                         selected = {selected}
                         conversationId = {conversation.id}
-                        lastMessage = {conversation.last_message}
+                        initialLastMessage = {conversation.last_message}
                         primaryGuardian = {conversation.primary_guardian}
                         guardians = {conversation.guardians}
                         patients = {conversation.patients}
@@ -139,12 +127,12 @@ module.exports = React.createClass({
     }
 
     return (
-        <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
-             id="all-tab"
-             ref="conversationList"
-             onScroll={this.handleScroll}>
-            {conversations}
-        </div>
+      <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
+           id="all-tab"
+           ref="conversationList"
+           onScroll={this.handleScroll}>
+        {conversations}
+      </div>
     )
   }
 });

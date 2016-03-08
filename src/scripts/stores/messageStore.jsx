@@ -20,13 +20,17 @@ module.exports = Reflux.createStore({
 
   onFetchStaffRequestCompleted: function(response){
     var staff = _.filter(response.data.staff, function(staff){ return staff.id !== 1 });
-    this.trigger({status: response.status,
-                  staff: staff})
+    this.trigger({
+      status: response.status,
+      staff: staff
+    })
   },
 
   onFetchStaffRequestFailed: function(response){
-    this.trigger({status: response.status,
-                  message: "error fetching staff"})
+    this.trigger({
+      status: response.status,
+      message: "error fetching staff"
+    })
   },
 
   onFetchMessagesRequest: function(authenticationToken, currentConversationId, page, offset){
@@ -46,7 +50,6 @@ module.exports = Reflux.createStore({
 
   onFetchMessagesRequestCompleted: function(response, page){
     var messages = response.data.messages.reverse();
-
     var response = {
       currentConversationId: response.data.conversation_id
     };
@@ -74,8 +77,10 @@ module.exports = Reflux.createStore({
   },
 
   onFetchMessageRequestCompleted: function(response){
-    this.trigger({ status: response.status,
-                   newMessage: response.data })
+    this.trigger({
+      status: response.status,
+      newMessage: response.data
+    })
   },
 
   onFetchMessageRequestFailed: function(response){

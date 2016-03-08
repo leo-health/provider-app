@@ -13,7 +13,7 @@ StringUtils = {
 
   shorten: function(fullStr, len) {
     len = typeof len !== 'undefined' ?  len : 150;
-    if(fullStr.length > len) {
+    if(fullStr && fullStr.length > len) {
       var shortStr = fullStr.substr(0, len);
       fullStr = shortStr.substr(0, shortStr.lastIndexOf(" ")) + "...";
     }
