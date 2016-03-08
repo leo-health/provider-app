@@ -70,7 +70,7 @@ module.exports = React.createClass({
     }
   },
 
-  componentDidMount: function(){
+  componentWillMount: function(){
     MessageActions.fetchStaffRequest(sessionStorage.authenticationToken);
   },
 
