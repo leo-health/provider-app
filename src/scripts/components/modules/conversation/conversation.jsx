@@ -8,13 +8,11 @@ var ConversationPatient = require("./conversationPatient");
 var ConversationGuardian = require("./conversationGuardian");
 var MessageActions = require('../../../actions/messageActions');
 var NoteActions = require('../../../actions/noteActions');
-var ConversationStore = require('../../../stores/conversationStore');
 var MessageStore = require('../../../stores/messageStore');
 var NoteStore = require('../../../stores/noteStore');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.listenTo(ConversationStore, "onConversationStatusChange"),
     Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
     Reflux.listenTo(NoteStore, 'onNoteStatusChange')
   ],
@@ -30,6 +28,13 @@ module.exports = React.createClass({
       this.setState({
         lastMessage: status.newMessage.body
       })
+    }
+  },
+
+  onNoteStatusChange: function(status){
+    if(status.newNote.message_type === "close"){
+      debugger
+      this.props.removeConversationFromList(this.props.conversationId)
     }
   },
 

@@ -6,13 +6,11 @@ var Conversation = require('./conversation');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
-var NoteStore = require('../../../stores/noteStore');
 var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.listenTo(ConversationStore, "onConversationStatusChange"),
-    Reflux.listenTo(NoteStore, "onNoteStatusChange")
+    Reflux.listenTo(ConversationStore, "onConversationStatusChange")
   ],
 
   getInitialState: function () {
@@ -23,14 +21,6 @@ module.exports = React.createClass({
       conversations: undefined,
       maxPage: 1,
       offset: 0
-    }
-  },
-
-  onNoteStatusChange: function(status){
-    if(status.newNote.message_type === "close"){
-      this.setState({
-        conversations: this.removeConversationFromList(this.state.conversations, status.newNote.conversation_id)
-      })
     }
   },
 
@@ -69,18 +59,10 @@ module.exports = React.createClass({
        selectedConversation: this.state.selectedConversation += 1
      })
     }
-
-    if(status.newNote){
-      if(status.newNote.message_type === "close"){
-        this.setState({
-          conversations: this.removeConversationFromList(this.state.conversations, status.newNote.conversation_id)
-        })
-      }
-    }
   },
 
-  removeConversationFromList: function (conversations, conversation_id) {
-    return _.reject(conversations, {id: conversation_id});
+  removeConversationFromList: function (conversation_id) {
+    this.setState({ conversations: _.reject(this.state.conversations, {id: conversation_id})});
   },
 
   handleOnClick: function(i, conversationId){
@@ -137,6 +119,7 @@ module.exports = React.createClass({
                         conversationState = {conversation.state}
                         onClick = {boundClick}
                         pusher = {this.props.pusher}
+                        removeConversationFromList = {this.removeConversationFromList}
           />
         )
       }, this);

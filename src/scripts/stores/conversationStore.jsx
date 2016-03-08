@@ -38,11 +38,7 @@ module.exports = Reflux.createStore({
       page: page
     };
 
-    if(page === 1){
-      response.conversations = conversations
-    }else{
-      response.newConversations = conversations
-    }
+    page === 1 ? response.conversations = conversations : response.newConversations = conversations;
 
     this.trigger(response);
   },

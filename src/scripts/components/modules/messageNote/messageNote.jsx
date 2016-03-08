@@ -11,12 +11,11 @@ module.exports = React.createClass({
   mixins: [
     Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
     Reflux.listenTo(NoteStore, 'onNoteStatusChange'),
-    Reflux.listenTo(ConversationStore, 'onConversationStatusChange')
   ],
 
   getInitialState: function() {
     return{
-      messages: undefined,
+      messages: [],
       currentConversationId: undefined,
       offset: 0,
       page: 1
