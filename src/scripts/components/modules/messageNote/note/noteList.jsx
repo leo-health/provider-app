@@ -13,6 +13,10 @@ module.exports = React.createClass({
     Reflux.listenTo(NoteStore, 'onNoteStatusChange'),
   ],
 
+  getInitialState: function() {
+    return { highlightNoteKey: undefined }
+  },
+
   onNoteStatusChange: function(status) {
     if(status.highlightNoteKey) {
       this.setState(status)
@@ -31,10 +35,6 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    //var notes = _.filter(this.props.notes, function(n){
-    //  return n.note !== ""
-    //});
-
     var notes = this.props.notes;
 
     if(notes && notes.length > 0){

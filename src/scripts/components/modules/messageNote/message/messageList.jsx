@@ -8,13 +8,8 @@ var MessageActions = require('../../../../actions/messageActions');
 var NoteActions = require('../../../../actions/noteActions');
 
 module.exports = React.createClass({
-  getInitialState: function(){
+  componentWillMount: function(){
     this.shouldScrollToBottom = true;
-    return{
-      init: true,
-      page: 1,
-      offset: 0
-    }
   },
 
   componentDidMount: function() {
@@ -39,7 +34,7 @@ module.exports = React.createClass({
 
   handleScroll: function() {
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-    var conversationId = this.state.currentConversationId;
+    var conversationId = this.props.currentConversationId;
     if(conversationId && node.scrollTop === 0){
       MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken,
                                            this.props.currentConversationId,
