@@ -101,7 +101,7 @@ module.exports = React.createClass({
       <div>
         <div id="escalation-form" className="alert alert-dismissible alert-default" style={this.showComponent('escalate')}>
           <button type="button" className="close" onClick={this.handleCloseForm}>×</button>
-          <form className="form">
+          <form className="form alert-form">
             <div className="form-group">
               <label htmlFor="provider-select" className="control-label"> Assign this conversation to </label>&nbsp;
               <select id="provider-select"

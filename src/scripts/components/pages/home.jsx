@@ -48,6 +48,20 @@ module.exports = React.createClass({
             <div className="col-lg-3">
               <FindFamily/>
               <ConversationHeader/>
+              <p>
+                <div className="btn-group">
+                  <a href="#" className="btn btn-sm btn-default">Assigned to</a>
+                  <div className="btn-group">
+                    <a href="#" className="btn btn-sm btn-default">Erin Hannah Gold PNP</a>
+                    <a href="#" className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span className="caret"></span></a>
+                    <ul className="dropdown-menu">
+                      <li><a href="#">Staff 1</a></li>
+                      <li><a href="#">Staff 2</a></li>
+                      <li><a href="#">Staff 3</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </p>
             </div>
           </div>
           <div className="row">

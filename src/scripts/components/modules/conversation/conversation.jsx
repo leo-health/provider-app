@@ -26,7 +26,7 @@ module.exports = React.createClass({
   },
 
   onMessageStatusChange: function(status){
-    if(status.newMessage) {
+    if(status.newMessage && status.newMessage.conversation_id === this.props.conversationId) {
       this.setState({
         lastMessage: status.newMessage.body
       })
