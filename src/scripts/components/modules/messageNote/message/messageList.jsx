@@ -4,11 +4,11 @@ var Reflux = require('reflux');
 var Message = require('./message');
 var MessageStatus = require('./messageStatus');
 var MessageForm = require('./messageForm');
-var MessageStore = require('../../../stores/messageStore');
-var NoteStore = require('../../../stores/noteStore');
-var ConversationStore = require('../../../stores/conversationStore');
-var MessageActions = require('../../../actions/messageActions');
-var NoteActions = require('../../../actions/noteActions');
+var MessageStore = require('../../../../stores/messageStore');
+var NoteStore = require('../../../../stores/noteStore');
+var ConversationStore = require('../../../../stores/conversationStore');
+var MessageActions = require('../../../../actions/messageActions');
+var NoteActions = require('../../../../actions/noteActions');
 
 module.exports = React.createClass({
   mixins: [
@@ -29,7 +29,7 @@ module.exports = React.createClass({
   },
 
   onConversationStatusChange: function(status){
-    if(status.newNote) {
+    if(status.newNote && status.newNote.conversation_id === this.state.currentConversationId) {
       this.setState({
         messages: this.state.messages.concat(status.newNote),
         offset: this.state.offset += 1
@@ -38,7 +38,7 @@ module.exports = React.createClass({
   },
 
   onNoteStatusChange: function(status){
-    if(status.newNote) {
+    if(status.newNote && status.newNote.conversation_id === this.state.currentConversationId) {
       this.setState({
         messages: this.state.messages.concat(status.newNote),
         offset: this.state.offset += 1

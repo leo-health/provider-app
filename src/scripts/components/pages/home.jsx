@@ -3,8 +3,7 @@ var HomeHeader = require('./homeHeader');
 var FindFamily = require('../modules/search/findFamily');
 var ConversationList = require('../modules/conversation/conversationList');
 var ConversationHeader = require('../modules/conversation/conversationHeader');
-var MessageList = require('../modules/message/messageList');
-var NoteList = require('../modules/note/noteList');
+var MessageNote = require('../modules/messageNote/messageNote');
 var Footer = require('./footer');
 var _ = require('lodash');
 
@@ -68,11 +67,8 @@ module.exports = React.createClass({
             <div id="left" className="col-lg-3">
               <ConversationList pusher={this.pusher}/>
             </div>
-            <div id="middle" className="col-lg-6">
-              <MessageList pusher={this.pusher}/>
-            </div>
-            <div id="right" className="col-lg-3">
-              <NoteList pusher={this.pusher}/>
+            <div id="right" className="col-lg-9">
+              <MessageNote pusher={this.pusher}/>
             </div>
           </div>
           <Footer/>

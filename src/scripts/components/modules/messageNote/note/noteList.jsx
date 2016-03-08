@@ -1,10 +1,10 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 var Reflux = require('reflux');
-var MessageStore = require('../../../stores/messageStore');
-var NoteStore = require('../../../stores/noteStore');
-var ConversationStore = require('../../../stores/conversationStore');
-var NoteActions = require('../../../actions/noteActions');
+var MessageStore = require('../../../../stores/messageStore');
+var NoteStore = require('../../../../stores/noteStore');
+var ConversationStore = require('../../../../stores/conversationStore');
+var NoteActions = require('../../../../actions/noteActions');
 var Note = require('./note');
 var _ = require('lodash');
 
@@ -29,6 +29,7 @@ module.exports = React.createClass({
 
   onMessageStatusChange: function(status) {
     var notes;
+
     if(status.messages){
       notes = status.messages;
     } else if (status.newBatchMessages) {
@@ -37,12 +38,14 @@ module.exports = React.createClass({
 
     if (notes) {
       notes = _.filter(notes, function(m){return !m.message_type.includes('message', 'bot_message')});
-      this.setState({notes: notes, currentConversationId: status.currentConversationId});
+      this.setState({
+        notes: notes,
+        currentConversationId: status.currentConversationId});
     }
   },
 
   onNoteStatusChange: function(status) {
-    if(status.newNote) {
+    if(status.newNote && status.newNote.conversation_id === this.state.currentConversationId) {
       this.setState({
         notes: this.state.notes.concat(status.newNote)
       })

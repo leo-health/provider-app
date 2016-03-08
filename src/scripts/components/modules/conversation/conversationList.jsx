@@ -1,15 +1,18 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 var Reflux = require('reflux');
+var _ = require('lodash');
 var Conversation = require('./conversation');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
+var NoteStore = require('../../../stores/noteStore');
 var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.listenTo(ConversationStore, "onConversationStatusChange")
+    Reflux.listenTo(ConversationStore, "onConversationStatusChange"),
+    Reflux.listenTo(NoteStore, "onNoteStatusChange")
   ],
 
   getInitialState: function () {
@@ -20,6 +23,14 @@ module.exports = React.createClass({
       conversations: undefined,
       maxPage: 1,
       offset: 0
+    }
+  },
+
+  onNoteStatusChange: function(status){
+    if(status.newNote.message_type === "close"){
+      this.setState({
+        conversations: this.removeConversationFromList(this.state.conversations, status.newNote.conversation_id)
+      })
     }
   },
 
@@ -58,6 +69,18 @@ module.exports = React.createClass({
        selectedConversation: this.state.selectedConversation += 1
      })
     }
+
+    if(status.newNote){
+      if(status.newNote.message_type === "close"){
+        this.setState({
+          conversations: this.removeConversationFromList(this.state.conversations, status.newNote.conversation_id)
+        })
+      }
+    }
+  },
+
+  removeConversationFromList: function (conversations, conversation_id) {
+    return _.reject(conversations, {id: conversation_id});
   },
 
   handleOnClick: function(i, conversationId){

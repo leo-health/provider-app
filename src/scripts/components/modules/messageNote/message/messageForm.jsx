@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 var Reflux = require('reflux');
-var ConversationActions = require('../../../actions/conversationActions');
-var MessageActions = require('../../../actions/messageActions');
-var MessageStore = require('../../../stores/messageStore');
+var ConversationActions = require('../../../../actions/conversationActions');
+var MessageActions = require('../../../../actions/messageActions');
+var MessageStore = require('../../../../stores/messageStore');
 var MessageStaff = require('../message/messageStaff');
 
 module.exports = React.createClass({
