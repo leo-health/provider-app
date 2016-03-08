@@ -37,9 +37,9 @@ module.exports = Reflux.createStore({
         .query({ authentication_token: authenticationToken, note: note })
         .end(function(err, res){
           if(res.ok){
-            ConversationActions.createCloseNoteRequest.completed(res.body)
+            NoteActions.createCloseNoteRequest.completed(res.body)
           }else{
-            ConversationActions.createCloseNoteRequest.failed(res.body)
+            NoteActions.createCloseNoteRequest.failed(res.body)
           }
         })
   },
@@ -70,9 +70,9 @@ module.exports = Reflux.createStore({
         .query(escalateParams)
         .end(function(err, res){
           if(res.ok){
-            ConversationActions.createEscalateNoteRequest.completed(res.body)
+            NoteActions.createEscalateNoteRequest.completed(res.body)
           }else{
-            ConversationActions.createEscalateNoteRequest.failed(res.body)
+            NoteActions.createEscalateNoteRequest.failed(res.body)
           }
         })
   },

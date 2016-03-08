@@ -1,8 +1,8 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 var Reflux = require('reflux');
-var ConversationActions = require('../../../../actions/conversationActions');
 var MessageActions = require('../../../../actions/messageActions');
+var NoteActions = require('../../../../actions/noteActions');
 var MessageStore = require('../../../../stores/messageStore');
 var MessageStaff = require('../message/messageStaff');
 
@@ -31,7 +31,7 @@ module.exports = React.createClass({
     var conversationId = this.props.conversationId;
     var escalatedToId = this.state.escalatedToId;
     var priority = this.state.priority;
-    ConversationActions.escalateConversationRequest( sessionStorage.authenticationToken, conversationId, escalatedToId, note, priority );
+    NoteActions.createEscalateNoteRequest( sessionStorage.authenticationToken, conversationId, escalatedToId, note, priority );
     this.setState({action: "message"});
     ReactDom.findDOMNode(this.refs.escalationNote).value = "";
   },
@@ -39,7 +39,7 @@ module.exports = React.createClass({
   handleClose: function (e) {
     e.preventDefault();
     var note = ReactDom.findDOMNode(this.refs.closureNote).value.trim();
-    ConversationActions.closeConversationRequest(sessionStorage.authenticationToken, this.props.conversationId, note);
+    NoteActions.createCloseNoteRequest(sessionStorage.authenticationToken, this.props.conversationId, note);
     this.setState({action: "message"});
     ReactDom.findDOMNode(this.refs.closureNote).value = "";
   },
