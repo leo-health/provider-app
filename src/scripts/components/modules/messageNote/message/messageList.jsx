@@ -4,24 +4,24 @@ var Reflux = require('reflux');
 var Message = require('./message');
 var MessageStatus = require('./messageStatus');
 var MessageForm = require('./messageForm');
-var MessageStore = require('../../../../stores/messageStore');
-var NoteStore = require('../../../../stores/noteStore');
-var ConversationStore = require('../../../../stores/conversationStore');
+//var MessageStore = require('../../../../stores/messageStore');
+//var NoteStore = require('../../../../stores/noteStore');
+//var ConversationStore = require('../../../../stores/conversationStore');
 var MessageActions = require('../../../../actions/messageActions');
 var NoteActions = require('../../../../actions/noteActions');
 
 module.exports = React.createClass({
-  mixins: [
-    Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
-    Reflux.listenTo(NoteStore, 'onNoteStatusChange'),
-    Reflux.listenTo(ConversationStore, 'onConversationStatusChange')
-  ],
+  //mixins: [
+  //  Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
+  //  Reflux.listenTo(NoteStore, 'onNoteStatusChange'),
+  //  Reflux.listenTo(ConversationStore, 'onConversationStatusChange')
+  //],
 
   getInitialState: function(){
     this.shouldScrollToBottom = true;
     return{
-      messages: undefined,
-      currentConversationId: undefined,
+      //messages: undefined,
+      //currentConversationId: undefined,
       init: true,
       page: 1,
       offset: 0

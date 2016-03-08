@@ -30,5 +30,64 @@ module.exports = Reflux.createStore({
 
   onScrollToNote: function(highlightNoteKey){
     this.trigger({highlightNoteKey: highlightNoteKey})
+  },
+
+  onCreateCloseNoteRequest: function(authenticationToken, conversationId, note){
+    request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
+        .query({ authentication_token: authenticationToken, note: note })
+        .end(function(err, res){
+          if(res.ok){
+            ConversationActions.createCloseNoteRequest.completed(res.body)
+          }else{
+            ConversationActions.createCloseNoteRequest.failed(res.body)
+          }
+        })
+  },
+
+  onCreateCloseNoteRequestCompleted: function(response){
+    this.trigger({
+      status: response.status,
+      newNote: response.data
+    })
+  },
+
+  onCreateCloseNoteRequestFailed: function(response){
+    this.trigger({
+      status: response.status,
+      message: "error closing conversation"
+    })
+  },
+
+  onCreateEscalateNoteRequest: function(authenticationToken, conversationId, escalatedToId, note, priority){
+    escalateParams = {
+      authentication_token: authenticationToken,
+      escalated_to_id: escalatedToId,
+      note: note,
+      priority: priority
+    };
+
+    request.put(leo.API_URL+"/conversations/" + conversationId + "/escalate")
+        .query(escalateParams)
+        .end(function(err, res){
+          if(res.ok){
+            ConversationActions.createEscalateNoteRequest.completed(res.body)
+          }else{
+            ConversationActions.createEscalateNoteRequest.failed(res.body)
+          }
+        })
+  },
+
+  onCreateEscalateNoteRequestCompleted: function(response){
+    this.trigger({
+      status: response.status,
+      newNote: response.data
+    });
+  },
+
+  onCreateEscalateNoteRequestFailed: function(response){
+    this.trigger({
+      status: response.status,
+      message: "error escalating conversation"
+    })
   }
 });
