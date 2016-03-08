@@ -7,7 +7,7 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [ConversationActions],
 
-  onFetchConversationsRequest: function(authenticationToken, state, page){
+  onFetchConversationsRequest: function(authenticationToken, state, page, offset){
     request.get(leo.API_URL+"/conversations")
            .query({authentication_token: authenticationToken, state: state, page: page})
            .end(function(err, res){
@@ -48,8 +48,10 @@ module.exports = Reflux.createStore({
   },
 
   onFetchConversationsRequestFailed: function(response){
-    this.trigger({status: response.status,
-                  message: "error fetching conversations"})
+    this.trigger({
+      status: response.status,
+      message: "error fetching conversations"
+    })
   },
 
   onCloseConversationRequest: function(authenticationToken, conversationId, note){
@@ -65,20 +67,26 @@ module.exports = Reflux.createStore({
   },
 
   onCloseConversationRequestCompleted: function(response){
-    this.trigger({status: response.status})
+    this.trigger({
+      status: response.status,
+      newNote: response.data
+    })
   },
 
   onCloseConversationRequestFailed: function(response){
-    this.trigger({status: response.status,
-                  message: "error closing conversation"})
+    this.trigger({
+      status: response.status,
+      message: "error closing conversation"
+    })
   },
 
   onEscalateConversationRequest: function(authenticationToken, conversationId, escalatedToId, note, priority){
-    escalateParams = { authentication_token: authenticationToken,
-                       escalated_to_id: escalatedToId,
-                       note: note,
-                       priority: priority
-                      };
+    escalateParams = {
+      authentication_token: authenticationToken,
+      escalated_to_id: escalatedToId,
+      note: note,
+      priority: priority
+    };
 
     request.put(leo.API_URL+"/conversations/" + conversationId + "/escalate")
            .query(escalateParams)
@@ -92,12 +100,17 @@ module.exports = Reflux.createStore({
   },
 
   onEscalateConversationRequestCompleted: function(response){
-    this.trigger({status: response.status})
+    this.trigger({
+      status: response.status,
+      newNote: response.data
+    });
   },
 
   onEscalateConversationRequestFailed: function(response){
-    this.trigger({status: response.status,
-                  message: "error escalating conversation"})
+    this.trigger({
+      status: response.status,
+      message: "error escalating conversation"
+    })
   },
 
   onFetchConversationByFamily: function (authenticationToken, familyId) {
@@ -112,9 +125,11 @@ module.exports = Reflux.createStore({
 
   onFetchConversationByFamilyCompleted: function(response, authenticationToken){
     var conversation = response.data.conversation;
-    this.trigger({ status: response.status,
-                   conversations: [conversation],
-                   conversationState: Date.now() });
+    this.trigger({
+      status: response.status,
+      conversations: [conversation],
+      conversationState: Date.now()
+    });
 
     MessageActions.fetchMessagesRequest(authenticationToken, conversation.id, 1, 0)
   },
@@ -123,23 +138,37 @@ module.exports = Reflux.createStore({
     request.get(leo.API_URL+'/staff/' + staffId + '/conversations')
            .query({ authentication_token: authenticationToken })
            .end(function(err, res){
-             if(res.ok){
-               ConversationActions.fetchStaffConversation.completed(res.body, authenticationToken)
-             }
+             if(res.ok) ConversationActions.fetchStaffConversation.completed(res.body, authenticationToken)
            })
   },
 
   onFetchStaffConversationCompleted: function(response, authenticationToken){
     var conversations = response.data.conversations;
 
-    this.trigger({ status: response.status,
-                   conversations: conversations,
-                   conversationState: Date.now() });
+    this.trigger({
+      status: response.status,
+      conversations: conversations,
+      conversationState: Date.now()
+    });
 
     if(conversations.length > 0){
       MessageActions.fetchMessagesRequest(authenticationToken, conversations[0].id, 1, 0)
     }else{
       MessageActions.emptyMessageList()
     }
+  },
+
+  onFetchConversationById: function(authenticationToken, conversationId) {
+    request.get(leo.API_URL+'/conversations/'+conversationId)
+           .query({ authentication_token: authenticationToken })
+           .end(function(err, res) {
+             if (res.ok) ConversationActions.fetchConversationById.completed(res.body);
+           })
+  },
+
+  onFetchConversationByIdCompleted: function(response){
+    this.trigger({
+      newConversation: response.data.conversation
+    })
   }
 });

@@ -5,10 +5,16 @@ var Conversation = require('./conversation');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
+var MessageStore = require('../../../stores/messageStore');
+var NoteStore = require('../../../stores/noteStore');
 var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
+  mixins: [
+    Reflux.listenTo(ConversationStore, "onConversationStatusChange"),
+    Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
+    Reflux.listenTo(NoteStore, 'onNoteStatusChange')
+  ],
 
   getInitialState: function () {
     return {
@@ -16,11 +22,24 @@ module.exports = React.createClass({
       conversationState: 'open',
       page: 1,
       conversations: undefined,
-      maxPage: 1
+      maxPage: 1,
+      offset: 0
     }
   },
 
-  onStatusChange: function(status){
+  //onNoteStatusChange: function(status){
+  //
+  //},
+
+  //onMessageStatusChange: function(status){
+  //  if(status.newMessage) {
+  //    this.setState({
+  //      conversations: conversations
+  //    })
+  //  }
+  //},
+
+  onConversationStatusChange: function(status){
     if(status.conversationState && status.conversationState != this.state.conversationState){
       this.setState({
         conversationState: status.conversationState,
@@ -46,6 +65,15 @@ module.exports = React.createClass({
         maxPage: status.maxPage
       })
     }
+
+    if(status.newConversation && status.newConversation.state === this.state.conversationState){
+     this.state.conversations.unshift(status.newConversation);
+     this.setState({
+       conversations: this.state.conversations,
+       offset: this.state.offset += 1,
+       selectedConversation: this.state.selectedConversation += 1
+     })
+    }
   },
 
   handleOnClick: function(i, conversationId){
@@ -53,16 +81,28 @@ module.exports = React.createClass({
     MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
   },
 
-  componentDidMount: function() {
-    ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.state.conversationState, this.state.page )
+  componentWillMount: function () {
+    ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.state.conversationState, this.state.page );
+  },
+
+  //componentDidMount: function() {
+  //  var channel = this.props.pusher.subscribe('private-conversation');
+  //  channel.bind('new_conversation', function(data){
+  //    if(data.conversation_state === this.state.conversationState) this.fetchNewConversation(data.id)
+  //  }, this);
+  //},
+
+  fetchNewConversation: function(id) {
+    ConversationActions.fetchConversationById(sessionStorage.authenticationToken, id)
   },
 
   handleScroll: function() {
     var node = ReactDom.findDOMNode(this.refs.conversationList);
     if(node.scrollTop + node.offsetHeight === node.scrollHeight){
-      //var state = this.state.conversationState === "all" ? null : this.state.conversationState;
-      var state = this.state.conversationState
-      ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, state, this.state.page )
+      ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken,
+                                                     this.state.conversationState,
+                                                     this.state.page,
+                                                     this.state.offset)
     }
   },
 
@@ -78,14 +118,14 @@ module.exports = React.createClass({
           <Conversation key = {i}
                         selected = {selected}
                         conversationId = {conversation.id}
-                        lastMessage = {conversation.last_message}
+                        initialLastMessage = {conversation.last_message}
                         primaryGuardian = {conversation.primary_guardian}
                         guardians = {conversation.guardians}
                         patients = {conversation.patients}
                         createdAt = {conversation.last_message_created_at }
                         conversationState = {conversation.state}
-                        channel = {this.props.channel}
                         onClick = {boundClick}
+                        pusher = {this.props.pusher}
           />
         )
       }, this);
@@ -99,12 +139,12 @@ module.exports = React.createClass({
     }
 
     return (
-        <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
-             id="all-tab"
-             ref="conversationList"
-             onScroll={this.handleScroll}>
-            {conversations}
-        </div>
+      <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
+           id="all-tab"
+           ref="conversationList"
+           onScroll={this.handleScroll}>
+        {conversations}
+      </div>
     )
   }
 });

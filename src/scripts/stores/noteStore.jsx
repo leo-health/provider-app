@@ -19,7 +19,7 @@ module.exports = Reflux.createStore({
 
   onFetchNoteRequestCompleted: function(response){
     this.trigger({ status: response.status,
-                   new_note: response.data.note
+                   newNote: response.data.note
                   })
   },
 
