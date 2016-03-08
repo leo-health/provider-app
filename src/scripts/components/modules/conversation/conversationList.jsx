@@ -27,9 +27,9 @@ module.exports = React.createClass({
     }
   },
 
-  onNoteStatusChange: function(status){
-
-  },
+  //onNoteStatusChange: function(status){
+  //
+  //},
 
   //onMessageStatusChange: function(status){
   //  if(status.newMessage) {
@@ -85,12 +85,12 @@ module.exports = React.createClass({
     ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.state.conversationState, this.state.page );
   },
 
-  componentDidMount: function() {
-    var channel = this.props.pusher.subscribe('private-conversation');
-    channel.bind('new_conversation', function(data){
-      if(data.conversation_state === this.state.conversationState) this.fetchNewConversation(data.id)
-    }, this);
-  },
+  //componentDidMount: function() {
+  //  var channel = this.props.pusher.subscribe('private-conversation');
+  //  channel.bind('new_conversation', function(data){
+  //    if(data.conversation_state === this.state.conversationState) this.fetchNewConversation(data.id)
+  //  }, this);
+  //},
 
   fetchNewConversation: function(id) {
     ConversationActions.fetchConversationById(sessionStorage.authenticationToken, id)
@@ -118,7 +118,7 @@ module.exports = React.createClass({
           <Conversation key = {i}
                         selected = {selected}
                         conversationId = {conversation.id}
-                        lastMessage = {conversation.last_message}
+                        initialLastMessage = {conversation.last_message}
                         primaryGuardian = {conversation.primary_guardian}
                         guardians = {conversation.guardians}
                         patients = {conversation.patients}
@@ -139,12 +139,12 @@ module.exports = React.createClass({
     }
 
     return (
-        <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
-             id="all-tab"
-             ref="conversationList"
-             onScroll={this.handleScroll}>
-            {conversations}
-        </div>
+      <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
+           id="all-tab"
+           ref="conversationList"
+           onScroll={this.handleScroll}>
+        {conversations}
+      </div>
     )
   }
 });

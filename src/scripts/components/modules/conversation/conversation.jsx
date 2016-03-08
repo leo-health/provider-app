@@ -1,4 +1,5 @@
 var React = require('react');
+var Reflux = require('reflux');
 var _ = require('lodash');
 var leoUtil = require('../../../utils/common').StringUtils;
 var moment = require('moment');
@@ -7,8 +8,32 @@ var ConversationPatient = require("./conversationPatient");
 var ConversationGuardian = require("./conversationGuardian");
 var MessageActions = require('../../../actions/messageActions');
 var NoteActions = require('../../../actions/noteActions');
+var ConversationStore = require('../../../stores/conversationStore');
+var MessageStore = require('../../../stores/messageStore');
+var NoteStore = require('../../../stores/noteStore');
 
 module.exports = React.createClass({
+  mixins: [
+    Reflux.listenTo(ConversationStore, "onConversationStatusChange"),
+    Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
+    Reflux.listenTo(NoteStore, 'onNoteStatusChange')
+  ],
+
+  getInitialState: function() {
+    return {
+      lastMessage: this.props.initialLastMessage
+    }
+  },
+
+  onMessageStatusChange: function(status){
+    if(status.newMessage) {
+      debugger
+      this.setState({
+        lastMessage: status.newMessage.body
+      })
+    }
+  },
+
   componentWillMount: function() {
     var channel = this.props.pusher.subscribe('private-conversation' + this.props.conversationId);
     channel.bind('new_message', function(data){
@@ -34,7 +59,6 @@ module.exports = React.createClass({
 
   render: function () {
     if (this.props.primaryGuardian) var primaryGuardian =  leoUtil.formatName(this.props.primaryGuardian);
-    if (this.props.lastMessage) var lastMessage = leoUtil.shorten(this.props.lastMessage);
     var messageSendAt = moment(this.props.createdAt).format('L');
     var conversationState = this.props.conversationState;
     var conversationId = this.props.conversationId;
@@ -67,7 +91,7 @@ module.exports = React.createClass({
           <ConversationState conversationState = {conversationState} conversationId = {conversationId}/>
         </p>
         <p className="list-group-item-text">
-          {lastMessage}
+          { leoUtil.shorten(this.state.lastMessage) }
         </p>
       </div>
     )
