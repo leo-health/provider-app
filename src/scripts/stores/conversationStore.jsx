@@ -38,11 +38,7 @@ module.exports = Reflux.createStore({
       page: page
     };
 
-    if(page === 1){
-      response.conversations = conversations
-    }else{
-      response.newConversations = conversations
-    }
+    page === 1 ? response.conversations = conversations : response.newConversations = conversations;
 
     this.trigger(response);
   },
@@ -51,65 +47,6 @@ module.exports = Reflux.createStore({
     this.trigger({
       status: response.status,
       message: "error fetching conversations"
-    })
-  },
-
-  onCloseConversationRequest: function(authenticationToken, conversationId, note){
-    request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
-           .query({ authentication_token: authenticationToken, note: note })
-           .end(function(err, res){
-             if(res.ok){
-               ConversationActions.closeConversationRequest.completed(res.body)
-             }else{
-               ConversationActions.closeConversationRequest.failed(res.body)
-             }
-           })
-  },
-
-  onCloseConversationRequestCompleted: function(response){
-    this.trigger({
-      status: response.status,
-      newNote: response.data
-    })
-  },
-
-  onCloseConversationRequestFailed: function(response){
-    this.trigger({
-      status: response.status,
-      message: "error closing conversation"
-    })
-  },
-
-  onEscalateConversationRequest: function(authenticationToken, conversationId, escalatedToId, note, priority){
-    escalateParams = {
-      authentication_token: authenticationToken,
-      escalated_to_id: escalatedToId,
-      note: note,
-      priority: priority
-    };
-
-    request.put(leo.API_URL+"/conversations/" + conversationId + "/escalate")
-           .query(escalateParams)
-           .end(function(err, res){
-              if(res.ok){
-                ConversationActions.escalateConversationRequest.completed(res.body)
-              }else{
-                ConversationActions.escalateConversationRequest.failed(res.body)
-              }
-            })
-  },
-
-  onEscalateConversationRequestCompleted: function(response){
-    this.trigger({
-      status: response.status,
-      newNote: response.data
-    });
-  },
-
-  onEscalateConversationRequestFailed: function(response){
-    this.trigger({
-      status: response.status,
-      message: "error escalating conversation"
     })
   },
 

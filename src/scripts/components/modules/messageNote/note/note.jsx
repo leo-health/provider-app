@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var moment = require('moment');
-var leoUtil = require('../../../utils/common').StringUtils;
+var leoUtil = require('../../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   componentDidUpdate: function(prevProps){

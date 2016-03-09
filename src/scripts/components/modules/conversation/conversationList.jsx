@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDom = require('react-dom');
 var Reflux = require('reflux');
+var _ = require('lodash');
 var Conversation = require('./conversation');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
@@ -8,20 +9,22 @@ var ConversationStore = require('../../../stores/conversationStore');
 var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(ConversationStore, "onStatusChange")],
+  mixins: [
+    Reflux.listenTo(ConversationStore, "onConversationStatusChange")
+  ],
 
   getInitialState: function () {
     return {
       selectedConversation: 0,
       conversationState: 'open',
       page: 1,
-      conversations: undefined,
+      conversations: [],
       maxPage: 1,
       offset: 0
     }
   },
 
-  onStatusChange: function(status){
+  onConversationStatusChange: function(status){
     if(status.conversationState && status.conversationState != this.state.conversationState){
       this.setState({
         conversationState: status.conversationState,
@@ -58,6 +61,26 @@ module.exports = React.createClass({
     }
   },
 
+  removeConversationFromList: function (conversation_id) {
+    this.setState({
+      conversations: _.reject(this.state.conversations, {id: conversation_id}),
+      offset: this.state.offset -= 1
+    });
+  },
+
+  moveConversationToTop: function (targetIndex) {
+    this.setState({
+      conversations: this.moveElementToFront(this.state.conversations, targetIndex)
+    });
+  },
+
+  moveElementToFront: function(array, index){
+    var temp = array[index];
+    array[index] = array[0];
+    array[0] = temp;
+    return array
+  },
+
   handleOnClick: function(i, conversationId){
     this.setState({selectedConversation: i});
     MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
@@ -72,6 +95,10 @@ module.exports = React.createClass({
     channel.bind('new_conversation', function(data){
       if(data.conversation_state === this.state.conversationState) this.fetchNewConversation(data.id)
     }, this);
+  },
+
+  componentWillUnmount: function () {
+    this.props.pusher.unsubscribe('private-conversation')
   },
 
   fetchNewConversation: function(id) {
@@ -90,28 +117,34 @@ module.exports = React.createClass({
 
   render: function () {
     var conversations = this.state.conversations;
-    if(!conversations){
-      conversations = <div></div>
-    }else if (conversations.length > 0){
+
+    if (conversations.length > 0){
       conversations = conversations.map(function(conversation, i){
-        var selected = this.state.selectedConversation == i;
+        var selected = this.state.selectedConversation === i;
         var boundClick = this.handleOnClick.bind(this, i, conversation.id);
+
         return (
           <Conversation key = {i}
+                        reactKey = {i}
                         selected = {selected}
                         conversationId = {conversation.id}
-                        lastMessage = {conversation.last_message}
+                        initialLastMessage = {conversation.last_message}
                         primaryGuardian = {conversation.primary_guardian}
                         guardians = {conversation.guardians}
                         patients = {conversation.patients}
                         createdAt = {conversation.last_message_created_at }
                         conversationState = {conversation.state}
                         onClick = {boundClick}
+                        pusher = {this.props.pusher}
+                        removeConversationFromList = {this.removeConversationFromList}
+                        moveConversationToTop = {this.moveConversationToTop}
+                        currentListState = {this.state.conversationState}
           />
         )
       }, this);
     } else {
       var state = this.state.conversationState;
+
       if(state === parseInt(state, 10)){
         conversations = <div>There is no matching conversation.</div>
       }else{
@@ -120,12 +153,12 @@ module.exports = React.createClass({
     }
 
     return (
-        <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
-             id="all-tab"
-             ref="conversationList"
-             onScroll={this.handleScroll}>
-            {conversations}
-        </div>
+      <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
+           id="all-tab"
+           ref="conversationList"
+           onScroll={this.handleScroll}>
+        {conversations}
+      </div>
     )
   }
 });
