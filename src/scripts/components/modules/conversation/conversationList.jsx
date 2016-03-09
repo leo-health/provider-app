@@ -92,14 +92,21 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    var channel = this.props.pusher.subscribe('private-conversation');
+    var channel = this.props.pusher.subscribe('private-newConversation');
     channel.bind('new_conversation', function(data){
-      if(data.conversation_state === this.state.conversationState) this.fetchNewConversation(data.id)
+      if(data.conversation_state === this.state.conversationState){
+        if(this.state.conversationState === "escalated" && this.isInConversationList(data.id)) return;
+        this.fetchNewConversation(data.id)
+      }
     }, this);
   },
 
   componentWillUnmount: function () {
     this.props.pusher.unsubscribe('private-conversation')
+  },
+
+  isInConversationList: function(conversation_id){
+    return !!_.find(this.state.conversations, {id: conversation_id})
   },
 
   fetchNewConversation: function(id) {
