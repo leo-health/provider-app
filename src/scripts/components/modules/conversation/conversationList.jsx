@@ -3,6 +3,7 @@ var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var _ = require('lodash');
 var Conversation = require('./conversation');
+var ConversationHeader = require('./conversationHeader');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
@@ -160,11 +161,15 @@ module.exports = React.createClass({
     }
 
     return (
-      <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
-           id="all-tab"
-           ref="conversationList"
-           onScroll={this.handleScroll}>
-        {conversations}
+      <div>
+        <ConversationHeader currentListState={this.state.conversationState}/>
+
+        <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
+             id="all-tab"
+             ref="conversationList"
+             onScroll={this.handleScroll}>
+          {conversations}
+        </div>
       </div>
     )
   }

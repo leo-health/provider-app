@@ -6,6 +6,7 @@ var moment = require('moment');
 var ConversationState = require("./conversationState");
 var ConversationPatient = require("./conversationPatient");
 var ConversationGuardian = require("./conversationGuardian");
+var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
 var NoteActions = require('../../../actions/noteActions');
 var MessageStore = require('../../../stores/messageStore');
@@ -20,7 +21,7 @@ module.exports = React.createClass({
   onMessageStatusChange: function(status){
     if( status.newMessage ){
       if(!this.isSameConversation(status.newMessage.conversation_id)) return;
-      if(this.props.currentListState == "closed"){
+      if(this.props.currentListState === "closed"){
         this.handleNewMessageInClosedState();
       }else{
         var that = this;
@@ -46,7 +47,7 @@ module.exports = React.createClass({
 
   handleNewMessageInClosedState: function(){
     if(this.props.selected){
-
+      ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, 'open', 1 );
     }else{
       this.props.removeConversationFromList(this.props.conversationId)
     }

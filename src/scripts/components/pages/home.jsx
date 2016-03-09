@@ -46,7 +46,6 @@ module.exports = React.createClass({
           <div className="row">
             <div className="col-lg-3">
               <FindFamily/>
-              <ConversationHeader/>
             </div>
           </div>
           <div className="row">
