@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
   getInitialState: function () {
     return {
-      selectedConversation: 0,
+      selectedConversationId: undefined,
       conversationState: 'open',
       page: 1,
       conversations: [],
@@ -29,7 +29,7 @@ module.exports = React.createClass({
       this.setState({
         conversationState: status.conversationState,
         page: 1,
-        selectedConversation: 0,
+        selectedConversationId: undefined,
         maxPage: 1,
         conversations: []
       });
@@ -39,7 +39,8 @@ module.exports = React.createClass({
       this.setState({
         conversations: status.conversations,
         page: this.state.page += 1,
-        maxPage: status.maxPage
+        maxPage: status.maxPage,
+        selectedConversationId: status.conversations[0].id
       })
     }
 
@@ -55,8 +56,7 @@ module.exports = React.createClass({
      this.state.conversations.unshift(status.newConversation);
      this.setState({
        conversations: this.state.conversations,
-       offset: this.state.offset += 1,
-       selectedConversation: this.state.selectedConversation += 1
+       offset: this.state.offset += 1
      })
     }
   },
@@ -82,8 +82,8 @@ module.exports = React.createClass({
     return array
   },
 
-  handleOnClick: function(i, conversationId){
-    this.setState({selectedConversation: i});
+  handleOnClick: function(conversationId){
+    this.setState({selectedConversationId: conversationId});
     MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
   },
 
@@ -118,11 +118,10 @@ module.exports = React.createClass({
 
   render: function () {
     var conversations = this.state.conversations;
-
     if (conversations.length > 0){
       conversations = conversations.map(function(conversation, i){
-        var selected = this.state.selectedConversation === i;
-        var boundClick = this.handleOnClick.bind(this, i, conversation.id);
+        var selected = this.state.selectedConversationId === conversation.id;
+        var boundClick = this.handleOnClick.bind(this, conversation.id);
 
         return (
           <Conversation key = {i}

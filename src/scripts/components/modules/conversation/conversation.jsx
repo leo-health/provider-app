@@ -20,7 +20,7 @@ module.exports = React.createClass({
   onMessageStatusChange: function(status){
     if( status.newMessage ){
       if(!this.isSameConversation(status.newMessage.conversation_id)) return;
-      if(this.props.currentListState == "close"){
+      if(this.props.currentListState == "closed"){
         this.handleNewMessageInClosedState();
       }else{
         var that = this;
