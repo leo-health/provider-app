@@ -68,16 +68,17 @@ module.exports = React.createClass({
     });
   },
 
-  moveConversationToTop: function (targetIndex) {
+  moveConversationToTop: function (targetIndex, lastMessageBody) {
     this.setState({
-      conversations: this.moveElementToFront(this.state.conversations, targetIndex)
+      conversations: this.moveElementToFront(this.state.conversations, targetIndex, lastMessageBody)
     });
   },
 
-  moveElementToFront: function(array, index){
+  moveElementToFront: function(array, index, lastMessageBody){
     var temp = array[index];
     array[index] = array[0];
     array[0] = temp;
+    array[0].last_message = lastMessageBody;
     return array
   },
 
@@ -128,7 +129,7 @@ module.exports = React.createClass({
                         reactKey = {i}
                         selected = {selected}
                         conversationId = {conversation.id}
-                        initialLastMessage = {conversation.last_message}
+                        lastMessage = {conversation.last_message}
                         primaryGuardian = {conversation.primary_guardian}
                         guardians = {conversation.guardians}
                         patients = {conversation.patients}

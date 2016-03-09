@@ -17,12 +17,6 @@ module.exports = React.createClass({
     Reflux.listenTo(NoteStore, 'onNoteStatusChange')
   ],
 
-  getInitialState: function() {
-    return {
-      lastMessage: this.props.initialLastMessage
-    }
-  },
-
   onMessageStatusChange: function(status){
     if( status.newMessage ){
       if(!this.isSameConversation(status.newMessage.conversation_id)) return;
@@ -30,17 +24,13 @@ module.exports = React.createClass({
         this.handleNewMessageInClosedState();
       }else{
         var that = this;
-        this.props.moveConversationToTop(that.props.reactKey);
-
-        this.setState({
-          lastMessage: status.newMessage.body
-        });
+        this.props.moveConversationToTop(that.props.reactKey, status.newMessage.body);
       }
     }
   },
 
   onNoteStatusChange: function(status){
-    if( status.newMessage ){
+    if( status.newNote ){
       if(!this.isSameConversation(status.newNote.conversation_id)) return;
       if(this.props.selected) {
 
@@ -132,7 +122,7 @@ module.exports = React.createClass({
           <ConversationState conversationState = {conversationState} conversationId = {conversationId}/>
         </p>
         <p className="list-group-item-text">
-          { leoUtil.shorten(this.state.lastMessage) }
+          { leoUtil.shorten(this.props.lastMessage) }
         </p>
       </div>
     )
