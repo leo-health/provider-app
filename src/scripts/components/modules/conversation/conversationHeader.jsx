@@ -10,6 +10,7 @@ module.exports = React.createClass({
     var openTab = this.props.currentListState === "open" ? "active" : "";
     var escalationTab = this.props.currentListState === "escalated" ? "active" : "";
     var closeTab = this.props.currentListState === "closed" ? "active" : "";
+    var showStaffSelection = escalationTab === "active" ? {display: "inline-block"} : {display: "none"};
 
     return (
       <div>
@@ -31,7 +32,7 @@ module.exports = React.createClass({
           </li>
         </ul>
 
-        <div className="btn-group" id="staff-selection">
+        <div className="btn-group" id="staff-selection" style={showStaffSelection}>
           <a href="#" className="btn btn-sm btn-default">Assigned to</a>
           <div className="btn-group">
             <a href="#" className="btn btn-sm btn-default">Erin Hannah Gold PNP</a>

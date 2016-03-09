@@ -2,12 +2,7 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function () {
-    var showError = {display: "block"};
-    if (this.props.status == "error"){
-      showError.display = "block"
-    }else{
-      showError.display = "none";
-    }
+    var showError = this.props.status === "error" ? {display: "block"} : {display: "none"};
 
     return(
       <div className="alert alert-dismissible alert-danger" style={showError}>
