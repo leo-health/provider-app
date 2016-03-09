@@ -40,11 +40,13 @@ module.exports = React.createClass({
   },
 
   onNoteStatusChange: function(status){
-    if(!this.isSameConversation(status.newNote.conversation_id)) return;
-    if(this.props.selected) {
+    if( status.newMessage ){
+      if(!this.isSameConversation(status.newNote.conversation_id)) return;
+      if(this.props.selected) {
 
-    }else{
-      this.removeConversation(status)
+      }else{
+        this.removeConversation(status)
+      }
     }
   },
 
