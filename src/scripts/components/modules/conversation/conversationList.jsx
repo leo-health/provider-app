@@ -18,7 +18,7 @@ module.exports = React.createClass({
       selectedConversation: 0,
       conversationState: 'open',
       page: 1,
-      conversations: undefined,
+      conversations: [],
       maxPage: 1,
       offset: 0
     }
@@ -108,9 +108,8 @@ module.exports = React.createClass({
 
   render: function () {
     var conversations = this.state.conversations;
-    if(!conversations){
-      conversations = <div></div>
-    }else if (conversations.length > 0){
+
+    if (conversations.length > 0){
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversation == i;
         var boundClick = this.handleOnClick.bind(this, i, conversation.id);
