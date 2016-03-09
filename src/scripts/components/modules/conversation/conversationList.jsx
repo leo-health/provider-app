@@ -68,8 +68,17 @@ module.exports = React.createClass({
     });
   },
 
-  moveConversationToTop: function (conversation_id) {
+  moveConversationToTop: function (targetIndex) {
+    this.setState({
+      conversations: this.moveElementToFront(this.state.conversations, targetIndex)
+    });
+  },
 
+  moveElementToFront: function(array, index){
+    var temp = array[index];
+    array[index] = array[0];
+    array[0] = temp;
+    return array
   },
 
   handleOnClick: function(i, conversationId){
@@ -111,10 +120,12 @@ module.exports = React.createClass({
 
     if (conversations.length > 0){
       conversations = conversations.map(function(conversation, i){
-        var selected = this.state.selectedConversation == i;
+        var selected = this.state.selectedConversation === i;
         var boundClick = this.handleOnClick.bind(this, i, conversation.id);
+
         return (
           <Conversation key = {i}
+                        reactKey = {i}
                         selected = {selected}
                         conversationId = {conversation.id}
                         initialLastMessage = {conversation.last_message}

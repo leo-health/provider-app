@@ -24,16 +24,52 @@ module.exports = React.createClass({
   },
 
   onMessageStatusChange: function(status){
-    if(status.newMessage && status.newMessage.conversation_id === this.props.conversationId) {
-      this.setState({
-        lastMessage: status.newMessage.body
-      })
+    if( status.newMessage ){
+      if(!this.isSameConversation(status.newMessage.conversation_id)) return;
+      if(this.props.currentListState == "close"){
+        this.handleNewMessageInClosedState();
+      }else{
+        var that = this;
+        this.props.moveConversationToTop(that.props.reactKey);
+
+        this.setState({
+          lastMessage: status.newMessage.body
+        });
+      }
     }
   },
 
   onNoteStatusChange: function(status){
-    if(status.newNote.message_type === "close" || status.newNote.message_type == "escalation"){
+    if(!this.isSameConversation(status.newNote.conversation_id)) return;
+    if(this.props.selected) {
+
+    }else{
+      this.removeConversation(status)
+    }
+  },
+
+  isSameConversation: function(conversationId) {
+    return conversationId === this.props.conversationId
+  },
+
+  handleNewMessageInClosedState: function(){
+    if(this.props.selected){
+
+    }else{
       this.props.removeConversationFromList(this.props.conversationId)
+    }
+  },
+
+  removeConversation: function (status) {
+    switch (this.props.currentListState) {
+      case "escalation":
+        if(status.newNote.message_type === "close") this.props.removeConversationFromList(this.props.conversationId);
+        break;
+      case "open":
+        if(status.newNote.message_type === "close" || status.newNote.message_type == "escalation"){
+          this.props.removeConversationFromList(this.props.conversationId)
+        }
+        break;
     }
   },
 
