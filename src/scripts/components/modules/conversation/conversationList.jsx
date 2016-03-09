@@ -62,7 +62,14 @@ module.exports = React.createClass({
   },
 
   removeConversationFromList: function (conversation_id) {
-    this.setState({ conversations: _.reject(this.state.conversations, {id: conversation_id})});
+    this.setState({
+      conversations: _.reject(this.state.conversations, {id: conversation_id}),
+      offset: this.state.offset -= 1
+    });
+  },
+
+  moveConversationToTop: function (conversation_id) {
+
   },
 
   handleOnClick: function(i, conversationId){
@@ -120,11 +127,14 @@ module.exports = React.createClass({
                         onClick = {boundClick}
                         pusher = {this.props.pusher}
                         removeConversationFromList = {this.removeConversationFromList}
+                        moveConversationToTop = {this.moveConversationToTop}
+                        currentListState = {this.state.conversationState}
           />
         )
       }, this);
     } else {
       var state = this.state.conversationState;
+
       if(state === parseInt(state, 10)){
         conversations = <div>There is no matching conversation.</div>
       }else{

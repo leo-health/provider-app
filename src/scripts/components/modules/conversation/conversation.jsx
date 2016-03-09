@@ -32,8 +32,7 @@ module.exports = React.createClass({
   },
 
   onNoteStatusChange: function(status){
-    if(status.newNote.message_type === "close"){
-      debugger
+    if(status.newNote.message_type === "close" || status.newNote.message_type == "escalation"){
       this.props.removeConversationFromList(this.props.conversationId)
     }
   },
