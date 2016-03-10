@@ -41,7 +41,7 @@ module.exports = React.createClass({
         conversations: status.conversations,
         page: this.state.page += 1,
         maxPage: status.maxPage,
-        selectedConversationId: status.conversations[0].id
+        selectedConversationId: status.conversations.length > 0 ? status.conversations[0].id : undefined
       })
     }
 
@@ -57,7 +57,8 @@ module.exports = React.createClass({
      this.state.conversations.unshift(status.newConversation);
      this.setState({
        conversations: this.state.conversations,
-       offset: this.state.offset += 1
+       offset: this.state.offset += 1,
+       selectedConversationId: this.state.selectedConversationId ? this.state.selectedConversationId : status.newConversation.id
      })
     }
   },
