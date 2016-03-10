@@ -23,7 +23,7 @@ var SignUpForm = React.createClass({
     firstName: Joi.string().min(2).trim().required().label("First name"),
     lastName: Joi.string().min(2).trim().required().label("Last name"),
     email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
-    phone: Joi.string().required().regex(/(\(?[0-9]{3}\)?|[0-9]{3}).?[0-9]{3}.?[0-9]{4}/, "US phone number").label("Phone"),
+    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone"),
     password: Joi.string().min(8).max(127).trim().required().label("Password"),
     passwordConfirmation: Joi.any().valid(Joi.ref('password')).required().label("Password confirmation").options({
       language: {
@@ -36,17 +36,13 @@ var SignUpForm = React.createClass({
 
   getInitialState: function() {
     return {
-      registrationModel: this.registrationModel
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      password: "",
+      passwordConfirmation: ""
     }
-  },
-
-  registrationModel: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    password: "",
-    passwordConfirmation: ""
   },
 
   renderMessage: function(messages, labelText, refName){
@@ -56,7 +52,7 @@ var SignUpForm = React.createClass({
       "text-muted": messages.length === 0
     });
 
-    var val = this.registrationModel[refName];
+    var val = this.state[refName];
     var labelOrValidation = (messages.length === 0 ? labelText : messages[0]);
     // show the label only if there is a message, or the user has replaced the placeholder
     var styles = (val && val.length > 0) || messages.length > 0 ? {} : {visibility: "hidden"};
@@ -68,12 +64,11 @@ var SignUpForm = React.createClass({
       switch(response.action) {
         case "fetch": {
           var user = response.data.user;
-          Object.assign(this.registrationModel, {
+          this.setState({
             firstName: user.first_name || "",
             lastName: user.last_name || "",
             email: user.email || ""
           });
-          this.setState({registrationModel: this.registrationModel});
           break;
         } case "update": {
           this.transitionTo("success");
@@ -93,7 +88,7 @@ var SignUpForm = React.createClass({
   },
 
   getValidatorData: function(){
-    return this.registrationModel;
+    return this.state;
   },
 
   handleOnSubmit: function (e) {
@@ -102,7 +97,7 @@ var SignUpForm = React.createClass({
       if (error) {
         return;
       } else {
-        RegistrationActions.updateEnrollmentRequest(this.registrationModel, this.context.router.getCurrentQuery().token)
+        RegistrationActions.updateEnrollmentRequest(this.state, this.context.router.getCurrentQuery().token)
       }
     };
 
@@ -114,15 +109,10 @@ var SignUpForm = React.createClass({
 
     return event => {
 
-      var newState = {};
-      newState[ref] = event.target.value;
-      Object.assign(this.registrationModel, newState);
-
       if (this.submitHasBeenAttemptedOnce) {
         this.props.handleValidation(ref)();
       }
-
-      this.setState({registrationModel: this.registrationModel});
+      this.setState({`${ref}`: event.target.value});
     }
   },
 
@@ -188,7 +178,7 @@ var SignUpForm = React.createClass({
                           placeholder={fieldData.placeholder}
                           onChange={this.onChange(fieldData.ref)}
                           ref={fieldData.ref}
-                          value={this.state.registrationModel[fieldData.ref]}
+                          value={this.state[fieldData.ref]}
                         />
                         {this.renderMessage(this.props.getValidationMessages(fieldData.ref), fieldData.labelText, fieldData.ref)}
                       </div>
