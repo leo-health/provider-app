@@ -22,7 +22,7 @@ var SignUpForm = React.createClass({
   validatorTypes: {
     firstName: Joi.string().min(2).trim().required().label("First name"),
     lastName: Joi.string().min(2).trim().required().label("Last name"),
-    email: Joi.string().required().regex(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
+    email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
     phone: Joi.string().required().regex(/(\(?[0-9]{3}\)?|[0-9]{3}).?[0-9]{3}.?[0-9]{4}/, "US phone number").label("Phone"),
     password: Joi.string().min(8).max(127).trim().required().label("Password"),
     passwordConfirmation: Joi.any().valid(Joi.ref('password')).required().label("Password confirmation").options({
@@ -34,22 +34,46 @@ var SignUpForm = React.createClass({
     })
   },
 
-  renderMessage: function(messages, labelText){
+  getInitialState: function() {
+    return {
+      registrationModel: this.registrationModel
+    }
+  },
+
+  registrationModel: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    passwordConfirmation: ""
+  },
+
+  renderMessage: function(messages, labelText, refName){
+
     var messageClass = classNames({
       "text-danger": messages.length > 0,
       "text-muted": messages.length === 0
     });
-    var labelToShow = (messages.length === 0 ? labelText : messages[0]);
-    return <label className={messageClass}>{labelToShow}</label>
+
+    var val = this.registrationModel[refName];
+    var labelOrValidation = (messages.length === 0 ? labelText : messages[0]);
+    // show the label only if there is a message, or the user has replaced the placeholder
+    var styles = (val && val.length > 0) || messages.length > 0 ? {} : {visibility: "hidden"};
+    return <label style={styles} className={messageClass}>{labelOrValidation}</label>
   },
 
   commonCallback: function(response){
     if(response.status != "error"){
       switch(response.action) {
         case "fetch": {
-          ReactDom.findDOMNode(this.refs.firstName).value = response.data.user.first_name;
-          ReactDom.findDOMNode(this.refs.lastName).value = response.data.user.last_name;
-          ReactDom.findDOMNode(this.refs.email).value = response.data.user.email;
+          var user = response.data.user;
+          Object.assign(this.registrationModel, {
+            firstName: user.first_name || "",
+            lastName: user.last_name || "",
+            email: user.email || ""
+          });
+          this.setState({registrationModel: this.registrationModel});
           break;
         } case "update": {
           this.transitionTo("success");
@@ -69,14 +93,7 @@ var SignUpForm = React.createClass({
   },
 
   getValidatorData: function(){
-    return {
-      firstName: ReactDom.findDOMNode(this.refs.firstName).value,
-      lastName: ReactDom.findDOMNode(this.refs.lastName).value,
-      email: ReactDom.findDOMNode(this.refs.email).value,
-      phone: ReactDom.findDOMNode(this.refs.phone).value,
-      password: ReactDom.findDOMNode(this.refs.password).value,
-      passwordConfirmation: ReactDom.findDOMNode(this.refs.passwordConfirmation).value
-    }
+    return this.registrationModel;
   },
 
   handleOnSubmit: function (e) {
@@ -85,21 +102,71 @@ var SignUpForm = React.createClass({
       if (error) {
         return;
       } else {
-        var registrationParams = {
-          firstName: ReactDom.findDOMNode(this.refs.firstName).value,
-          lastName: ReactDom.findDOMNode(this.refs.lastName).value,
-          email: ReactDom.findDOMNode(this.refs.email).value,
-          phone: ReactDom.findDOMNode(this.refs.phone).value,
-          password: ReactDom.findDOMNode(this.refs.password).value
-        }
-        RegistrationActions.updateEnrollmentRequest(registrationParams, this.context.router.getCurrentQuery().token)
+        RegistrationActions.updateEnrollmentRequest(this.registrationModel, this.context.router.getCurrentQuery().token)
       }
     };
 
     this.props.validate(onValidate);
-
+    this.submitHasBeenAttemptedOnce = true;
   },
+
+  onChange: function(ref) {
+
+    return event => {
+
+      var newState = {};
+      newState[ref] = event.target.value;
+      Object.assign(this.registrationModel, newState);
+
+      if (this.submitHasBeenAttemptedOnce) {
+        this.props.handleValidation(ref)();
+      }
+
+      this.setState({registrationModel: this.registrationModel});
+    }
+  },
+
   render: function(){
+
+    var formData = [
+      {
+        ftype: "text",
+        ref: "firstName",
+        placeholder: "First name",
+        labelText: "first name"
+      },
+      {
+        ftype: "text",
+        ref: "lastName",
+        placeholder: "Last name",
+        labelText: "last name"
+      },
+      {
+        ftype: "text",
+        ref: "email",
+        placeholder: "Email",
+        labelText: "email"
+      },
+      {
+        ftype: "text",
+        ref: "phone",
+        placeholder: "Phone",
+        labelText: "phone"
+      },
+      {
+        ftype: "password",
+        ref: "password",
+        placeholder: "Password",
+        labelText: "password"
+      },
+      {
+        ftype: "password",
+        ref: "passwordConfirmation",
+        placeholder: "Password Confirmation",
+        labelText: "password confirmation"
+      }
+    ];
+
     return(
       <div className="container page-header">
         <div className="row">
@@ -111,18 +178,22 @@ var SignUpForm = React.createClass({
               </div>
               <fieldset>
                 <div className="form-group">
-                  <input type="text" className="form-control" placeholder="First name" onChange={this.props.handleValidation('firstName')} ref="firstName"/>
-                  {this.renderMessage(this.props.getValidationMessages('firstName'), "first name")}
-                  <input type="text" className="form-control" placeholder="Last name" onChange={this.props.handleValidation('lastName')} ref="lastName"/>
-                  {this.renderMessage(this.props.getValidationMessages('lastName'), "last name")}
-                  <input type="text" className="form-control" placeholder="E-mail address" onChange={this.props.handleValidation('email')} ref="email"/>
-                  {this.renderMessage(this.props.getValidationMessages('email'), "e-mail")}
-                  <input type="text" className="form-control" placeholder="Phone number" onChange={this.props.handleValidation('phone')} ref="phone"/>
-                  {this.renderMessage(this.props.getValidationMessages('phone'), "phone")}
-                  <input type="password" className="form-control" placeholder="Password" onChange={this.props.handleValidation('password')} ref="password"/>
-                  {this.renderMessage(this.props.getValidationMessages('password'), "password")}
-                  <input type="password" className="form-control" placeholder="Re-type password" onChange={this.props.handleValidation('passwordConfirmation')} ref="passwordConfirmation"/>
-                  {this.renderMessage(this.props.getValidationMessages('passwordConfirmation'), "password confirmation")}
+                  {formData.map(function(fieldData) {
+                    return (
+                      <div>
+                        <input
+                          key={fieldData.ref}
+                          type={fieldData.ftype}
+                          className="form-control"
+                          placeholder={fieldData.placeholder}
+                          onChange={this.onChange(fieldData.ref)}
+                          ref={fieldData.ref}
+                          value={this.state.registrationModel[fieldData.ref]}
+                        />
+                        {this.renderMessage(this.props.getValidationMessages(fieldData.ref), fieldData.labelText, fieldData.ref)}
+                      </div>
+                    )
+                  }.bind(this))}
                 </div>
                 <div className="form-group text-center">
                   <button type="submit" className="btn btn-primary">Sign Up</button>
