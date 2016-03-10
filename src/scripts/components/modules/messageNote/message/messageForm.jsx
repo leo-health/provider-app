@@ -11,7 +11,10 @@ module.exports = React.createClass({
 
   onStatusChange: function(status){
     if(status.staff){
-      this.setState({ staff: status.staff, escalatedToId: status.staff[0].id })
+      this.setState({
+        staff: status.staff,
+        escalatedToId: status.staff[0].id
+      })
     }
   },
 
@@ -46,12 +49,12 @@ module.exports = React.createClass({
 
   showClose: function(e){
     e.preventDefault();
-    this.setState({action: "close"})
+    this.setState({ action: "close" })
   },
 
   showEscalation: function(e){
     e.preventDefault();
-    this.setState({action: "escalate"})
+    this.setState({ action: "escalate" })
   },
 
   setEscalatedTo: function(e){
@@ -63,10 +66,11 @@ module.exports = React.createClass({
   },
 
   getInitialState: function () {
-    return { escalatedToId: 0,
-             priority: 0,
-             staff: [],
-             action: "message"
+    return {
+      escalatedToId: 0,
+      priority: 0,
+      staff: [],
+      action: "message"
     }
   },
 
@@ -75,16 +79,12 @@ module.exports = React.createClass({
   },
 
   showComponent: function(name){
-    if(this.state.action == name){
-      return {display: "block"};
-    }else{
-      return {display: "none"};
-    }
+    return this.state.action === name ? {display: "block"} : {display: "none"}
   },
 
   handleCloseForm: function(e){
     e.preventDefault();
-    this.setState({action: "message"})
+    this.setState({ action: "message" })
   },
 
   render: function () {

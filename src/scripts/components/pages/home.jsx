@@ -49,10 +49,10 @@ module.exports = React.createClass({
             </div>
           </div>
           <div className="row">
-            <div id="left" className="col-lg-3">
+            <div  className="col-lg-3 bottom-align">
               <ConversationList pusher={this.pusher}/>
             </div>
-            <div id="right" className="col-lg-9">
+            <div className="col-lg-9 bottom-align">
               <MessageNote pusher={this.pusher}/>
             </div>
           </div>
