@@ -33,12 +33,17 @@ module.exports = React.createClass({
   onNoteStatusChange: function(status){
     if( status.newNote ){
       if(!this.isSameConversation(status.newNote.conversation_id)) return;
-      if(this.props.selected) {
 
+      if(this.props.selected) {
+        ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.mapConversationState(status.newNote.message_type), 1);
       }else{
         this.removeConversation(status)
       }
     }
+  },
+
+  mapConversationState: function(state) {
+    return state === "escalation" ? "escalated" : "closed"
   },
 
   isSameConversation: function(conversationId) {
