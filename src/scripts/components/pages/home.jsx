@@ -3,7 +3,6 @@ var HomeHeader = require('./homeHeader');
 var FindFamily = require('../modules/search/findFamily');
 var ConversationList = require('../modules/conversation/conversationList');
 var ConversationHeader = require('../modules/conversation/conversationHeader');
-var MessageNote = require('../modules/messageNote/messageNote');
 var Footer = require('./footer');
 var _ = require('lodash');
 
@@ -21,7 +20,6 @@ module.exports = React.createClass({
       }
     });
 
-    var id = this.getUserId();
     this.pusher.subscribe('presence-provider_app');
   },
 
@@ -30,12 +28,7 @@ module.exports = React.createClass({
   },
 
   unsubscribeFromPusher: function(){
-    var id = this.getUserId();
     this.pusher.unsubscribe('presence-provider_app');
-  },
-
-  getUserId: function(){
-    if (sessionStorage.user) return JSON.parse(sessionStorage.user).id;
   },
 
   render: function() {
@@ -48,14 +41,7 @@ module.exports = React.createClass({
               <FindFamily/>
             </div>
           </div>
-          <div className="row">
-            <div  className="col-lg-3 bottom-align">
-              <ConversationList pusher={this.pusher}/>
-            </div>
-            <div className="col-lg-9 bottom-align">
-              <MessageNote pusher={this.pusher}/>
-            </div>
-          </div>
+           <ConversationList pusher={this.pusher}/>
           <Footer/>
         </div>
       </div>

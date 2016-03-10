@@ -7,6 +7,7 @@ var ConversationHeader = require('./conversationHeader');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
+var MessageNote = require('../messageNote/messageNote');
 var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
@@ -164,12 +165,18 @@ module.exports = React.createClass({
     return (
       <div>
         <ConversationHeader currentListState={this.state.conversationState}/>
-
-        <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
-             id="all-tab"
-             ref="conversationList"
-             onScroll={this.handleScroll}>
-          {conversations}
+        <div className="row">
+          <div className ="col-lg-3">
+            <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
+                 id="all-tab"
+                 ref="conversationList"
+                 onScroll={this.handleScroll}>
+              {conversations}
+            </div>
+          </div>
+          <div className ="col-lg-9">
+            <MessageNote/>
+          </div>
         </div>
       </div>
     )
