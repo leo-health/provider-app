@@ -1,27 +1,10 @@
 var React = require('react');
 var ReactDom = require('react-dom');
-var Reflux = require('reflux');
 var MessageActions = require('../../../../actions/messageActions');
 var NoteActions = require('../../../../actions/noteActions');
-var MessageStore = require('../../../../stores/messageStore');
 var MessageStaff = require('../message/messageStaff');
 
 module.exports = React.createClass({
-  //mixins: [Reflux.listenTo(MessageStore, "onStatusChange")],
-  //
-  //onStatusChange: function(status){
-  //  if(status.staff){
-  //    this.setState({
-  //      staff: status.staff,
-  //      escalatedToId: status.staff[0].id
-  //    })
-  //  }
-  //},
-  //
-  //componentWillMount: function(){
-  //  MessageActions.fetchStaffRequest(sessionStorage.authenticationToken);
-  //},
-
   handleSendMessage: function(e){
     e.preventDefault();
     var messageBody= ReactDom.findDOMNode(this.refs.message).value.trim();
@@ -88,7 +71,7 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var staff = this.state.staff;
+    var staff = this.props.staff;
     if(staff && staff.length > 0){
       staff = staff.map(function(staff, i){
         return <MessageStaff key = {i}

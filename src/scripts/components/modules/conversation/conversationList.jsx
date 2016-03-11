@@ -190,7 +190,9 @@ module.exports = React.createClass({
             </div>
           </div>
           <div className ="col-lg-9">
-            <MessageNote/>
+            <MessageNote
+              staff={this.state.staff}
+            />
           </div>
         </div>
       </div>

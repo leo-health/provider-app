@@ -82,7 +82,10 @@ module.exports = React.createClass({
             {this.renderMessages(this.props.messages)}
           </div>
         </div>
-        <MessageForm conversationId={this.props.currentConversationId}/>
+        <MessageForm
+          conversationId={this.props.currentConversationId}
+          staff={this.props.staff}
+        />
       </div>
     )
   }

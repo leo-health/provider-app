@@ -72,6 +72,7 @@ module.exports = React.createClass({
                        currentConversationId={this.state.currentConversationId}
                        page={this.state.page}
                        offset={this.state.offset}
+                       staff={this.props.staff}
           />
         </div>
         <div className="col-lg-3">
