@@ -74,6 +74,13 @@ module.exports = React.createClass({
   componentWillMount: function() {
     if(this.props.conversationId) var channel = this.props.pusher.subscribe('private-conversation' + this.props.conversationId);
     channel.bind('new_message', function(data){
+      if (!window.windowHasFocus) {
+        if (data && data.message_type === "message") {
+          document.title = "New message";
+        } else {
+          document.title = "New note";
+        }
+      }
       this.fetchNewMessage(data)
     }, this);
   },

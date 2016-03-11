@@ -8,34 +8,49 @@ var MessageActions = require('../../../../actions/messageActions');
 var NoteActions = require('../../../../actions/noteActions');
 
 module.exports = React.createClass({
+
   componentWillMount: function(){
     this.shouldScrollToBottom = true;
   },
 
-  componentDidMount: function() {
-    this.scrollToBottomIfNeeded();
-  },
-
-  componentWillUpdate: function() {
+  componentWillReceiveProps: function(newProps) {
+    var currentUser = JSON.parse(sessionStorage.user);
+    var messages = newProps.messages;
+    var newMessage = messages[messages.length - 1];
+    var lastMessage = this.props.messages[this.props.messages.length - 1];
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-    this.shouldScrollToBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight;
+
+    var currentUserSentLastMessage = newMessage && newMessage !== lastMessage && currentUser.id == newMessage.created_by.id;
+    var selectedConversationWasChanged = newProps.currentConversationId !== this.props.currentConversationId;
+    var loadingBatchMessages = newProps.page !== this.props.page;
+    var scrollPositionAlreadyAtBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight
+
+    if (currentUserSentLastMessage) this.shouldScrollToBottom = true;
+    else if (selectedConversationWasChanged) this.shouldScrollToBottom = true;
+    else if (loadingBatchMessages) this.shouldScrollToBottom = false;
+    else this.shouldScrollToBottom = scrollPositionAlreadyAtBottom;
   },
 
   componentDidUpdate: function(prevProps, prevState) {
+    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
+    var loadingBatchMessages = this.props.page !== prevProps.page;
+    if (loadingBatchMessages) node.scrollTop = node.scrollHeight - this.scrollHeightBeforePagination;
     this.scrollToBottomIfNeeded();
   },
 
   scrollToBottomIfNeeded: function() {
     if (this.shouldScrollToBottom) {
       var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-      node.scrollTop = node.scrollHeight;
+      node.scrollTop = node.scrollHeight - node.offsetHeight;
     }
   },
 
   handleScroll: function() {
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
     var conversationId = this.props.currentConversationId;
+
     if(conversationId && node.scrollTop === 0){
+      this.scrollHeightBeforePagination = node.scrollHeight;
       MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken,
                                            this.props.currentConversationId,
                                            this.props.page,

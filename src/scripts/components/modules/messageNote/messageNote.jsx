@@ -76,7 +76,9 @@ module.exports = React.createClass({
           />
         </div>
         <div className="col-lg-3">
-          <NoteList notes={ _.filter(this.state.messages, function(m){return !m.message_type.includes('message', 'bot_message')}) }/>
+          <NoteList
+            currentConversationId={this.state.currentConversationId}
+            notes={ _.filter(this.state.messages, function(m){return !m.message_type.includes('message', 'bot_message')}) }/>
         </div>
       </div>
     )

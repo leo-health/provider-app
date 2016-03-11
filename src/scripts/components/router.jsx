@@ -16,7 +16,8 @@ var App = require('./app'),
     AcceptInvitation = require('./pages/acceptInvitation'),
     Terms = require('./pages/terms'),
     Privacy = require('./pages/privacy'),
-    FourOhFour = require('./pages/404')
+    FourOhFour = require('./pages/404'),
+    DeepLink = require('./pages/deepLinkWarning')
 
 var routes = (
   <Route handler={App}>
@@ -30,6 +31,7 @@ var routes = (
     <Route name="home" handler={Home}/>
     <Route name="terms" handler={Terms}/>
     <Route name="privacy" handler={Privacy}/>
+    <Route name="deeplink" handler={DeepLink}/>
     <NotFoundRoute handler={FourOhFour} />
   </Route>
 );

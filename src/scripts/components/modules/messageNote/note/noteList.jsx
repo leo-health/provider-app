@@ -14,7 +14,31 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function() {
+
     return { highlightNoteKey: undefined }
+  },
+
+  componentWillReceiveProps: function(newProps) {
+
+    // reset the highlighted note key when the conversation changes, or it is not yet defined
+    if (!this.state.highlightNoteKey || newProps.currentConversationId !== this.props.currentConversationId) {
+      var note = newProps.notes[0];
+      if (note) {
+        var initialNoteKey = note.id.toString() + note.message_type;
+        this.setState({ highlightNoteKey: initialNoteKey });
+      }
+    }
+  },
+
+  componentDidUpdate: function() {
+
+    // scroll the highlighted note into view
+    var highlightedNode = ReactDom.findDOMNode(this.refs[this.state.highlightNoteKey]);
+    var container = ReactDom.findDOMNode(this.refs.notesContainer);
+
+    if (highlightedNode && container) {
+      container.scrollTop = highlightedNode.offsetTop;
+    }
   },
 
   onNoteStatusChange: function(status) {
@@ -23,25 +47,24 @@ module.exports = React.createClass({
     }
   },
 
-  setHighlightNoteKey: function(notes){
-    var initialNoteKey = _.first(notes).id.toString() + _.first(notes).message_type;
-    var highlightNoteKey = this.state.highlightNoteKey ?  this.state.highlightNoteKey : initialNoteKey;
-    return highlightNoteKey
+  shouldHighlightNote: function(note){
+
+    return this.state.highlightNoteKey === this.refNameForNote(note);
   },
 
-  setTagName: function(highlightNoteKey, note){
-    var tagName = highlightNoteKey == (note.id.toString() + note.message_type) ? 'blockquote' : 'div';
-    return tagName
+  refNameForNote: function(note) {
+
+      return note.id.toString() + note.message_type;
   },
 
   render: function () {
     var notes = this.props.notes;
 
     if(notes && notes.length > 0){
-      var highlightNoteKey = this.setHighlightNoteKey(notes);
-
+      var highlightNoteKey = this.state.highlightNoteKey;
       notes = notes.map(function(note, i){
-        var tagName = this.setTagName(highlightNoteKey, note);
+
+        var tagName = this.shouldHighlightNote(note) ? 'blockquote' : 'div';
         return <Note key={i}
                      reactKey={i}
                      id={note.id}
@@ -51,6 +74,7 @@ module.exports = React.createClass({
                      messageType={note.message_type}
                      escalatedTo={note.escalated_to}
                      tagName={tagName}
+                     ref={this.refNameForNote(note)}
                />
       }, this);
     }else{
@@ -58,7 +82,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <div className="pre-scrollable panel panel-body">
+      <div className="pre-scrollable panel panel-body" ref="notesContainer">
         <h4>Notes</h4>
         {notes}
       </div>
