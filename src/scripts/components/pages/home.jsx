@@ -21,6 +21,21 @@ module.exports = React.createClass({
     });
 
     this.pusher.subscribe('presence-provider_app');
+    this.subscribeToBrowserTabFocusEvent();
+  },
+
+  subscribeToBrowserTabFocusEvent: function() {
+
+    window.originalTabTitle = "LeoHealth - WebApp";
+    document.title = window.originalTabTitle;
+
+    window.onblur = function() {
+      window.windowHasFocus = false;
+    };
+    window.onfocus = function() {
+      window.windowHasFocus = true;
+      document.title = window.originalTabTitle;
+    };
   },
 
   componentWillUnmount: function () {
