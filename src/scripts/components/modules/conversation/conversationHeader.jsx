@@ -1,9 +1,20 @@
 var React = require('react');
+var Reflux = require('reflux');
 var ConversationActions = require('../../../actions/conversationActions');
+var UserActions = require('../../../actions/userActions');
+var leoUtil = require('../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
-  handleClick: function(state){
+  handleClick: function(state) {
     ConversationActions.fetchConversationsRequest(sessionStorage.authenticationToken, state, 1);
+  },
+
+  componentWillMount: function() {
+    UserActions.fetchStaffRequest(sessionStorage.authenticationToken);
+  },
+
+  handleFilterConversation: function() {
+
   },
 
   render: function () {
@@ -38,9 +49,14 @@ module.exports = React.createClass({
             <a href="#" className="btn btn-sm btn-default">Erin Hannah Gold PNP</a>
             <a href="#" className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span className="caret"></span></a>
             <ul className="dropdown-menu">
-              <li><a href="#">Staff 1</a></li>
-              <li><a href="#">Staff 2</a></li>
-              <li><a href="#">Staff 3</a></li>
+              {this.props.staff.map(function(staff, i) {
+                return (
+                    <li key={i}
+                        onClick={this.handleFilterConversation}>
+                      {leoUtil.formatName(staff)}
+                    </li>
+                )
+              }.bind(this))}
             </ul>
           </div>
         </div>

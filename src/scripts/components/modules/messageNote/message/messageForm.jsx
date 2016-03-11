@@ -7,16 +7,20 @@ var MessageStore = require('../../../../stores/messageStore');
 var MessageStaff = require('../message/messageStaff');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(MessageStore, "onStatusChange")],
-
-  onStatusChange: function(status){
-    if(status.staff){
-      this.setState({
-        staff: status.staff,
-        escalatedToId: status.staff[0].id
-      })
-    }
-  },
+  //mixins: [Reflux.listenTo(MessageStore, "onStatusChange")],
+  //
+  //onStatusChange: function(status){
+  //  if(status.staff){
+  //    this.setState({
+  //      staff: status.staff,
+  //      escalatedToId: status.staff[0].id
+  //    })
+  //  }
+  //},
+  //
+  //componentWillMount: function(){
+  //  MessageActions.fetchStaffRequest(sessionStorage.authenticationToken);
+  //},
 
   handleSendMessage: function(e){
     e.preventDefault();
@@ -72,10 +76,6 @@ module.exports = React.createClass({
       staff: [],
       action: "message"
     }
-  },
-
-  componentWillMount: function(){
-    MessageActions.fetchStaffRequest(sessionStorage.authenticationToken);
   },
 
   showComponent: function(name){

@@ -7,22 +7,33 @@ var ConversationHeader = require('./conversationHeader');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
 var ConversationStore = require('../../../stores/conversationStore');
+var UserStore = require('../../../stores/userStore');
 var MessageNote = require('../messageNote/messageNote');
 var Infinite = require('react-infinite');
 
 module.exports = React.createClass({
   mixins: [
-    Reflux.listenTo(ConversationStore, "onConversationStatusChange")
+    Reflux.listenTo(ConversationStore, "onConversationStatusChange"),
+    Reflux.listenTo(UserStore, "onUserStatusChange")
   ],
 
   getInitialState: function () {
     return {
+      staff: [],
       selectedConversationId: undefined,
       conversationState: 'open',
       page: 1,
       conversations: [],
       maxPage: 1,
       offset: 0
+    }
+  },
+
+  onUserStatusChange: function(status) {
+    if(status.staffSelection){
+      this.setState({
+        staff: status.staffSelection
+      })
     }
   },
 
@@ -164,7 +175,11 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <ConversationHeader currentListState={this.state.conversationState}/>
+        <ConversationHeader
+          currentListState={this.state.conversationState}
+          staff={this.state.staff}
+        />
+
         <div className="row">
           <div className ="col-lg-3">
             <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
