@@ -19,8 +19,14 @@ module.exports = React.createClass({
     UserActions.fetchStaffRequest(sessionStorage.authenticationToken);
   },
 
+  componentWillReceiveProps: function(nextProps){
+    if (nextProps.currentListState === 'open' ||nextProps.currentListState === 'closed'){
+      this.setState({selectedStaff: "All"})
+    }
+  },
+
   handleFilterConversation: function(staff) {
-    ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, staff.id, 'escalated')
+    ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, staff.id, 'escalated');
     this.setState({
       selectedStaff: leoUtil.formatName(staff)
     })
@@ -60,10 +66,10 @@ module.exports = React.createClass({
             <ul className="dropdown-menu">
               {this.props.staff.map(function(staff, i) {
                 return (
-                    <li key={i}
-                        onClick={this.handleFilterConversation.bind(this, staff)}>
-                      {leoUtil.formatName(staff)}
-                    </li>
+                  <li key={i}
+                      onClick={this.handleFilterConversation.bind(this, staff)}>
+                    {leoUtil.formatName(staff)}
+                  </li>
                 )
               }.bind(this))}
             </ul>

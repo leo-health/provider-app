@@ -38,20 +38,11 @@ module.exports = React.createClass({
   },
 
   onConversationStatusChange: function(status){
-    if(status.conversationState && status.conversationState != this.state.conversationState){
-      this.setState({
-        conversationState: status.conversationState,
-        page: 1,
-        selectedConversationId: undefined,
-        maxPage: 1,
-        conversations: []
-      });
-    }
-
     if(status.conversations) {
       this.setState({
+        conversationState: status.conversationState,
         conversations: status.conversations,
-        page: this.state.page += 1,
+        page: 2,
         maxPage: status.maxPage,
         selectedConversationId: status.conversations.length > 0 ? status.conversations[0].id : undefined
       })

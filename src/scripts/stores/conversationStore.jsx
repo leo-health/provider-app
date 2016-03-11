@@ -78,17 +78,16 @@ module.exports = Reflux.createStore({
               state: state
             })
            .end(function(err, res){
-             if(res.ok) ConversationActions.fetchStaffConversation.completed(res.body, authenticationToken)
+             if(res.ok) ConversationActions.fetchStaffConversation.completed(res.body, authenticationToken, state)
            })
   },
 
-  onFetchStaffConversationCompleted: function(response, authenticationToken){
+  onFetchStaffConversationCompleted: function(response, authenticationToken, state){
     var conversations = response.data.conversations;
-
     this.trigger({
       status: response.status,
       conversations: conversations,
-      conversationState: Date.now()
+      conversationState: state ? state : Date.now()
     });
 
     if(conversations.length > 0){
