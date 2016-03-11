@@ -5,6 +5,12 @@ var UserActions = require('../../../actions/userActions');
 var leoUtil = require('../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
+  getInitialState: function() {
+    return {
+      selectedStaff: "All"
+    }
+  },
+
   handleClick: function(state) {
     ConversationActions.fetchConversationsRequest(sessionStorage.authenticationToken, state, 1);
   },
@@ -13,8 +19,11 @@ module.exports = React.createClass({
     UserActions.fetchStaffRequest(sessionStorage.authenticationToken);
   },
 
-  handleFilterConversation: function() {
-
+  handleFilterConversation: function(staff) {
+    ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, staff.id, 'escalated')
+    this.setState({
+      selectedStaff: leoUtil.formatName(staff)
+    })
   },
 
   render: function () {
@@ -46,13 +55,13 @@ module.exports = React.createClass({
         <div className="btn-group" id="staff-selection" style={showStaffSelection}>
           <a href="#" className="btn btn-sm btn-default">Assigned to</a>
           <div className="btn-group">
-            <a href="#" className="btn btn-sm btn-default">Erin Hannah Gold PNP</a>
+            <a href="#" className="btn btn-sm btn-default">{this.state.selectedStaff}</a>
             <a href="#" className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span className="caret"></span></a>
             <ul className="dropdown-menu">
               {this.props.staff.map(function(staff, i) {
                 return (
                     <li key={i}
-                        onClick={this.handleFilterConversation}>
+                        onClick={this.handleFilterConversation.bind(this, staff)}>
                       {leoUtil.formatName(staff)}
                     </li>
                 )

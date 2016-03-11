@@ -71,9 +71,12 @@ module.exports = Reflux.createStore({
     MessageActions.fetchMessagesRequest(authenticationToken, conversation.id, 1, 0)
   },
 
-  onFetchStaffConversation: function(authenticationToken, staffId){
+  onFetchStaffConversation: function(authenticationToken, staffId, state){
     request.get(leo.API_URL+'/staff/' + staffId + '/conversations')
-           .query({ authentication_token: authenticationToken })
+           .query({
+              authentication_token: authenticationToken,
+              state: state
+            })
            .end(function(err, res){
              if(res.ok) ConversationActions.fetchStaffConversation.completed(res.body, authenticationToken)
            })

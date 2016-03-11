@@ -70,7 +70,7 @@ module.exports = React.createClass({
     if(suggestion.role.name === 'patient' || suggestion.role.name === 'guardian'){
       ConversationActions.fetchConversationByFamily(sessionStorage.authenticationToken, suggestion.family_id)
     }else{
-      ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, suggestion.id)
+      ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, suggestion.id, undefined)
     }
   },
 
