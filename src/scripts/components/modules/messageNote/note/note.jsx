@@ -56,12 +56,15 @@ module.exports = React.createClass({
       optionalBreak = <br></br>
     }
 
+    var optionalSender = note && note.length>0 ? <strong>{sender}</strong> : null;
+
     return(
       <div>
         <this.props.tagName style={style}>
           <small>{noteDisplayString}</small>
           {optionalBreak}
-          <strong>{sender} </strong>{note}
+          {optionalSender}
+          {note}
         </this.props.tagName>
         <hr/>
       </div>
