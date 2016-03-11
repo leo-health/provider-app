@@ -7,12 +7,15 @@ var leoUtil = require('../../../utils/common').StringUtils;
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      selectedStaff: "All"
+      selectedStaff: "Anyone"
     }
   },
 
   handleClick: function(state) {
     ConversationActions.fetchConversationsRequest(sessionStorage.authenticationToken, state, 1);
+    this.setState({
+      selectedStaff: "Anyone"
+    })
   },
 
   componentWillMount: function() {
@@ -21,7 +24,7 @@ module.exports = React.createClass({
 
   componentWillReceiveProps: function(nextProps){
     if (nextProps.currentListState === 'open' ||nextProps.currentListState === 'closed'){
-      this.setState({selectedStaff: "All"})
+      this.setState({selectedStaff: "Anyone"})
     }
   },
 
@@ -59,16 +62,21 @@ module.exports = React.createClass({
         </ul>
 
         <div className="btn-group" id="staff-selection" style={showStaffSelection}>
-          <a href="#" className="btn btn-sm btn-default">Assigned to</a>
+          <li className="btn btn-sm btn-default">Assigned to</li>
           <div className="btn-group">
-            <a href="#" className="btn btn-sm btn-default">{this.state.selectedStaff}</a>
-            <a href="#" className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span className="caret"></span></a>
+            <li className="btn btn-sm btn-default">{this.state.selectedStaff}</li>
+            <li className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <span className="caret"></span>
+            </li>
             <ul className="dropdown-menu">
+              <li onClick={this.handleClick.bind(this, 'escalated')}>
+                <a>Anyone</a>
+              </li>
               {this.props.staff.map(function(staff, i) {
                 return (
                   <li key={i}
                       onClick={this.handleFilterConversation.bind(this, staff)}>
-                    {leoUtil.formatName(staff)}
+                    <a>{leoUtil.formatName(staff)}</a>
                   </li>
                 )
               }.bind(this))}
