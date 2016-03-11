@@ -5,15 +5,6 @@ var moment = require('moment');
 var leoUtil = require('../../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
-  componentDidUpdate: function(prevProps){
-    this.ensueVisible();
-  },
-
-  ensueVisible: function(){
-    if(this.props.tagName === 'blockquote'){
-      ReactDom.findDOMNode(this).scrollIntoView();
-    }
-  },
 
   render: function(){
     var sentAt = moment(this.props.sentAt).calendar() + " ";
@@ -56,7 +47,7 @@ module.exports = React.createClass({
       optionalBreak = <br></br>
     }
 
-    var optionalSender = note && note.length>0 ? <strong>{sender}</strong> : null;
+    var optionalSender = note && note.length>0 ? <strong>{sender} </strong> : null;
 
     return(
       <div>
