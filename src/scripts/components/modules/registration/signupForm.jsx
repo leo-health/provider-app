@@ -112,7 +112,9 @@ var SignUpForm = React.createClass({
       if (this.submitHasBeenAttemptedOnce) {
         this.props.handleValidation(ref)();
       }
-      this.setState({`${ref}`: event.target.value});
+      var newState = {};
+      newState[ref] = event.target.value;
+      this.setState(newState);
     }
   },
 
