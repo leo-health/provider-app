@@ -10,56 +10,35 @@ var NoteActions = require('../../../../actions/noteActions');
 module.exports = React.createClass({
 
   componentWillMount: function(){
-
     this.shouldScrollToBottom = true;
   },
 
   componentWillReceiveProps: function(newProps) {
-
-    // NOTE: refactoring opportunity: this component should really handle its own pagination requests/responses instead of relying on comparing old/new props. That way it can just respond to the action handlers directly, which is much clearer than inferring these scenarios from props.
-
     var currentUser = JSON.parse(sessionStorage.user);
     var messages = newProps.messages;
     var newMessage = messages[messages.length - 1];
     var lastMessage = this.props.messages[this.props.messages.length - 1];
+    var node = ReactDom.findDOMNode(this.refs.conversationContainer);
 
-    if (newMessage && newMessage !== lastMessage && currentUser.id == newMessage.created_by.id) {
+    var currentUserSentLastMessage = newMessage && newMessage !== lastMessage && currentUser.id == newMessage.created_by.id;
+    var selectedConversationWasChanged = newProps.currentConversationId !== this.props.currentConversationId;
+    var loadingBatchMessages = newProps.page !== this.props.page;
+    var scrollPositionAlreadyAtBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight
 
-      // always scroll to bottom when sending a new message
-      this.shouldScrollToBottom = true;
-
-    } else if (newProps.currentConversationId !== this.props.currentConversationId) {
-
-      // always scroll to bottom when switching conversations
-      this.shouldScrollToBottom = true;
-
-    } else if (newProps.page !== this.props.page) {
-
-      // don't scroll to bottom when getting batch messages
-      this.shouldScrollToBottom = false;
-
-    } else {
-
-      // when recieving a new message, only scroll to bottom if already at bottom
-      var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-      this.shouldScrollToBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight;
-    }
+    if (currentUserSentLastMessage) this.shouldScrollToBottom = true;
+    else if (selectedConversationWasChanged) this.shouldScrollToBottom = true;
+    else if (loadingBatchMessages) this.shouldScrollToBottom = false;
+    else this.shouldScrollToBottom = scrollPositionAlreadyAtBottom;
   },
 
   componentDidUpdate: function(prevProps, prevState) {
-
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-    if (this.props.page !== prevProps.page) {
-
-      // when respoinding to pagination, maintain scroll position
-      node.scrollTop = node.scrollHeight - this.scrollHeightBeforePagination;
-    }
-
+    var loadingBatchMessages = this.props.page !== prevProps.page;
+    if (loadingBatchMessages) node.scrollTop = node.scrollHeight - this.scrollHeightBeforePagination;
     this.scrollToBottomIfNeeded();
   },
 
   scrollToBottomIfNeeded: function() {
-
     if (this.shouldScrollToBottom) {
       var node = ReactDom.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight - node.offsetHeight;
@@ -67,7 +46,6 @@ module.exports = React.createClass({
   },
 
   handleScroll: function() {
-
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
     var conversationId = this.props.currentConversationId;
 
