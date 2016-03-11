@@ -1,20 +1,10 @@
 var React = require('react');
 var ReactDom = require('react-dom');
-var Reflux = require('reflux');
-var ConversationActions = require('../../../actions/conversationActions');
-var MessageActions = require('../../../actions/messageActions');
-var MessageStore = require('../../../stores/messageStore');
+var MessageActions = require('../../../../actions/messageActions');
+var NoteActions = require('../../../../actions/noteActions');
 var MessageStaff = require('../message/messageStaff');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(MessageStore, "onStatusChange")],
-
-  onStatusChange: function(status){
-    if(status.staff){
-      this.setState({ staff: status.staff, escalatedToId: status.staff[0].id })
-    }
-  },
-
   handleSendMessage: function(e){
     e.preventDefault();
     var messageBody= ReactDom.findDOMNode(this.refs.message).value.trim();
@@ -31,7 +21,7 @@ module.exports = React.createClass({
     var conversationId = this.props.conversationId;
     var escalatedToId = this.state.escalatedToId;
     var priority = this.state.priority;
-    ConversationActions.escalateConversationRequest( sessionStorage.authenticationToken, conversationId, escalatedToId, note, priority );
+    NoteActions.createEscalateNoteRequest( sessionStorage.authenticationToken, conversationId, escalatedToId, note, priority );
     this.setState({action: "message"});
     ReactDom.findDOMNode(this.refs.escalationNote).value = "";
   },
@@ -39,19 +29,19 @@ module.exports = React.createClass({
   handleClose: function (e) {
     e.preventDefault();
     var note = ReactDom.findDOMNode(this.refs.closureNote).value.trim();
-    ConversationActions.closeConversationRequest(sessionStorage.authenticationToken, this.props.conversationId, note);
+    NoteActions.createCloseNoteRequest(sessionStorage.authenticationToken, this.props.conversationId, note);
     this.setState({action: "message"});
     ReactDom.findDOMNode(this.refs.closureNote).value = "";
   },
 
   showClose: function(e){
     e.preventDefault();
-    this.setState({action: "close"})
+    this.setState({ action: "close" })
   },
 
   showEscalation: function(e){
     e.preventDefault();
-    this.setState({action: "escalate"})
+    this.setState({ action: "escalate" })
   },
 
   setEscalatedTo: function(e){
@@ -63,32 +53,25 @@ module.exports = React.createClass({
   },
 
   getInitialState: function () {
-    return { escalatedToId: 0,
-             priority: 0,
-             staff: [],
-             action: "message"
+    return {
+      escalatedToId: 0,
+      priority: 0,
+      staff: [],
+      action: "message"
     }
-  },
-
-  componentDidMount: function(){
-    MessageActions.fetchStaffRequest(sessionStorage.authenticationToken);
   },
 
   showComponent: function(name){
-    if(this.state.action == name){
-      return {display: "block"};
-    }else{
-      return {display: "none"};
-    }
+    return this.state.action === name ? {display: "block"} : {display: "none"}
   },
 
   handleCloseForm: function(e){
     e.preventDefault();
-    this.setState({action: "message"})
+    this.setState({ action: "message" })
   },
 
   render: function () {
-    var staff = this.state.staff;
+    var staff = this.props.staff;
     if(staff && staff.length > 0){
       staff = staff.map(function(staff, i){
         return <MessageStaff key = {i}

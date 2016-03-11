@@ -6,29 +6,6 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [MessageActions],
 
-  onFetchStaffRequest: function(authenticationToken){
-    request.get(leo.API_URL+"/staff")
-        .query({authentication_token: authenticationToken})
-        .end(function(err, res){
-          if(res.ok){
-            MessageActions.fetchStaffRequest.completed(res.body)
-          }else{
-            MessageActions.fetchStaffRequest.failed(res.body)
-          }
-        })
-  },
-
-  onFetchStaffRequestCompleted: function(response){
-    var staff = _.filter(response.data.staff, function(staff){ return staff.id !== 1 });
-    this.trigger({status: response.status,
-                  staff: staff})
-  },
-
-  onFetchStaffRequestFailed: function(response){
-    this.trigger({status: response.status,
-                  message: "error fetching staff"})
-  },
-
   onFetchMessagesRequest: function(authenticationToken, currentConversationId, page, offset){
     request.get(leo.API_URL+"/conversations/"+ currentConversationId +"/messages/full")
            .query({ authentication_token: authenticationToken,
@@ -46,17 +23,11 @@ module.exports = Reflux.createStore({
 
   onFetchMessagesRequestCompleted: function(response, page){
     var messages = response.data.messages.reverse();
-
     var response = {
       currentConversationId: response.data.conversation_id
     };
 
-    if(page == 1){
-      response.messages = messages
-    }else{
-      response.newBatchMessages = messages
-    }
-
+    page == 1 ? response.messages = messages : response.newBatchMessages = messages;
     this.trigger(response)
   },
 
@@ -79,8 +50,10 @@ module.exports = Reflux.createStore({
   },
 
   onFetchMessageRequestCompleted: function(response){
-    this.trigger({ status: response.status,
-                   newMessage: response.data })
+    this.trigger({
+      status: response.status,
+      newMessage: response.data
+    })
   },
 
   onFetchMessageRequestFailed: function(response){

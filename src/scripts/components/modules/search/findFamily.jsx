@@ -17,15 +17,17 @@ module.exports = React.createClass({
   },
 
   onStatusChange: function(results){
-    var suggestions = [];
-    suggestions.unshift({ sectionName : 'Patients', suggestions : results.patients || [] });
-    suggestions.unshift({ sectionName : 'Guardians', suggestions : results.guardians || [] });
-    suggestions.unshift({ sectionName : 'Staff', suggestions : results.staff || [] });
-    this.setState(
-      () => {
-        this.searchResultsHandler(null, suggestions);
-      }
-    );
+    if(results.guardians && results.staff && results.patients){
+      var suggestions = [];
+      suggestions.unshift({ sectionName : 'Patients', suggestions : results.patients || [] });
+      suggestions.unshift({ sectionName : 'Guardians', suggestions : results.guardians || [] });
+      suggestions.unshift({ sectionName : 'Staff', suggestions : results.staff || [] });
+      this.setState(
+          () => {
+            this.searchResultsHandler(null, suggestions);
+          }
+      );
+    }
   },
 
   getSuggestions: function(query, callback){
@@ -68,7 +70,7 @@ module.exports = React.createClass({
     if(suggestion.role.name === 'patient' || suggestion.role.name === 'guardian'){
       ConversationActions.fetchConversationByFamily(sessionStorage.authenticationToken, suggestion.family_id)
     }else{
-      ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, suggestion.id)
+      ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, suggestion.id, undefined)
     }
   },
 

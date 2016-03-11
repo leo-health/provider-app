@@ -1,5 +1,5 @@
 var React = require('react');
-var NoteActions = require('../../../actions/noteActions');
+var NoteActions = require('../../../../actions/noteActions');
 
 module.exports = React.createClass({
   handleClick: function(){

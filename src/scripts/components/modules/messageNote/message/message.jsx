@@ -1,6 +1,6 @@
 var React = require('react');
 var moment = require('moment');
-var leoUtil = require('../../../utils/common').StringUtils;
+var leoUtil = require('../../../../utils/common').StringUtils;
 var RegularMessage = require('./regularMessage.jsx');
 var SystemMessage = require('./systemMessage.jsx');
 

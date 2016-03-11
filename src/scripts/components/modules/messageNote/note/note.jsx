@@ -2,7 +2,7 @@ var React = require('react');
 var ReactDom = require('react-dom');
 var Reflux = require('reflux');
 var moment = require('moment');
-var leoUtil = require('../../../utils/common').StringUtils;
+var leoUtil = require('../../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   componentDidUpdate: function(prevProps){
@@ -21,40 +21,28 @@ module.exports = React.createClass({
     var note = this.props.note;
     var messageType = this.props.messageType;
     var escalatedTo = this.props.escalatedTo;
-
     var currentUser;
+
     if(sessionStorage.user) {
       currentUser = JSON.parse(sessionStorage.user);
-      if (currentUser.id == sender.id) {
-        // You closed this case
-        sender = "You"
-      }
-    } else {
-      // X closed this case
-      sender = leoUtil.formatName(sender);
+      sender = currentUser.id == sender.id ? "You" : leoUtil.formatName(sender)
     }
 
     var noteDisplayString;
     switch (messageType) {
 
       case "close":
-
         noteDisplayString = `${sentAt} - ${sender} closed this case`;
         break;
-
       case "escalation":
-
         if (currentUser && escalatedTo && currentUser.id === escalatedTo.id) {
           escalatedTo = this.props.sender.id === escalatedTo.id ? "yourself" : "you";
         } else {
-          // X assigned this case to Y
           escalatedTo = leoUtil.formatName(escalatedTo);
         }
         noteDisplayString = `${sentAt} - ${sender} assigned this case to ${escalatedTo}`
         break;
-
       default:
-
         noteDisplayString = sentAt;
         break;
     }

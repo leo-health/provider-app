@@ -4,8 +4,7 @@ var ConversationActions = {
   fetchConversationsRequest: {asyncResult: true},
   fetchConversationByFamily: {asyncResult: true},
   fetchStaffConversation: {asyncResult: true},
-  closeConversationRequest: {asyncResult: true},
-  escalateConversationRequest: {asyncResult: true},
+  fetchConversationById: {asyncResult: true},
   selectConversation: {}
 };
 
