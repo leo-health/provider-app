@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
             <h3>Information We Collect</h3>
             <p><strong>Personally Identifiable Information.</strong> If you voluntarily submit information to the Website, for example, in a request for general information, in order to create an account with us or populate your account, we may record and use such personally identifiable information, such as your name, phone number, e-mail address, and health care related claims information, for reasonable business purposes including, but not limited to, fulfilling your requests.  We may use internal service providers to operate the Website and employ other persons to perform work on our behalf, such as sending postal mail and e-mail.  These persons may have access to the personally identifiable information you submit through the Website, but only for the purpose of performing their duties.  These persons may not use your personally identifiable information for any other purpose.  Notwithstanding the preceding sentence, we may de-identify your personally identifiable information or aggregate your personally identifiable information with other users of the Leo Health Services.</p>
-            <p><strong>Non-Personally Identifiable Information.</strong> his Website also collects non-personally identifiable user information, such as IP addresses, cookies, internet tags and navigational data (server log files).  We anonymize this data and use it for system management and to improve the content and navigation of the Website.  We may collect this information passively using technologies such as standard server logs, cookies, and clear GIFs (also known as "Web beacons").  We use passively-collected information to administer, operate, and improve the Website and the Leo Health Services and to provide information that is customized for you.  If we link or associate any information gathered through passive means with personally identifiable information, or if applicable laws require us to treat any information gathered through passive means as personally identifiable information, we treat the combined information as personally identifiable information under this Privacy Policy.  Otherwise, we use and disclose information collected by passive means in aggregate form or otherwise in as non-personally identifiable information.</p>
+            <p><strong>Non-Personally Identifiable Information.</strong> This Website also collects non-personally identifiable user information, such as IP addresses, cookies, internet tags and navigational data (server log files).  We anonymize this data and use it for system management and to improve the content and navigation of the Website.  We may collect this information passively using technologies such as standard server logs, cookies, and clear GIFs (also known as "Web beacons").  We use passively-collected information to administer, operate, and improve the Website and the Leo Health Services and to provide information that is customized for you.  If we link or associate any information gathered through passive means with personally identifiable information, or if applicable laws require us to treat any information gathered through passive means as personally identifiable information, we treat the combined information as personally identifiable information under this Privacy Policy.  Otherwise, we use and disclose information collected by passive means in aggregate form or otherwise in as non-personally identifiable information.</p>
             <p><strong>Mobile Device Information.</strong> We may collect information about you from your mobile device through our App, including the identifier for any mobile devices, the operating system of your device (iOS vs. Android), user settings, and geo-location information.  By using our App on your mobile device some of your medical information may be stored on the device.  We may use the information provided by your mobile device, including your geo-location information, to make recommendations and personalize the App for you.  Leo Health is not responsible for any usage of your mobile device or our App by an unauthorized third party.</p>
 
             <h3>About the Information We Collect</h3>
@@ -25,16 +25,16 @@ module.exports = React.createClass({
             <h3>Our Use of Your Information</h3>
             <p>We use your information to provide you with:</p>
             <div className="list-group">
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     The Leo Health Services, including your Leo Health account.
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Direct communications with you, which may include messages regarding Leo Health Services we believe you may be interested in.
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Surveys about your provider, lifestyle habits, wellness, and other relevant information.
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Customer service.
                 </a>
             </div>

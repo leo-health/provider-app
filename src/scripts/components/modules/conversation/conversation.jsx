@@ -1,28 +1,120 @@
 var React = require('react');
+var Reflux = require('reflux');
 var _ = require('lodash');
 var leoUtil = require('../../../utils/common').StringUtils;
 var moment = require('moment');
 var ConversationState = require("./conversationState");
 var ConversationPatient = require("./conversationPatient");
 var ConversationGuardian = require("./conversationGuardian");
+var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
+var NoteActions = require('../../../actions/noteActions');
+var MessageStore = require('../../../stores/messageStore');
+var NoteStore = require('../../../stores/noteStore');
 
 module.exports = React.createClass({
-  render: function () {
-    var lastMessage = this.props.lastMessage;
-    var primaryGuardian = this.props.primaryGuardian;
-    primaryGuardian = leoUtil.formatName(primaryGuardian);
-    lastMessage = leoUtil.shorten(lastMessage);
+  mixins: [
+    Reflux.listenTo(MessageStore, 'onMessageStatusChange'),
+    Reflux.listenTo(NoteStore, 'onNoteStatusChange')
+  ],
 
-    var messageSendAt = moment(this.props.createdAt).calendar();
+  onMessageStatusChange: function(status){
+    if( status.newMessage ){
+      if(!this.isSameConversation(status.newMessage.conversation_id)) return;
+      if(this.props.currentListState === "closed"){
+        this.handleNewMessageInClosedState();
+      }else{
+        var that = this;
+        this.props.moveConversationToTop(that.props.reactKey, status.newMessage.body);
+      }
+    }
+  },
+
+  onNoteStatusChange: function(status){
+    if( status.newNote ){
+      if(!this.isSameConversation(status.newNote.conversation_id)) return;
+
+      if(this.props.selected) {
+        ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.mapConversationState(status.newNote.message_type), 1);
+      }else{
+        this.removeConversation(status)
+      }
+    }
+  },
+
+  mapConversationState: function(state) {
+    return state === "escalation" ? "escalated" : "closed"
+  },
+
+  isSameConversation: function(conversationId) {
+    return conversationId === this.props.conversationId
+  },
+
+  handleNewMessageInClosedState: function(){
+    if(this.props.selected){
+      ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, 'open', 1 );
+    }else{
+      this.props.removeConversationFromList(this.props.conversationId)
+    }
+  },
+
+  removeConversation: function (status) {
+    switch (this.props.currentListState) {
+      case "escalation":
+        if(status.newNote.message_type === "close") this.props.removeConversationFromList(this.props.conversationId);
+        break;
+      case "open":
+        if(status.newNote.message_type === "close" || status.newNote.message_type == "escalation"){
+          this.props.removeConversationFromList(this.props.conversationId)
+        }
+        break;
+    }
+  },
+
+  componentWillMount: function() {
+    if(this.props.conversationId) {
+      var channelName = 'private-conversation' + this.props.conversationId;
+      var channel = this.props.pusher.channel(channelName);
+      if (!channel) {
+        channel = this.props.pusher.subscribe(channelName);
+        channel.bind('new_message', function(data){
+          if (!window.windowHasFocus) {
+            if (data && data.message_type === "message") {
+              document.title = "New message";
+            } else {
+              document.title = "New note";
+            }
+          }
+          this.fetchNewMessage(data)
+        }, this);
+      }
+    }
+  },
+
+  fetchNewMessage: function(data) {
+    var currentUser = JSON.parse(sessionStorage.user);
+
+    if (currentUser.id != data.sender_id) {
+      if (data.message_type === "message") {
+        MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.id);
+      } else{
+        NoteActions.fetchNoteRequest(sessionStorage.authenticationToken, data.id, data.message_type)
+      }
+    }
+  },
+
+  componentWillUnmount: function() {
+    this.props.pusher.unsubscribe('private-conversation' + this.props.conversationId);
+  },
+
+  render: function () {
+    if (this.props.primaryGuardian) var primaryGuardian =  leoUtil.formatName(this.props.primaryGuardian);
+    var messageSendAt = moment(this.props.createdAt).format('L');
     var conversationState = this.props.conversationState;
     var conversationId = this.props.conversationId;
     var patients = this.props.patients.map(function(patient){
-      var patientName = leoUtil.formatName(patient);
       return (
-        <ConversationPatient key = {patient.id}
-                             patient = {patientName}
-        />
+        <ConversationPatient key = {patient.id} patient = {leoUtil.formatName(patient)}/>
       )
     }.bind(this));
 
@@ -31,10 +123,8 @@ module.exports = React.createClass({
     }.bind(this));
 
     secondaryGuardians = secondaryGuardians.map(function(guardian){
-      var guardianName = leoUtil.formatName(guardian);
       return(
-        <ConversationGuardian key={guardian.id}
-                              guardian = {guardianName}/>
+        <ConversationGuardian key={guardian.id} guardian = {leoUtil.formatName(guardian)}/>
       )
     }.bind(this));
 
@@ -48,10 +138,10 @@ module.exports = React.createClass({
         </div>
         <p className = "patientList">
           {patients}
-          <ConversationState conversationState = {conversationState} conversationId = {conversationId} channel = {this.props.channel}/>
+          <ConversationState conversationState = {conversationState} conversationId = {conversationId}/>
         </p>
         <p className="list-group-item-text">
-          {lastMessage}
+          { leoUtil.shorten(this.props.lastMessage) }
         </p>
       </div>
     )

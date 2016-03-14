@@ -2,12 +2,7 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function () {
-    var showSuccess = {display: "none"};
-    if (this.props.status == "ok"){
-      showSuccess.display = "block"
-    }else{
-      showSuccess.display = "none";
-    }
+    var showSuccess = this.props.status === "ok" ? {display: "block"} : {display: "none"};
 
     return(
       <div className="alert alert-dismissible alert-success" style={showSuccess}>

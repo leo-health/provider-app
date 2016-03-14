@@ -1,5 +1,6 @@
 @css {
   /*Messaging & Conversations*/
+  #staff-selection { margin-bottom: 1%}
   #chatbox { position: relative; overflow-x: hidden; width: 100%; height: 700px }
   #chatmessages { bottom: 3%; position: absolute; overflow: auto; width: 98%; max-height: 700px }
   .img-chat { max-width:400px; max-height:200px; width: auto; height: auto; }
@@ -183,4 +184,11 @@
   .glyphicon-exclamation-sign-default:before {
     content: "\e101";
   }
+
+  /*Blockquote*/
+  blockquote footer:before,
+	blockquote small:before,
+	blockquote .small:before {
+	  content: "";
+	}
 }

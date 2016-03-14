@@ -32,7 +32,7 @@ module.exports = React.createClass({
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a href="../login/">Welcome, {user}</a>
+                  <a>Welcome, {user}</a>
                 </li>
                 <li>
                   <a onClick={this.handleOnLogout}><strong>logout</strong></a>

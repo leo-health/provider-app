@@ -32,40 +32,40 @@ module.exports = React.createClass({
             <h3>General Prohibitions</h3>
             <p>You agree that you will not do any of the following:</p>
             <div className="list-group">
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Use any scraper, crawler, robot, spider, deep link or other similar automated data gathering or extraction tools, program, algorithm or methodology to access, acquire, copy or monitor the Website, or any portion of the Website, without Leo Health's express written consent, which may be withheld in Leo Health's sole discretion;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Attempt to decipher, decompile, disassemble, or reverse-engineer any of the software comprising or in any way making up a part of the Website or the Leo Health Service;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Use the Website or Leo Health Services to transmit, copy, reproduce, republish, upload, post, transmit, e-mail, or distribute in any way material or content that infringes any copyright, trademark, proprietary, or other right of any party or that violates these Terms of Service;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Copy (except as set forth above for noncommercial personal use), modify, distribute, create any derivative or compilation work from, or display Leo Health's name or logo, or any text, graphic images, or other content from the Website or redeliver such content using framing or similar technology;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Use any device designed to provide repeated automated access to the Website other than those made generally available by Leo Health;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Collect, harvest, or store personal data about other users (other than your minor children) on the Website or the Service;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Upload, e-mail or otherwise transmit to Leo Health or through the Website or any Leo Health computer network any of the following: a sexually-explicit image or statement; advertising, promotional, or other unauthorized communication, including without limitation, “junk mail,” surveys, unsolicited e-mail, “spam,” “chain letters,” “pyramid schemes,” or other inappropriate or prohibited materials; and any material that contains viruses, Trojan horses, worms, time bombs, cancelbots, easter eggs, or any other computer code, files or programs that might interrupt, limit or interfere with, damage, surreptitiously intercept or expropriate any system, data or information related to the Website or any computer software, hardware or communications equipment that is owned, leased or used by Leo Health;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Use the Website or Service to post or transmit any threatening, false, misleading, abusive, harassing, libelous, defamatory, vulgar, obscene, scandalous, inflammatory, or profane material or any material that could constitute or encourage conduct that would be considered a criminal offense, give rise to civil liability, or otherwise violate any applicable local, state, national, or international law;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Take any action that imposes, or may impose, in Leo Health's sole discretion, an unreasonable or disproportionately large load on Leo Health's computer system or infrastructure;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Interfere or attempt to interfere with the proper working of the Website, the Leo Health Service, or any activities conducted on the Website;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Use the Website or Leo Health Services for a commercial purpose; or
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     Bypass measures used by Leo Health to prevent or restrict access to the Website or the Leo Health Service, violate or attempt to violate the security or authentication measures of the system, or attempt to prove, scan, or test the vulnerability of a system or network without proper written authorization from Leo Health.
                 </a>
             </div>
@@ -73,25 +73,25 @@ module.exports = React.createClass({
             <h3>Content You Provide or Transmit</h3>
             <p>With respect to any Content you submit to or through the Website or Leo Health Services (whether by e-mail, a user submission form, or otherwise), you represent and warrant that:</p>
             <div className="list-group">
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     The Content does not infringe the proprietary rights, including but not limited to the copyright, patent, trademark, trade secret, right of publicity, right of personality, or privacy rights, of any third party;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     The Content does not contain or install any viruses, worms, malware, Trojan horses or other harmful or destructive content;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     The Content is not spam, is not machine or randomly-generated, and does not contain unethical or unwanted commercial content designed to drive traffic to third party sites or boost the search engine rankings of third party sites, or to further unlawful acts (such as phishing) or mislead recipients as to the source of the material (such as spoofing);
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     The Content is not pornographic, does not contain threats or incite violence towards individuals or entities, and does not violate the privacy or publicity rights of any third party;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     The Content is not getting advertised via unwanted electronic messages such as spam links on newsgroups, email lists, other blogs and web sites, and similar unsolicited promotional methods;
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     You will not purposefully provide inaccurate, misleading or false Content; and
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     The Content is not identified in a manner that misleads readers into thinking that you are another person.
                 </a>
             </div>
@@ -125,10 +125,10 @@ module.exports = React.createClass({
             <p>Exclusive jurisdiction and venue for arbitration or any other legal action or proceeding in any way related to the Website, the Leo Health Services, or these Terms of Service shall be in Manhattan, New York.  Any matter brought before a court shall be brought solely in the state or federal courts located in Manhattan, New York.  Notwithstanding the foregoing, in the event of a dispute in which Leo Health alleges that you have violated any of Leo Health's intellectual property rights, the foregoing arbitration obligations shall not apply, and Leo Health shall have the right to proceed against you in any manner warranted under law.</p>
             <p>You acknowledge and understand that, with respect to any dispute with the Leo Health Parties, arising out of or relating to your use of the Website, the Leo Health Services, or these Terms of Service:</p>
             <div className="list-group">
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     You are giving up your right to have a trial by jury; and
                 </a>
-                <a href="#" className="list-group-item">
+                <a className="list-group-item">
                     You are giving up your right to serve as a representative, as a private attorney general, or in any other representative capacity, or to participate as a member of a class of claimants, in any lawsuit involving any such dispute.
                 </a>
             </div>

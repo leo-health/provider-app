@@ -41,5 +41,32 @@ module.exports = Reflux.createStore({
   onSignUpUserCompleted: function (response){
     this.trigger({ status: response.status,
                    sign_up: true })
+  },
+
+  onFetchStaffRequest: function(authenticationToken){
+    request.get(leo.API_URL+"/staff")
+        .query({authentication_token: authenticationToken})
+        .end(function(err, res){
+          if(res.ok){
+            UserActions.fetchStaffRequest.completed(res.body)
+          }else{
+            UserActions.fetchStaffRequest.failed(res.body)
+          }
+        })
+  },
+
+  onFetchStaffRequestCompleted: function(response){
+    var staff = _.filter(response.data.staff, function(staff){ return staff.id !== 1 });
+    this.trigger({
+      status: response.status,
+      staffSelection: staff
+    })
+  },
+
+  onFetchStaffRequestFailed: function(response){
+    this.trigger({
+      status: response.status,
+      message: "error fetching staff"
+    })
   }
 });

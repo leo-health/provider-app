@@ -1,5 +1,5 @@
 var React = require('react');
-var leoUtil = require('../../../utils/common').StringUtils;
+var leoUtil = require('../../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   render: function () {
