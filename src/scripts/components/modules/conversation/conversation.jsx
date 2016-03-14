@@ -72,17 +72,23 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
-    if(this.props.conversationId) var channel = this.props.pusher.subscribe('private-conversation' + this.props.conversationId);
-    channel.bind('new_message', function(data){
-      if (!window.windowHasFocus) {
-        if (data && data.message_type === "message") {
-          document.title = "New message";
-        } else {
-          document.title = "New note";
-        }
+    if(this.props.conversationId) {
+      var channelName = 'private-conversation' + this.props.conversationId;
+      var channel = this.props.pusher.channel(channelName);
+      if (!channel) {
+        channel = this.props.pusher.subscribe(channelName);
+        channel.bind('new_message', function(data){
+          if (!window.windowHasFocus) {
+            if (data && data.message_type === "message") {
+              document.title = "New message";
+            } else {
+              document.title = "New note";
+            }
+          }
+          this.fetchNewMessage(data)
+        }, this);
       }
-      this.fetchNewMessage(data)
-    }, this);
+    }
   },
 
   fetchNewMessage: function(data) {
