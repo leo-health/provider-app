@@ -17,7 +17,7 @@ var App = require('./app'),
     Terms = require('./pages/terms'),
     Privacy = require('./pages/privacy'),
     FourOhFour = require('./pages/404'),
-    DeepLink = require('./pages/deepLinkWarning')
+    DeepLink = require('./pages/deepLinkWarning');
 
 var routes = (
   <Route handler={App}>
