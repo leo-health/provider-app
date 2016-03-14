@@ -31,20 +31,28 @@ module.exports = React.createClass({
     }
   },
 
+  currentConversationIsSameAs: function(conversation_id) {
+    return this.state.currentConversationId === conversation_id;
+  },
+
   onMessageStatusChange: function(status){
     if(status.newMessage) {
+
       var newMessage = {
         body: status.newMessage.body,
         created_by: status.newMessage.sender,
         created_at: status.newMessage.created_at,
         message_type: 'message',
-        type_name: status.newMessage.type_name
+        type_name: status.newMessage.type_name,
+        conversation_id: status.newMessage.conversation_id
       };
 
-      this.setState({
-        messages: this.state.messages.concat(newMessage),
-        offset: this.state.offset += 1
-      })
+      if (this.currentConversationIsSameAs(newMessage.conversation_id)) {
+        this.setState({
+          messages: this.state.messages.concat(newMessage),
+          offset: this.state.offset += 1
+        });
+      }
     }
 
     if(status.newBatchMessages){
