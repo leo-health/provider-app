@@ -12,12 +12,13 @@ var App = require('./app'),
     ResetPassword = require('./pages/resetPassword'),
     ChangePassword = require('./pages/changePassword'),
     Registration = require('./pages/registration'),
-    Success = require('./pages/success'),
+    SecondaryUserSuccess = require('./pages/secondaryUserSignUp'),
     AcceptInvitation = require('./pages/acceptInvitation'),
     Terms = require('./pages/terms'),
     Privacy = require('./pages/privacy'),
     FourOhFour = require('./pages/404'),
-    DeepLink = require('./pages/deepLinkWarning')
+    DeepLink = require('./pages/deepLinkWarning'),
+    Success = require('./pages/success');
 
 var routes = (
   <Route handler={App}>
@@ -26,12 +27,13 @@ var routes = (
     <Route name ="resetPassword" handler={ResetPassword} />
     <Route name ="changePassword" handler={ChangePassword} />
     <Route name ="registration" handler={Registration} />
-    <Route name ="success" handler={Success} />
+    <Route name ="registration/completed" handler={SecondaryUserSuccess} />
     <Route name ="acceptInvitation" handler={AcceptInvitation} />
     <Route name="home" handler={Home}/>
     <Route name="terms" handler={Terms}/>
     <Route name="privacy" handler={Privacy}/>
-    <Route name="deeplink" handler={DeepLink}/>
+    <Route name="invalid-device" handler={DeepLink}/>
+    <Route name="success" handler={Success}/>
     <NotFoundRoute handler={FourOhFour} />
   </Route>
 );

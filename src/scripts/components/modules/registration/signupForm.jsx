@@ -71,11 +71,11 @@ var SignUpForm = React.createClass({
           });
           break;
         } case "update": {
-          this.transitionTo("success");
+          this.transitionTo("registration/completed");
           break;
         }
         case "convert": {
-          this.transitionTo("success");
+          this.transitionTo("registration/completed");
           break;
         }
         default: {
@@ -83,7 +83,7 @@ var SignUpForm = React.createClass({
         }
       }
     }else{
-      this.transitionTo("success");
+      this.transitionTo("registration/completed");
     }
   },
 
