@@ -14,7 +14,7 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function(newProps) {
-    var currentUser = JSON.parse(sessionStorage.user);
+    if(sessionStorage.user) var currentUser = JSON.parse(sessionStorage.user);
     var messages = newProps.messages;
     var newMessage = messages[messages.length - 1];
     var lastMessage = this.props.messages[this.props.messages.length - 1];
