@@ -30,11 +30,7 @@ module.exports = React.createClass({
 
   onStatusChange: function(status){
     this.setState(status);
-    if(this.state.isLoggedIn){
-      this.transitionTo('home')
-    }else{
-      this.transitionTo('login')
-    }
+    this.state.isLoggedIn ? this.transitionTo('home') : this.transitionTo('login')
   },
 
   render: function(){
