@@ -6,7 +6,6 @@ module.exports = React.createClass({
 
     return(
       <div className="alert alert-dismissible alert-danger" style={showError}>
-        <button type="button" className="close" data-dismiss="alert">×</button>
         {this.props.message}
       </div>
     )
