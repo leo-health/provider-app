@@ -99,6 +99,7 @@ module.exports = React.createClass({
         </div>
         <MessageForm
           conversationId={this.props.currentConversationId}
+          conversation={this.props.conversation}
           staff={this.props.staff}
         />
       </div>

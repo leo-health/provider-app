@@ -62,7 +62,7 @@ module.exports = React.createClass({
   },
 
   showComponent: function(name){
-    return this.state.action === name ? {display: "block"} : {display: "none"}
+    return this.state.action === name ? {display: "block"} : {display: "none"};
   },
 
   handleCloseForm: function(e){
@@ -78,6 +78,21 @@ module.exports = React.createClass({
                              staff={staff}
                />
       });
+    }
+
+    var closeButton;
+    var escalateButton;
+    if (!this.props.conversation || this.props.conversation.state !== "closed") {
+      closeButton = (
+        <a href="#" className="btn btn-primary btn-sm message-button" onClick={this.showClose}>
+          <span className="glyphicon glyphicon-ok"></span> Close Case
+        </a>
+      );
+      escalateButton = (
+        <a href="#" className="btn btn-danger btn-sm" onClick={this.showEscalation}>
+          <span className="glyphicon glyphicon-fire"></span> Assign
+        </a>
+      );
     }
 
     return (
@@ -131,12 +146,8 @@ module.exports = React.createClass({
               <a href="#" className="btn btn-success btn-sm message-button" onClick={this.handleSendMessage}>
                 <span className="glyphicon glyphicon-ok"></span> Send
               </a>
-              <a href="#" className="btn btn-primary btn-sm message-button" onClick={this.showClose}>
-                <span className="glyphicon glyphicon-ok"></span> Close Case
-              </a>
-              <a href="#" className="btn btn-danger btn-sm" onClick={this.showEscalation}>
-                <span className="glyphicon glyphicon-fire"></span> Assign
-              </a>
+              {closeButton}
+              {escalateButton}
             </form>
             <hr/>
           </div>
