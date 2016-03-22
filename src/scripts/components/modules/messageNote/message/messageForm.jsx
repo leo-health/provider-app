@@ -10,7 +10,7 @@ module.exports = React.createClass({
     var messageBody= ReactDom.findDOMNode(this.refs.message).value.trim();
     if (!messageBody) return;
     var typeName="text";
-    var currentConversationId=this.props.conversationId;
+    var currentConversationId=this.props.conversation.id;
     MessageActions.sendMessageRequest( sessionStorage.authenticationToken, messageBody, typeName, currentConversationId);
     ReactDom.findDOMNode(this.refs.message).value = "";
   },
@@ -18,7 +18,7 @@ module.exports = React.createClass({
   handleEscalate: function (e) {
     e.preventDefault();
     var note = ReactDom.findDOMNode(this.refs.escalationNote).value.trim();
-    var conversationId = this.props.conversationId;
+    var conversationId = this.props.conversation.id;
     var escalatedToId = this.state.escalatedToId;
     var priority = this.state.priority;
     NoteActions.createEscalateNoteRequest( sessionStorage.authenticationToken, conversationId, escalatedToId, note, priority );
@@ -29,7 +29,7 @@ module.exports = React.createClass({
   handleClose: function (e) {
     e.preventDefault();
     var note = ReactDom.findDOMNode(this.refs.closureNote).value.trim();
-    NoteActions.createCloseNoteRequest(sessionStorage.authenticationToken, this.props.conversationId, note);
+    NoteActions.createCloseNoteRequest(sessionStorage.authenticationToken, this.props.conversation.id, note);
     this.setState({action: "message"});
     ReactDom.findDOMNode(this.refs.closureNote).value = "";
   },
@@ -77,9 +77,25 @@ module.exports = React.createClass({
     this.setState({ action: "message" })
   },
 
+  renderCloseButton: function() {
+    return (
+      <a href="#" className="btn btn-primary btn-sm message-button" onClick={this.showClose}>
+        <span className="glyphicon glyphicon-ok"></span> Close Case
+        </a>
+      );
+  },
+
+  renderEscalateButton: function() {
+    return (
+      <a href="#" className="btn btn-danger btn-sm" onClick={this.showEscalation}>
+        <span className="glyphicon glyphicon-fire"></span> Assign
+        </a>
+      );
+    },
+
   render: function () {
     var staffData = this.props.staff;
-    var staffElements = null;
+    var staffElements;
     if(staffData && staffData.length > 0){
       staffElements = staffData.map(function(staff, i){
         return <MessageStaff key = {i}
@@ -91,16 +107,8 @@ module.exports = React.createClass({
     var closeButton;
     var escalateButton;
     if (!this.props.conversation || this.props.conversation.state !== "closed") {
-      closeButton = (
-        <a href="#" className="btn btn-primary btn-sm message-button" onClick={this.showClose}>
-          <span className="glyphicon glyphicon-ok"></span> Close Case
-        </a>
-      );
-      escalateButton = (
-        <a href="#" className="btn btn-danger btn-sm" onClick={this.showEscalation}>
-          <span className="glyphicon glyphicon-fire"></span> Assign
-        </a>
-      );
+      closeButton = this.renderCloseButton();
+      escalateButton = this.renderEscalateButton();
     }
 
     return (
