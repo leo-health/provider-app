@@ -168,6 +168,8 @@ module.exports = React.createClass({
       }
     }
 
+    var currentSelectedConversation = _.find(this.state.conversations, {id: this.state.selectedConversationId});
+
     return (
       <div>
         <ConversationHeader
@@ -187,6 +189,7 @@ module.exports = React.createClass({
           <div className ="col-lg-9">
             <MessageNote
               staff={this.state.staff}
+              conversation={currentSelectedConversation}
             />
           </div>
         </div>
