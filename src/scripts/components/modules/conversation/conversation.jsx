@@ -71,12 +71,19 @@ module.exports = React.createClass({
     }
   },
 
-  componentWillMount: function() {
-    if(this.props.conversationId) {
-      var channelName = 'private-conversation' + this.props.conversationId;
-      var channel = this.props.pusher.channel(channelName);
+  componentWillReceiveProps: function(newProps) {
+    this.subscribeToPusher(newProps);
+  },
+
+  subscribeToPusher: function(newProps) {
+
+    if(newProps.conversationId) {
+      var channelName = 'private-conversation' + newProps.conversationId;
+      var channel = newProps.pusher.channel(channelName);
+
       if (!channel) {
-        channel = this.props.pusher.subscribe(channelName);
+        this.unsubscribeFromPusher();
+        channel = newProps.pusher.subscribe(channelName);
         channel.bind('new_message', function(data){
           if (!window.windowHasFocus) {
             if (data && data.message_type === "message") {
@@ -91,6 +98,19 @@ module.exports = React.createClass({
     }
   },
 
+  unsubscribeFromPusher: function() {
+    var oldChannelName = 'private-conversation' + this.props.conversationId;
+    this.props.pusher.unsubscribe(oldChannelName);
+  },
+
+  componentWillMount: function() {
+    this.subscribeToPusher(this.props);
+  },
+
+  componentWillUnmount: function() {
+    this.unsubscribeFromPusher();
+  },
+
   fetchNewMessage: function(data) {
     var currentUser = JSON.parse(sessionStorage.user);
 
@@ -101,10 +121,6 @@ module.exports = React.createClass({
         NoteActions.fetchNoteRequest(sessionStorage.authenticationToken, data.id, data.message_type)
       }
     }
-  },
-
-  componentWillUnmount: function() {
-    this.props.pusher.unsubscribe('private-conversation' + this.props.conversationId);
   },
 
   render: function () {

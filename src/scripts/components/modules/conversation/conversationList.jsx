@@ -103,6 +103,7 @@ module.exports = React.createClass({
         document.title = "New conversation";
       }
       if(data.conversation_state === this.state.conversationState){
+
         if(this.state.conversationState === "escalated" && this.isInConversationList(data.id)) return;
         this.fetchNewConversation(data.id)
       }
