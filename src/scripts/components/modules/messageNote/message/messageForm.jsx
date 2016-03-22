@@ -56,8 +56,15 @@ module.exports = React.createClass({
     return {
       escalatedToId: 0,
       priority: 0,
-      staff: [],
       action: "message"
+    }
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    if (newProps.staff && newProps.staff.length > 0) {
+      this.setState({
+        escalatedToId: newProps.staff[0].id
+      });
     }
   },
 
@@ -71,9 +78,10 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var staff = this.props.staff;
-    if(staff && staff.length > 0){
-      staff = staff.map(function(staff, i){
+    var staffData = this.props.staff;
+    var staffElements = null;
+    if(staffData && staffData.length > 0){
+      staffElements = staffData.map(function(staff, i){
         return <MessageStaff key = {i}
                              staff={staff}
                />
@@ -106,7 +114,7 @@ module.exports = React.createClass({
                       className="form-control"
                       onChange={this.setEscalatedTo}
                   >
-                {staff}
+                {staffElements}
               </select>
               <label className="control-label"> with a priority level of</label>
               <select className="form-control"
