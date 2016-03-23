@@ -21,7 +21,7 @@ module.exports = React.createClass({
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
 
     var currentUserSentLastMessage = newMessage && newMessage !== lastMessage && currentUser.id == newMessage.created_by.id;
-    var selectedConversationWasChanged = newProps.currentConversationId !== this.props.currentConversationId;
+    var selectedConversationWasChanged = newProps.conversation && this.props.conversation && newProps.conversation.id !== this.props.conversation.id;
     var loadingBatchMessages = newProps.page !== this.props.page;
     var scrollPositionAlreadyAtBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight
 
@@ -47,12 +47,12 @@ module.exports = React.createClass({
 
   handleScroll: function() {
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-    var conversationId = this.props.currentConversationId;
+    var conversation = this.props.conversation;
 
-    if(conversationId && node.scrollTop === 0){
+    if(conversation && node.scrollTop === 0){
       this.scrollHeightBeforePagination = node.scrollHeight;
       MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken,
-                                           this.props.currentConversationId,
+                                           conversation.id,
                                            this.props.page,
                                            this.props.offset);
     }
@@ -98,7 +98,7 @@ module.exports = React.createClass({
           </div>
         </div>
         <MessageForm
-          conversationId={this.props.currentConversationId}
+          conversation={this.props.conversation}
           staff={this.props.staff}
         />
       </div>

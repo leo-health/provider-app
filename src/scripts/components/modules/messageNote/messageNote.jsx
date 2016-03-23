@@ -77,7 +77,7 @@ module.exports = React.createClass({
       <div>
         <div className="col-lg-9">
           <MessageList messages={this.state.messages}
-                       currentConversationId={this.state.currentConversationId}
+                       conversation={this.props.conversation}
                        page={this.state.page}
                        offset={this.state.offset}
                        staff={this.props.staff}
