@@ -1,81 +1,49 @@
 var React = require('react');
 var Reflux = require('reflux');
-var ConversationActions = require('../../../actions/conversationActions');
-var UserActions = require('../../../actions/userActions');
 var leoUtil = require('../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
-  getInitialState: function() {
-    return {
-      selectedStaff: "Anyone"
-    }
-  },
-
-  handleClick: function(state) {
-    ConversationActions.fetchConversationsRequest(sessionStorage.authenticationToken, state, 1);
-    this.setState({
-      selectedStaff: "Anyone"
-    })
-  },
-
-  componentWillMount: function() {
-    UserActions.fetchStaffRequest(sessionStorage.authenticationToken);
-  },
-
-  componentWillReceiveProps: function(nextProps){
-    if (nextProps.currentListState === 'open' ||nextProps.currentListState === 'closed'){
-      this.setState({selectedStaff: "Anyone"})
-    }
-  },
-
-  handleFilterConversation: function(staff) {
-    ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, staff.id, 'escalated');
-    this.setState({
-      selectedStaff: leoUtil.formatName(staff)
-    })
-  },
-
   render: function () {
-    var openTab = this.props.currentListState === "open" ? "active" : "";
-    var escalationTab = this.props.currentListState === "escalated" ? "active" : "";
-    var closeTab = this.props.currentListState === "closed" ? "active" : "";
-    var showStaffSelection = escalationTab === "active" ? {display: "inline-block"} : {display: "none"};
-
+    var openTabCSSClass = this.props.currentListState === "open" ? "active" : "";
+    var escalationTabCSSClass = this.props.currentListState === "escalated" ? "active" : "";
+    var closeTabCSSClass = this.props.currentListState === "closed" ? "active" : "";
+    var showStaffSelectionStyle = escalationTabCSSClass === "active" ? {display: "inline-block"} : {display: "none"};
+    var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
     return (
       <div>
         <ul className="nav nav-tabs">
-          <li className={openTab} onClick={this.handleClick.bind(this, 'open')}>
+          <li className={openTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
             <a href="#open" data-toggle="tab">
               <span className="glyphicon glyphicon glyphicon-star-empty" aria-hidden="false"></span> Open
             </a>
           </li>
-          <li className={escalationTab} onClick={this.handleClick.bind(this, 'escalated')}>
+          <li className={escalationTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'escalated')}>
             <a href="#escalated" data-toggle="tab">
               <span className="glyphicon glyphicon-exclamation-sign-default" aria-hidden="false"></span> Assigned
             </a>
           </li>
-          <li className={closeTab} onClick={this.handleClick.bind(this, 'closed')}>
+          <li className={closeTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'closed')}>
             <a href="#closed" data-toggle="tab">
               <span className="glyphicon glyphicon-ok-circle" aria-hidden="false"></span> Closed
             </a>
           </li>
         </ul>
 
-        <div className="btn-group" id="staff-selection" style={showStaffSelection}>
+        <div className="btn-group" id="staff-selection" style={showStaffSelectionStyle}>
           <li className="btn btn-sm btn-default">Assigned to</li>
           <div className="btn-group">
-            <li className="btn btn-sm btn-default">{this.state.selectedStaff}</li>
+            <li className="btn btn-sm btn-default">{selectedStaffName}</li>
             <li className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               <span className="caret"></span>
             </li>
             <ul className="dropdown-menu">
-              <li onClick={this.handleClick.bind(this, 'escalated')}>
+              <li onClick={this.props.onChangeConversationStateTab.bind(null, 'escalated')}>
                 <a>Anyone</a>
               </li>
               {this.props.staff.map(function(staff, i) {
                 return (
                   <li key={i}
-                      onClick={this.handleFilterConversation.bind(this, staff)}>
+                      onClick={this.props.onChangeSelectedStaff.bind(null, staff)}>
                     <a>{leoUtil.formatName(staff)}</a>
                   </li>
                 )

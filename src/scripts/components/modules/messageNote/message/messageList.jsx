@@ -90,6 +90,15 @@ module.exports = React.createClass({
   },
 
   render: function () {
+    var messageForm;
+    if (this.props.conversation) {
+      messageForm = (
+        <MessageForm
+          conversation={this.props.conversation}
+          staff={this.props.staff}
+          />
+      );
+    }
     return (
       <div>
         <div id="chatbox" className="pre-scrollable panel panel-body">
@@ -97,10 +106,7 @@ module.exports = React.createClass({
             {this.renderMessages(this.props.messages)}
           </div>
         </div>
-        <MessageForm
-          conversation={this.props.conversation}
-          staff={this.props.staff}
-        />
+        {messageForm}
       </div>
     )
   }
