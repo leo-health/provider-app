@@ -21,7 +21,7 @@ module.exports = React.createClass({
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
 
     var currentUserSentLastMessage = newMessage && newMessage !== lastMessage && currentUser.id == newMessage.created_by.id;
-    var selectedConversationWasChanged = newProps.conversation && newProps.conversation.id !== this.props.conversation.id;
+    var selectedConversationWasChanged = newProps.conversation && this.props.conversation && newProps.conversation.id !== this.props.conversation.id;
     var loadingBatchMessages = newProps.page !== this.props.page;
     var scrollPositionAlreadyAtBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight
 
