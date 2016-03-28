@@ -81,8 +81,8 @@ module.exports = React.createClass({
 
   moveElementToFront: function(array, index, lastMessageBody){
     var temp = array[index];
-    array[index] = array[0];
-    array[0] = temp;
+    array.splice(index,1);
+    array.splice(0,0,temp);
     array[0].last_message = lastMessageBody;
     return array
   },
