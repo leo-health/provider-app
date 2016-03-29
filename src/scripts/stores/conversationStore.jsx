@@ -39,7 +39,6 @@ module.exports = Reflux.createStore({
     };
 
     page === 1 ? response.conversations = conversations : response.newConversations = conversations;
-
     this.trigger(response);
   },
 
@@ -71,23 +70,26 @@ module.exports = Reflux.createStore({
     MessageActions.fetchMessagesRequest(authenticationToken, conversation.id, 1, 0)
   },
 
-  onFetchStaffConversation: function(authenticationToken, staffId, state){
-    request.get(leo.API_URL+'/staff/' + staffId + '/conversations')
-           .query({
-              authentication_token: authenticationToken,
-              state: state
-            })
-           .end(function(err, res){
-             if(res.ok) ConversationActions.fetchStaffConversation.completed(res.body, authenticationToken, state)
-           })
+  onFetchStaffConversation: function(authenticationToken, staff, state){
+    if (staff) {
+      request.get(leo.API_URL+'/staff/' + staff.id + '/conversations')
+      .query({
+        authentication_token: authenticationToken,
+        state: state
+      })
+      .end(function(err, res){
+        if(res.ok) ConversationActions.fetchStaffConversation.completed(res.body, authenticationToken, state, staff)
+      })
+    }
   },
 
-  onFetchStaffConversationCompleted: function(response, authenticationToken, state){
+  onFetchStaffConversationCompleted: function(response, authenticationToken, state, staff){
     var conversations = response.data.conversations;
     this.trigger({
       status: response.status,
       conversations: conversations,
-      conversationState: state ? state : Date.now()
+      conversationState: state ? state : Date.now(),
+      selectedStaff: staff
     });
 
     if(conversations.length > 0){
