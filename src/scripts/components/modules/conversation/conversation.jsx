@@ -80,7 +80,6 @@ module.exports = React.createClass({
   },
 
   subscribeToPusher: function(newProps) {
-
     if(newProps.conversationId) {
       var channelName = 'private-conversation' + newProps.conversationId;
       var channel = newProps.pusher.channel(channelName);
