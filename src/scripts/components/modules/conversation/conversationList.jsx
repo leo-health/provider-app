@@ -77,6 +77,7 @@ module.exports = React.createClass({
   },
 
   moveConversationToTop: function (targetIndex, lastMessageBody) {
+    if(typeof lastMessageBody !== "string") lastMessageBody = "[image]";
     this.setState({
       conversations: this.moveElementToFront(this.state.conversations, targetIndex, lastMessageBody)
     });
