@@ -33,9 +33,7 @@ module.exports = React.createClass({
     e.preventDefault();
     var email = ReactDom.findDOMNode(this.refs.email).value.trim();
     var password = ReactDom.findDOMNode(this.refs.password).value.trim();
-    if (!this.isSessionStorageNameSupported() || !email || !password){
-      return
-    }
+    if (!this.isSessionStorageNameSupported() || !email || !password) return;
     var loginParam = {email: email, password: password};
     LoginAction.loginRequest(loginParam);
   },
