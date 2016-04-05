@@ -35,8 +35,12 @@ module.exports = React.createClass({
       if(!this.isSameConversation(status.newNote.conversation_id)) return;
 
       if(this.props.selected) {
-        ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.mapConversationState(status.newNote.message_type), 1);
-      }else{
+        if (this.props.currentListState === "escalated" && this.props.selectedStaff && status.newNote.message_type === "escalation") {
+          ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, status.newNote.escalated_to, this.props.currentListState);
+        } else {
+          ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.mapConversationState(status.newNote.message_type), 1);
+        }
+      } else {
         this.removeConversation(status)
       }
     }
@@ -76,7 +80,6 @@ module.exports = React.createClass({
   },
 
   subscribeToPusher: function(newProps) {
-
     if(newProps.conversationId) {
       var channelName = 'private-conversation' + newProps.conversationId;
       var channel = newProps.pusher.channel(channelName);

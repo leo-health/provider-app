@@ -6,6 +6,7 @@ var Conversation = require('./conversation');
 var ConversationHeader = require('./conversationHeader');
 var ConversationActions = require('../../../actions/conversationActions');
 var MessageActions = require('../../../actions/messageActions');
+var UserActions = require('../../../actions/userActions');
 var ConversationStore = require('../../../stores/conversationStore');
 var UserStore = require('../../../stores/userStore');
 var MessageNote = require('../messageNote/messageNote');
@@ -25,7 +26,8 @@ module.exports = React.createClass({
       page: 1,
       conversations: [],
       maxPage: 1,
-      offset: 0
+      offset: 0,
+      selectedStaff: null
     }
   },
 
@@ -41,10 +43,11 @@ module.exports = React.createClass({
     if(status.conversations) {
       this.setState({
         conversationState: status.conversationState,
+        selectedStaff: status.selectedStaff,
         conversations: status.conversations,
         page: 2,
         maxPage: status.maxPage,
-        selectedConversationId: status.conversations.length > 0 ? status.conversations[0].id : undefined
+        selectedConversationId: status.conversations.length > 0 ? status.conversations[0].id : undefined,
       })
     }
 
@@ -74,6 +77,7 @@ module.exports = React.createClass({
   },
 
   moveConversationToTop: function (targetIndex, lastMessageBody) {
+    if(typeof lastMessageBody !== "string") lastMessageBody = "[image]";
     this.setState({
       conversations: this.moveElementToFront(this.state.conversations, targetIndex, lastMessageBody)
     });
@@ -81,8 +85,8 @@ module.exports = React.createClass({
 
   moveElementToFront: function(array, index, lastMessageBody){
     var temp = array[index];
-    array[index] = array[0];
-    array[0] = temp;
+    array.splice(index,1);
+    array.splice(0,0,temp);
     array[0].last_message = lastMessageBody;
     return array
   },
@@ -94,6 +98,7 @@ module.exports = React.createClass({
 
   componentWillMount: function () {
     ConversationActions.fetchConversationsRequest( sessionStorage.authenticationToken, this.state.conversationState, this.state.page );
+    UserActions.fetchStaffRequest(sessionStorage.authenticationToken);
   },
 
   componentDidMount: function() {
@@ -132,6 +137,14 @@ module.exports = React.createClass({
     }
   },
 
+  onChangeSelectedStaff: function(staff) {
+    ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, staff, 'escalated');
+  },
+
+  onChangeConversationStateTab: function(stateTab) {
+    ConversationActions.fetchConversationsRequest(sessionStorage.authenticationToken, stateTab, 1);
+  },
+
   render: function () {
     var conversations = this.state.conversations;
     if (conversations.length > 0){
@@ -155,6 +168,7 @@ module.exports = React.createClass({
                         removeConversationFromList = {this.removeConversationFromList}
                         moveConversationToTop = {this.moveConversationToTop}
                         currentListState = {this.state.conversationState}
+                        selectedStaff = {this.state.selectedStaff}
           />
         )
       }, this);
@@ -174,7 +188,10 @@ module.exports = React.createClass({
       <div>
         <ConversationHeader
           currentListState={this.state.conversationState}
+          onChangeConversationStateTab={this.onChangeConversationStateTab}
           staff={this.state.staff}
+          selectedStaff={this.state.selectedStaff}
+          onChangeSelectedStaff={this.onChangeSelectedStaff}
         />
 
         <div className="row">

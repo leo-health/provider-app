@@ -18,9 +18,10 @@ module.exports = Reflux.createStore({
   },
 
   onFetchNoteRequestCompleted: function(response){
-    this.trigger({ status: response.status,
-                   newNote: response.data.note
-                  })
+    this.trigger({
+      status: response.status,
+      newNote: response.data.note
+    });
   },
 
   onFetchNoteRequestFailed: function(response){

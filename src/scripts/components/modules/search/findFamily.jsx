@@ -47,13 +47,13 @@ module.exports = React.createClass({
 
   getSuggestionValue: function(suggestionObj){
     var displayName = leoUtil.formatName(suggestionObj);
-    if(suggestionObj.role.name === 'patient') displayName = this.formatDisplay(displayName, suggestionObj);
+    if(!suggestionObj.role) displayName = this.formatDisplay(displayName, suggestionObj);
     return displayName
   },
 
   renderSuggestion: function(suggestion, input){
     var displayName = leoUtil.formatName(suggestion);
-    if(suggestion.role.name === 'patient') displayName = this.formatDisplay(displayName, suggestion);
+    if(!suggestion.role) displayName = this.formatDisplay(displayName, suggestion);
     return(<span>{displayName}</span>)
   },
 
@@ -67,7 +67,7 @@ module.exports = React.createClass({
   },
 
   handleSelectedSuggest: function(suggestion, event){
-    if(suggestion.role.name === 'patient' || suggestion.role.name === 'guardian'){
+    if(suggestion.family_id){
       ConversationActions.fetchConversationByFamily(sessionStorage.authenticationToken, suggestion.family_id)
     }else{
       ConversationActions.fetchStaffConversation(sessionStorage.authenticationToken, suggestion.id, undefined)
