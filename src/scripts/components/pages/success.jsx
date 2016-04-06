@@ -7,8 +7,8 @@ module.exports = React.createClass({
           <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4 jumbotron">
             <div className="text-center">
               <img src="../images/leo.png"/>
-              <h5>Account Confirmed</h5>
-              <h6>Taking your child to the doctor just got a lot easier!</h6>
+              <h4>Account Confirmed</h4>
+              <p>Taking your child to the doctor just got a lot easier!</p>
               <br/>
               <img src="../images/screenshot.png"/>
             </div>
