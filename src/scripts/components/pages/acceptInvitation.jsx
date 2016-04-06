@@ -20,7 +20,7 @@ module.exports = React.createClass({
   onStatusChange: function (status) {
     if(status.sign_up){
       if(status.status == "ok"){
-        this.setState({ message: <h5>Thank you for accepting this invitation.</h5>})
+        this.setState({ message: <h5>Thank you for confirming this invitation.</h5>})
       }else{
         this.setState({ message: <h5>Oops, something went wrong :(</h5>})
       }
