@@ -1,3 +1,5 @@
+require('../../../newrelic');
+
 var React = require('react'),
     Reflux = require('reflux'),
     Router = require('react-router'),
