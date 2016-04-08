@@ -39,14 +39,13 @@ module.exports = React.createClass({
         this.setState({status: "fail", message: "password do not match."});
         return
       }else{
-        var changeParams = {password: password,
+        var changeParams = {
+          password: password,
           passwordConfirmation: passwordConfirmation,
           token: this.context.router.getCurrentQuery().token
         };
         PasswordActions.changePasswordRequest(changeParams)
       }
-    }else{
-      this.transitionTo('login');
     }
   },
 
