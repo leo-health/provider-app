@@ -56,7 +56,7 @@ module.exports = Reflux.createStore({
   },
 
   onFetchStaffRequestCompleted: function(response){
-    var staff = _.filter(response.data.staff, function(staff){ return staff.id !== 1 });
+    var staff = response.data.staff;
     this.trigger({
       status: response.status,
       staffSelection: staff
