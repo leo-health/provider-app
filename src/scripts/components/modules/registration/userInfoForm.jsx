@@ -1,9 +1,25 @@
 var React = require('react');
+var validation = require('react-validation-mixin');
+var Joi = require('joi');
+var strategy = require('joi-validation-strategy');
 
 module.exports = React.createClass({
+  validatorTypes: {
+    firstName: Joi.string().min(2).trim().required().label("First name"),
+    lastName: Joi.string().min(2).trim().required().label("Last name"),
+    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone"),
+  },
+
+  handleOnSubmit: function(e){
+    e.preventDefault();
+    var email = ReactDom.findDOMNode(this.refs.email).value.trim();
+    var email = ReactDom.findDOMNode(this.refs.email).value.trim();
+  },
+
   render: function(){
     return(
-        <div className="body">
+      <div className="body">
+        <form className="" onSubmit={this.handleOnSubmit}>
           <div className="row">
             <div className="col-md-7 col-md-offset-1">
               <h3 className="signup-header">Tell us about yourself!</h3>
@@ -39,7 +55,8 @@ module.exports = React.createClass({
               <a href="#" className="btn btn-primary" id="signup_continue" type="submit">Continue</a>
             </div>
           </div>
-        </div>
+        </form>
+      </div>
     )
   }
 });

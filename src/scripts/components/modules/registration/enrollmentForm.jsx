@@ -1,6 +1,11 @@
 var React = require('react');
 
 module.exports = React.createClass({
+  handleOnSubmit: function(e){
+    e.preventDefault();
+
+  },
+
   render: function(){
     return(
       <div>
@@ -28,7 +33,9 @@ module.exports = React.createClass({
               </div>
 
               <div className="col-md-3 col-md-offset-1">
-                <a href="#" className="btn btn-primary" id="signup_continue" type="submit">Continue</a>
+                <div className="form-group">
+                  <button type="submit" id="signup_continue" className="btn btn-primary">Continue</button>&nbsp;
+                </div>
               </div>
             </div>
           </div>
