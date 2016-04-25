@@ -15,6 +15,14 @@ module.exports = React.createClass({
           <div className="col-md-10 col-md-offset-1">
             <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
             <div id="signup_progress">
+              <div class="progress-text" id="progress_xs">
+                <span class="signup-xs-text show">(1/5) Enroll</span>
+                <span class="signup-xs-text">(2/5) You</span>
+                <span class="signup-xs-text">(3/5) Your Child</span>
+                <span class="signup-xs-text">(4/5) Review</span>
+                <span class="signup-xs-text">(5/5) Payment</span>
+              </div>
+
               <div className="progress-text" id="progress">
                 <div className="progress-table">
                   <div className="signup-progress-text progress-text-container">Enroll</div>
