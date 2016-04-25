@@ -34,10 +34,10 @@ module.exports = React.createClass({
               </div>
             </div>
           </div>
-        </div>
 
-        <div id="signup_content">
-          <PaymentInfoForm/>
+          <div id="signup_content">
+            <EnrollmentForm/>
+          </div>
         </div>
       </div>
     )

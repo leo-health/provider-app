@@ -32,7 +32,7 @@ module.exports = React.createClass({
                 </div>
               </div>
 
-              <div className="col-md-3 col-md-offset-1">
+              <div className="col-md-3">
                 <div className="form-group">
                   <button type="submit" id="signup_continue" className="btn btn-primary">Continue</button>&nbsp;
                 </div>
