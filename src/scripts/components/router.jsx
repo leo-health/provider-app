@@ -18,7 +18,8 @@ var App = require('./app'),
     Privacy = require('./pages/privacy'),
     FourOhFour = require('./pages/404'),
     DeepLink = require('./pages/deepLinkWarning'),
-    Success = require('./pages/success');
+    Success = require('./pages/success'),
+    UserRegistration = require('./pages/userRegistration');
 
 var routes = (
   <Route handler={App}>
@@ -34,6 +35,7 @@ var routes = (
     <Route name="privacy" handler={Privacy}/>
     <Route name="invalid-device" handler={DeepLink}/>
     <Route name="success" handler={Success}/>
+    <Route name="userRegistration" handler={UserRegistration}/>
     <NotFoundRoute handler={FourOhFour} />
   </Route>
 );
