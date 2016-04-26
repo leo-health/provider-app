@@ -3,10 +3,22 @@ var HomeHeader = require('./homeHeader');
 var FindFamily = require('../modules/search/findFamily');
 var ConversationList = require('../modules/conversation/conversationList');
 var ConversationHeader = require('../modules/conversation/conversationHeader');
+var SessionStore = require('../../stores/sessionStore');
 var Footer = require('./footer');
 var _ = require('lodash');
+var Router = require('react-router');
+var RouteHandler = Router.RouteHandler;
+var Navigation = Router.Navigation;
 
 module.exports = React.createClass({
+  mixins: [Navigation],
+
+  getInitialState: function() {
+    var loginStatus = SessionStore.getSession();
+    if(!loginStatus.isLoggedIn) this.transitionTo('login');
+    return loginStatus;
+  },
+
   componentWillMount: function(){
     this.subscribeToPusher();
   },
