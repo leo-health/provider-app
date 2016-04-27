@@ -19,7 +19,7 @@ module.exports = React.createClass({
           <form className="" onSubmit={this.handleOnSubmit}>
             <div className="row">
               <div className="col-md-7 col-md-offset-1">
-                <h3 className="signup-header">Tell us about yourself!</h3>
+                <h3 className="signup-header">Let's set up a profile for your children</h3>
               </div>
             </div>
 

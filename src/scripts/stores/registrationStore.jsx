@@ -66,5 +66,35 @@ module.exports = Reflux.createStore({
     this.trigger({ action: "update",
                    status: response.status,
                    message: "There was an error updating your enrollment information."});
+  },
+
+  onCreateEnrollmentRequest: function(enrollmentParams){
+    request.get(leo.API_URL+"/ios_configuration")
+           .end(function(err, res){
+             if(res.ok){
+               enrollmentParams["vendor_id"]= res.body.data.vendor_id;
+               request.post(leo.API_URL+"/enrollments")
+                      .send(enrollmentParams)
+                      .end(function(err, res){
+                        if(res.ok){
+                          RegistrationActions.createEnrollmentRequest.completed(res.body);
+                        }else{
+                          RegistrationActions.createEnrollmentRequest.failed(res.body);
+                        }
+                   })
+             }else{
+               this.trigger({message: "couldn't generate your vendor id"})
+             }
+           });
+  },
+
+  onCreateEnrollmentRequestCompleted: function(response){
+    this.trigger({
+      nextPage: "userInfo"
+    })
+  },
+
+  onCreateEnrollmentRequestFailed: function(response){
+
   }
 });
