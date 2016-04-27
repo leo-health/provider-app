@@ -25,18 +25,24 @@ var routes = (
   <Route handler={App}>
     <DefaultRoute handler={Home}/>
     <Route name="login" handler={Login}/>
-    <Route name ="resetPassword" handler={ResetPassword} />
-    <Route name ="changePassword" handler={ChangePassword} />
+    <Route name ="resetPassword" handler={ResetPassword}/>
+    <Route name ="changePassword" handler={ChangePassword}/>
     <Route name ="registration" handler={Registration} />
-    <Route name ="registration/completed" handler={SecondaryUserSuccess} />
-    <Route name ="acceptInvitation" handler={AcceptInvitation} />
+    <Route name ="registration/completed" handler={SecondaryUserSuccess}/>
+    <Route name ="acceptInvitation" handler={AcceptInvitation}/>
     <Route name="home" handler={Home}/>
     <Route name="terms" handler={Terms}/>
     <Route name="privacy" handler={Privacy}/>
     <Route name="invalid-device" handler={DeepLink}/>
     <Route name="success" handler={Success}/>
-    <Route name="userRegistration" handler={UserRegistration}/>
-    <NotFoundRoute handler={FourOhFour} />
+    <Route name="userRegistration" handler={UserRegistration}>
+      <Route path="/?page=enroll" />
+      <Route path="/?page=user"/>
+      <Route path="/?page=payment"/>
+      <Route path="/?page=patient"/>
+      <Route path="/?page=review"/>
+    </Route>
+    <NotFoundRoute handler={FourOhFour}/>
   </Route>
 );
 

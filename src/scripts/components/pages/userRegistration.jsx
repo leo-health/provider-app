@@ -16,7 +16,7 @@ var RegistrationStore = require('../../stores/registrationStore');
 
 module.exports = validation(strategy)(React.createClass({
   mixins: [
-    Reflux.listenTo(RegistrationStore, "onRegistrationStatusChange"),
+    Reflux.listenTo(RegistrationStore, "onRegistrationStatusChange")
   ],
 
   getInitialState: function() {
@@ -67,18 +67,18 @@ module.exports = validation(strategy)(React.createClass({
     }
   },
 
-  switchPage: function(){
-    switch(this.state.page){
-      case "enroll":
-        return  <EnrollmentForm onChange={this.onChange} handleOnSubmit={this.handleOnSubmit}/>;
-      case "userInfo":
-        return  <UserInfoForm onChange={this.onChange} handleOnSubmit={this.handleOnSubmit}/>;
-      case "payment":
-        return  <PaymentInfoForm onChange={this.onChange} handleOnSubmit={this.handleOnSubmit}/>;
-      default:
-        return  <EnrollmentForm onChange={this.onChange} handleOnSubmit={this.handleOnSubmit}/>;
-    }
-  },
+  //switchPage: function(){
+  //  switch(this.state.page){
+  //    case "enroll":
+  //      return  <EnrollmentForm onChange={this.onChange} handleOnSubmit={this.handleOnSubmit}/>;
+  //    case "userInfo":
+  //      return  <UserInfoForm onChange={this.onChange} handleOnSubmit={this.handleOnSubmit}/>;
+  //    case "payment":
+  //      return  <PaymentInfoForm onChange={this.onChange} handleOnSubmit={this.handleOnSubmit}/>;
+  //    default:
+  //      return  <EnrollmentForm onChange={this.onChange} handleOnSubmit={this.handleOnSubmit}/>;
+  //  }
+  //},
 
   render: function(){
     var page = this.switchPage();
