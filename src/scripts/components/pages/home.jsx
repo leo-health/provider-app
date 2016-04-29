@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     var loginStatus = SessionStore.getSession();
-    if(!loginStatus.isLoggedIn) this.transitionTo('login');
+    //if(!loginStatus.isLoggedIn) this.transitionTo('login');
     return loginStatus;
   },
 

@@ -1,10 +1,10 @@
 var React = require('react');
-var ReactDom = require('react-dom');
-//# Assign React to Window so the Chrome React Dev Tools will work.
-window.React = React;
+var ReactDom = require('react-dom'),
+    { render } = ReactDom;
+var ReactRouter = require('react-router'),
+    {Router, Route, browserHistory, IndexRoute} = ReactRouter;
 
-var Router = require('react-router'),
-    { Route, RouteHandler, Link, DefaultRoute, NotFoundRoute } = Router;
+window.React = React;
 
 var App = require('./app'),
     Login = require('./pages/login'),
@@ -21,23 +21,24 @@ var App = require('./app'),
     Success = require('./pages/success');
 
 var routes = (
-  <Route handler={App}>
-    <DefaultRoute handler={Home}/>
-    <Route name="login" handler={Login}/>
-    <Route name ="resetPassword" handler={ResetPassword} />
-    <Route name ="changePassword" handler={ChangePassword} />
-    <Route name ="registration" handler={Registration} />
-    <Route name ="registration/completed" handler={SecondaryUserSuccess} />
-    <Route name ="acceptInvitation" handler={AcceptInvitation} />
-    <Route name="home" handler={Home}/>
-    <Route name="terms" handler={Terms}/>
-    <Route name="privacy" handler={Privacy}/>
-    <Route name="invalid-device" handler={DeepLink}/>
-    <Route name="success" handler={Success}/>
-    <NotFoundRoute handler={FourOhFour} />
-  </Route>
+  <Router history={browserHistory}>
+    <Route component={App}>
+      <IndexRoute component={Home}/>
+      <Route path="login" component={Login}/>
+      <Route path ="resetPassword" component={ResetPassword} />
+      <Route path ="changePassword" component={ChangePassword} />
+      <Route path ="registration" component={Registration} />
+      <Route path ="registration/completed" component={SecondaryUserSuccess} />
+      <Route path ="acceptInvitation" component={AcceptInvitation} />
+      <Route path="home" component={Home}/>
+      <Route path="terms" component={Terms}/>
+      <Route path="privacy" component={Privacy}/>
+      <Route path="invalid-device" component={DeepLink}/>
+      <Route path="success" component={Success}/>
+      <Route path="*" component={FourOhFour}/>
+    </Route>
+  </Router>
 );
 
-Router.run(routes, function (Handler) {
-  ReactDom.render(<Handler/>, document.getElementById("container"));
-});
+render(<Router>{routes}</Router>, document.getElementById("container"));
+
