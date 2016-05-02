@@ -14,9 +14,9 @@ module.exports = React.createClass({
   mixins: [Navigation],
 
   getInitialState: function() {
-    var loginStatus = SessionStore.getSession();
+    //var loginStatus = SessionStore.getSession();
     //if(!loginStatus.isLoggedIn) this.transitionTo('login');
-    return loginStatus;
+    //return loginStatus;
   },
 
   componentWillMount: function(){

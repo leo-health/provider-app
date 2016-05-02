@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDom = require('react-dom'),
-    { render } = ReactDom;
+    {render} = ReactDom;
 var ReactRouter = require('react-router'),
     {Router, Route, browserHistory, IndexRoute} = ReactRouter;
-
+var SessionStore = require('../stores/sessionStore');
 window.React = React;
 
 var App = require('./app'),
@@ -20,17 +20,26 @@ var App = require('./app'),
     DeepLink = require('./pages/deepLinkWarning'),
     Success = require('./pages/success');
 
-var routes = (
+function requireAuth(nextState, replace){
+  if(!SessionStore.getSession().isLoggedIn){
+    replace({
+      pathname: "/login",
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
+}
+
+render((
   <Router history={browserHistory}>
     <Route component={App}>
-      <IndexRoute component={Home}/>
+      <IndexRoute component={Home} onEnter={requireAuth}/>
       <Route path="login" component={Login}/>
       <Route path ="resetPassword" component={ResetPassword} />
       <Route path ="changePassword" component={ChangePassword} />
       <Route path ="registration" component={Registration} />
       <Route path ="registration/completed" component={SecondaryUserSuccess} />
       <Route path ="acceptInvitation" component={AcceptInvitation} />
-      <Route path="home" component={Home}/>
+      <Route path="home" component={Home} onEnter={requireAuth}/>
       <Route path="terms" component={Terms}/>
       <Route path="privacy" component={Privacy}/>
       <Route path="invalid-device" component={DeepLink}/>
@@ -38,7 +47,4 @@ var routes = (
       <Route path="*" component={FourOhFour}/>
     </Route>
   </Router>
-);
-
-render(<Router>{routes}</Router>, document.getElementById("container"));
-
+), document.getElementById("container"));

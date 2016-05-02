@@ -127,6 +127,7 @@ gulp.task "webpack-dev-server", (callback) ->
       poll: true
     }
     noInfo: true
+    historyApiFallback: true
   )
   devServer.listen DEV_PORT, "0.0.0.0", (err) ->
     throw new gutil.PluginError("webpack-dev-server", err) if err
