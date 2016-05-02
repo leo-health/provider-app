@@ -1,12 +1,10 @@
-var React = require('react');
-var ReactDom = require('react-dom'),
+var React = require('react'),
+    ReactDom = require('react-dom'),
     {render} = ReactDom;
-var ReactRouter = require('react-router'),
-    {Router, Route, browserHistory, IndexRoute} = ReactRouter;
-var SessionStore = require('../stores/sessionStore');
-window.React = React;
-
-var App = require('./app'),
+    ReactRouter = require('react-router'),
+    {Router, Route, browserHistory, IndexRoute} = ReactRouter,
+    SessionStore = require('../stores/sessionStore'),
+    App = require('./app'),
     Login = require('./pages/login'),
     Home = require('./pages/home'),
     ResetPassword = require('./pages/resetPassword'),
@@ -19,6 +17,8 @@ var App = require('./app'),
     FourOhFour = require('./pages/404'),
     DeepLink = require('./pages/deepLinkWarning'),
     Success = require('./pages/success');
+
+window.React = React;
 
 function requireAuth(nextState, replace){
   if(!SessionStore.getSession().isLoggedIn){

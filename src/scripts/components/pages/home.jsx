@@ -6,19 +6,8 @@ var ConversationHeader = require('../modules/conversation/conversationHeader');
 var SessionStore = require('../../stores/sessionStore');
 var Footer = require('./footer');
 var _ = require('lodash');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
-var Navigation = Router.Navigation;
 
 module.exports = React.createClass({
-  mixins: [Navigation],
-
-  getInitialState: function() {
-    //var loginStatus = SessionStore.getSession();
-    //if(!loginStatus.isLoggedIn) this.transitionTo('login');
-    //return loginStatus;
-  },
-
   componentWillMount: function(){
     this.subscribeToPusher();
   },
@@ -37,7 +26,6 @@ module.exports = React.createClass({
   },
 
   subscribeToBrowserTabFocusEvent: function() {
-
     window.originalTabTitle = "LeoHealth - WebApp";
     document.title = window.originalTabTitle;
 
