@@ -90,13 +90,13 @@ module.exports = Reflux.createStore({
 
   onCreateEnrollmentRequestCompleted: function(response){
     this.trigger({
-      nextPage: "userInfo"
+      nextPage: true
     })
   },
 
   onCreateEnrollmentRequestFailed: function(response){
     this.trigger({
-
+      nextPage: false
     })
   }
 });

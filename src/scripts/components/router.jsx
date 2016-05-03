@@ -17,7 +17,9 @@ var React = require('react'),
     FourOhFour = require('./pages/404'),
     DeepLink = require('./pages/deepLinkWarning'),
     Success = require('./pages/success'),
-    UserRegistration = require('./pages/userRegistration');
+    EnrollmentForm = require('./modules/registration/enrollmentForm'),
+    UserInfoForm = require('./modules/registration/userInfoForm'),
+    SignUp = require('./pages/signUp');
 
 window.React = React;
 
@@ -32,7 +34,7 @@ function requireAuth(nextState, replace){
 
 render((
   <Router history={browserHistory}>
-    <Route component={App}>
+    <Route path="/" component={App}>
       <IndexRoute component={Home} onEnter={requireAuth}/>
       <Route path="login" component={Login}/>
       <Route path ="resetPassword" component={ResetPassword} />
@@ -45,6 +47,10 @@ render((
       <Route path="privacy" component={Privacy}/>
       <Route path="invalid-device" component={DeepLink}/>
       <Route path="success" component={Success}/>
+      <Route path="signup/" component={SignUp}>
+        <IndexRoute component={EnrollmentForm}/>
+        <Route path="/?page=you" component={UserInfoForm}/>
+      </Route>
       <Route path="*" component={FourOhFour}/>
     </Route>
   </Router>
