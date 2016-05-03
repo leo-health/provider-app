@@ -1,5 +1,5 @@
-var React = require('react');
-    LoginAction = require('../../actions/loginActions');
+var React = require('react'),
+    LoginAction = require('../../actions/loginActions'),
     leoUtil = require('../../utils/common').StringUtils;
 
 module.exports = React.createClass({
