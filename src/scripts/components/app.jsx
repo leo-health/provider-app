@@ -1,41 +1,36 @@
 var React = require('react'),
     Reflux = require('reflux'),
-    Router = require('react-router'),
-    RouteHandler = Router.RouteHandler,
-    Navigation = Router.Navigation;
-
-var LoginActions = require('../actions/loginActions'),
-    RouterActions = require('../actions/routerActions');
-
-var SessionStore = require('../stores/sessionStore'),
-    RouteStore = require('../stores/routerStore'),
-    PasswordStore = require('../stores/passwordStore');
+    ReactRouter = require('react-router'),
+    {browserHistory} = ReactRouter,
+    LoginActions = require('../actions/loginActions'),
+    SessionStore = require('../stores/sessionStore');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(SessionStore, "onStatusChange"), Navigation],
+  mixins: [Reflux.listenTo(SessionStore, "onStatusChange")],
 
   getInitialState: function(){
-    var loginStatus = SessionStore.getSession();
-    var currentRouteName = this.context.router.getCurrentPathname();
-    if (["/resetPassword", "/changePassword", "/registration", "/success", "/404", "/terms", "/privacy", "/acceptInvitation", "/invalid-device", "/userRegistration"].indexOf(currentRouteName) > -1) {
-      return loginStatus
-    }else if(loginStatus.isLoggedIn){
-      this.transitionTo('home')
-    }else{
-      this.transitionTo('login')
-    }
-    return loginStatus;
+    return SessionStore.getSession();
+  },
+
+  componentWillMount: function(){
+    var currentRouteName = this.props.location.pathname;
+    if (["/resetPassword", "/changePassword", "/registration", "/success", "/404", "/terms", "/privacy", "/acceptInvitation", "/invalid-device"].indexOf(currentRouteName) > -1) return
+    this.pageTransition();
   },
 
   onStatusChange: function(status){
     this.setState(status);
-    this.state.isLoggedIn ? this.transitionTo('home') : this.transitionTo('login')
+    this.pageTransition();
+  },
+
+  pageTransition: function(){
+    this.state.isLoggedIn ? browserHistory.push('home') : browserHistory.push('login');
   },
 
   render: function(){
     return(
       <div className = "container">
-        <RouteHandler/>
+        {this.props.children}
       </div>
     );
   }
