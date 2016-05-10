@@ -37,11 +37,11 @@ render((
     <Route path="/" component={App}>
       <IndexRoute component={Home} onEnter={requireAuth}/>
       <Route path="/login" component={Login}/>
-      <Route path ="/resetPassword" component={ResetPassword} />
-      <Route path ="/changePassword" component={ChangePassword} />
-      <Route path ="/registration" component={Registration} />
-      <Route path ="/registration/completed" component={SecondaryUserSuccess} />
-      <Route path ="/acceptInvitation" component={AcceptInvitation} />
+      <Route path ="/resetPassword" component={ResetPassword}/>
+      <Route path ="/changePassword" component={ChangePassword}/>
+      <Route path ="/registration" component={Registration}/>
+      <Route path ="/registration/completed" component={SecondaryUserSuccess}/>
+      <Route path ="/acceptInvitation" component={AcceptInvitation}/>
       <Route path="/home" component={Home} onEnter={requireAuth}/>
       <Route path="/terms" component={Terms}/>
       <Route path="/privacy" component={Privacy}/>

@@ -1,31 +1,51 @@
 var React = require('react'),
-    Reflux= require('reflux'),
     ReactDom = require('react-dom'),
-    ReactRouter = require('react-router'),
-    {browserHistory, withRouter} = ReactRouter,
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy'),
     RegistrationActions = require('../../../actions/registrationActions'),
     RegistrationStore = require('../../../stores/registrationStore');
 
-module.exports = withRouter(React.createClass({
+module.exports = validation(strategy)(React.createClass({
+  validatorTypes: {
+    email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
+    password: Joi.string().min(8).max(127).trim().required().label("Password")
+  },
+
+  getValidatorData: function(){
+    return {
+      email: ReactDom.findDOMNode(this.refs.email).value.trim(),
+      password: ReactDom.findDOMNode(this.refs.password).value.trim()
+    }
+  },
+
   handleOnSubmit: function(e){
     e.preventDefault();
-    var email = ReactDom.findDOMNode(this.refs.email).value.trim();
-    var password = ReactDom.findDOMNode(this.refs.password).value.trim();
+    const onValidate = (error) => {
+      if (error) {
+        return
+      } else {
+        this.createEnrollment();
+      }
+    };
+
+    this.props.validate(onValidate);
+  },
+
+  createEnrollment: function(){
     RegistrationActions.createEnrollmentRequest({
-      email: email,
-      password: password,
+      email: ReactDom.findDOMNode(this.refs.email).value.trim(),
+      password: ReactDom.findDOMNode(this.refs.password).value.trim(),
       nextPage: "you"
     });
+  },
 
-    //const onValidate = (error) => {
-    //  if(error) return;
-    //  RegistrationActions.createEnrollmentRequest(this.state)
-    //};
-    //this.props.validate(onValidate);
-    //this.submitHasBeenAttemptedOnce = true;
+  renderHelpText: function(message){
+    return <label className="text-danger">{message}</label>
+  },
+
+  onChange: function(ref){
+
   },
 
   render: function(){
@@ -43,13 +63,15 @@ module.exports = withRouter(React.createClass({
               <div className="col-md-7 col-md-offset-1">
                 <div className="row">
                   <div className="form-group col-sm-12">
-                    <input type="text" className="form-control" id="inputEmail" placeholder="Email" ref="email"/>
+                    <input type="text" className="form-control" onChange={this.onChange()} placeholder="Email" ref="email"/>
+                    {this.renderHelpText(this.props.getValidationMessages('email'))}
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="form-group col-sm-12">
-                    <input type="password" className="form-control" id="inputPassword" placeholder="Password" ref="password"/>
+                    <input type="password" className="form-control" onChange={this.onChange()} placeholder="Password" ref="password"/>
+                    {this.renderHelpText(this.props.getValidationMessages('password'))}
                   </div>
                 </div>
               </div>
@@ -66,3 +88,13 @@ module.exports = withRouter(React.createClass({
     )
   }})
 );
+
+
+//propTypes = {
+//  errors: PropTypes.object,
+//  validate: PropTypes.func,
+//  isValid: PropTypes.func,
+//  handleValidation: PropTypes.func,
+//  getValidationMessages: PropTypes.func,
+//  clearValidations: PropTypes.func,
+//}

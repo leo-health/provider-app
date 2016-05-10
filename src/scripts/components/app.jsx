@@ -12,6 +12,10 @@ module.exports = React.createClass({
     return SessionStore.getSession();
   },
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
   componentWillMount: function(){
     var currentRouteName = this.props.location.pathname;
     if (["/resetPassword", "/changePassword", "/registration", "/success", "/404", "/terms", "/privacy", "/acceptInvitation", "/invalid-device", "/signup", "/signup/"].indexOf(currentRouteName) > -1) return;
@@ -24,7 +28,7 @@ module.exports = React.createClass({
   },
 
   pageTransition: function(){
-    this.state.isLoggedIn ? browserHistory.push('home') : browserHistory.push('login');
+    this.state.isLoggedIn ? this.context.router.push('/home') : this.context.router.push('/login');
   },
 
   render: function(){

@@ -19,10 +19,11 @@ module.exports = Reflux.createStore({
   },
 
   onFetchEnrollmentRequestCompleted: function(response){
-
-    this.trigger({ action: "fetch",
-                   status: response.status,
-                   data: response.data });
+    this.trigger({
+      action: "fetch",
+      status: response.status,
+      data: response.data
+    });
   },
 
   onFetchEnrollmentRequestFailed: function(response){
@@ -31,16 +32,9 @@ module.exports = Reflux.createStore({
                    message: "There was an error retrieiving your enrollment information."});
   },
 
-  onUpdateEnrollmentRequest: function(enrollmentParams, token){
+  onUpdateEnrollmentRequest: function(enrollmentParams){
     request.put(leo.API_URL+"/enrollments/current")
-           .send({
-              authentication_token: token,
-              first_name: enrollmentParams.firstName,
-              last_name: enrollmentParams.lastName,
-              email: enrollmentParams.email,
-              phone: enrollmentParams.phone,
-              password: enrollmentParams.password
-            })
+           .send(enrollmentParams)
            .end(function(err, res){
               if(res.ok){
                 RegistrationActions.updateEnrollmentRequest.completed(res.body);
