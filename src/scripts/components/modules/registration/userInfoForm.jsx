@@ -1,19 +1,48 @@
-var React = require('react');
-var validation = require('react-validation-mixin');
-var Joi = require('joi');
-var strategy = require('joi-validation-strategy');
+var React = require('react'),
+    ReactRouter = require('react-router'),
+    {browserHistory, withRouter} = ReactRouter,
+    validation = require('react-validation-mixin'),
+    Joi = require('joi'),
+    _ = require('lodash'),
+    RegistrationActions = require('../../actions/registrationActions'),
+    strategy = require('joi-validation-strategy');
 
 module.exports = React.createClass({
-  validatorTypes: {
-    firstName: Joi.string().min(2).trim().required().label("First name"),
-    lastName: Joi.string().min(2).trim().required().label("Last name"),
-    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone"),
+  //validatorTypes: {
+  //  firstName: Joi.string().min(2).trim().required().label("First name"),
+  //  lastName: Joi.string().min(2).trim().required().label("Last name"),
+  //  phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone"),
+  //},
+  getInitialState: function(){
+    return {
+      insurancePlanId: 1
+    }
+  },
+
+  setInsurancePlanId: function(e){
+    this.setState({ insurancePlanId: Number(e.target.value) })
   },
 
   handleOnSubmit: function(e){
     e.preventDefault();
-    var email = ReactDom.findDOMNode(this.refs.email).value.trim();
-    var email = ReactDom.findDOMNode(this.refs.email).value.trim();
+    var firstName = ReactDom.findDOMNode(this.refs.firstName).value.trim();
+    var lastName = ReactDom.findDOMNode(this.refs.lastName).value.trim();
+    var phone = ReactDom.findDOMNode(this.refs.phone).value.trim();
+    React
+  },
+
+  parseInsurers: function(){
+    var plans = [];
+    if( this.props.insurers.length > 0 ){
+      _.each(this.props.insurers, function(insurer){
+         _.each(insurer.insurance_plans, function(insurancePlan){
+          plans.push(React.createElement('option',
+              {key: insurancePlan.id, value: insurancePlan.id},
+              insurer.insurer_name + ' ' +insurancePlan.plan_name))
+        })
+      });
+    }
+    return plans
   },
 
   render: function(){
@@ -30,11 +59,16 @@ module.exports = React.createClass({
             <div className="row">
               <div className="col-md-7 col-md-offset-1">
                 <div className="row">
-                  <div className="form-group col-sm-12">
-                    <input type="text" className="form-control" id="inputInsurer" placeholder="Insurer" ref="insurer"/>
+                  <div className="col-sm-12">
+                    <select className="form-control"
+                            id="select"
+                            onChange={this.setInsurancePlanId}
+                        >
+                      {this.parseInsurers()}
+                    </select>
                   </div>
                 </div>
-
+                <br/>
                 <div className="row">
                   <div className="form-group col-sm-6">
                     <input type="text" className="form-control" id="inputFirstName" placeholder="First Name" ref="firstName"/>

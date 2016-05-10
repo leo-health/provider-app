@@ -10,26 +10,14 @@ var React = require('react'),
     RegistrationStore = require('../../../stores/registrationStore');
 
 module.exports = withRouter(React.createClass({
-  mixins: [
-    Reflux.listenTo(RegistrationStore, "onRegistrationStatusChange")
-  ],
-
-  contextTypes: {
-    router: React.PropTypes.object
-  },
-
-  onRegistrationStatusChange: function(status){
-    if(status.nextPage) this.context.router.push({
-      pathname: "signup/?page=you"
-    });
-  },
-
   handleOnSubmit: function(e){
     e.preventDefault();
     var email = ReactDom.findDOMNode(this.refs.email).value.trim();
     var password = ReactDom.findDOMNode(this.refs.password).value.trim();
     RegistrationActions.createEnrollmentRequest({
-      email: email, password: password
+      email: email,
+      password: password,
+      nextPage: "you"
     });
 
     //const onValidate = (error) => {
@@ -38,14 +26,6 @@ module.exports = withRouter(React.createClass({
     //};
     //this.props.validate(onValidate);
     //this.submitHasBeenAttemptedOnce = true;
-  },
-
-  componentWillMount: function() {
-    this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
-  },
-
-  routerWillLeave: function(nextLocation) {
-    return 'Your work is not saved! Are you sure you want to leave?'
   },
 
   render: function(){

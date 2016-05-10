@@ -77,7 +77,7 @@ module.exports = Reflux.createStore({
                       .send(enrollmentParams)
                       .end(function(err, res){
                         if(res.ok){
-                          RegistrationActions.createEnrollmentRequest.completed(res.body);
+                          RegistrationActions.createEnrollmentRequest.completed(res.body, enrollmentParams.nextPage);
                         }else{
                           RegistrationActions.createEnrollmentRequest.failed(res.body);
                         }
@@ -88,9 +88,9 @@ module.exports = Reflux.createStore({
            });
   },
 
-  onCreateEnrollmentRequestCompleted: function(response){
+  onCreateEnrollmentRequestCompleted: function(response, nextPage){
     this.trigger({
-      nextPage: true
+      nextPage: nextPage
     })
   },
 
@@ -98,5 +98,16 @@ module.exports = Reflux.createStore({
     this.trigger({
       nextPage: false
     })
+  },
+
+  onFetchInsurersRequest: function(){
+    request.get(leo.API_URL+"/insurers")
+           .end(function(err, res){
+            if(res.ok) RegistrationActions.fetchInsurersRequest.completed(res.body)
+        })
+  },
+
+  onFetchInsurersRequestCompleted: function(response){
+    this.trigger(response.data)
   }
 });
