@@ -32,34 +32,33 @@ module.exports = Reflux.createStore({
                    message: "There was an error retrieiving your enrollment information."});
   },
 
-  onUpdateEnrollmentRequest: function(enrollmentParams){
+  onUpdateEnrollmentRequest: function(enrollmentParams, nextPage){
     request.put(leo.API_URL+"/enrollments/current")
            .send(enrollmentParams)
            .end(function(err, res){
               if(res.ok){
-                RegistrationActions.updateEnrollmentRequest.completed(res.body);
+                RegistrationActions.updateEnrollmentRequest.completed(res.body, nextPage);
               }else{
                 RegistrationActions.updateEnrollmentRequest.failed(res.body);
               }
             });
   },
 
-  onUpdateEnrollmentRequestCompleted: function(response){
-    var user_data = {
-      first_name: response.data.user.first_name,
-      last_name: response.data.user.last_name,
-      phone: response.data.user.phone
-    };
-
-    this.trigger({ action: "update",
-                   status: response.status,
-                   data: response.data });
+  onUpdateEnrollmentRequestCompleted: function(response, nextPage){
+    this.trigger({
+      action: "update",
+      status: response.status,
+      nextPage: nextPage,
+      data: response.data
+    });
   },
 
   onUpdateEnrollmentRequestFailed: function(response){
-    this.trigger({ action: "update",
-                   status: response.status,
-                   message: "There was an error updating your enrollment information."});
+    this.trigger({
+      action: "update",
+      status: response.status,
+      message: "There was an error updating your enrollment information."
+    });
   },
 
   onCreateEnrollmentRequest: function(enrollmentParams){
@@ -84,6 +83,7 @@ module.exports = Reflux.createStore({
 
   onCreateEnrollmentRequestCompleted: function(response, nextPage){
     this.trigger({
+      enrollmentToken: response.data.session.authentication_token,
       nextPage: nextPage
     })
   },

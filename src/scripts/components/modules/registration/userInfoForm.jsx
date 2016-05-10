@@ -1,43 +1,60 @@
 var React = require('react'),
-    ReactRouter = require('react-router'),
-    {browserHistory, withRouter} = ReactRouter,
+    ReactDom = require('react-dom'),
     _ = require('lodash'),
     RegistrationActions = require('../../../actions/registrationActions'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy');
 
-module.exports = React.createClass({
+module.exports = validation(strategy)(React.createClass({
   validatorTypes: {
     firstName: Joi.string().min(2).trim().required().label("First name"),
     lastName: Joi.string().min(2).trim().required().label("Last name"),
     phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone")
   },
 
-  //getInitialState: function(){
-  //  return {
-  //    insurancePlanId: 1,
-  //    firstName: "",
-  //    lastName: "",
-  //    phone: ""
-  //  }
-  //},
+  getInitialState: function(){
+    return {
+      insurancePlanId: this.props.insurers[0].insurance_plans[0].id || undefined
+    }
+  },
+
+  getValidatorData: function(){
+    return {
+      firstName: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
+      lastName: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
+      phone: ReactDom.findDOMNode(this.refs.phone).value.trim()
+    }
+  },
 
   setInsurancePlanId: function(e){
-    this.setState({ insurancePlanId: Number(e.target.value) })
+    this.setState({
+      insurancePlanId: Number(e.target.value)
+    })
   },
 
   handleOnSubmit: function(e){
     e.preventDefault();
-    var firstName = ReactDom.findDOMNode(this.refs.firstName).value.trim();
-    var lastName = ReactDom.findDOMNode(this.refs.lastName).value.trim();
-    var phone = ReactDom.findDOMNode(this.refs.phone).value.trim();
+    const onValidate = (error) => {
+      if (error) {
+        return
+      } else {
+        this.updateEnrollment();
+      }
+    };
+
+    this.props.validate(onValidate);
+    this.submitHasBeenAttemptedOnce = true;
+  },
+
+  updateEnrollment: function(){
     RegistrationActions.updateEnrollmentRequest({
-      authentication_token: sessionStorage.authenticationToken,
-      first_name: this.state.firstName,
-      last_name: this.state.lastName,
-      phone: this.state.phone
-    })
+      authentication_token: sessionStorage.enrollmentToken,
+      first_name: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
+      last_name: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
+      phone: ReactDom.findDOMNode(this.refs.phone).value.trim(),
+      insurance_plan_id: this.state.insurancePlanId
+    }, "patient")
   },
 
   parseInsurers: function(){
@@ -52,6 +69,21 @@ module.exports = React.createClass({
       });
     }
     return plans
+  },
+
+  onChange: function(ref){
+    return event => {
+      if (this.submitHasBeenAttemptedOnce) this.props.handleValidation(ref)();
+    }
+  },
+
+  renderHelpText: function(message){
+    var messageClass = classNames({
+      "text-danger": message.length > 0,
+      "text-muted": message.length === 0
+    });
+
+    return <label className={messageClass}>{message}</label>
   },
 
   render: function(){
@@ -80,17 +112,20 @@ module.exports = React.createClass({
                 <br/>
                 <div className="row">
                   <div className="form-group col-sm-6">
-                    <input type="text" className="form-control" id="inputFirstName" placeholder="First Name" ref="firstName"/>
+                    <input type="text" className="form-control" onChange={this.onChange('firstName')} placeholder="First Name" ref="firstName"/>
+                    {this.renderHelpText(this.props.getValidationMessages('firstName'))}
                   </div>
 
                   <div className="form-group col-sm-6">
-                    <input type="text" className="form-control" id="inputLastName" placeholder="Last Name" ref="lastName"/>
+                    <input type="text" className="form-control" onChange={this.onChange('lastName')} placeholder="Last Name" ref="lastName"/>
+                    {this.renderHelpText(this.props.getValidationMessages('lastName'))}
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="form-group col-sm-12">
-                    <input type="text" className="form-control" id="inputPhone" placeholder="Phone" ref="phone"/>
+                    <input type="text" className="form-control" onChange={this.onChange('phone')} placeholder="Phone" ref="phone"/>
+                    {this.renderHelpText(this.props.getValidationMessages('phone'))}
                   </div>
                 </div>
               </div>
@@ -106,4 +141,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-});
+}));

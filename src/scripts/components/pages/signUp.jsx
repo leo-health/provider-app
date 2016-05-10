@@ -12,6 +12,11 @@ var React = require('react'),
     RegistrationStore = require('../../stores/registrationStore'),
     EnrollmentForm = require('../modules/registration/enrollmentForm'),
     UserInfoForm = require('../modules/registration/userInfoForm');
+    PatientInfoForm = require('../modules/registration/patientInfoForm');
+    ProgressBarMap = {
+      you: "21%",
+      patient: "42%"
+    };
 
 module.exports = React.createClass({
   mixins: [
@@ -39,6 +44,10 @@ module.exports = React.createClass({
   },
 
   onRegistrationStatusChange: function(status){
+    if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
+
+    if(status.insurers) this.setState(status);
+
     if(status.nextPage){
       this.context.router.push({
         pathname: "/signup",
@@ -47,11 +56,9 @@ module.exports = React.createClass({
 
       this.setState({
         page: status.nextPage,
-        progressBar: "21%"
+        progressBar: ProgressBarMap[status.nextPage]
       })
     }
-
-    if(status.insurers) this.setState(status)
   },
 
   selectPage: function(){
@@ -63,6 +70,8 @@ module.exports = React.createClass({
       case "you":
         page = <UserInfoForm insurers={this.state.insurers}/>;
         break;
+      case "patient":
+        page = <PatientInfoForm/>;
       default:
         page = <EnrollmentForm/>;
         break;
@@ -112,24 +121,3 @@ module.exports = React.createClass({
     )
   }
 });
-
-//validatorTypes: {
-//  email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
-//  password: Joi.string().min(8).max(127).trim().required().label("Password")
-//},
-
-//getValidatorData: function(){
-//  return this.state;
-//},
-
-//onChange: function(ref) {
-//  return event => {
-//    if (this.submitHasBeenAttemptedOnce) {
-//      this.props.handleValidation(ref)();
-//    }
-//
-//    var newState = {};
-//    newState[ref] = event.target.value;
-//    this.setState(newState);
-//  }
-//},

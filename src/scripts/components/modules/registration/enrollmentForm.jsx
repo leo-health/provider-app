@@ -3,6 +3,7 @@ var React = require('react'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy'),
+    classNames = require('classnames'),
     RegistrationActions = require('../../../actions/registrationActions'),
     RegistrationStore = require('../../../stores/registrationStore');
 
@@ -30,6 +31,7 @@ module.exports = validation(strategy)(React.createClass({
     };
 
     this.props.validate(onValidate);
+    this.submitHasBeenAttemptedOnce = true;
   },
 
   createEnrollment: function(){
@@ -41,11 +43,18 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   renderHelpText: function(message){
-    return <label className="text-danger">{message}</label>
+    var messageClass = classNames({
+      "text-danger": message.length > 0,
+      "text-muted": message.length === 0
+    });
+
+    return <label className={messageClass}>{message}</label>
   },
 
   onChange: function(ref){
-
+    return event => {
+      if (this.submitHasBeenAttemptedOnce) this.props.handleValidation(ref)();
+    }
   },
 
   render: function(){
@@ -63,14 +72,14 @@ module.exports = validation(strategy)(React.createClass({
               <div className="col-md-7 col-md-offset-1">
                 <div className="row">
                   <div className="form-group col-sm-12">
-                    <input type="text" className="form-control" onChange={this.onChange()} placeholder="Email" ref="email"/>
+                    <input type="text" className="form-control" onChange={this.onChange('email')} placeholder="Email" ref="email"/>
                     {this.renderHelpText(this.props.getValidationMessages('email'))}
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="form-group col-sm-12">
-                    <input type="password" className="form-control" onChange={this.onChange()} placeholder="Password" ref="password"/>
+                    <input type="password" className="form-control" onChange={this.onChange('password')} placeholder="Password" ref="password"/>
                     {this.renderHelpText(this.props.getValidationMessages('password'))}
                   </div>
                 </div>
@@ -88,13 +97,3 @@ module.exports = validation(strategy)(React.createClass({
     )
   }})
 );
-
-
-//propTypes = {
-//  errors: PropTypes.object,
-//  validate: PropTypes.func,
-//  isValid: PropTypes.func,
-//  handleValidation: PropTypes.func,
-//  getValidationMessages: PropTypes.func,
-//  clearValidations: PropTypes.func,
-//}
