@@ -44,7 +44,13 @@ module.exports = React.createClass({
                            autoFocus/>
                   </div>
                   <div className="form-group col-sm-4">
-                    <input type="text" className="form-control" size="5" data-stripe="address_zip" placeholder="Zip Code" ref="zip"/>
+                    <input type="text"
+                           className="form-control"
+                           size="5"
+                           data-stripe="address_zip"
+                           placeholder="Zip Code"
+                           ref="zip"
+                           required/>
                   </div>
                 </div>
 
@@ -57,6 +63,7 @@ module.exports = React.createClass({
                            data-stripe="exp_month"
                            placeholder="Expiration (MM)"
                            ref="expirationMonth"
+                           required
                            onKeyUp={()=>this.autoFormAdvance(2, "expirationMonth", "expirationYear")} />
                   </div>
 
@@ -68,6 +75,7 @@ module.exports = React.createClass({
                            data-stripe="exp_year"
                            placeholder="Expiration (YY)"
                            ref="expirationYear"
+                           required
                            onKeyUp={()=>this.autoFormAdvance(2, "expirationYear", "cvc")}/>
                   </div>
 
@@ -78,6 +86,7 @@ module.exports = React.createClass({
                            size="4"
                            data-stripe="cvc"
                            placeholder="CVC"
+                           required
                            ref="cvc"/>
                   </div>
                 </div>
