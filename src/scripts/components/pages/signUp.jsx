@@ -11,11 +11,14 @@ var React = require('react'),
     RegistrationActions = require('../../actions/registrationActions'),
     RegistrationStore = require('../../stores/registrationStore'),
     EnrollmentForm = require('../modules/registration/enrollmentForm'),
-    UserInfoForm = require('../modules/registration/userInfoForm');
-    PatientInfoForm = require('../modules/registration/patientInfoForm');
+    UserInfoForm = require('../modules/registration/userInfoForm'),
+    PatientInfoForm = require('../modules/registration/patientInfoForm'),
+    PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
+    PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
     ProgressBarMap = {
       you: "21%",
-      patient: "42%"
+      patient: "42%",
+      payment: "67%"
     };
 
 module.exports = React.createClass({
@@ -61,6 +64,11 @@ module.exports = React.createClass({
     }
   },
 
+  componentWillUnmount: function(){
+    sessionStorage.removeItem('enrollmentToken');
+    //also remove stripe token later
+  },
+
   selectPage: function(){
     var page;
     switch(this.state.page){
@@ -102,9 +110,9 @@ module.exports = React.createClass({
                   <div className="progress-text-spacer"></div>
                   <div className="signup-progress-text progress-text-container">Your Child</div>
                   <div className="progress-text-spacer"></div>
-                  <div className="signup-progress-text progress-text-container">Review</div>
-                  <div className="progress-text-spacer"></div>
                   <div className="signup-progress-text progress-text-container">Payment</div>
+                  <div className="progress-text-spacer"></div>
+                  <div className="signup-progress-text progress-text-container">Review</div>
                 </div>
                 <div className="progress progress-table">
                   <div className="progress-bar" style={{width: this.state.progressBar}}></div>
@@ -114,7 +122,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            {signUpContent}
+            <PaymentInfoForm/>
           </div>
         </div>
       </div>

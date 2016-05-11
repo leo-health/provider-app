@@ -19,7 +19,7 @@ module.exports = React.createClass({
           <form className="" onSubmit={this.handleOnSubmit}>
             <div className="row">
               <div className="col-md-7 col-md-offset-1">
-                <h3 className="signup-header">Let's set up a profile for your children</h3>
+                <h3 className="signup-header">Let's set up a profile for each of your children</h3>
               </div>
             </div>
 
@@ -36,10 +36,12 @@ module.exports = React.createClass({
                 </div>
 
                 <div className="row">
-                  <select className="form-control" id="select">
-                    <option>Male</option>
-                    <option>Female</option>
-                  </select>
+                  <div className="form-group col-sm-12">
+                    <select className="form-control" id="select">
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div className="row">

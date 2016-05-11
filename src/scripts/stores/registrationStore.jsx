@@ -97,11 +97,34 @@ module.exports = Reflux.createStore({
   onFetchInsurersRequest: function(){
     request.get(leo.API_URL+"/insurers")
            .end(function(err, res){
-            if(res.ok) RegistrationActions.fetchInsurersRequest.completed(res.body)
-        })
+              if(res.ok) RegistrationActions.fetchInsurersRequest.completed(res.body)
+            })
   },
 
   onFetchInsurersRequestCompleted: function(response){
     this.trigger(response.data)
+  },
+
+  onCreateCreditCardRequest: function(params, nextPage){
+    Stripe.card.createToken(params, function (status, response) {
+      if(status === 200){
+        RegistrationActions.createCreditCardRequest.completed(response, nextPage)
+      }else{
+        RegistrationActions.createCreditCardRequest.failed(response)
+      }
+    })
+  },
+
+  onCreateCreditCardRequestCompleted: function(res, nextPage){
+    sessionStorage["creditCardToken"] = res.id;
+    this.trigger({
+      nextPage: nextPage
+    })
+  },
+
+  onCreateCreditCardRequestFailed: function(res){
+    this.trigger({
+      cardError: res.error.code
+    })
   }
 });
