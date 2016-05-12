@@ -74,7 +74,7 @@ module.exports = Reflux.createStore({
                         }else{
                           RegistrationActions.createEnrollmentRequest.failed(res.body);
                         }
-                   })
+                        })
              }else{
                this.trigger({message: "couldn't generate your vendor id"})
              }
@@ -116,9 +116,11 @@ module.exports = Reflux.createStore({
   },
 
   onCreateCreditCardRequestCompleted: function(res, nextPage){
-    sessionStorage["creditCardToken"] = res.id;
     this.trigger({
-      nextPage: nextPage
+      nextPage: nextPage,
+      creditCardToken: res.id,
+      creditBrand: res.brand,
+      last4: res.last4
     })
   },
 

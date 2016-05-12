@@ -14,11 +14,12 @@ var React = require('react'),
     UserInfoForm = require('../modules/registration/userInfoForm'),
     PatientInfoForm = require('../modules/registration/patientInfoForm'),
     PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
-    PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
+    ReviewForm = require('../modules/registration/reviewForm'),
     ProgressBarMap = {
       you: "21%",
       patient: "42%",
-      payment: "67%"
+      payment: "67%",
+      review: "90%"
     };
 
 module.exports = React.createClass({
@@ -32,6 +33,9 @@ module.exports = React.createClass({
 
   getInitialState: function(){
     return {
+      creditCardToken: undefined,
+      creditCardBrand: undefined,
+      last4: undefined,
       page: "enroll",
       progressBar: "7%",
       insurers: []
@@ -59,14 +63,24 @@ module.exports = React.createClass({
 
       this.setState({
         page: status.nextPage,
-        progressBar: ProgressBarMap[status.nextPage]
+        progressBar: ProgressBarMap[status.nextPage],
+        creditCardToken: status.creditCardToken,
+        creditBrand: status.creditBrand,
+        last4: status.last4
       })
     }
   },
 
+  handleOnClick: function(destination){
+    this.context.router.push({
+      pathname: "/signup",
+      query: {page: destination}
+    });
+    return false;
+  },
+
   componentWillUnmount: function(){
     sessionStorage.removeItem('enrollmentToken');
-    //also remove stripe token later
   },
 
   selectPage: function(){
@@ -80,8 +94,10 @@ module.exports = React.createClass({
         break;
       case "patient":
         page = <PatientInfoForm/>;
+      case "review":
+        page = <ReviewForm handleOnClick={this.handleOnClick}/>;
       default:
-        page = <EnrollmentForm/>;
+        page = <EnrollmentForm setPage={this.setPage}/>;
         break;
     }
     return page
@@ -122,7 +138,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <PaymentInfoForm/>
+            <PatientInfoForm/>
           </div>
         </div>
       </div>
