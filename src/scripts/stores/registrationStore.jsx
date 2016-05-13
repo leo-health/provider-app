@@ -128,5 +128,30 @@ module.exports = Reflux.createStore({
     this.trigger({
       cardError: res.error.code
     })
+  },
+
+  onCreatePatientEnrollmentRequest: function(patientEnrollmentParams){
+    request.post(leo.API_URL+"/patient_enrollments")
+           .send(patientEnrollmentParams)
+           .end(function(err, res){
+              if(res.ok){
+                RegistrationActions.createPatientEnrollmentRequest.completed(res.body)
+              }else{
+                RegistrationActions.createPatientEnrollmentRequest.failed(res.body)
+              }
+            })
+
+  },
+
+  onCreatePatientEnrollmentRequestCompleted: function(res){
+    this.trigger({
+      patientEnrollment: res.data.patient_enrollment
+    })
+  },
+
+  onCreatePatientEnrollmentRequestFailed: function(res){
+    this.trigger({
+      error: res.data.message
+    })
   }
 });

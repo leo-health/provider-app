@@ -175,21 +175,21 @@ var Registration  = React.createClass({
               <fieldset>
                 <div className="form-group">
                   {formData.map(function(fieldData) {
-                    return (
-                        <div>
-                          <input
-                              key={fieldData.ref}
-                              type={fieldData.ftype}
-                              className="form-control"
-                              placeholder={fieldData.placeholder}
-                              onChange={this.onChange(fieldData.ref)}
-                              ref={fieldData.ref}
-                              value={this.state[fieldData.ref]}
-                              />
-                          {this.renderMessage(this.props.getValidationMessages(fieldData.ref), fieldData.labelText, fieldData.ref)}
-                        </div>
-                    )
                   }.bind(this))}
+                  return (
+                  <div>
+                    <input
+                        key={fieldData.ref}
+                        type={fieldData.ftype}
+                        className="form-control"
+                        placeholder={fieldData.placeholder}
+                        onChange={this.onChange(fieldData.ref)}
+                        ref={fieldData.ref}
+                        value={this.state[fieldData.ref]}
+                        />
+                    {this.renderMessage(this.props.getValidationMessages(fieldData.ref), fieldData.labelText, fieldData.ref)}
+                  </div>
+                  )
                 </div>
                 <div className="form-group text-center">
                   <button type="submit" className="btn btn-primary">Sign Up</button>

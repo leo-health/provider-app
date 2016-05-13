@@ -96,7 +96,7 @@ module.exports = validation(strategy)(React.createClass({
                 <h3 className="signup-header">Tell us about yourself!</h3>
               </div>
             </div>
-
+            <br/>
             <div className="row">
               <div className="col-md-7 col-md-offset-1">
                 <div className="row">

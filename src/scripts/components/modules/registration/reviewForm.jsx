@@ -4,7 +4,7 @@ var React = require('react'),
 
 module.exports = React.createClass({
   componentWillMount: function(){
-
+    RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken)
   },
 
   render: function() {
@@ -32,15 +32,11 @@ module.exports = React.createClass({
 
                 <div className="row">
                   <div className="form-group col-sm-11 col-sm-offset-1">
-                    Andy Song
+
                   </div>
-                </div>
-                <div className="row">
                   <div className="form-group col-sm-11 col-sm-offset-1">
-                    AndySong@gmail.com
+                    {this.props.enrollment.first_name}
                   </div>
-                </div>
-                <div className="row">
                   <div className="form-group col-sm-11 col-sm-offset-1">
                     12345521124
                   </div>

@@ -7,7 +7,6 @@ var React = require('react'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy'),
-    PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
     RegistrationActions = require('../../actions/registrationActions'),
     RegistrationStore = require('../../stores/registrationStore'),
     EnrollmentForm = require('../modules/registration/enrollmentForm'),
@@ -17,7 +16,7 @@ var React = require('react'),
     ReviewForm = require('../modules/registration/reviewForm'),
     ProgressBarMap = {
       you: "21%",
-      patient: "42%",
+      patient: "45%",
       payment: "67%",
       review: "90%"
     };
@@ -33,6 +32,7 @@ module.exports = React.createClass({
 
   getInitialState: function(){
     return {
+      enrollment: undefined,
       creditCardToken: undefined,
       creditCardBrand: undefined,
       last4: undefined,
@@ -52,29 +52,22 @@ module.exports = React.createClass({
 
   onRegistrationStatusChange: function(status){
     if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
-
+    if(status.action === "fetch" && status.data) this.setState({enrollment: status.data.user});
     if(status.insurers) this.setState(status);
-
-    if(status.nextPage){
-      this.context.router.push({
-        pathname: "/signup",
-        query: {page: status.nextPage}
-      });
-
-      this.setState({
-        page: status.nextPage,
-        progressBar: ProgressBarMap[status.nextPage],
-        creditCardToken: status.creditCardToken,
-        creditBrand: status.creditBrand,
-        last4: status.last4
-      })
-    }
+    if(status.nextPage) this.navigateTo(status.nextPage)
   },
 
-  handleOnClick: function(destination){
+  navigateTo: function(destination){
     this.context.router.push({
       pathname: "/signup",
       query: {page: destination}
+    });
+    this.setState({
+      page:destination,
+      progressBar: ProgressBarMap[destination],
+      creditCardToken: status.creditCardToken,
+      creditBrand: status.creditBrand,
+      last4: status.last4
     });
     return false;
   },
@@ -87,17 +80,23 @@ module.exports = React.createClass({
     var page;
     switch(this.state.page){
       case "enroll":
-        page = <EnrollmentForm setPage={this.setPage}/>;
+        page = <EnrollmentForm/>;
         break;
       case "you":
         page = <UserInfoForm insurers={this.state.insurers}/>;
         break;
       case "patient":
-        page = <PatientInfoForm/>;
+        page = <PatientInfoForm navigateTo={this.navigateTo}/>;
+        break;
+      case "payment":
+        page = <PaymentInfoForm/>;
+        break;
       case "review":
-        page = <ReviewForm handleOnClick={this.handleOnClick}/>;
+        page = <ReviewForm navigateTo={this.navigateTo}
+                           enrollment={this.state.enrollment}/>;
+        break;
       default:
-        page = <EnrollmentForm setPage={this.setPage}/>;
+        page = <EnrollmentForm/>;
         break;
     }
     return page
@@ -138,7 +137,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <PatientInfoForm/>
+            <PatientInfoForm navigateTo={this.navigateTo}/>
           </div>
         </div>
       </div>

@@ -67,18 +67,16 @@ module.exports = validation(strategy)(React.createClass({
                 <h3 className="signup-header">Let's get started</h3>
               </div>
             </div>
-
+            <br/>
             <div className="row">
               <div className="col-md-7 col-md-offset-1">
                 <div className="row">
-                  <div className="form-group col-sm-12">
+                  <div className="form-group col-sm-6">
                     <input type="text" className="form-control" onChange={this.onChange('email')} placeholder="Email" ref="email"/>
                     {this.renderHelpText(this.props.getValidationMessages('email'))}
                   </div>
-                </div>
 
-                <div className="row">
-                  <div className="form-group col-sm-12">
+                  <div className="form-group col-sm-6">
                     <input type="password" className="form-control" onChange={this.onChange('password')} placeholder="Password" ref="password"/>
                     {this.renderHelpText(this.props.getValidationMessages('password'))}
                   </div>
