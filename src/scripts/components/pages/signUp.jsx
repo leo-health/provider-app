@@ -15,6 +15,7 @@ var React = require('react'),
     PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
     ReviewForm = require('../modules/registration/reviewForm'),
     ProgressBarMap = {
+      enroll: "7%",
       you: "21%",
       patient: "45%",
       payment: "67%",
@@ -37,7 +38,7 @@ module.exports = React.createClass({
       creditCardBrand: undefined,
       last4: undefined,
       page: "enroll",
-      progressBar: "7%",
+      progressBar: ProgressBarMap.enroll,
       insurers: []
     }
   },
@@ -93,6 +94,8 @@ module.exports = React.createClass({
         break;
       case "review":
         page = <ReviewForm navigateTo={this.navigateTo}
+                           creditBrand={this.state.creditCardBrand}
+                           last4={this.state.last4}
                            enrollment={this.state.enrollment}/>;
         break;
       default:
@@ -137,7 +140,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <ReviewForm navigateTo={this.navigateTo} enrollment={this.state.enrollment}/>
+            {signUpContent}
           </div>
         </div>
       </div>

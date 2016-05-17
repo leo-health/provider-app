@@ -4,12 +4,23 @@ var React = require('react'),
     Patient = require('./patient');
 
 module.exports = React.createClass({
-  componentWillMount: function(){
-    RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken)
+  getInitialState: function(){
+    return({
+      editYou: "edit",
+      editFamily: "edit"
+    })
   },
 
-  handleClick: function(){
+  componentWillMount: function(){
+    RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken);
+  },
 
+  handleClick: function(section){
+    switch(section){
+      case "editYou":
+        this.setState({editYou: "save"});
+        break;
+    }
   },
 
   handleOnSubmit: function () {},
@@ -17,6 +28,7 @@ module.exports = React.createClass({
   parsePatientEnrollments: function(patientEnrollments){
     return patientEnrollments.map(function(patientEnrollment, i){
       return <Patient key={i}
+                      id={patientEnrollment.id}
                       firstName={patientEnrollment.first_name}
                       lastName={patientEnrollment.last_name}
                       sex={patientEnrollment.sex}
@@ -31,6 +43,13 @@ module.exports = React.createClass({
       var lastName = this.props.enrollment.last_name;
       var phone = this.props.enrollment.phone;
       var patients = this.parsePatientEnrollments(this.props.enrollment.patient_enrollments);
+
+      if(this.state.editYou === "save") {
+        email = React.createElement('input', {defaultValue: email, type: "text", className: "form-control", ref: "email"});
+        firstName = React.createElement('input', {defaultValue: firstName, type: "text", className: "form-control", ref: "firstName"});
+        lastName = React.createElement('input', {defaultValue: lastName, type: "text", className: "form-control", ref: "lastName"});
+        phone = React.createElement('input', {defaultValue: phone, type: "text", className: "form-control", ref: "phone"})
+      }
     }
 
     return (
@@ -51,18 +70,18 @@ module.exports = React.createClass({
                   </div>
 
                   <div className="form-group col-sm-2">
-                    <a onClick={()=>this.props.handleClick('you')}>edit</a>
+                    <a onClick={()=>this.handleClick('editYou')}>{this.state.editYou}</a>
                   </div>
                 </div>
 
                 <div className="row">
-                  <div className="form-group col-sm-11 col-sm-offset-1">
+                  <div className="form-group col-sm-6 col-sm-offset-1">
                     {email}
                   </div>
-                  <div className="form-group col-sm-11 col-sm-offset-1">
+                  <div className="form-group col-sm-6 col-sm-offset-1">
                     {firstName} {lastName}
                   </div>
-                  <div className="form-group col-sm-11 col-sm-offset-1">
+                  <div className="form-group col-sm-6 col-sm-offset-1">
                     {phone}
                   </div>
                 </div>
@@ -73,7 +92,7 @@ module.exports = React.createClass({
                   </div>
 
                   <div className="form-group col-sm-2">
-                    <a>edit</a>
+                    <a onClick={()=>this.handleClick('editYou')}>add</a>
                   </div>
                 </div>
 
@@ -90,14 +109,13 @@ module.exports = React.createClass({
                   </div>
 
                   <div className="form-group col-sm-2">
-                    <a onClick={()=>this.props.handleClick('payment')}>edit</a>
+                    <a onClick={()=>this.props.handleClick('payment')}>delete</a>
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="form-group col-sm-11 col-sm-offset-1">
-                    American Express *****4242
-                    {sessionStorage["creditBrand"]} ****{sessionStorage["last4"]}
+                    {this.props.creditBrand}****{this.props.last4}
                   </div>
                   <div className="form-group col-sm-11 col-sm-offset-1">
                     Your card will be charged on a monthly base

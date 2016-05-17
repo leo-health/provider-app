@@ -153,5 +153,43 @@ module.exports = Reflux.createStore({
     this.trigger({
       error: res.data.message
     })
+  },
+
+  onRemovePatientEnrollmentRequest: function (params) {
+    request.delete(leo.API_URL + "/patient_enrollments/" + params.id)
+           .send(params)
+           .end(function(err,res){
+             if(res.ok){
+               RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken)
+             }else{
+               RegistrationActions.removePatientEnrollmentRequest.failed(res.body)
+             }
+           })
+  },
+
+  onRemvoePaitnetEnrollmentRequestReqestFailed: function(res) {
+    this.trigger({
+      deletePatientEnrollment: false,
+      errorMessage: res.data.message
+    })
+  },
+
+  onUpdatePatientEnrollmentRequest: function(params){
+    request.put(leo.API_URL + "/patient_enrollments/" + params.id)
+           .send(params)
+           .end(function(err,res){
+              if(res.ok){
+                RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken)
+              }else{
+                RegistrationActions.updateEnrollmentRequest.failed(res.body)
+              }
+            })
+  },
+
+  onUpdatePatientEnrollmentRequestFailed: function(res){
+    this.trigger({
+      updatePatientEnrollment: false,
+      errorMessage: res.data.message
+    })
   }
 });
