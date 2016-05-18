@@ -53,7 +53,6 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   updateEnrollment: function(){
-    debugger
     RegistrationActions.updateEnrollmentRequest({
       authentication_token: sessionStorage.enrollmentToken,
       first_name: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
