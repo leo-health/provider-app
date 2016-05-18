@@ -43,6 +43,20 @@ module.exports = React.createClass({
     }
   },
 
+  createCreditCard: function(creditCardComponent){
+    RegistrationActions.createCreditCardRequest({
+      number: creditCardComponent.refs.cardNumber.value.trim(),
+      cvc:creditCardComponent.refs.cvc.value.trim(),
+      exp_month: creditCardComponent.refs.expirationMonth.value.trim(),
+      exp_year: creditCardComponent.refs.expirationYear.value.trim(),
+      address_zip: creditCardComponent.refs.zip.value.trim()
+    }, "review");
+  },
+
+  componentDidMount: function(){
+    Stripe.setPublishableKey('pk_test_LRYSNRBvOYUG47Sg4QZqtlkB');
+  },
+
   componentWillMount: function(){
     window.onbeforeunload = function(){
       return "You will lose all unsaved changes to your application."
@@ -90,7 +104,7 @@ module.exports = React.createClass({
         page = <PatientInfoForm navigateTo={this.navigateTo}/>;
         break;
       case "payment":
-        page = <PaymentInfoForm/>;
+        page = <PaymentInfoForm createCreditCard={this.createCreditCard}/>;
         break;
       case "review":
         page = <ReviewForm navigateTo={this.navigateTo}
@@ -140,10 +154,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <ReviewForm navigateTo={this.navigateTo}
-                         creditBrand={this.state.creditCardBrand}
-                         last4={this.state.last4}
-                         enrollment={this.state.enrollment}/>;
+            <PaymentInfoForm createCreditCard={this.createCreditCard}/>
           </div>
         </div>
       </div>
