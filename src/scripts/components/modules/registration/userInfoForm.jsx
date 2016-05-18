@@ -2,6 +2,7 @@ var React = require('react'),
     ReactDom = require('react-dom'),
     _ = require('lodash'),
     RegistrationActions = require('../../../actions/registrationActions'),
+    RegistrationStore = require('../../../stores/registrationStore'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy');
@@ -12,6 +13,10 @@ module.exports = validation(strategy)(React.createClass({
     lastName: Joi.string().min(2).trim().required().label("Last name"),
     phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone")
   },
+
+  mixins: [
+    Reflux.listenTo(RegistrationStore, "onRegistrationStatusChange")
+  ],
 
   getInitialState: function(){
     return {
@@ -48,11 +53,12 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   updateEnrollment: function(){
+    debugger
     RegistrationActions.updateEnrollmentRequest({
       authentication_token: sessionStorage.enrollmentToken,
       first_name: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
       last_name: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
-      phone: ReactDom.findDOMNode(this.refs.phone).value.trim(),
+      phone: ReactDom.findDOMNode(this.refs.phone).value.replace(/\D/g,''),
       insurance_plan_id: this.state.insurancePlanId
     }, "patient")
   },
@@ -86,6 +92,11 @@ module.exports = validation(strategy)(React.createClass({
     return <label className={messageClass}>{message}</label>
   },
 
+  phoneMask: function(e){
+    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+  },
+
   render: function(){
     return(
       <div>
@@ -99,10 +110,10 @@ module.exports = validation(strategy)(React.createClass({
             <br/>
             <div className="row">
               <div className="col-md-7 col-md-offset-1">
-                <div className="row">
+                <div className="row form-group">
                   <div className="col-sm-12">
                     <select className="form-control"
-                            id="select"
+                            size="3"
                             onChange={this.setInsurancePlanId}
                         >
                       {this.parseInsurers()}
@@ -124,7 +135,12 @@ module.exports = validation(strategy)(React.createClass({
 
                 <div className="row">
                   <div className="form-group col-sm-12">
-                    <input type="text" className="form-control" onChange={this.onChange('phone')} placeholder="Phone" ref="phone"/>
+                    <input type="text"
+                           className="form-control"
+                           onChange={this.onChange('phone')}
+                           placeholder="Phone"
+                           ref="phone"
+                           onInput={this.phoneMask}/>
                     {this.renderHelpText(this.props.getValidationMessages('phone'))}
                   </div>
                 </div>

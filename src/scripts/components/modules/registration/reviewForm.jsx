@@ -10,7 +10,7 @@ module.exports = React.createClass({
     return({
       editYou: "edit",
       editFamily: "edit",
-      editPayment: "delete"
+      editPayment: "edit"
     })
   },
 
@@ -32,12 +32,12 @@ module.exports = React.createClass({
 
   handlePayment: function(){
     switch(this.state.editPayment){
-      case "delete":
+      case "edit":
         this.setState({editPayment: "save"});
         break;
       case "save":
-        this.updateCreditCard();
-        this.setState({editPayment: "delete"});
+        this.props.createCreditCard(this.refs.paymentForm);
+        this.setState({editPayment: "edit"});
         break;
     }
   },
@@ -67,6 +67,14 @@ module.exports = React.createClass({
     });
   },
 
+  creditCardDisplay: function(){
+    if(this.state.editPayment === "save"){
+      return <CreateCreditCard ref="paymentForm"/>
+    }else{
+      return <ShowCreditCard creditBrand={this.props.creditBrand} last4={this.props.last4}/>
+    }
+  },
+
   render: function() {
     if(this.props.enrollment){
       var email = this.props.enrollment.email;
@@ -83,8 +91,7 @@ module.exports = React.createClass({
       }
     }
 
-    var creditCard = <ShowCreditCard creditBrand={this.props.creditBrand} last4={this.props.last4}/>;
-    if(this.state.editPayment === "save") creditCard = <CreateCreditCard/>;
+    var creditCard = this.creditCardDisplay();
 
     return (
       <div>

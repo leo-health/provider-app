@@ -109,6 +109,7 @@ module.exports = React.createClass({
       case "review":
         page = <ReviewForm navigateTo={this.navigateTo}
                            creditBrand={this.state.creditCardBrand}
+                           createCreditCard={this.createCreditCard}
                            last4={this.state.last4}
                            enrollment={this.state.enrollment}/>;
         break;
@@ -154,7 +155,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <PaymentInfoForm createCreditCard={this.createCreditCard}/>
+            {signUpContent}
           </div>
         </div>
       </div>
