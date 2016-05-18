@@ -1,29 +1,60 @@
 var React = require('react'),
     ReactDom = require('react-dom'),
     RegistrationActions = require('../../../actions/registrationActions'),
+    ShowCreditCard = require('./creditCard/showCreditCard'),
+    CreateCreditCard = require('./creditCard/createCreditCard'),
     Patient = require('./patient');
 
 module.exports = React.createClass({
-  getInitialState: function(){
+  getInitialState: function() {
     return({
       editYou: "edit",
-      editFamily: "edit"
+      editFamily: "edit",
+      editPayment: "delete"
     })
   },
 
-  componentWillMount: function(){
+  componentWillMount: function() {
     RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken);
   },
 
-  handleClick: function(section){
-    switch(section){
-      case "editYou":
+  handleEnroll: function() {
+    switch(this.state.editYou){
+      case "edit":
         this.setState({editYou: "save"});
+        break;
+      case "save":
+        this.updateEnrollment();
+        this.setState({editYou: "edit"});
         break;
     }
   },
 
-  handleOnSubmit: function () {},
+  handlePayment: function(){
+    switch(this.state.editPayment){
+      case "delete":
+        this.setState({editPayment: "save"});
+        break;
+      case "save":
+        this.updateCreditCard();
+        this.setState({editPayment: "delete"});
+        break;
+    }
+  },
+
+  updateEnrollment: function () {
+    RegistrationActions.updateEnrollmentRequest({
+      email: ReactDom.findDOMNode(this.refs.email).value.trim(),
+      first_name: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
+      last_name: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
+      phone: ReactDom.findDOMNode(this.refs.phone).value.trim(),
+      authentication_token: sessionStorage.enrollmentToken
+    })
+  },
+
+  handleOnSubmit: function () {
+
+  },
 
   parsePatientEnrollments: function(patientEnrollments){
     return patientEnrollments.map(function(patientEnrollment, i){
@@ -52,6 +83,9 @@ module.exports = React.createClass({
       }
     }
 
+    var creditCard = <ShowCreditCard creditBrand={this.props.creditBrand} last4={this.props.last4}/>
+    if(this.state.editPayment === "save") <CreateCreditCard/>
+
     return (
       <div>
         <form onSubmit={this.handleOnSubmit}>
@@ -70,7 +104,7 @@ module.exports = React.createClass({
                   </div>
 
                   <div className="form-group col-sm-2">
-                    <a onClick={()=>this.handleClick('editYou')}>{this.state.editYou}</a>
+                    <a onClick={this.handleEnroll}>{this.state.editYou}</a>
                   </div>
                 </div>
 
@@ -109,18 +143,12 @@ module.exports = React.createClass({
                   </div>
 
                   <div className="form-group col-sm-2">
-                    <a onClick={()=>this.props.handleClick('payment')}>delete</a>
+                    <a onClick={this.handlePayment}>{this.state.editPayment}</a>
                   </div>
                 </div>
 
-                <div className="row">
-                  <div className="form-group col-sm-11 col-sm-offset-1">
-                    {this.props.creditBrand}****{this.props.last4}
-                  </div>
-                  <div className="form-group col-sm-11 col-sm-offset-1">
-                    Your card will be charged on a monthly base
-                  </div>
-                </div>
+                {creditCard}
+
               </div>
               <div className="col-md-3">
                 <div className="form-group">
