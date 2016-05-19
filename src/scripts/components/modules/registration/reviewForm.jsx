@@ -3,7 +3,8 @@ var React = require('react'),
     RegistrationActions = require('../../../actions/registrationActions'),
     ShowCreditCard = require('./creditCard/showCreditCard'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
-    Patient = require('./patient');
+    EditPatient = require('./patient/editPatient'),
+    ShowPatient = require('./patient/showPatient');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -49,7 +50,7 @@ module.exports = React.createClass({
       last_name: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
       phone: ReactDom.findDOMNode(this.refs.phone).value.trim(),
       authentication_token: sessionStorage.enrollmentToken
-    })
+    }, "review")
   },
 
   handleOnSubmit: function () {
@@ -75,12 +76,18 @@ module.exports = React.createClass({
     }
   },
 
+  formatPhoneNumber: function(s) {
+    var s2 = (""+s).replace(/\D/g, '');
+    var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+    return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+  },
+
   render: function() {
     if(this.props.enrollment){
       var email = this.props.enrollment.email;
       var firstName = this.props.enrollment.first_name;
       var lastName = this.props.enrollment.last_name;
-      var phone = this.props.enrollment.phone;
+      var phone = this.formatPhoneNumber(this.props.enrollment.phone);
       var patients = this.parsePatientEnrollments(this.props.enrollment.patient_enrollments);
 
       if(this.state.editYou === "save") {
@@ -118,9 +125,17 @@ module.exports = React.createClass({
                 <div className="form-group col-sm-6 col-sm-offset-1">
                   {email}
                 </div>
-                <div className="form-group col-sm-6 col-sm-offset-1">
-                  {firstName} {lastName}
+                <div className="col-sm-6 col-sm-offset-1">
+                  <div className="row">
+                    <div className="form-group col-sm-6 ">
+                      {firstName}
+                    </div>
+                    <div className="form-group col-sm-6">
+                      {lastName}
+                    </div>
+                  </div>
                 </div>
+
                 <div className="form-group col-sm-6 col-sm-offset-1">
                   {phone}
                 </div>

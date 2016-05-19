@@ -136,7 +136,7 @@ module.exports = React.createClass({
               </div>
               <div className="progress-text" id="progress">
                 <div className="progress-table">
-                  <div className="signup-progress-text progress-text-container active">Enroll</div>
+                  <div className="signup-progress-text progress-text-container">Enroll</div>
                   <div className="progress-text-spacer"></div>
                   <div className="signup-progress-text progress-text-container">You</div>
                   <div className="progress-text-spacer"></div>
@@ -154,7 +154,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            {signUpContent}
+            <PatientInfoForm navigateTo={this.navigateTo}/>
           </div>
         </div>
       </div>
