@@ -120,10 +120,6 @@ module.exports = React.createClass({
 
   render: function(){
     var signUpContent = this.selectPage();
-    //var headerClass = classNames({
-    //  "signup-progress-text progress-text-container":
-    //  "signup-progress-text progress-text-container":
-    //});
 
     return(
       <div id="signup_page">
