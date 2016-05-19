@@ -50,14 +50,13 @@ module.exports = React.createClass({
       birthDate = React.createElement('input', {defaultValue: birthDate, type: "text", className: "form-control", ref: "birthDate"});
     }
 
-
     return(
       <div className="row">
-        <div className="form-group col-sm-2">
+        <div className="form-group col-sm-3">
           {firstName}
         </div>
 
-        <div className="form-group col-sm-2">
+        <div className="form-group col-sm-3">
           {lastName}
         </div>
 
@@ -65,11 +64,11 @@ module.exports = React.createClass({
           {sex}
         </div>
 
-        <div className="form-group col-sm-2">
+        <div className="form-group col-sm-3">
           {birthDate}
         </div>
 
-        <div className="form-group col-sm-2">
+        <div className="form-group col-sm-2 col-sm-offset-8">
           <a onClick={this.handleDelete}>delete</a>
         </div>
 

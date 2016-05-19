@@ -5,7 +5,7 @@ module.exports = React.createClass({
     return(
       <div className="row">
         <div className="form-group col-sm-12">
-          {this.props.creditBrand}****{this.props.last4}
+          {this.props.creditCardBrand}****{this.props.last4}
         </div>
         <div className="form-group col-sm-12">
           Your card will be charged on a monthly base

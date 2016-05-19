@@ -22,7 +22,8 @@ module.exports = Reflux.createStore({
     this.trigger({
       action: "fetch",
       status: response.status,
-      data: response.data
+      data: response.data,
+      enrollment: response.data.user
     });
   },
 
@@ -49,7 +50,7 @@ module.exports = Reflux.createStore({
       action: "update",
       status: response.status,
       nextPage: nextPage,
-      data: response.data
+      enrollment: response.data.user
     });
   },
 
@@ -119,8 +120,8 @@ module.exports = Reflux.createStore({
     this.trigger({
       nextPage: nextPage,
       creditCardToken: res.id,
-      creditBrand: res.brand,
-      last4: res.last4
+      creditCardBrand: res.card.brand,
+      last4: res.card.last4
     })
   },
 

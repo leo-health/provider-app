@@ -37,7 +37,7 @@ module.exports = React.createClass({
       creditCardToken: undefined,
       creditCardBrand: undefined,
       last4: undefined,
-      page: "enroll",
+      nextPage: "enroll",
       progressBar: ProgressBarMap.enroll,
       insurers: []
     }
@@ -66,10 +66,9 @@ module.exports = React.createClass({
   },
 
   onRegistrationStatusChange: function(status){
+    this.setState(status);
     if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
-    if(status.action === "fetch" && status.data) this.setState({enrollment: status.data.user});
-    if(status.insurers) this.setState(status);
-    if(status.nextPage) this.navigateTo(status.nextPage)
+    if(status.nextPage){this.navigateTo(status.nextPage)}
   },
 
   navigateTo: function(destination){
@@ -77,13 +76,12 @@ module.exports = React.createClass({
       pathname: "/signup",
       query: {page: destination}
     });
+
     this.setState({
-      page:destination,
       progressBar: ProgressBarMap[destination],
-      creditCardToken: status.creditCardToken,
-      creditBrand: status.creditBrand,
-      last4: status.last4
+      nextPage: destination
     });
+
     return false;
   },
 
@@ -93,7 +91,7 @@ module.exports = React.createClass({
 
   selectPage: function(){
     var page;
-    switch(this.state.page){
+    switch(this.state.nextPage){
       case "enroll":
         page = <EnrollmentForm/>;
         break;
@@ -108,7 +106,7 @@ module.exports = React.createClass({
         break;
       case "review":
         page = <ReviewForm navigateTo={this.navigateTo}
-                           creditBrand={this.state.creditCardBrand}
+                           creditCardBrand={this.state.creditCardBrand}
                            createCreditCard={this.createCreditCard}
                            last4={this.state.last4}
                            enrollment={this.state.enrollment}/>;
@@ -122,6 +120,11 @@ module.exports = React.createClass({
 
   render: function(){
     var signUpContent = this.selectPage();
+    //var headerClass = classNames({
+    //  "signup-progress-text progress-text-container":
+    //  "signup-progress-text progress-text-container":
+    //});
+
     return(
       <div id="signup_page">
         <div className="row">
@@ -137,7 +140,7 @@ module.exports = React.createClass({
               </div>
               <div className="progress-text" id="progress">
                 <div className="progress-table">
-                  <div className="signup-progress-text progress-text-container">Enroll</div>
+                  <div className="signup-progress-text progress-text-container active">Enroll</div>
                   <div className="progress-text-spacer"></div>
                   <div className="signup-progress-text progress-text-container">You</div>
                   <div className="progress-text-spacer"></div>
@@ -155,7 +158,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <PatientInfoForm navigateTo={this.navigateTo}/>;
+            {signUpContent}
           </div>
         </div>
       </div>

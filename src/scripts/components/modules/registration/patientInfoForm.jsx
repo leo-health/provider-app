@@ -8,6 +8,7 @@ var React = require('react'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy'),
+    Dropzone = require('react-dropzone')
     Patient = require('./patient');
 
 module.exports = validation(strategy)(React.createClass({
@@ -89,6 +90,11 @@ module.exports = validation(strategy)(React.createClass({
     return <label className={messageClass}>{message}</label>
   },
 
+  onDrop: function (files) {
+    console.log('Received files: ', files);
+    //<img src={file.preview} />
+  },
+
   render: function(){
     var patients = this.state.patientEnrollment.map(function(patient, i){
 
@@ -119,6 +125,12 @@ module.exports = validation(strategy)(React.createClass({
             {patients}
             <div className="row">
               <div className="form-group col-sm-3">
+                <button className="btn btn-primary start">
+                  <i className="glyphicon glyphicon-upload"></i><span>Start</span>
+                </button>
+              </div>
+
+              <div className="form-group col-sm-2">
                 <input type="text"
                        className="form-control"
                        ref="firstName"
@@ -127,7 +139,7 @@ module.exports = validation(strategy)(React.createClass({
                 <label className="text-muted">First Name</label>
               </div>
 
-              <div className="form-group col-sm-3">
+              <div className="form-group col-sm-2">
                 <input type="text"
                        className="form-control"
                        ref="lastName"/>
@@ -145,7 +157,7 @@ module.exports = validation(strategy)(React.createClass({
                 <label className="text-muted">Gender</label>
               </div>
 
-              <div className="row col-sm-4 form-group">
+              <div className="row col-sm-3 form-group">
                 <input type="date"
                        className="form-control"
                        placeholder="dd/mm/yyyy"
@@ -158,7 +170,7 @@ module.exports = validation(strategy)(React.createClass({
 
             <div className="row">
               <div className="form-group col-sm-2 col-sm-offset-10">
-                <button type="submit" className="btn btn-primary">Add</button>&nbsp;
+                <button type="submit" className="btn btn-primary">Add</button>
               </div>
             </div>
           </div>

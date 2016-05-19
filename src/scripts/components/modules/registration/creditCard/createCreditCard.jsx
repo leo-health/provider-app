@@ -13,53 +13,53 @@ module.exports = React.createClass({
     return(
       <div>
         <div className="form-group col-sm-8">
-          <input type="text"
+          <input type="number"
                  className="form-control"
                  size="20"
-                 placeholder="Card Number"
                  ref="cardNumber"
                  required
                  autoFocus/>
+          <label className="text-muted">Card Number</label>
         </div>
         <div className="form-group col-sm-4">
           <input type="text"
                  className="form-control"
                  size="5"
-                 placeholder="Zip Code"
                  ref="zip"
                  required/>
+          <label className="text-muted">Zip Code</label>
         </div>
 
         <div className="form-group col-sm-4">
-          <input type="text"
+          <input type="number"
                  className="form-control"
                  id="expirationMonth"
                  size="2"
-                 placeholder="Expiration (MM)"
                  ref="expirationMonth"
                  required
                  onKeyUp={()=>this.autoFormAdvance(2, "expirationMonth", "expirationYear")}/>
+          <label className="text-muted">Expiration (MM)</label>
         </div>
 
         <div className="form-group col-sm-4">
-          <input type="text"
+          <input type="number"
                  className="form-control"
                  id="expirationYear"
                  size="2"
-                 placeholder="Expiration (YY)"
                  ref="expirationYear"
                  required
                  onKeyUp={()=>this.autoFormAdvance(2, "expirationYear", "cvc")}/>
+          <label className="text-muted">Expiration (YY)</label>
         </div>
 
         <div className="form-group col-sm-4">
-          <input type="text"
+          <input type="number"
                  className="form-control"
                  id="cvc"
                  size="4"
-                 placeholder="CVC"
                  required
                  ref="cvc"/>
+          <label className="text-muted">CVC</label>
         </div>
       </div>
     )
