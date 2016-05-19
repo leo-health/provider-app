@@ -61,8 +61,8 @@ module.exports = validation(strategy)(React.createClass({
   render: function(){
     return(
       <div className="row">
-        <div className="form-group col-sm-3">
-          <button className="btn btn-primary start">
+        <div className="form-group col-sm-2">
+          <button className="btn btn-primary start full-width-button">
             <i className="glyphicon glyphicon-upload"></i><span>Start</span>
           </button>
         </div>
@@ -94,13 +94,16 @@ module.exports = validation(strategy)(React.createClass({
           <label className="text-muted">Gender</label>
         </div>
 
-        <div className="row col-sm-3 form-group">
+        <div className="form-group col-sm-3">
           <input type="date"
                  className="form-control"
-                 placeholder="dd/mm/yyyy"
                  ref="birthDate"/>
           {this.renderHelpText(this.props.getValidationMessages('birthDate'))}
           <label className="text-muted">Birth Date</label>
+        </div>
+
+        <div className="form-group col-sm-1">
+          <a onClick={this.addPatient}>Save</a>
         </div>
       </div>
     )

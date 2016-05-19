@@ -36,8 +36,7 @@ module.exports = validation(strategy)(React.createClass({
   render: function(){
     var patients = this.state.patientEnrollment.map(function(patient, i){
       return(
-        <showPatient key={i}
-                     patient={patient}/>
+        <showPatient key={i} patient={patient}/>
       )
     });
 
@@ -47,35 +46,33 @@ module.exports = validation(strategy)(React.createClass({
     });
 
     return(
-      <form className="" onSubmit={this.handleOnSubmit}>
-        <div className="row">
-          <div className="col-md-7 col-md-offset-1">
-            <h3 className="signup-header">Let's set up a profile for each of your children</h3>
-          </div>
-        </div>
-        <br/>
-        <div className="row">
-          <div className="col-md-8 col-md-offset-1">
-            {patients}
-            <EditPatient ref="editPatient"/>
+      <div>
 
-            <div className="row">
-              <div className="form-group col-sm-2 col-sm-offset-10">
-                <button onClick={this.addPatient} className="btn btn-primary">Add</button>
+        <div className="row">
+          <div className="col-md-11 col-md-offset-1">
+            <div className="row 1">
+              <h3 className="signup-header">Let's set up a profile for each of your children</h3>
+            </div>
+
+            <br/>
+
+            <div className="row 2">
+              <div className="col-md-9">
+                {patients}
+                <EditPatient ref="editPatient"/>
+              </div>
+
+              <div className="col-md-2">
+                <button type="button full-width-button"
+                        onClick={()=>this.props.navigateTo('payment')}
+                        className={continueButtonClass}>
+                  Continue
+                </button>
               </div>
             </div>
           </div>
-
-          <div className="col-md-2 form-group">
-            <button type="button"
-                    id="signup_continue"
-                    onClick={()=>this.props.navigateTo('payment')}
-                    className={continueButtonClass}>
-              Continue
-            </button>
-          </div>
         </div>
-      </form>
+      </div>
     )
   }
 }));
