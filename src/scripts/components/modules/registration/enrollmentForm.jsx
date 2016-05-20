@@ -14,10 +14,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getValidatorData: function(){
-    return {
-      email: this.state.email,
-      password: this.state.password
-    }
+    return this.state
   },
 
   getInitialState: function(){
@@ -25,12 +22,12 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   handleEmailChange: function(e){
-    this.props.handleValidation('email')();
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
     this.setState({email: e.target.value})
   },
 
   handlePasswordChange: function(e){
-    this.props.handleValidation('password')();
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('password')();
     this.setState({password: e.target.value})
   },
 
@@ -40,10 +37,10 @@ module.exports = validation(strategy)(React.createClass({
       if (error) {
         return
       } else {
-        RegistrationActions.createEnrollmentRequest(_.merge(this.state, {next: 'you'}));
+        RegistrationActions.createEnrollmentRequest(_.merge(this.state, {nextPage: 'you'}));
       }
     };
-
+    this.submitHasBeenAttemptedOnce = true;
     this.props.validate(onValidate);
   },
 
@@ -69,6 +66,7 @@ module.exports = validation(strategy)(React.createClass({
           <div className="row">
             <div className="form-group col-md-4 col-md-offset-1">
               <input type="text"
+                     value={this.state.email}
                      className="form-control"
                      onChange={this.handleEmailChange}/>
               <label className="text-muted">Email</label>
@@ -77,6 +75,7 @@ module.exports = validation(strategy)(React.createClass({
 
             <div className="form-group col-md-4">
               <input type="password"
+                     value={this.state.password}
                      className="form-control"
                      onChange={this.handlePasswordChange}/>
               <label className="text-muted">Password</label>
