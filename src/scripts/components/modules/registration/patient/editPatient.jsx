@@ -1,5 +1,6 @@
 var React = require('react'),validation = require('react-validation-mixin'),
     RegistrationActions = require('../../../../actions/registrationActions'),
+    _ = require('lodash'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy'),
     Dropzone = require('react-dropzone');
@@ -13,35 +14,55 @@ module.exports = validation(strategy)(React.createClass({
 
   getValidatorData: function(){
     return {
-      firstName: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
-      lastName: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
-      birthDate: ReactDom.findDOMNode(this.refs.birthDate).value.trim()
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      birthDate: this.state.birthDate
     }
   },
+
+  getInitialState: function(){
+    return {
+      firstName: '',
+      lastName: '',
+      sex: 'M',
+      birthDate: ''
+    }
+  },
+
+  handleFirstNameChange: function(e){
+    this.props.handleValidation('firstName')();
+    this.setState({firstName: e.target.value});
+  },
+
+  handleLastNameChange: function(e){
+    this.props.handleValidation('lastName')();
+    this.setState({lastName: e.target.value});
+  },
+
+  handleSexChange: function(e){
+    this.setState({sex: e.target.value});
+  },
+
+  handleBirthDateChange: function(e){
+    this.props.handleValidation('birthDate')();
+    this.setState({birthDate: e.target.value});
+  },
+
 
   handleOnSubmit: function(){
     const onValidate = (error) => {
       if (error) {
         return
       } else {
-        this.createPatientEnrollment();
-        ReactDom.findDOMNode(this.refs.firstName).value = "";
-        ReactDom.findDOMNode(this.refs.lastName).value = "";
+        RegistrationActions.createPatientEnrollmentRequest(
+          _.merge(this.state, {authentication_token: sessionStorage.enrollmentToken})
+        );
+
+        this.setState({firstName: '', lastName: '', sex: 'M', birthDate: ''})
       }
     };
 
     this.props.validate(onValidate);
-    this.submitHasBeenAttemptedOnce = true;
-  },
-
-  createPatientEnrollment: function(){
-    RegistrationActions.createPatientEnrollmentRequest({
-      first_name: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
-      last_name: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
-      birth_date: ReactDom.findDOMNode(this.refs.birthDate).value.trim(),
-      sex: ReactDom.findDOMNode(this.refs.sex).value.trim(),
-      authentication_token: sessionStorage.enrollmentToken
-    });
   },
 
   onDrop: function (files) {
@@ -70,7 +91,8 @@ module.exports = validation(strategy)(React.createClass({
         <div className="form-group col-sm-2">
           <input type="text"
                  className="form-control"
-                 ref="firstName"
+                 value={this.state.firstName}
+                 onChange={this.handleFirstNameChange}
                  autoFocus/>
           {this.renderHelpText(this.props.getValidationMessages('firstName'))}
           <label className="text-muted">First Name</label>
@@ -79,7 +101,8 @@ module.exports = validation(strategy)(React.createClass({
         <div className="form-group col-sm-2">
           <input type="text"
                  className="form-control"
-                 ref="lastName"/>
+                 value={this.state.lastName}
+                 onChange={this.handleLastNameChange}/>
           {this.renderHelpText(this.props.getValidationMessages('lastName'))}
           <label className="text-muted">Last Name</label>
         </div>
@@ -87,7 +110,8 @@ module.exports = validation(strategy)(React.createClass({
         <div className="form-group col-sm-2">
           <select className="form-control"
                   id="select"
-                  ref="sex">
+                  value={this.state.sex}
+                  onChange={this.handleSexChange}>
             <option value={"M"}>M</option>
             <option value={"F"}>F</option>
           </select>
@@ -97,13 +121,14 @@ module.exports = validation(strategy)(React.createClass({
         <div className="form-group col-sm-3">
           <input type="date"
                  className="form-control"
-                 ref="birthDate"/>
+                 value={this.state.birthDate}
+                 onChange={this.handleBirthDateChange}/>
           {this.renderHelpText(this.props.getValidationMessages('birthDate'))}
           <label className="text-muted">Birth Date</label>
         </div>
 
         <div className="form-group col-sm-1">
-          <a onClick={this.addPatient}>Save</a>
+          <a href="#" onClick={this.handleOnSubmit}>Save</a>
         </div>
       </div>
     )
