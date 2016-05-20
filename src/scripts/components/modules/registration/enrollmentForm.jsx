@@ -40,8 +40,8 @@ module.exports = validation(strategy)(React.createClass({
         RegistrationActions.createEnrollmentRequest(_.merge(this.state, {nextPage: 'you'}));
       }
     };
-    this.submitHasBeenAttemptedOnce = true;
     this.props.validate(onValidate);
+    this.submitHasBeenAttemptedOnce = true;
   },
 
   renderHelpText: function(message){

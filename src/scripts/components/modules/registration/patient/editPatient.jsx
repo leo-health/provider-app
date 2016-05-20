@@ -30,12 +30,12 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   handleFirstNameChange: function(e){
-    this.props.handleValidation('firstName')();
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
     this.setState({firstName: e.target.value});
   },
 
   handleLastNameChange: function(e){
-    this.props.handleValidation('lastName')();
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
     this.setState({lastName: e.target.value});
   },
 
@@ -44,7 +44,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   handleBirthDateChange: function(e){
-    this.props.handleValidation('birthDate')();
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('birthDate')();
     this.setState({birthDate: e.target.value});
   },
 
@@ -61,8 +61,8 @@ module.exports = validation(strategy)(React.createClass({
         this.setState({firstName: '', lastName: '', sex: 'M', birthDate: ''})
       }
     };
-
     this.props.validate(onValidate);
+    this.submitHasBeenAttemptedOnce = true;
   },
 
   onDrop: function (files) {

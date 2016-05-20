@@ -154,7 +154,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            {signUpContent}
+            <UserInfoForm insurers={this.state.insurers}/>
           </div>
         </div>
       </div>

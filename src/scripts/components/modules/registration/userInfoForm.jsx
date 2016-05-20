@@ -11,31 +11,28 @@ module.exports = validation(strategy)(React.createClass({
   validatorTypes: {
     firstName: Joi.string().min(2).trim().required().label("First name"),
     lastName: Joi.string().min(2).trim().required().label("Last name"),
-    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone")
+    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone"),
   },
-
-  mixins: [
-    Reflux.listenTo(RegistrationStore, "onRegistrationStatusChange")
-  ],
 
   getInitialState: function(){
     return {
-      insurancePlanId: this.props.insurers[0].insurance_plans[0].id || undefined
+      firstName: '',
+      lastName: '',
+      phone: '',
+      insurancePlanId: ''
     }
   },
 
   getValidatorData: function(){
-    return {
-      firstName: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
-      lastName: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
-      phone: ReactDom.findDOMNode(this.refs.phone).value.trim()
-    }
+    return this.state
   },
 
-  setInsurancePlanId: function(e){
-    this.setState({
-      insurancePlanId: Number(e.target.value)
-    })
+  componentWillReceiveProps: function(nextProp){
+    if( nextProp.insurers.length > 0 ){
+      this.setState({
+        insurancePlanId: nextProp.insurers[0].insurance_plans[0].id
+      })
+    }
   },
 
   handleOnSubmit: function(e){
@@ -53,13 +50,10 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   updateEnrollment: function(){
-    RegistrationActions.updateEnrollmentRequest({
-      authentication_token: sessionStorage.enrollmentToken,
-      first_name: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
-      last_name: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
-      phone: ReactDom.findDOMNode(this.refs.phone).value.replace(/\D/g,''),
-      insurance_plan_id: this.state.insurancePlanId
-    }, "patient")
+    RegistrationActions.updateEnrollmentRequest(
+      _.merge(this.state,
+        {authentication_token: sessionStorage.enrollmentToken, phone: this.state.phone.replace(/\D/g,'')}), "patient"
+    )
   },
 
   parseInsurers: function(){
@@ -76,12 +70,6 @@ module.exports = validation(strategy)(React.createClass({
     return plans
   },
 
-  onChange: function(ref){
-    return event => {
-      if (this.submitHasBeenAttemptedOnce) this.props.handleValidation(ref)();
-    }
-  },
-
   renderHelpText: function(message){
     var messageClass = classNames({
       "text-danger": message.length > 0,
@@ -96,63 +84,87 @@ module.exports = validation(strategy)(React.createClass({
     e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
   },
 
+  handleFirstNameChange: function(e) {
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
+    this.setState({ firstName: e.target.value })
+  },
+
+  handleLastNameChange: function (e) {
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
+    this.setState({ lastName: e.target.value })
+  },
+
+  handlePhoneChange: function(e) {
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
+    this.setState({ phone: e.target.value })
+  },
+
+  handleInsuranceChange: function(e){
+    this.setState({ insurancePlanId: e.target.value })
+  },
+
   render: function(){
     return(
       <div>
-        <form onSubmit={this.handleOnSubmit}>
-          <div className="body">
-            <div className="row">
-              <div className="col-md-7 col-md-offset-1">
-                <h3 className="signup-header">Tell us about yourself!</h3>
-              </div>
+        <div className="row">
+          <div className="col-md-11 col-md-offset-1">
+            <h3 className="signup-header">Tell us about yourself!</h3>
+          </div>
+        </div>
+
+        <br/>
+
+        <div className="row">
+          <div className="col-md-7 col-md-offset-1">
+            <div className="col-md-12">
+              <select className="form-control"
+                      value={this.state.insurancePlanId}
+                      onChange={this.handleInsuranceChange}>
+                {this.parseInsurers()}
+              </select>
+              <label className="text-muted">Insurance</label>
             </div>
-            <br/>
-            <div className="row">
-              <div className="col-md-7 col-md-offset-1">
-                <div className="row form-group">
-                  <div className="col-sm-12">
-                    <select className="form-control"
-                            size="3"
-                            onChange={this.setInsurancePlanId}
-                        >
-                      {this.parseInsurers()}
-                    </select>
-                  </div>
-                </div>
-                <br/>
-                <div className="row">
-                  <div className="form-group col-sm-6">
-                    <input type="text" className="form-control" onChange={this.onChange('firstName')} placeholder="First Name" ref="firstName"/>
-                    {this.renderHelpText(this.props.getValidationMessages('firstName'))}
-                  </div>
 
-                  <div className="form-group col-sm-6">
-                    <input type="text" className="form-control" onChange={this.onChange('lastName')} placeholder="Last Name" ref="lastName"/>
-                    {this.renderHelpText(this.props.getValidationMessages('lastName'))}
-                  </div>
-                </div>
 
-                <div className="row">
-                  <div className="form-group col-sm-12">
-                    <input type="text"
-                           className="form-control"
-                           onChange={this.onChange('phone')}
-                           placeholder="Phone"
-                           ref="phone"
-                           onInput={this.phoneMask}/>
-                    {this.renderHelpText(this.props.getValidationMessages('phone'))}
-                  </div>
-                </div>
-              </div>
+            <div className="form-group col-md-6">
+              <input type="text"
+                     className="form-control"
+                     value={this.state.firstName}
+                     onChange={this.handleFirstNameChange}
+                     ref="firstName"/>
+              <label className="text-muted">First Name</label>
+              {this.renderHelpText(this.props.getValidationMessages('firstName'))}
+            </div>
 
-              <div className="col-md-3">
-                <div className="form-group">
-                  <button type="submit" id="signup_continue" className="btn btn-primary">Continue</button>&nbsp;
-                </div>
-              </div>
+            <div className="form-group col-md-6">
+              <input type="text"
+                     className="form-control"
+                     value={this.state.lastName}
+                     onChange={this.handleLastNameChange}
+                     ref="lastName"/>
+              <label className="text-muted">Last Name</label>
+              {this.renderHelpText(this.props.getValidationMessages('lastName'))}
+            </div>
+
+            <div className="form-group col-md-12">
+              <input type="text"
+                     className="form-control"
+                     value={this.state.phone}
+                     onChange={this.handlePhoneChange}
+                     ref="phone"
+                     onInput={this.phoneMask}/>
+              <label className="text-muted">Phone</label>
+              {this.renderHelpText(this.props.getValidationMessages('phone'))}
             </div>
           </div>
-        </form>
+
+          <div className="col-md-3 form-group">
+            <button onClick={this.handleOnSubmit}
+                    className="btn btn-primary full-width-button">
+              Continue
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
