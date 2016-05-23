@@ -3,8 +3,7 @@ var React = require('react'),
     RegistrationActions = require('../../../actions/registrationActions'),
     ShowCreditCard = require('./creditCard/showCreditCard'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
-    EditPatient = require('./patient/editPatient'),
-    ShowPatient = require('./patient/showPatient');
+    SinglePatient=require('./patient/singlePatient');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -59,12 +58,7 @@ module.exports = React.createClass({
 
   parsePatientEnrollments: function(patientEnrollments){
     return patientEnrollments.map(function(patientEnrollment, i){
-      return <Patient key={i}
-                      id={patientEnrollment.id}
-                      firstName={patientEnrollment.first_name}
-                      lastName={patientEnrollment.last_name}
-                      sex={patientEnrollment.sex}
-                      birthDate={patientEnrollment.birth_date.substring(0,10)}/>
+      return <SinglePatient key={i} patient={patientEnrollment}/>
     });
   },
 
@@ -102,79 +96,62 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <div className="body">
-          <div className="row">
-            <div className="col-md-7 col-md-offset-1">
-              <h3 className="signup-header">Let's double check!</h3>
+        <div className="row">
+          <div className="col-md-11 col-md-offset-1">
+            <h3 className="signup-header">Let's double check!</h3>
+          </div>
+        </div>
+        <br/>
+        <div className="row">
+          <div className="col-md-8 col-md-offset-1">
+            <div className="row">
+              <div className="form-group col-md-10 col-md-offset-1">
+                <h4>You</h4>
+              </div>
+              <div className="form-group col-md-1">
+                <a onClick={this.handleEnroll}>{this.state.editYou}</a>
+              </div>
+              <div className="form-group col-md-4 col-md-offset-1">
+                {email}
+              </div>
+              <div className="form-group col-md-2">
+                {firstName}
+              </div>
+              <div className="form-group col-md-2">
+                {lastName}
+              </div>
+              <div className="form-group col-md-3">
+                {phone}
+              </div>
+            </div>
+            <br/>
+            <div className="row">
+              <div className="form-group col-md-10 col-md-offset-1">
+                <h4>Family</h4>
+              </div>
+              <div className="form-group col-md-1">
+                <a onClick={()=>this.handleClick('editYou')}>add</a>
+              </div>
+              <div className="form-group col-md-11 col-md-offset-1">
+                {patients}
+              </div>
+            </div>
+            <br/>
+            <div className="row">
+              <div className="form-group col-md-10 col-md-offset-1">
+                <h4>Payment</h4>
+              </div>
+              <div className="form-group col-md-1">
+                <a onClick={this.handlePayment}>{this.state.editPayment}</a>
+              </div>
+            </div>
+            <div className="form-group col-md-11 col-md-offset-1">
+              {creditCard}
             </div>
           </div>
-          <br/>
-          <div className="row">
-            <div className="col-md-7 col-md-offset-1">
-              <div className="row">
-                <div className="form-group col-sm-9 col-sm-offset-1">
-                  <h4>You</h4>
-                </div>
-
-                <div className="form-group col-sm-2">
-                  <a onClick={this.handleEnroll}>{this.state.editYou}</a>
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="form-group col-sm-6 col-sm-offset-1">
-                  {email}
-                </div>
-                <div className="col-sm-6 col-sm-offset-1">
-                  <div className="row">
-                    <div className="form-group col-sm-6 ">
-                      {firstName}
-                    </div>
-                    <div className="form-group col-sm-6">
-                      {lastName}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="form-group col-sm-6 col-sm-offset-1">
-                  {phone}
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="form-group col-sm-9 col-sm-offset-1">
-                  <h4>Family</h4>
-                </div>
-
-                <div className="form-group col-sm-2">
-                  <a onClick={()=>this.handleClick('editYou')}>add</a>
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="form-group col-sm-11 col-sm-offset-1">
-                  {patients}
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="form-group col-sm-9 col-sm-offset-1">
-                  <h4>Payment</h4>
-                </div>
-
-                <div className="form-group col-sm-2">
-                  <a onClick={this.handlePayment}>{this.state.editPayment}</a>
-                </div>
-              </div>
-
-              <div className="form-group col-sm-11 col-sm-offset-1">
-                {creditCard}
-              </div>
-            </div>
-            <div className="col-md-3">
-              <div className="form-group">
-                <button type="submit" id="signup_continue" className="btn btn-primary">Subscribe</button>&nbsp;
-              </div>
+          <div className="col-md-1 col-md-offset-1">
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary full-width-button">Go!</button>
             </div>
           </div>
         </div>
