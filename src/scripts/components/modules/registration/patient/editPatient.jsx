@@ -9,23 +9,29 @@ module.exports = validation(strategy)(React.createClass({
   validatorTypes: {
     firstName: Joi.string().min(2).trim().required().label("First name"),
     lastName: Joi.string().min(2).trim().required().label("Last name"),
-    birthDate: Joi.date().max(new Date()).required().label("Birth date")
+    birthDate: Joi.date().max(new Date()).required().label("Birth Date")
   },
 
   getValidatorData: function(){
-    return {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      birthDate: this.state.birthDate
-    }
+    return this.state
   },
 
   getInitialState: function(){
-    return {
-      firstName: '',
-      lastName: '',
-      sex: 'M',
-      birthDate: ''
+    return this.getInitialPatient()
+  },
+
+  getInitialPatient: function(){
+    if(this.props.patient){
+      return {
+        id: this.props.patient.id,
+        firstName: this.props.patient.first_name,
+        lastName: this.props.patient.last_name,
+        sex: this.props.patient.sex,
+        birthDate: this.props.patient.birth_date.substring(0,10),
+        isCreate: false
+      }
+    }else{
+      return { firstName: '', lastName: '', sex: 'M', birthDate: '', isCreate: true}
     }
   },
 
@@ -48,26 +54,39 @@ module.exports = validation(strategy)(React.createClass({
     this.setState({birthDate: e.target.value});
   },
 
-
   handleOnSubmit: function(){
     const onValidate = (error) => {
       if (error) {
         return
       } else {
-        RegistrationActions.createPatientEnrollmentRequest(
-          _.merge(this.state, {authentication_token: sessionStorage.enrollmentToken})
-        );
-
-        this.setState({firstName: '', lastName: '', sex: 'M', birthDate: ''})
+        this.state.isCreate ? this.createPatient() : this.updatePatient()
       }
     };
     this.props.validate(onValidate);
     this.submitHasBeenAttemptedOnce = true;
   },
 
+  patientParams: function(){
+    return{
+      id: this.state.id,
+      authentication_token: sessionStorage.enrollmentToken,
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      sex: this.state.sex,
+      birth_date: this.state.birthDate
+    }
+  },
+
+  createPatient: function(){
+    RegistrationActions.createPatientEnrollmentRequest(this.patientParams())
+  },
+
+  updatePatient: function(){
+    RegistrationActions.updatePatientEnrollmentRequest(this.patientParams())
+  },
+
   onDrop: function (files) {
     console.log('Received files: ', files);
-    //<img src={file.preview} />
   },
 
   renderHelpText: function(message){
@@ -82,32 +101,30 @@ module.exports = validation(strategy)(React.createClass({
   render: function(){
     return(
       <div className="row">
-        <div className="form-group col-sm-2">
-          <button className="btn btn-primary start full-width-button">
-            <i className="glyphicon glyphicon-upload"></i><span>Start</span>
-          </button>
+        <div className="col-md-2">
+          <img src="../images/camera@1x.png"/>
         </div>
 
-        <div className="form-group col-sm-2">
+        <div className="col-md-2">
           <input type="text"
                  className="form-control"
                  value={this.state.firstName}
                  onChange={this.handleFirstNameChange}
                  autoFocus/>
-          {this.renderHelpText(this.props.getValidationMessages('firstName'))}
           <label className="text-muted">First Name</label>
+          {this.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
 
-        <div className="form-group col-sm-2">
+        <div className="col-md-2">
           <input type="text"
                  className="form-control"
                  value={this.state.lastName}
                  onChange={this.handleLastNameChange}/>
-          {this.renderHelpText(this.props.getValidationMessages('lastName'))}
           <label className="text-muted">Last Name</label>
+          {this.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
 
-        <div className="form-group col-sm-2">
+        <div className="col-md-2">
           <select className="form-control"
                   id="select"
                   value={this.state.sex}
@@ -118,17 +135,13 @@ module.exports = validation(strategy)(React.createClass({
           <label className="text-muted">Gender</label>
         </div>
 
-        <div className="form-group col-sm-3">
+        <div className="col-md-4">
           <input type="date"
                  className="form-control"
                  value={this.state.birthDate}
                  onChange={this.handleBirthDateChange}/>
-          {this.renderHelpText(this.props.getValidationMessages('birthDate'))}
           <label className="text-muted">Birth Date</label>
-        </div>
-
-        <div className="form-group col-sm-1">
-          <a href="#" onClick={this.handleOnSubmit}>Save</a>
+          {this.renderHelpText(this.props.getValidationMessages('birthDate'))}
         </div>
       </div>
     )

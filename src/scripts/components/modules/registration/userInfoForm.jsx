@@ -51,8 +51,13 @@ module.exports = validation(strategy)(React.createClass({
 
   updateEnrollment: function(){
     RegistrationActions.updateEnrollmentRequest(
-      _.merge(this.state,
-        {authentication_token: sessionStorage.enrollmentToken, phone: this.state.phone.replace(/\D/g,'')}), "patient"
+      {
+        authentication_token: sessionStorage.enrollmentToken,
+        phone: this.state.phone.replace(/\D/g,''),
+        first_name: this.state.firstName,
+        last_name: this.state.lastName,
+        insurance_plan_id: this.state.insurancePlanId
+      }, "patient"
     )
   },
 

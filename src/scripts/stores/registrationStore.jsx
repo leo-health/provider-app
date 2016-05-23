@@ -136,18 +136,12 @@ module.exports = Reflux.createStore({
            .send(patientEnrollmentParams)
            .end(function(err, res){
               if(res.ok){
-                RegistrationActions.createPatientEnrollmentRequest.completed(res.body)
+                RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken);
               }else{
                 RegistrationActions.createPatientEnrollmentRequest.failed(res.body)
               }
             })
 
-  },
-
-  onCreatePatientEnrollmentRequestCompleted: function(res){
-    this.trigger({
-      patientEnrollment: res.data.patient_enrollment
-    })
   },
 
   onCreatePatientEnrollmentRequestFailed: function(res){
@@ -180,7 +174,7 @@ module.exports = Reflux.createStore({
            .send(params)
            .end(function(err,res){
               if(res.ok){
-                RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken)
+                RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken);
               }else{
                 RegistrationActions.updateEnrollmentRequest.failed(res.body)
               }

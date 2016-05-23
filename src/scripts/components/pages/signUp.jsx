@@ -99,7 +99,7 @@ module.exports = React.createClass({
         page = <UserInfoForm insurers={this.state.insurers}/>;
         break;
       case "patient":
-        page = <PatientInfoForm navigateTo={this.navigateTo}/>;
+        page = <PatientInfoForm navigateTo={this.navigateTo} enrollment={this.state.enrollment}/>;
         break;
       case "payment":
         page = <PaymentInfoForm createCreditCard={this.createCreditCard}/>;
@@ -154,7 +154,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <UserInfoForm insurers={this.state.insurers}/>
+            <PatientInfoForm navigateTo={this.navigateTo}  enrollment={this.state.enrollment}/>
           </div>
         </div>
       </div>

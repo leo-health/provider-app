@@ -3,60 +3,60 @@ var React = require('react'),
     RegistrationStore = require('../../../stores/registrationStore'),
     classNames = require('classnames'),
     moment = require('moment'),
-    EditPatient = require('./patient/editPatient'),
-    ShowPatient = require('./patient/showPatient');
+    SinglePatient = require('./patient/singlePatient');
 
 module.exports = validation(strategy)(React.createClass({
-  mixins: [
-    Reflux.listenTo(RegistrationStore, "onStatusChange")
-  ],
-
   contextTypes: {
     router: React.PropTypes.object
   },
 
   getInitialState: function(){
-     return({
-      patientEnrollment: []
-    })
+    return {patientEnrollment: [], edit: false}
   },
 
-  onStatusChange: function(status){
-    if(status.patientEnrollment){
-      this.setState({
-        patientEnrollment: this.state.patientEnrollment.concat(status.patientEnrollment)
-      })
+  componentWillReceiveProps: function(nextProps){
+    if( nextProps.enrollment) this.setState({patientEnrollment: nextProps.enrollment.patient_enrollments, edit: false})
+  },
+
+  showPatients: function(){
+    return this.state.patientEnrollment.map(function(patient, i){
+      return <SinglePatient key={i} patient={patient}/>;
+    });
+  },
+
+  addPatient: function(){
+    if(this.state.patientEnrollment.length > 0 && !this.state.edit){
+      return React.createElement('a',  {className: "col-md-1 col-md-offset-11", onClick: this.switchToEdit}, 'add')
+    }else{
+      return <SinglePatient/>;
     }
   },
 
-  render: function(){
-    var patients = this.state.patientEnrollment.map(function(patient, i){
-      return(
-        <showPatient key={i} patient={patient}/>
-      )
-    });
+  switchToEdit: function(){
+    this.setState({edit: true})
+  },
 
+  render: function(){
     var continueButtonClass = classNames({
-      "btn btn-primary": this.state.patientEnrollment.length > 0,
-      "btn btn-primary disabled": this.state.patientEnrollment < 1
+      "btn btn-primary full-width-button": this.state.patientEnrollment.length > 0,
+      "btn btn-primary full-width-button disabled": this.state.patientEnrollment < 1
     });
 
     return(
-      <div className="row">
-        <div className="col-md-11 col-md-offset-1">
-          <h3 className="signup-header">Let's set up a profile for each of your children</h3>
-        </div>
-
-        <br/>
-
+      <div>
         <div className="row">
-          <div className="col-md-9 col-md-offset-1">
-            {patients}
-            <EditPatient/>
+          <div className="col-md-11 col-md-offset-1">
+            <h3 className="signup-header">Let's set up a profile for each of your children</h3>
           </div>
-
+        </div>
+        <br/>
+        <div className="row">
+          <div className="col-md-8 col-md-offset-1">
+            {this.showPatients()}
+            {this.addPatient()}
+          </div>
           <div className="col-md-2">
-            <button type="button full-width-button"
+            <button type="button"
                     onClick={()=>this.props.navigateTo('payment')}
                     className={continueButtonClass}>
               Continue

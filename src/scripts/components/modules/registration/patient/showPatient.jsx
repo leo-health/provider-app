@@ -4,9 +4,7 @@ var React = require('react'),
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return({
-      editFamily: "edit"
-    })
+    return { display: "show" }
   },
 
   deletePatient: function(){
@@ -19,7 +17,7 @@ module.exports = React.createClass({
   updatePatient: function(){
     if(this.state.editFamily === "edit"){
       this.setState({
-        editFamily: "save"
+        display: "s"
       })
     }else{
       RegistrationActions.updatePatientEnrollmentRequest({
@@ -31,52 +29,44 @@ module.exports = React.createClass({
         authentication_token: sessionStorage.enrollmentToken
       });
       this.setState({
-        editFamily: "edit"
+        display: "e"
       })
     }
   },
 
   render: function(){
-    var patient = this.props.patient;
-    //var firstName = this.props.firstName;
-    //var lastName = this.props.lastName;
-    //var sex = this.props.sex;
-    //var birthDate = this.props.birthDate;
-
     //if(this.state.editFamily === "save"){
     //  firstName = React.createElement('input', {defaultValue: firstName, type: "text", className: "form-control", ref: "firstName"});
     //  lastName = React.createElement('input', {defaultValue: lastName, type: "text", className: "form-control", ref: "lastName"});
     //  sex = React.createElement('input', {defaultValue: sex, type: "text", className: "form-control", ref: "sex"});
     //  birthDate = React.createElement('input', {defaultValue: birthDate, type: "text", className: "form-control", ref: "birthDate"});
     //}
+    var patient = this.props.patient;
 
     return(
+      <div>
         <div className="row">
-          <div className="form-group col-sm-3">
-            {patient.firstName}
+          <div className="col-md-2">
+            <img src="../images/leo.png"/>
           </div>
 
-          <div className="form-group col-sm-3">
-            {patient.lastName}
+          <div className="col-md-2">
+            {patient.first_name}
           </div>
 
-          <div className="form-group col-sm-2">
+          <div className="col-md-2">
+            {patient.last_name}
+          </div>
+
+          <div className="col-md-2">
             {patient.sex}
           </div>
 
-          <div className="form-group col-sm-3">
-            {patient.birthDate}
+          <div className="col-md-4">
+            {patient.birth_date.substring(0, 10)}
           </div>
-
-          <div className="form-group col-sm-2 col-sm-offset-8">
-            <a onClick={this.deletePatient}>delete</a>
-          </div>
-
-          <div className="form-group col-sm-2">
-            <a onClick={this.updatePatient}>{this.state.editFamily}</a>
-          </div>
-          <br/>
         </div>
+      </div>
     )
   }
 });
