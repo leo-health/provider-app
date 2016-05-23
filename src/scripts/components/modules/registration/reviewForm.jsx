@@ -3,29 +3,37 @@ var React = require('react'),
     RegistrationActions = require('../../../actions/registrationActions'),
     ShowCreditCard = require('./creditCard/showCreditCard'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
+    ShowGuardian = require('./guardian/showGuardian'),
+    EditGuardian = require('./guardian/editGuardian'),
     SinglePatient=require('./patient/singlePatient');
 
 module.exports = React.createClass({
   getInitialState: function() {
     return({
-      editYou: "edit",
+      editGuardian: "edit",
       editFamily: "edit",
       editPayment: "edit"
     })
+  },
+
+  formatPhoneNumber: function(s) {
+    var s2 = (""+s).replace(/\D/g, '');
+    var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+    return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
   },
 
   componentWillMount: function() {
     RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken);
   },
 
-  handleEnroll: function() {
-    switch(this.state.editYou){
+  handleGuardian: function(){
+    switch(this.state.editGuardian){
       case "edit":
-        this.setState({editYou: "save"});
+        this.setState({editGuardian: "save"});
         break;
       case "save":
-        this.updateEnrollment();
-        this.setState({editYou: "edit"});
+        this.refs.guardianForm.refs.component.handleOnSubmit();
+        this.setState({editGuardian: "edit"});
         break;
     }
   },
@@ -42,20 +50,6 @@ module.exports = React.createClass({
     }
   },
 
-  updateEnrollment: function () {
-    RegistrationActions.updateEnrollmentRequest({
-      email: ReactDom.findDOMNode(this.refs.email).value.trim(),
-      first_name: ReactDom.findDOMNode(this.refs.firstName).value.trim(),
-      last_name: ReactDom.findDOMNode(this.refs.lastName).value.trim(),
-      phone: ReactDom.findDOMNode(this.refs.phone).value.trim(),
-      authentication_token: sessionStorage.enrollmentToken
-    }, "review")
-  },
-
-  handleOnSubmit: function () {
-
-  },
-
   parsePatientEnrollments: function(patientEnrollments){
     return patientEnrollments.map(function(patientEnrollment, i){
       return <SinglePatient key={i} patient={patientEnrollment}/>
@@ -70,29 +64,24 @@ module.exports = React.createClass({
     }
   },
 
-  formatPhoneNumber: function(s) {
-    var s2 = (""+s).replace(/\D/g, '');
-    var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
-    return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+  editOrShowGuardian: function(){
+    if(this.state.editGuardian==="edit"){
+      return <ShowGuardian enrollment={this.props.enrollment}
+                           insurers={this.props.insurers}
+                           formatPhoneNumber={this.formatPhoneNumber}/>
+    }else{
+      return <EditGuardian enrollment={this.props.enrollment}
+                           insurers={this.props.insurers}
+                           formatPhoneNumber={this.formatPhoneNumber}
+                           ref="guardianForm"/>
+    }
   },
 
   render: function() {
     if(this.props.enrollment){
       var email = this.props.enrollment.email;
-      var firstName = this.props.enrollment.first_name;
-      var lastName = this.props.enrollment.last_name;
-      var phone = this.formatPhoneNumber(this.props.enrollment.phone);
       var patients = this.parsePatientEnrollments(this.props.enrollment.patient_enrollments);
-
-      if(this.state.editYou === "save") {
-        email = React.createElement('input', {defaultValue: email, type: "text", className: "form-control", ref: "email"});
-        firstName = React.createElement('input', {defaultValue: firstName, type: "text", className: "form-control", ref: "firstName"});
-        lastName = React.createElement('input', {defaultValue: lastName, type: "text", className: "form-control", ref: "lastName"});
-        phone = React.createElement('input', {defaultValue: phone, type: "text", className: "form-control", ref: "phone"})
-      }
     }
-
-    var creditCard = this.creditCardDisplay();
 
     return (
       <div>
@@ -105,23 +94,23 @@ module.exports = React.createClass({
         <div className="row">
           <div className="col-md-8 col-md-offset-1">
             <div className="row">
-              <div className="form-group col-md-10 col-md-offset-1">
+              <div className="form-group col-md-11 col-md-offset-1">
                 <h4>You</h4>
-              </div>
-              <div className="form-group col-md-1">
-                <a onClick={this.handleEnroll}>{this.state.editYou}</a>
               </div>
               <div className="form-group col-md-4 col-md-offset-1">
                 {email}
               </div>
-              <div className="form-group col-md-2">
-                {firstName}
+            </div>
+            <br/>
+            <div className="row">
+              <div className="form-group col-md-10 col-md-offset-1">
+                <h4>Basic Info</h4>
               </div>
-              <div className="form-group col-md-2">
-                {lastName}
+              <div className="form-group col-md-1">
+                <a onClick={this.handleGuardian}>{this.state.editGuardian}</a>
               </div>
-              <div className="form-group col-md-3">
-                {phone}
+              <div className="form-group col-md-11 col-md-offset-1">
+                {this.editOrShowGuardian()}
               </div>
             </div>
             <br/>
@@ -146,7 +135,7 @@ module.exports = React.createClass({
               </div>
             </div>
             <div className="form-group col-md-11 col-md-offset-1">
-              {creditCard}
+              {this.creditCardDisplay()}
             </div>
           </div>
           <div className="col-md-1 col-md-offset-1">

@@ -109,6 +109,7 @@ module.exports = React.createClass({
                            creditCardBrand={this.state.creditCardBrand}
                            createCreditCard={this.createCreditCard}
                            last4={this.state.last4}
+                           insurers={this.state.insurers}
                            enrollment={this.state.enrollment}/>;
         break;
       default:
@@ -158,7 +159,8 @@ module.exports = React.createClass({
                         creditCardBrand={this.state.creditCardBrand}
                         createCreditCard={this.createCreditCard}
                         last4={this.state.last4}
-                        enrollment={this.state.enrollment}/>;
+                        insurers={this.state.insurers}
+                        enrollment={this.state.enrollment}/>
           </div>
         </div>
       </div>
