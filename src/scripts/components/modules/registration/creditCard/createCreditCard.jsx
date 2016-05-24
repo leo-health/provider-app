@@ -3,20 +3,59 @@ var React = require('react'),
     RegistrationActions = require('../../../../actions/registrationActions');
 
 module.exports = React.createClass({
-  autoFormAdvance: function(size,currentFormId,nextFormId) {
-    if(document.getElementById(currentFormId).value.length===size) {
-      document.getElementById(nextFormId).focus();
+  getInitialState: function(){
+    return {
+      cardNumber: "",
+      zip: "",
+      expirationMonth: "",
+      expirationYear: "",
+      cvc: ""
     }
+  },
+
+  createCreditCard: function(creditCardComponent){
+    RegistrationActions.createCreditCardRequest({
+      number: this.state.cardNumber,
+      cvc:this.state.cvc,
+      exp_month: this.state.expirationMonth ,
+      exp_year: this.state.expirationYear,
+      address_zip: this.state.zip
+    }, "review");
+  },
+
+  handleCardChange: function(e){
+    if(this.isNumber(e.target.value.slice(-1)) || e.target.value === "") this.setState({cardNumber: e.target.value})
+  },
+
+  handleZipChange: function(e){
+    this.setState({zip: e.target.value})
+  },
+
+  handleExpirationMonthChange: function(e){
+    if(this.isNumber(e.target.value.slice(-1)) || e.target.value === "") this.setState({expirationMonth: e.target.value})
+  },
+
+  handleExpirationYearChange: function(e){
+    if(this.isNumber(e.target.value.slice(-1)) || e.target.value === "") this.setState({expirationYear: e.target.value})
+  },
+
+  handleCvcChange: function(e){
+    if(this.isNumber(e.target.value.slice(-1)) || e.target.value === "") this.setState({cvc: e.target.value})
+  },
+
+  isNumber: function(num){
+    return num.charCodeAt() >= 48 && num.charCodeAt() <= 57
   },
 
   render: function(){
     return(
       <div>
         <div className="form-group col-sm-8">
-          <input type="number"
+          <input type="text"
                  className="form-control"
-                 size="20"
-                 ref="cardNumber"
+                 value={this.state.cardNumber}
+                 onChange={this.handleCardChange}
+                 maxLength="16"
                  required
                  autoFocus/>
           <label className="text-muted">Card Number</label>
@@ -24,41 +63,39 @@ module.exports = React.createClass({
         <div className="form-group col-sm-4">
           <input type="text"
                  className="form-control"
-                 size="5"
-                 ref="zip"
+                 value={this.state.zip}
+                 onChange={this.handleZipChange}
                  required/>
           <label className="text-muted">Zip Code</label>
         </div>
 
         <div className="form-group col-sm-4">
-          <input type="number"
+          <input type="text"
                  className="form-control"
-                 id="expirationMonth"
-                 size="2"
-                 ref="expirationMonth"
-                 required
-                 onKeyUp={()=>this.autoFormAdvance(2, "expirationMonth", "expirationYear")}/>
+                 value={this.state.expirationMonth}
+                 onChange={this.handleExpirationMonthChange}
+                 maxLength="2"
+                 required/>
           <label className="text-muted">Expiration (MM)</label>
         </div>
 
         <div className="form-group col-sm-4">
-          <input type="number"
+          <input type="text"
                  className="form-control"
-                 id="expirationYear"
-                 size="2"
-                 ref="expirationYear"
-                 required
-                 onKeyUp={()=>this.autoFormAdvance(2, "expirationYear", "cvc")}/>
+                 value={this.state.expirationYear}
+                 onChange={this.handleExpirationYearChange}
+                 maxLength="2"
+                 required/>
           <label className="text-muted">Expiration (YY)</label>
         </div>
 
         <div className="form-group col-sm-4">
-          <input type="number"
+          <input type="text"
                  className="form-control"
-                 id="cvc"
-                 size="4"
-                 required
-                 ref="cvc"/>
+                 value={this.state.cvc}
+                 onChange={this.handleCvcChange}
+                 maxLength="4"
+                 required/>
           <label className="text-muted">CVC</label>
         </div>
       </div>

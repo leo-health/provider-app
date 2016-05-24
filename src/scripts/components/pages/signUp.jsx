@@ -45,16 +45,6 @@ module.exports = React.createClass({
     }
   },
 
-  createCreditCard: function(creditCardComponent){
-    RegistrationActions.createCreditCardRequest({
-      number: creditCardComponent.refs.cardNumber.value.trim(),
-      cvc:creditCardComponent.refs.cvc.value.trim(),
-      exp_month: creditCardComponent.refs.expirationMonth.value.trim(),
-      exp_year: creditCardComponent.refs.expirationYear.value.trim(),
-      address_zip: creditCardComponent.refs.zip.value.trim()
-    }, "review");
-  },
-
   componentDidMount: function(){
     Stripe.setPublishableKey('pk_test_LRYSNRBvOYUG47Sg4QZqtlkB');
   },
@@ -107,7 +97,7 @@ module.exports = React.createClass({
         page = <PatientInfoForm navigateTo={this.navigateTo} enrollment={this.state.enrollment}/>;
         break;
       case "payment":
-        page = <PaymentInfoForm createCreditCard={this.createCreditCard}/>;
+        page = <PaymentInfoForm/>;
         break;
       case "review":
         page = <ReviewForm navigateTo={this.navigateTo}
@@ -160,7 +150,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <PatientInfoForm navigateTo={this.navigateTo} enrollment={this.state.enrollment}/>
+            <PaymentInfoForm/>
           </div>
         </div>
       </div>
