@@ -3,6 +3,7 @@ var React = require('react'),
     RegistrationStore = require('../../../stores/registrationStore'),
     classNames = require('classnames'),
     moment = require('moment'),
+    ErrorAlert = require('../alert/errorAlert'),
     EditPatient = require('./patient/editPatient'),
     SinglePatient = require('./patient/singlePatient');
 
@@ -12,11 +13,11 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialState: function(){
-    return {patientEnrollment: [], edit: false, cancel: false}
+    return {patientEnrollment: [], edit: false, cancel: false, status: "", message: ""}
   },
 
   componentWillReceiveProps: function(nextProps){
-    if( nextProps.enrollment) this.setState({patientEnrollment: nextProps.enrollment.patient_enrollments, edit: false})
+    if( nextProps.enrollment) this.setState({patientEnrollment: nextProps.enrollment.patient_enrollments, edit: false, status: ""})
   },
 
   showPatients: function(){
@@ -41,6 +42,14 @@ module.exports = validation(strategy)(React.createClass({
     this.setState({edit: true, cancel: true})
   },
 
+  handleContinue: function(){
+    if(this.state.patientEnrollment.length > 0){
+      this.props.navigateTo('payment')
+    }else{
+      this.setState({message: "At least one child is required!", status: "error"})
+    }
+  },
+
   render: function(){
     var continueButtonClass = classNames({
       "btn btn-primary full-width-button": this.state.patientEnrollment.length > 0,
@@ -56,13 +65,19 @@ module.exports = validation(strategy)(React.createClass({
         </div>
         <br/>
         <div className="row">
+          <div className="col-md-10 col-md-offset-1">
+            <ErrorAlert message={this.state.message}
+                        status={this.state.status}/>
+          </div>
+        </div>
+        <div className="row">
           <div className="col-md-8 col-md-offset-1">
             {this.showPatients()}
             {this.addPatient()}
           </div>
           <div className="col-md-2">
             <button type="button"
-                    onClick={()=>this.props.navigateTo('payment')}
+                    onClick={this.handleContinue}
                     className={continueButtonClass}>
               Continue
             </button>
