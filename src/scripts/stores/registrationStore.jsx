@@ -77,7 +77,7 @@ module.exports = Reflux.createStore({
                         }
                         })
              }else{
-               this.trigger({message: "couldn't generate your vendor id"})
+               this.trigger({status: 'error', errorMessage: "couldn't generate your vendor id"})
              }
            });
   },
@@ -91,6 +91,8 @@ module.exports = Reflux.createStore({
 
   onCreateEnrollmentRequestFailed: function(response){
     this.trigger({
+      status: response.status,
+      errorMessage: response.message.error_message,
       nextPage: false
     })
   },

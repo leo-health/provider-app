@@ -4,7 +4,7 @@ var React = require('react'),
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return { display: "show" }
+    return { display: "s" }
   },
 
   deletePatient: function(){
@@ -35,12 +35,6 @@ module.exports = React.createClass({
   },
 
   render: function(){
-    //if(this.state.editFamily === "save"){
-    //  firstName = React.createElement('input', {defaultValue: firstName, type: "text", className: "form-control", ref: "firstName"});
-    //  lastName = React.createElement('input', {defaultValue: lastName, type: "text", className: "form-control", ref: "lastName"});
-    //  sex = React.createElement('input', {defaultValue: sex, type: "text", className: "form-control", ref: "sex"});
-    //  birthDate = React.createElement('input', {defaultValue: birthDate, type: "text", className: "form-control", ref: "birthDate"});
-    //}
     var patient = this.props.patient;
 
     return(

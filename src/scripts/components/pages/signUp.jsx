@@ -39,7 +39,9 @@ module.exports = React.createClass({
       last4: undefined,
       nextPage: "enroll",
       progressBar: ProgressBarMap.enroll,
-      insurers: []
+      insurers: [],
+      status: '',
+      errorMessage: ''
     }
   },
 
@@ -93,7 +95,7 @@ module.exports = React.createClass({
     var page;
     switch(this.state.nextPage){
       case "enroll":
-        page = <EnrollmentForm/>;
+        page = <EnrollmentForm status={this.state.status} errorMessage={this.state.errorMessage}/>;
         break;
       case "you":
         page = <UserInfoForm insurers={this.state.insurers}/>;
@@ -155,10 +157,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            {signUpContent}
-
-
-
+            <EnrollmentForm status={this.state.status} errorMessage={this.state.errorMessage}/>
           </div>
         </div>
       </div>

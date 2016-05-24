@@ -1,5 +1,4 @@
 var React = require('react'),
-    ReactDom = require('react-dom'),
     RegistrationActions = require('../../../actions/registrationActions'),
     ShowCreditCard = require('./creditCard/showCreditCard'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
@@ -32,7 +31,7 @@ module.exports = React.createClass({
         this.setState({editGuardian: "save"});
         break;
       case "save":
-        this.refs.guardianForm.refs.component.handleOnSubmit();
+        this.refs.editGuardian.refs.component.handleOnSubmit();
         this.setState({editGuardian: "edit"});
         break;
     }
@@ -74,7 +73,7 @@ module.exports = React.createClass({
       return <EditGuardian enrollment={this.props.enrollment}
                            insurers={this.props.insurers}
                            formatPhoneNumber={this.formatPhoneNumber}
-                           ref="guardianForm"/>
+                           ref="editGuardian"/>
     }
   },
 

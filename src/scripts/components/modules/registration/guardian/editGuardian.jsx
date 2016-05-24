@@ -12,7 +12,15 @@ module.exports = validation(strategy)(React.createClass({
     phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone")
   },
 
+  getValidatorData: function(){
+    return this.state
+  },
+
   getInitialState: function(){
+    return this.getInitailGuardian
+  },
+
+  getInitailGuardian: function(){
     if(this.props.enrollment){
       return {
         firstName: this.props.enrollment.first_name,
@@ -23,10 +31,6 @@ module.exports = validation(strategy)(React.createClass({
     }else{
       return { firstName: '', lastName: '', phone: '', insurancePlanId: ''}
     }
-  },
-
-  getValidatorData: function(){
-    return this.state
   },
 
   componentWillReceiveProps: function(nextProp){
@@ -46,6 +50,7 @@ module.exports = validation(strategy)(React.createClass({
       }
     };
     this.props.validate(onValidate);
+    debugger;
     this.submitHasBeenAttemptedOnce = true;
   },
 
@@ -60,6 +65,8 @@ module.exports = validation(strategy)(React.createClass({
       }, "patient"
     )
   },
+
+  //this.state.isCreate ? this.createPatient() : this.updatePatient()
 
   parseInsurers: function(){
     var plans = [];

@@ -5,6 +5,7 @@ var React = require('react'),
     strategy = require('joi-validation-strategy'),
     classNames = require('classnames'),
     RegistrationActions = require('../../../actions/registrationActions'),
+    ErrorAlert = require('../alert/errorAlert'),
     RegistrationStore = require('../../../stores/registrationStore');
 
 module.exports = validation(strategy)(React.createClass({
@@ -62,6 +63,12 @@ module.exports = validation(strategy)(React.createClass({
           </div>
         </div>
         <br/>
+        <div className="row">
+          <div className="col-md-10 col-md-offset-1">
+            <ErrorAlert message={this.props.errorMessage}
+                        status={this.props.status}/>
+          </div>
+        </div>
         <div className="row">
           <div className="col-md-4 col-md-offset-1">
             <input type="text"
