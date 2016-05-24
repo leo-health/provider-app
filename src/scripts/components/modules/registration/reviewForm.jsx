@@ -60,6 +60,7 @@ module.exports = React.createClass({
     if(this.state.editPayment === "save"){
       return <CreateCreditCard ref="paymentForm"/>
     }else{
+
       return <ShowCreditCard creditCardBrand={this.props.creditCardBrand} last4={this.props.last4}/>
     }
   },

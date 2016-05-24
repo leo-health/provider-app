@@ -13,11 +13,15 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialState: function(){
-    return {
-      firstName: this.props.enrollment.first_name || '',
-      lastName: this.props.enrollment.last_name || '',
-      phone: this.props.formatPhoneNumber(this.props.enrollment.phone) || '',
-      insurancePlanId: this.props.enrollment.insurance_plan.id || ''
+    if(this.props.enrollment){
+      return {
+        firstName: this.props.enrollment.first_name,
+        lastName: this.props.enrollment.last_name,
+        phone: this.props.formatPhoneNumber(this.props.enrollment.phone),
+        insurancePlanId: this.props.enrollment.insurance_plan.id
+      }
+    }else{
+      return { firstName: '', lastName: '', phone: '', insurancePlanId: ''}
     }
   },
 
