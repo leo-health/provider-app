@@ -65,7 +65,7 @@ module.exports = validation(strategy)(React.createClass({
         <br/>
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
-            <ErrorAlert message={this.props.errorMessage}
+            <ErrorAlert message={this.props.message}
                         status={this.props.status}/>
           </div>
         </div>

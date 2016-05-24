@@ -99,49 +99,60 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   render: function(){
+    var showCancelButton = this.props.cancel ? {display: "inline-block"} : {display: "none"};
+
     return(
       <div className="row">
-        <div className="col-md-2">
-          <img src="../images/camera@1x.png"/>
+        <div className="form-group col-md-11">
+          <div className="row">
+            <div className="col-md-2">
+              <img src="../images/camera@1x.png"/>
+            </div>
+
+            <div className="col-md-2">
+              <input type="text"
+                     className="form-control"
+                     value={this.state.firstName}
+                     onChange={this.handleFirstNameChange}
+                     autoFocus/>
+              <label className="text-muted">First Name</label>
+              {this.renderHelpText(this.props.getValidationMessages('firstName'))}
+            </div>
+
+            <div className="col-md-2">
+              <input type="text"
+                     className="form-control"
+                     value={this.state.lastName}
+                     onChange={this.handleLastNameChange}/>
+              <label className="text-muted">Last Name</label>
+              {this.renderHelpText(this.props.getValidationMessages('lastName'))}
+            </div>
+
+            <div className="col-md-2">
+              <select className="form-control"
+                      id="select"
+                      value={this.state.sex}
+                      onChange={this.handleSexChange}>
+                <option value={"M"}>M</option>
+                <option value={"F"}>F</option>
+              </select>
+              <label className="text-muted">Gender</label>
+            </div>
+
+            <div className="col-md-4">
+              <input type="date"
+                     className="form-control"
+                     value={this.state.birthDate}
+                     onChange={this.handleBirthDateChange}/>
+              <label className="text-muted">Birth Date</label>
+              {this.renderHelpText(this.props.getValidationMessages('birthDate'))}
+            </div>
+          </div>
         </div>
 
-        <div className="col-md-2">
-          <input type="text"
-                 className="form-control"
-                 value={this.state.firstName}
-                 onChange={this.handleFirstNameChange}
-                 autoFocus/>
-          <label className="text-muted">First Name</label>
-          {this.renderHelpText(this.props.getValidationMessages('firstName'))}
-        </div>
-
-        <div className="col-md-2">
-          <input type="text"
-                 className="form-control"
-                 value={this.state.lastName}
-                 onChange={this.handleLastNameChange}/>
-          <label className="text-muted">Last Name</label>
-          {this.renderHelpText(this.props.getValidationMessages('lastName'))}
-        </div>
-
-        <div className="col-md-2">
-          <select className="form-control"
-                  id="select"
-                  value={this.state.sex}
-                  onChange={this.handleSexChange}>
-            <option value={"M"}>M</option>
-            <option value={"F"}>F</option>
-          </select>
-          <label className="text-muted">Gender</label>
-        </div>
-
-        <div className="col-md-4">
-          <input type="date"
-                 className="form-control"
-                 value={this.state.birthDate}
-                 onChange={this.handleBirthDateChange}/>
-          <label className="text-muted">Birth Date</label>
-          {this.renderHelpText(this.props.getValidationMessages('birthDate'))}
+        <div className="form-group col-md-1">
+          <a href="#" onClick={this.handleOnSubmit}>S</a>
+          <a href="#" onClick={this.props.handleCancel} style={showCancelButton}>C</a>
         </div>
       </div>
     )

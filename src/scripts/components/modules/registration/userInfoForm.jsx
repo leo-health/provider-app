@@ -1,4 +1,5 @@
 var React = require('react'),
+    ErrorAlert = require('../alert/errorAlert'),
     EditGuardian = require('./guardian/editGuardian');
 
 module.exports =React.createClass({
@@ -14,9 +15,19 @@ module.exports =React.createClass({
             <h3 className="signup-header">Tell us about yourself!</h3>
           </div>
         </div>
-
         <br/>
-
+        <div className="row">
+          <div className="col-md-10 col-md-offset-1">
+            <ErrorAlert message={this.props.message}
+                        status={this.props.status}/>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-10 col-md-offset-1">
+            <ErrorAlert message={this.props.errorMessage}
+                        status={this.props.status}/>
+          </div>
+        </div>
         <div className="row">
           <div className="col-md-8 col-md-offset-1">
             <EditGuardian ref="editGuardian" insurers={this.props.insurers}/>

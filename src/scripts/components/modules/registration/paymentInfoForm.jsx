@@ -1,5 +1,4 @@
 var React = require('react'),
-    ReactDom = require('react-dom'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
     RegistrationActions = require('../../../actions/registrationActions');
 

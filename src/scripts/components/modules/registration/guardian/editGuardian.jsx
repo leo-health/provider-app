@@ -17,7 +17,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialState: function(){
-    return this.getInitailGuardian
+    return this.getInitailGuardian()
   },
 
   getInitailGuardian: function(){
@@ -126,7 +126,6 @@ module.exports = validation(strategy)(React.createClass({
           </select>
           <label className="text-muted">Insurance</label>
         </div>
-
 
         <div className="form-group col-md-3">
           <input type="text"

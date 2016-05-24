@@ -10,50 +10,28 @@ module.exports = React.createClass({
 
   displayOrEdit: function(){
     if(this.state.isEdit){
-      this.editOrSave = "E";
-      this.deleteOrCancel = "D";
-      return <ShowPatient patient={this.props.patient}/>
+      return <ShowPatient patient={this.props.patient} handleEdit={this.handleEdit}/>
     }else{
-      this.editOrSave = "S";
-      this.deleteOrCancel =" C";
-      return <EditPatient ref="editPatientForm" patient={this.props.patient}/>
+      return <EditPatient patient={this.props.patient} handleCancel={this.handleCancel} cancel={true}/>
     }
+  },
+
+  handleEdit: function(){
+    this.setState({isEdit: false})
+  },
+
+  handleCancel: function(){
+    this.setState({isEdit: true})
   },
 
   componentWillReceiveProps: function(nextProps){
-    if(nextProps.patient)this.setState({isEdit: true})
-  },
-
-  handleEditOrAdd: function(){
-    if(this.state.isEdit) {
-      this.setState({isEdit: false})
-    }else{
-      this.refs.editPatientForm.refs.component.handleOnSubmit();
-    }
-  },
-
-  handleDeletOrCancel: function(){
-    if(this.state.isEdit){
-      RegistrationActions.removePatientEnrollmentRequest({
-        id: this.props.patient.id,
-        authentication_token: sessionStorage.enrollmentToken
-      })
-    }else{
-      this.setState({isEdit: true})
-    }
+    if(nextProps.patient) this.setState({isEdit: true})
   },
 
   render: function(){
     return(
-      <div className="row">
-        <div className="form-group col-md-11">
-          {this.displayOrEdit()}
-        </div>
-
-        <div className="form-group col-md-1">
-          <a href="#" onClick={this.handleEditOrAdd}>{this.editOrSave}</a>
-          <a href="#" onClick={this.handleDeletOrCancel}>{this.deleteOrCancel}</a>
-        </div>
+      <div>
+        {this.displayOrEdit()}
       </div>
     )
   }

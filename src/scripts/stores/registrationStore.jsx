@@ -92,7 +92,7 @@ module.exports = Reflux.createStore({
   onCreateEnrollmentRequestFailed: function(response){
     this.trigger({
       status: response.status,
-      errorMessage: response.message.error_message,
+      message: response.message.error_message,
       nextPage: false
     })
   },

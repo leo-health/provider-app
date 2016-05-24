@@ -3,6 +3,7 @@ var React = require('react'),
     RegistrationStore = require('../../../stores/registrationStore'),
     classNames = require('classnames'),
     moment = require('moment'),
+    EditPatient = require('./patient/editPatient'),
     SinglePatient = require('./patient/singlePatient');
 
 module.exports = validation(strategy)(React.createClass({
@@ -11,7 +12,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialState: function(){
-    return {patientEnrollment: [], edit: false}
+    return {patientEnrollment: [], edit: false, cancel: false}
   },
 
   componentWillReceiveProps: function(nextProps){
@@ -28,12 +29,16 @@ module.exports = validation(strategy)(React.createClass({
     if(this.state.patientEnrollment.length > 0 && !this.state.edit){
       return React.createElement('a',  {className: "col-md-1 col-md-offset-11", onClick: this.switchToEdit}, 'add')
     }else{
-      return <SinglePatient/>;
+      return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
     }
   },
 
+  handleCancel: function(){
+    this.setState({edit: false, cancel: false})
+  },
+
   switchToEdit: function(){
-    this.setState({edit: true})
+    this.setState({edit: true, cancel: true})
   },
 
   render: function(){
