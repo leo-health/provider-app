@@ -50,7 +50,6 @@ module.exports = validation(strategy)(React.createClass({
       }
     };
     this.props.validate(onValidate);
-    debugger;
     this.submitHasBeenAttemptedOnce = true;
   },
 

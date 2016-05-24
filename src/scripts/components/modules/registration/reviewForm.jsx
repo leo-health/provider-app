@@ -4,6 +4,7 @@ var React = require('react'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
     ShowGuardian = require('./guardian/showGuardian'),
     EditGuardian = require('./guardian/editGuardian'),
+    EditPatient = require('./patient/editPatient'),
     SinglePatient=require('./patient/singlePatient');
 
 module.exports = React.createClass({
@@ -43,7 +44,7 @@ module.exports = React.createClass({
         this.setState({editPayment: "save"});
         break;
       case "save":
-        this.props.createCreditCard(this.refs.paymentForm);
+        this.refs.paymentForm.createCreditCard();
         this.setState({editPayment: "edit"});
         break;
     }
@@ -59,7 +60,6 @@ module.exports = React.createClass({
     if(this.state.editPayment === "save"){
       return <CreateCreditCard ref="paymentForm"/>
     }else{
-
       return <ShowCreditCard creditCardBrand={this.props.creditCardBrand} last4={this.props.last4}/>
     }
   },
@@ -77,10 +77,27 @@ module.exports = React.createClass({
     }
   },
 
+  addOrDisplayPatient: function () {
+    if(this.props.enrollment.patient_enrollments.length > 0){
+      return this.parsePatientEnrollments(this.props.enrollment.patient_enrollments)
+    }else{
+      return <EditPatient cacel={false}/>
+    }
+  },
+
+  displayOrHideaddPatient: function(){
+    if(this.props.enrollment && this.props.enrollment.patient_enrollments.length > 0){
+      return {display: "inline-block"}
+    }else{
+      return {display: "none"}
+    }
+  },
+
+
   render: function() {
     if(this.props.enrollment){
       var email = this.props.enrollment.email;
-      var patients = this.parsePatientEnrollments(this.props.enrollment.patient_enrollments);
+      var patients = this.addOrDisplayPatient();
     }
 
     return (
@@ -119,11 +136,15 @@ module.exports = React.createClass({
                 <h4>Family</h4>
               </div>
               <div className="form-group col-md-1">
-                <a onClick={()=>this.handleClick('editYou')}>add</a>
+                <a onClick={this.addPatient}
+                   style={this.displayOrHideaddPatient()}>
+                  add
+                </a>
               </div>
               <div className="form-group col-md-11 col-md-offset-1">
                 {patients}
               </div>
+              <br/>
             </div>
             <br/>
             <div className="row">
