@@ -12,7 +12,8 @@ module.exports = React.createClass({
     return({
       editGuardian: "edit",
       editFamily: "edit",
-      editPayment: "edit"
+      editPayment: "edit",
+      showAddPatient: undefined
     })
   },
 
@@ -24,6 +25,10 @@ module.exports = React.createClass({
 
   componentWillMount: function() {
     RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken);
+  },
+
+  componentWillReceiveProps: function(nextProps){
+    if (nextProps.enrollment && nextProps.enrollment.patient_enrollments) this.setState({showAddPatient: undefined})
   },
 
   handleGuardian: function(){
@@ -85,7 +90,7 @@ module.exports = React.createClass({
     }
   },
 
-  displayOrHideaddPatient: function(){
+  displayOrHideAddPatientButton: function(){
     if(this.props.enrollment && this.props.enrollment.patient_enrollments.length > 0){
       return {display: "inline-block"}
     }else{
@@ -93,6 +98,13 @@ module.exports = React.createClass({
     }
   },
 
+  addPatientToggle: function(){
+    if(this.state.showAddPatient){
+      this.setState({showAddPatient: undefined})
+    }else{
+      this.setState({showAddPatient: <EditPatient handleCancel={this.addPatientToggle} cancel={true}/>})
+    }
+  },
 
   render: function() {
     if(this.props.enrollment){
@@ -136,8 +148,8 @@ module.exports = React.createClass({
                 <h4>Family</h4>
               </div>
               <div className="form-group col-md-1">
-                <a onClick={this.addPatient}
-                   style={this.displayOrHideaddPatient()}>
+                <a onClick={this.addPatientToggle}
+                   style={this.displayOrHideAddPatientButton()}>
                   add
                 </a>
               </div>
@@ -145,6 +157,9 @@ module.exports = React.createClass({
                 {patients}
               </div>
               <br/>
+              <div className="form-group col-md-11 col-md-offset-1">
+                {this.state.showAddPatient}
+              </div>
             </div>
             <br/>
             <div className="row">
