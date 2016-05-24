@@ -1,21 +1,12 @@
 var React = require('react'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
+    ErrorAlert = require('../alert/errorAlert'),
     RegistrationActions = require('../../../actions/registrationActions');
 
 module.exports = React.createClass({
-  //handleOnClick: function(){
-  //  this.createCreditCard(this.refs.paymentForm);
-  //},
-  //
-  //createCreditCard: function(creditCardComponent){
-  //  RegistrationActions.createCreditCardRequest({
-  //    number: creditCardComponent.refs.cardNumber.value.trim(),
-  //    cvc:creditCardComponent.refs.cvc.value.trim(),
-  //    exp_month: creditCardComponent.refs.expirationMonth.value.trim(),
-  //    exp_year: creditCardComponent.refs.expirationYear.value.trim(),
-  //    address_zip: creditCardComponent.refs.zip.value.trim()
-  //  }, "review");
-  //},
+  handleOnClick: function(){
+    this.refs.paymentForm.createCreditCard();
+  },
 
   render: function(){
     return(
@@ -26,6 +17,12 @@ module.exports = React.createClass({
           </div>
         </div>
         <br/>
+        <div className="row">
+          <div className="col-md-10 col-md-offset-1">
+            <ErrorAlert message={this.props.message}
+                        status={this.props.status}/>
+          </div>
+        </div>
         <div className="row">
           <div className="col-md-8 col-md-offset-1">
             <CreateCreditCard ref="paymentForm"/>

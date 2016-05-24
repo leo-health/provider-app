@@ -129,7 +129,8 @@ module.exports = Reflux.createStore({
 
   onCreateCreditCardRequestFailed: function(res){
     this.trigger({
-      cardError: res.error.code
+      status: "error",
+      message: res.error.message
     })
   },
 
