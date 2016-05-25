@@ -49,8 +49,8 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <div>
-        <div className="form-group col-sm-8">
+      <div className="row">
+        <div className="form-group col-md-8">
           <input type="text"
                  className="form-control"
                  value={this.state.cardNumber}
@@ -60,7 +60,7 @@ module.exports = React.createClass({
                  autoFocus/>
           <label className="text-muted">Card Number</label>
         </div>
-        <div className="form-group col-sm-4">
+        <div className="form-group col-md-4">
           <input type="text"
                  className="form-control"
                  value={this.state.zip}
@@ -69,7 +69,7 @@ module.exports = React.createClass({
           <label className="text-muted">Zip Code</label>
         </div>
 
-        <div className="form-group col-sm-4">
+        <div className="form-group col-md-4">
           <input type="text"
                  className="form-control"
                  value={this.state.expirationMonth}
@@ -79,7 +79,7 @@ module.exports = React.createClass({
           <label className="text-muted">Expiration (MM)</label>
         </div>
 
-        <div className="form-group col-sm-4">
+        <div className="form-group col-md-4">
           <input type="text"
                  className="form-control"
                  value={this.state.expirationYear}
@@ -89,7 +89,7 @@ module.exports = React.createClass({
           <label className="text-muted">Expiration (YY)</label>
         </div>
 
-        <div className="form-group col-sm-4">
+        <div className="form-group col-md-4">
           <input type="text"
                  className="form-control"
                  value={this.state.cvc}

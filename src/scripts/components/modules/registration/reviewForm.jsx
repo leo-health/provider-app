@@ -12,9 +12,30 @@ module.exports = React.createClass({
     return({
       editGuardian: "edit",
       editFamily: "edit",
-      editPayment: "edit",
+      editPayment: true,
       showAddPatient: undefined
     })
+  },
+
+  editOrSave: function(isEdit){
+    if(isEdit){
+      return <a onClick={this.handlePayment}>Edit</a>
+    }else{
+      return <div className="row"><a onClick={this.handlePayment}>Save</a><a onClick={this.cancelPayment}>Cancel</a></div>
+    }
+  },
+
+  cancelPayment: function(){
+    this.setState({editPayment: true})
+  },
+
+  handlePayment: function(){
+    if(this.state.editPayment) {
+      this.setState({editPayment: false})
+    }else{
+      this.refs.paymentForm.createCreditCard();
+      this.setState({editPayment: false});
+    }
   },
 
   formatPhoneNumber: function(s) {
@@ -43,18 +64,6 @@ module.exports = React.createClass({
     }
   },
 
-  handlePayment: function(){
-    switch(this.state.editPayment){
-      case "edit":
-        this.setState({editPayment: "save"});
-        break;
-      case "save":
-        this.refs.paymentForm.createCreditCard();
-        this.setState({editPayment: "edit"});
-        break;
-    }
-  },
-
   parsePatientEnrollments: function(patientEnrollments){
     return patientEnrollments.map(function(patientEnrollment, i){
       return <SinglePatient key={i} patient={patientEnrollment}/>
@@ -62,10 +71,10 @@ module.exports = React.createClass({
   },
 
   creditCardDisplay: function(){
-    if(this.state.editPayment === "save"){
-      return <CreateCreditCard ref="paymentForm"/>
-    }else{
+    if(this.state.editPayment){
       return <ShowCreditCard creditCardBrand={this.props.creditCardBrand} last4={this.props.last4}/>
+    }else{
+      return <CreateCreditCard ref="paymentForm"/>
     }
   },
 
@@ -167,7 +176,8 @@ module.exports = React.createClass({
                 <h4>Payment</h4>
               </div>
               <div className="form-group col-md-1">
-                <a onClick={this.handlePayment}>{this.state.editPayment}</a>
+                {this.editOrSave(this.state.editPayment)}
+
               </div>
             </div>
             <div className="form-group col-md-11 col-md-offset-1">
