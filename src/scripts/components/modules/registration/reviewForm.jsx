@@ -1,4 +1,6 @@
 var React = require('react'),
+    ReactRouter = require('react-router'),
+    {Link} = ReactRouter
     RegistrationActions = require('../../../actions/registrationActions'),
     ShowCreditCard = require('./creditCard/showCreditCard'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
@@ -190,16 +192,15 @@ module.exports = React.createClass({
               </div>
               <div className="form-group col-md-1">
                 {this.editOrSave(this.state.editPayment)}
-
               </div>
-            </div>
-            <div className="form-group col-md-11 col-md-offset-1">
-              {this.creditCardDisplay()}
+              <div className="form-group col-md-11 col-md-offset-1">
+                {this.creditCardDisplay()}
+              </div>
             </div>
           </div>
           <div className="col-md-1 col-md-offset-1">
             <div className="form-group">
-              <button type="submit" className="btn btn-primary full-width-button">Go!</button>
+              <Link to="/success"><button type="submit" className="btn btn-primary full-width-button">Go!</button></Link>
             </div>
           </div>
         </div>

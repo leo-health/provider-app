@@ -150,12 +150,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <ReviewForm navigateTo={this.navigateTo}
-                        creditCardBrand={this.state.creditCardBrand}
-                        createCreditCard={this.createCreditCard}
-                        last4={this.state.last4}
-                        insurers={this.state.insurers}
-                        enrollment={this.state.enrollment}/>
+            {signUpContent}
           </div>
         </div>
       </div>
