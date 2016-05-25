@@ -10,6 +10,7 @@ var React = require('react'),
 module.exports = React.createClass({
   getInitialState: function() {
     return({
+      editEmail: true,
       editGuardian: "edit",
       editFamily: "edit",
       editPayment: true,
@@ -17,11 +18,20 @@ module.exports = React.createClass({
     })
   },
 
+  editOrSaveEmail: function(){
+    if(this.state.editEmail){
+      return <a onClick={this.handleEmail}>edit</a>
+    }else{
+      return <div className="row"><a onClick={this.handleEmail}>S</a><a onClick={this.cancelEmail}>C</a></div>
+    }
+  },
+
+
   editOrSave: function(isEdit){
     if(isEdit){
-      return <a onClick={this.handlePayment}>Edit</a>
+      return <a onClick={this.handlePayment}>edit</a>
     }else{
-      return <div className="row"><a onClick={this.handlePayment}>Save</a><a onClick={this.cancelPayment}>Cancel</a></div>
+      return <div className="row"><a onClick={this.handlePayment}>S</a><a onClick={this.cancelPayment}>C</a></div>
     }
   },
 
@@ -132,8 +142,11 @@ module.exports = React.createClass({
         <div className="row">
           <div className="col-md-8 col-md-offset-1">
             <div className="row">
-              <div className="form-group col-md-11 col-md-offset-1">
+              <div className="form-group col-md-10 col-md-offset-1">
                 <h4>You</h4>
+              </div>
+              <div className="form-group col-md-1">
+                {this.editOrSaveEmail()}
               </div>
               <div className="form-group col-md-4 col-md-offset-1">
                 {email}
