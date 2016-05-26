@@ -203,7 +203,7 @@ module.exports = React.createClass({
               {conversations}
             </div>
           </div>
-          <div className ="">
+          <div>
             <MessageNote
               staff={this.state.staff}
               conversation={currentSelectedConversation}
