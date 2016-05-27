@@ -49,6 +49,7 @@ module.exports = validation(strategy)(React.createClass({
         this.updateEnrollment();
       }
     };
+
     this.props.validate(onValidate);
     this.submitHasBeenAttemptedOnce = true;
   },

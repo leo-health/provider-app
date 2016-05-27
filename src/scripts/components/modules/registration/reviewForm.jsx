@@ -1,6 +1,6 @@
 var React = require('react'),
     ReactRouter = require('react-router'),
-    {Link} = ReactRouter
+    {Link} = ReactRouter,
     RegistrationActions = require('../../../actions/registrationActions'),
     ShowCreditCard = require('./creditCard/showCreditCard'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
@@ -71,7 +71,7 @@ module.exports = React.createClass({
         break;
       case "save":
         this.refs.editGuardian.refs.component.handleOnSubmit();
-        this.setState({editGuardian: "edit"});
+
         break;
     }
   },
