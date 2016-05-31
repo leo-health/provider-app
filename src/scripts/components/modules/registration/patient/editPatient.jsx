@@ -2,8 +2,7 @@ var React = require('react'),validation = require('react-validation-mixin'),
     RegistrationActions = require('../../../../actions/registrationActions'),
     _ = require('lodash'),
     Joi = require('joi'),
-    strategy = require('joi-validation-strategy'),
-    Dropzone = require('react-dropzone');
+    strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
   validatorTypes: {
@@ -85,10 +84,6 @@ module.exports = validation(strategy)(React.createClass({
     RegistrationActions.updatePatientEnrollmentRequest(this.patientParams())
   },
 
-  onDrop: function (files) {
-    console.log('Received files: ', files);
-  },
-
   renderHelpText: function(message){
     var messageClass = classNames({
       "text-danger": message.length > 0,
@@ -105,11 +100,7 @@ module.exports = validation(strategy)(React.createClass({
       <div className="row">
         <div className="form-group col-md-11">
           <div className="row">
-            <Dropzone className="col-md-2" multiple={false} accept={"image/*"} onDrop={this.onDrop}>
-              <img src="../images/camera@1x.png"/>
-            </Dropzone>
-
-            <div className="col-md-2">
+            <div className="col-md-3">
               <input type="text"
                      className="form-control"
                      value={this.state.firstName}
@@ -119,7 +110,7 @@ module.exports = validation(strategy)(React.createClass({
               {this.renderHelpText(this.props.getValidationMessages('firstName'))}
             </div>
 
-            <div className="col-md-2">
+            <div className="col-md-3">
               <input type="text"
                      className="form-control"
                      value={this.state.lastName}

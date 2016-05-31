@@ -27,19 +27,10 @@ module.exports = validation(strategy)(React.createClass({
         email: this.props.enrollment.email,
         firstName: this.props.enrollment.first_name,
         lastName: this.props.enrollment.last_name,
-        phone: this.props.formatPhoneNumber(this.props.enrollment.phone),
-        insurancePlanId: this.props.enrollment.insurance_plan.id
+        phone: this.props.formatPhoneNumber(this.props.enrollment.phone)
       }
     }
-    return { email: '', firstName: '', lastName: '', phone: '', insurancePlanId: ''}
-  },
-
-  componentWillReceiveProps: function(nextProp){
-    if( nextProp.insurers.length > 0 ){
-      this.setState({
-        insurancePlanId: nextProp.insurers[0].insurance_plans[0].id
-      })
-    }
+    return { email: '', firstName: '', lastName: '', phone: ''}
   },
 
   handleOnSubmit: function(){
@@ -61,24 +52,9 @@ module.exports = validation(strategy)(React.createClass({
           authentication_token: sessionStorage.enrollmentToken,
           phone: this.state.phone.replace(/\D/g,''),
           first_name: this.state.firstName,
-          last_name: this.state.lastName,
-          insurance_plan_id: this.state.insurancePlanId
+          last_name: this.state.lastName
         }, "patient"
     )
-  },
-
-  parseInsurers: function(){
-    var plans = [];
-    if( this.props.insurers.length > 0 ){
-      _.each(this.props.insurers, function(insurer){
-        _.each(insurer.insurance_plans, function(insurancePlan){
-          plans.push(React.createElement('option',
-              {key: insurancePlan.id, value: insurancePlan.id},
-              insurer.insurer_name + ' ' +insurancePlan.plan_name))
-        })
-      });
-    }
-    return plans
   },
 
   renderHelpText: function(message){
@@ -115,10 +91,6 @@ module.exports = validation(strategy)(React.createClass({
     this.setState({ phone: e.target.value })
   },
 
-  handleInsuranceChange: function(e){
-    this.setState({ insurancePlanId: e.target.value })
-  },
-
   handleSave: function(){
     this.handleOnSubmit();
     this.props.guardianStateToggle();
@@ -148,16 +120,7 @@ module.exports = validation(strategy)(React.createClass({
         </div>
         <br/>
         <div className="row">
-          <div className="col-md-3">
-            <select className="form-control"
-                    value={this.state.insurancePlanId}
-                    onChange={this.handleInsuranceChange}>
-              {this.parseInsurers()}
-            </select>
-            <label className="text-muted">Insurance</label>
-          </div>
-
-          <div className="form-group col-md-3">
+          <div className="form-group col-md-4">
             <input type="text"
                    className="form-control"
                    value={this.state.firstName}
@@ -167,7 +130,7 @@ module.exports = validation(strategy)(React.createClass({
             {this.renderHelpText(this.props.getValidationMessages('firstName'))}
           </div>
 
-          <div className="form-group col-md-3">
+          <div className="form-group col-md-4">
             <input type="text"
                    className="form-control"
                    value={this.state.lastName}
@@ -177,7 +140,7 @@ module.exports = validation(strategy)(React.createClass({
             {this.renderHelpText(this.props.getValidationMessages('lastName'))}
           </div>
 
-          <div className="form-group col-md-3">
+          <div className="form-group col-md-4">
             <input type="text"
                    className="form-control"
                    value={this.state.phone}

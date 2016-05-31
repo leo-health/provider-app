@@ -22,12 +22,10 @@ module.exports = React.createClass({
   editOrShowGuardian: function(){
     if(this.state.editGuardian){
       return <ShowGuardian enrollment={this.props.enrollment}
-                           insurers={this.props.insurers}
                            guardianStateToggle={this.guardianStateToggle}
                            formatPhoneNumber={this.formatPhoneNumber}/>
     }else{
       return <EditGuardian enrollment={this.props.enrollment}
-                           insurers={this.props.insurers}
                            guardianStateToggle={this.guardianStateToggle}
                            formatPhoneNumber={this.formatPhoneNumber}
                            ref="editGuardian"/>
@@ -70,13 +68,13 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps){
-    debugger
-    if (nextProps.enrollment && nextProps.enrollment.patient_enrollments) this.setState({showAddPatient: false})
+    //if (nextProps.enrollment && nextProps.enrollment.patient_enrollments) this.setState({showAddPatient: false})
+    if (nextProps.patients) this.setState({showAddPatient: false})
   },
 
-  parsePatientEnrollments: function(patientEnrollments){
-    return patientEnrollments.map(function(patientEnrollment, i){
-      return <SinglePatient key={i} patient={patientEnrollment}/>
+  parsePatientEnrollments: function(patient){
+    return patient.map(function(patient, i){
+      return <SinglePatient key={i} patient={patient}/>
     });
   },
 
@@ -89,15 +87,11 @@ module.exports = React.createClass({
   },
 
   addOrDisplayPatient: function () {
-    if(this.props.enrollment.patient_enrollments.length > 0){
-      return this.parsePatientEnrollments(this.props.enrollment.patient_enrollments)
-    }else{
-      return <EditPatient cacel={false}/>
-    }
+    this.props.patients.length > 0 ? this.parsePatientEnrollments(this.props.patients) : <EditPatient cacel={false}/>
   },
 
   displayOrHideAddPatientButton: function(){
-    if(this.props.enrollment && this.props.enrollment.patient_enrollments.length > 0){
+    if(this.props.patients.length > 0){
       return {display: "inline-block"}
     }else{
       return {display: "none"}

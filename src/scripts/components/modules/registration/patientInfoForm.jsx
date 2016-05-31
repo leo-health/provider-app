@@ -33,7 +33,6 @@ module.exports = validation(strategy)(React.createClass({
 
   addPatient: function(){
     if(this.props.patients > 0 && !this.state.edit){
-      debugger
       return React.createElement('a',  {className: "col-md-1 col-md-offset-11", onClick: this.switchToEdit}, 'add')
     }else{
       return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
@@ -49,7 +48,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   handleContinue: function(){
-    if(this.state.patientEnrollment.length > 0){
+    if(this.props.patients.length > 0){
       this.props.navigateTo('payment')
     }else{
       this.setState({message: "At least one child is required!", status: "error"})

@@ -15,13 +15,10 @@ module.exports = React.createClass({
       <div className="row">
         <div className="form-group col-md-11">
           <div className="row">
-            <div className="col-md-2">
-              <img src="../images/leo.png"/>
-            </div>
-            <div className="col-md-2">
+            <div className="col-md-3">
               {patient.first_name}
             </div>
-            <div className="col-md-2">
+            <div className="col-md-3">
               {patient.last_name}
             </div>
             <div className="col-md-2">

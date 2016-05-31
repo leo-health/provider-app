@@ -1,14 +1,12 @@
 var React = require('react'),
-    ReactDom = require('react-dom'),
     Reflux = require('reflux'),
-    _ = require('lodash'),
     ReactRouter = require('react-router'),
     {browserHistory, withRouter, } = ReactRouter,
     classNames = require('classnames'),
+    _ = require('lodash'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy'),
-    RegistrationActions = require('../../actions/registrationActions'),
     RegistrationStore = require('../../stores/registrationStore'),
     EnrollmentForm = require('../modules/registration/enrollmentForm'),
     UserInfoForm = require('../modules/registration/userInfoForm'),
@@ -41,7 +39,6 @@ module.exports = React.createClass({
       last4: '',
       nextPage: 'enroll',
       progressBar: ProgressBarMap.enroll,
-      insurers: [],
       status: '',
       message: ''
     }
@@ -55,8 +52,6 @@ module.exports = React.createClass({
     window.onbeforeunload = function(){
       return "You will lose all unsaved changes to your application."
     };
-
-    RegistrationActions.fetchInsurersRequest()
   },
 
   onRegistrationStatusChange: function(status){
@@ -93,8 +88,7 @@ module.exports = React.createClass({
                                message={this.state.message}/>;
         break;
       case "you":
-        page = <UserInfoForm insurers={this.state.insurers}
-                             status={this.state.status}
+        page = <UserInfoForm status={this.state.status}
                              message={this.state.message}/>;
         break;
       case "patient":
@@ -109,7 +103,7 @@ module.exports = React.createClass({
         page = <ReviewForm navigateTo={this.navigateTo}
                            creditCardBrand={this.state.creditCardBrand}
                            last4={this.state.last4}
-                           insurers={this.state.insurers}
+                           patients={this.state.patients}
                            enrollment={this.state.enrollment}/>;
         break;
       default:
@@ -155,9 +149,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <PatientInfoForm navigateTo={this.navigateTo}
-                             patients={this.state.patients}
-                             enrollment={this.state.enrollment}/>
+            {signUpContent}
           </div>
         </div>
       </div>

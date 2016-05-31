@@ -26,18 +26,9 @@ module.exports = validation(strategy)(React.createClass({
         firstName: this.props.enrollment.first_name,
         lastName: this.props.enrollment.last_name,
         phone: this.props.formatPhoneNumber(this.props.enrollment.phone),
-        insurancePlanId: this.props.enrollment.insurance_plan.id
       }
     }else{
-      return { firstName: '', lastName: '', phone: '', insurancePlanId: ''}
-    }
-  },
-
-  componentWillReceiveProps: function(nextProp){
-    if( nextProp.insurers.length > 0 ){
-      this.setState({
-        insurancePlanId: nextProp.insurers[0].insurance_plans[0].id
-      })
+      return { firstName: '', lastName: '', phone: ''}
     }
   },
 
@@ -60,23 +51,8 @@ module.exports = validation(strategy)(React.createClass({
       phone: this.state.phone.replace(/\D/g,''),
       first_name: this.state.firstName,
       last_name: this.state.lastName,
-      insurance_plan_id: this.state.insurancePlanId,
       next_page: "patient"
     })
-  },
-
-  parseInsurers: function(){
-    var plans = [];
-    if( this.props.insurers.length > 0 ){
-      _.each(this.props.insurers, function(insurer){
-        _.each(insurer.insurance_plans, function(insurancePlan){
-          plans.push(React.createElement('option',
-              {key: insurancePlan.id, value: insurancePlan.id},
-              insurer.insurer_name + ' ' +insurancePlan.plan_name))
-        })
-      });
-    }
-    return plans
   },
 
   renderHelpText: function(message){
@@ -108,33 +84,21 @@ module.exports = validation(strategy)(React.createClass({
     this.setState({ phone: e.target.value })
   },
 
-  handleInsuranceChange: function(e){
-    this.setState({ insurancePlanId: e.target.value })
-  },
-
   render: function(){
     return(
       <div className="row">
-        <div className="col-md-3">
-          <select className="form-control"
-                  value={this.state.insurancePlanId}
-                  onChange={this.handleInsuranceChange}>
-            {this.parseInsurers()}
-          </select>
-          <label className="text-muted">Insurance</label>
-        </div>
-
-        <div className="form-group col-md-3">
+        <div className="form-group col-md-4">
           <input type="text"
                  className="form-control"
                  value={this.state.firstName}
                  onChange={this.handleFirstNameChange}
+                 autoFocus
                  ref="firstName"/>
           <label className="text-muted">First Name</label>
           {this.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
 
-        <div className="form-group col-md-3">
+        <div className="form-group col-md-4">
           <input type="text"
                  className="form-control"
                  value={this.state.lastName}
@@ -144,7 +108,7 @@ module.exports = validation(strategy)(React.createClass({
           {this.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
 
-        <div className="form-group col-md-3">
+        <div className="form-group col-md-4">
           <input type="text"
                  className="form-control"
                  value={this.state.phone}

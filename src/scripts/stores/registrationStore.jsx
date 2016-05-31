@@ -33,7 +33,6 @@ module.exports = Reflux.createStore({
   },
 
   onUpdateEnrollmentRequest: function(enrollmentParams){
-    debugger
     request.put(leo.API_URL+"/enrollments/current")
            .send(enrollmentParams)
            .end(function(err, res){
@@ -46,7 +45,6 @@ module.exports = Reflux.createStore({
   },
 
   onUpdateEnrollmentRequestCompleted: function(response, nextPage){
-    debugger
     this.trigger({
       action: "update",
       status: response.status,
@@ -96,17 +94,6 @@ module.exports = Reflux.createStore({
       message: response.message.error_message,
       nextPage: false
     })
-  },
-
-  onFetchInsurersRequest: function(){
-    request.get(leo.API_URL+"/insurers")
-           .end(function(err, res){
-              if(res.ok) RegistrationActions.fetchInsurersRequest.completed(res.body)
-            })
-  },
-
-  onFetchInsurersRequestCompleted: function(response){
-    this.trigger(response.data)
   },
 
   onCreateCreditCardRequest: function(params, nextPage){
