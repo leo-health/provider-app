@@ -5,7 +5,6 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [RegistrationActions],
 
-
   onFetchEnrollmentRequest: function(token){
     request.get(leo.API_URL+"/enrollments/current")
            .query({ authentication_token: token })
@@ -30,7 +29,7 @@ module.exports = Reflux.createStore({
   onFetchEnrollmentRequestFailed: function(response){
     this.trigger({ action: "fetch",
                    status: response.status,
-                   message: "There was an error retrieiving your enrollment information."});
+                   message: "There was an error retrieving your enrollment information."});
   },
 
   onUpdateEnrollmentRequest: function(enrollmentParams, nextPage){

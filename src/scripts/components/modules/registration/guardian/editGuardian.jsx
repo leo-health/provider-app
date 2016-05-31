@@ -17,10 +17,10 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialState: function(){
-    return this.getInitailGuardian()
+    return this.getInitialGuardian()
   },
 
-  getInitailGuardian: function(){
+  getInitialGuardian: function(){
     if(this.props.enrollment){
       return {
         firstName: this.props.enrollment.first_name,
@@ -65,8 +65,6 @@ module.exports = validation(strategy)(React.createClass({
       }, "patient"
     )
   },
-
-  //this.state.isCreate ? this.createPatient() : this.updatePatient()
 
   parseInsurers: function(){
     var plans = [];

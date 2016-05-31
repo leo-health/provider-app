@@ -86,6 +86,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   onDrop: function (files) {
+    debugger
     console.log('Received files: ', files);
   },
 
@@ -105,9 +106,9 @@ module.exports = validation(strategy)(React.createClass({
       <div className="row">
         <div className="form-group col-md-11">
           <div className="row">
-            <div className="col-md-2">
+            <Dropzone className="col-md-2" multiple={false} accept={"image/*"} onDrop={this.onDrop}>
               <img src="../images/camera@1x.png"/>
-            </div>
+            </Dropzone>
 
             <div className="col-md-2">
               <input type="text"

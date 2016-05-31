@@ -4,30 +4,39 @@ var React = require('react'),
     RegistrationActions = require('../../../actions/registrationActions'),
     ShowCreditCard = require('./creditCard/showCreditCard'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
-    ShowGuardian = require('./guardian/showGuardian'),
-    EditGuardian = require('./guardian/editGuardian'),
+    ShowGuardian = require('./review/showGuardian'),
+    EditGuardian = require('./review/editGuardian'),
     EditPatient = require('./patient/editPatient'),
     SinglePatient=require('./patient/singlePatient');
 
 module.exports = React.createClass({
   getInitialState: function() {
     return({
-      editEmail: true,
-      editGuardian: "edit",
+      editGuardian: true,
       editFamily: "edit",
       editPayment: true,
-      showAddPatient: undefined
+      showAddPatient: false
     })
   },
 
-  editOrSaveEmail: function(){
-    if(this.state.editEmail){
-      return <a onClick={this.handleEmail}>edit</a>
+  editOrShowGuardian: function(){
+    if(this.state.editGuardian){
+      return <ShowGuardian enrollment={this.props.enrollment}
+                           insurers={this.props.insurers}
+                           guardianStateToggle={this.guardianStateToggle}
+                           formatPhoneNumber={this.formatPhoneNumber}/>
     }else{
-      return <div className="row"><a onClick={this.handleEmail}>S</a><a onClick={this.cancelEmail}>C</a></div>
+      return <EditGuardian enrollment={this.props.enrollment}
+                           insurers={this.props.insurers}
+                           guardianStateToggle={this.guardianStateToggle}
+                           formatPhoneNumber={this.formatPhoneNumber}
+                           ref="editGuardian"/>
     }
   },
 
+  guardianStateToggle: function(){
+    this.setState({editGuardian: !this.state.editGuardian})
+  },
 
   editOrSave: function(isEdit){
     if(isEdit){
@@ -61,19 +70,8 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps){
-    if (nextProps.enrollment && nextProps.enrollment.patient_enrollments) this.setState({showAddPatient: undefined})
-  },
-
-  handleGuardian: function(){
-    switch(this.state.editGuardian){
-      case "edit":
-        this.setState({editGuardian: "save"});
-        break;
-      case "save":
-        this.refs.editGuardian.refs.component.handleOnSubmit();
-
-        break;
-    }
+    debugger
+    if (nextProps.enrollment && nextProps.enrollment.patient_enrollments) this.setState({showAddPatient: false})
   },
 
   parsePatientEnrollments: function(patientEnrollments){
@@ -87,19 +85,6 @@ module.exports = React.createClass({
       return <ShowCreditCard creditCardBrand={this.props.creditCardBrand} last4={this.props.last4}/>
     }else{
       return <CreateCreditCard ref="paymentForm"/>
-    }
-  },
-
-  editOrShowGuardian: function(){
-    if(this.state.editGuardian==="edit"){
-      return <ShowGuardian enrollment={this.props.enrollment}
-                           insurers={this.props.insurers}
-                           formatPhoneNumber={this.formatPhoneNumber}/>
-    }else{
-      return <EditGuardian enrollment={this.props.enrollment}
-                           insurers={this.props.insurers}
-                           formatPhoneNumber={this.formatPhoneNumber}
-                           ref="editGuardian"/>
     }
   },
 
@@ -121,17 +106,14 @@ module.exports = React.createClass({
 
   addPatientToggle: function(){
     if(this.state.showAddPatient){
-      this.setState({showAddPatient: undefined})
+      this.setState({showAddPatient: false})
     }else{
       this.setState({showAddPatient: <EditPatient handleCancel={this.addPatientToggle} cancel={true}/>})
     }
   },
 
   render: function() {
-    if(this.props.enrollment){
-      var email = this.props.enrollment.email;
-      var patients = this.addOrDisplayPatient();
-    }
+    if(this.props.enrollment) var patients = this.addOrDisplayPatient();
 
     return (
       <div>
@@ -144,27 +126,7 @@ module.exports = React.createClass({
         <div className="row">
           <div className="col-md-8 col-md-offset-1">
             <div className="row">
-              <div className="form-group col-md-10 col-md-offset-1">
-                <h4>You</h4>
-              </div>
-              <div className="form-group col-md-1">
-                {this.editOrSaveEmail()}
-              </div>
-              <div className="form-group col-md-4 col-md-offset-1">
-                {email}
-              </div>
-            </div>
-            <br/>
-            <div className="row">
-              <div className="form-group col-md-10 col-md-offset-1">
-                <h4>Basic Info</h4>
-              </div>
-              <div className="form-group col-md-1">
-                <a onClick={this.handleGuardian}>{this.state.editGuardian}</a>
-              </div>
-              <div className="form-group col-md-11 col-md-offset-1">
-                {this.editOrShowGuardian()}
-              </div>
+              {this.editOrShowGuardian()}
             </div>
             <br/>
             <div className="row">
