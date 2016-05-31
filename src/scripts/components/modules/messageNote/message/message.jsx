@@ -57,7 +57,7 @@ module.exports = React.createClass({
     var message;
 
     return(
-      <div>
+      <div className="message-cell">
         {message}
       </div>
     )
