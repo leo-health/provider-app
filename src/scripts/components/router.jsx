@@ -17,8 +17,6 @@ var React = require('react'),
     FourOhFour = require('./pages/404'),
     DeepLink = require('./pages/deepLinkWarning'),
     Success = require('./pages/success'),
-    EnrollmentForm = require('./modules/registration/enrollmentForm'),
-    UserInfoForm = require('./modules/registration/userInfoForm'),
     SignUp = require('./pages/signUp');
 
 window.React = React;
