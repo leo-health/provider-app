@@ -1,6 +1,7 @@
 var React = require('react'),
     ReactDom = require('react-dom'),
     Reflux = require('reflux'),
+    _ = require('lodash'),
     ReactRouter = require('react-router'),
     {browserHistory, withRouter, } = ReactRouter,
     classNames = require('classnames'),
@@ -33,11 +34,12 @@ module.exports = React.createClass({
 
   getInitialState: function(){
     return {
-      enrollment: undefined,
-      creditCardToken: undefined,
-      creditCardBrand: undefined,
-      last4: undefined,
-      nextPage: "enroll",
+      enrollment: '',
+      patients: [],
+      creditCardToken: '',
+      creditCardBrand: '',
+      last4: '',
+      nextPage: 'enroll',
       progressBar: ProgressBarMap.enroll,
       insurers: [],
       status: '',
@@ -59,6 +61,8 @@ module.exports = React.createClass({
 
   onRegistrationStatusChange: function(status){
     this.setState(status);
+    if(status.patient) this.setState({patients: this.state.patients.concat(status.patient)});
+    if(status.deletedPatient) this.setState({patients: _.reject(this.state.patients, {id: status.deletedPatient.id})});
     if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
     if(status.nextPage){this.navigateTo(status.nextPage)}
   },
@@ -94,7 +98,9 @@ module.exports = React.createClass({
                              message={this.state.message}/>;
         break;
       case "patient":
-        page = <PatientInfoForm navigateTo={this.navigateTo} enrollment={this.state.enrollment}/>;
+        page = <PatientInfoForm navigateTo={this.navigateTo}
+                                patients={this.state.patients}
+                                enrollment={this.state.enrollment}/>;
         break;
       case "payment":
         page = <PaymentInfoForm status={this.state.status} message={this.state.message}/>;
@@ -102,7 +108,6 @@ module.exports = React.createClass({
       case "review":
         page = <ReviewForm navigateTo={this.navigateTo}
                            creditCardBrand={this.state.creditCardBrand}
-                           createCreditCard={this.createCreditCard}
                            last4={this.state.last4}
                            insurers={this.state.insurers}
                            enrollment={this.state.enrollment}/>;
@@ -150,12 +155,9 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            <ReviewForm navigateTo={this.navigateTo}
-                        creditCardBrand={this.state.creditCardBrand}
-                        createCreditCard={this.createCreditCard}
-                        last4={this.state.last4}
-                        insurers={this.state.insurers}
-                        enrollment={this.state.enrollment}/>
+            <PatientInfoForm navigateTo={this.navigateTo}
+                             patients={this.state.patients}
+                             enrollment={this.state.enrollment}/>
           </div>
         </div>
       </div>

@@ -13,21 +13,27 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialState: function(){
-    return {patientEnrollment: [], edit: false, cancel: false, status: "", message: ""}
+    return {
+      edit: false,
+      cancel: false,
+      status: '',
+      message: ''
+    }
   },
 
   componentWillReceiveProps: function(nextProps){
-    if( nextProps.enrollment) this.setState({patientEnrollment: nextProps.enrollment.patient_enrollments, edit: false, status: ""})
+    if(nextProps.patients.length > 0) this.setState({ edit: false, status: '' })
   },
 
   showPatients: function(){
-    return this.state.patientEnrollment.map(function(patient, i){
+    return this.props.patients.map(function(patient, i){
       return <SinglePatient key={i} patient={patient}/>;
     });
   },
 
   addPatient: function(){
-    if(this.state.patientEnrollment.length > 0 && !this.state.edit){
+    if(this.props.patients > 0 && !this.state.edit){
+      debugger
       return React.createElement('a',  {className: "col-md-1 col-md-offset-11", onClick: this.switchToEdit}, 'add')
     }else{
       return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
@@ -52,8 +58,8 @@ module.exports = validation(strategy)(React.createClass({
 
   render: function(){
     var continueButtonClass = classNames({
-      "btn btn-primary full-width-button": this.state.patientEnrollment.length > 0,
-      "btn btn-primary full-width-button disabled": this.state.patientEnrollment < 1
+      "btn btn-primary full-width-button": this.props.patients.length > 0,
+      "btn btn-primary full-width-button disabled": this.props.patients < 1
     });
 
     return(

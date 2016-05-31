@@ -32,12 +32,13 @@ module.exports = Reflux.createStore({
                    message: "There was an error retrieving your enrollment information."});
   },
 
-  onUpdateEnrollmentRequest: function(enrollmentParams, nextPage){
+  onUpdateEnrollmentRequest: function(enrollmentParams){
+    debugger
     request.put(leo.API_URL+"/enrollments/current")
            .send(enrollmentParams)
            .end(function(err, res){
               if(res.ok){
-                RegistrationActions.updateEnrollmentRequest.completed(res.body, nextPage);
+                RegistrationActions.updateEnrollmentRequest.completed(res.body, enrollmentParams.next_page);
               }else{
                 RegistrationActions.updateEnrollmentRequest.failed(res.body);
               }
@@ -45,6 +46,7 @@ module.exports = Reflux.createStore({
   },
 
   onUpdateEnrollmentRequestCompleted: function(response, nextPage){
+    debugger
     this.trigger({
       action: "update",
       status: response.status,
@@ -133,12 +135,12 @@ module.exports = Reflux.createStore({
     })
   },
 
-  onCreatePatientEnrollmentRequest: function(patientEnrollmentParams){
-    request.post(leo.API_URL+"/patient_enrollments")
-           .send(patientEnrollmentParams)
+  onCreatePatientEnrollmentRequest: function(patientParams){
+    request.post(leo.API_URL+"/patients")
+           .send(patientParams)
            .end(function(err, res){
               if(res.ok){
-                RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken);
+                RegistrationActions.createPatientEnrollmentRequest.completed(res.body)
               }else{
                 RegistrationActions.createPatientEnrollmentRequest.failed(res.body)
               }
@@ -146,28 +148,34 @@ module.exports = Reflux.createStore({
 
   },
 
+  onCreatePatientEnrollmentRequestCompleted: function(res){
+    this.trigger({ patient: res.data.patient })
+  },
+
   onCreatePatientEnrollmentRequestFailed: function(res){
-    this.trigger({
-      error: res.data.message
-    })
+    this.trigger({ error: res.data.message })
   },
 
   onRemovePatientEnrollmentRequest: function (params) {
-    request.delete(leo.API_URL + "/patient_enrollments/" + params.id)
+    request.delete(leo.API_URL + "/patients/" + params.id)
            .send(params)
            .end(function(err,res){
              if(res.ok){
-               RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken)
+               RegistrationActions.removePatientEnrollmentRequest.completed(res.body)
              }else{
                RegistrationActions.removePatientEnrollmentRequest.failed(res.body)
              }
            })
   },
 
-  onRemvoePaitnetEnrollmentRequestReqestFailed: function(res) {
+  onRemovePatientEnrollmentRequestCompleted: function(res) {
+    this.trigger({ deletedPatient: res.data })
+  },
+
+  onRemovePatientEnrollmentRequestFailed: function(res) {
     this.trigger({
-      deletePatientEnrollment: false,
-      errorMessage: res.data.message
+      status: "error",
+      message: res.error.message
     })
   },
 
@@ -185,8 +193,8 @@ module.exports = Reflux.createStore({
 
   onUpdatePatientEnrollmentRequestFailed: function(res){
     this.trigger({
-      updatePatientEnrollment: false,
-      errorMessage: res.data.message
+      status: "error",
+      message: res.error.message
     })
   }
 });

@@ -55,15 +55,14 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   updateEnrollment: function(){
-    RegistrationActions.updateEnrollmentRequest(
-      {
-        authentication_token: sessionStorage.enrollmentToken,
-        phone: this.state.phone.replace(/\D/g,''),
-        first_name: this.state.firstName,
-        last_name: this.state.lastName,
-        insurance_plan_id: this.state.insurancePlanId
-      }, "patient"
-    )
+    RegistrationActions.updateEnrollmentRequest({
+      authentication_token: sessionStorage.enrollmentToken,
+      phone: this.state.phone.replace(/\D/g,''),
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      insurance_plan_id: this.state.insurancePlanId,
+      next_page: "patient"
+    })
   },
 
   parseInsurers: function(){

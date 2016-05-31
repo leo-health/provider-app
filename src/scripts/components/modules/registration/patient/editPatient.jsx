@@ -86,7 +86,6 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   onDrop: function (files) {
-    debugger
     console.log('Received files: ', files);
   },
 
