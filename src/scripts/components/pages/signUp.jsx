@@ -58,8 +58,16 @@ module.exports = React.createClass({
     this.setState(status);
     if(status.patient) this.setState({patients: this.state.patients.concat(status.patient)});
     if(status.deletedPatient) this.setState({patients: _.reject(this.state.patients, {id: status.deletedPatient.id})});
+    if(status.updatedPatient) this.setState({
+      patients: () => {this.replacePatient(this.status.updatedPatient)}
+    });
     if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
     if(status.nextPage){this.navigateTo(status.nextPage)}
+  },
+
+  replacePatient: function(patients, newPatient){
+    debugger
+    return _.map(patients, function(patient){ return (patient.id === newPatient.id) ? newPatient : patient })
   },
 
   navigateTo: function(destination){
@@ -149,7 +157,9 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            {signUpContent}
+            <PatientInfoForm navigateTo={this.navigateTo}
+                             patients={this.state.patients}
+                             enrollment={this.state.enrollment}/>
           </div>
         </div>
       </div>

@@ -167,21 +167,22 @@ module.exports = Reflux.createStore({
   },
 
   onUpdatePatientEnrollmentRequest: function(params){
-    request.put(leo.API_URL + "/patient_enrollments/" + params.id)
+    request.put(leo.API_URL + "/patients/" + params.id)
            .send(params)
            .end(function(err,res){
               if(res.ok){
-                RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken);
+                RegistrationActions.updateEnrollmentRequest.completed(res.body);
               }else{
                 RegistrationActions.updateEnrollmentRequest.failed(res.body)
               }
             })
   },
 
+  onUpdateEnrollmentRequestCompleted: function(res) {
+    this.trigger({ updatedPatient: res.data.patient })
+  },
+
   onUpdatePatientEnrollmentRequestFailed: function(res){
-    this.trigger({
-      status: "error",
-      message: res.error.message
-    })
+    this.trigger({ status: "error", message: res.error.message })
   }
 });

@@ -7,18 +7,13 @@ var React = require('react'),
     EditPatient = require('./patient/editPatient'),
     SinglePatient = require('./patient/singlePatient');
 
-module.exports = validation(strategy)(React.createClass({
+module.exports = React.createClass({
   contextTypes: {
     router: React.PropTypes.object
   },
 
   getInitialState: function(){
-    return {
-      edit: false,
-      cancel: false,
-      status: '',
-      message: ''
-    }
+    return { edit: false, cancel: false, status: '', message: '' }
   },
 
   componentWillReceiveProps: function(nextProps){
@@ -32,7 +27,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   addPatient: function(){
-    if(this.props.patients > 0 && !this.state.edit){
+    if(this.props.patients.length > 0 && !this.state.edit){
       return React.createElement('a',  {className: "col-md-1 col-md-offset-11", onClick: this.switchToEdit}, 'add')
     }else{
       return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
@@ -91,4 +86,4 @@ module.exports = validation(strategy)(React.createClass({
       </div>
     )
   }
-}));
+});
