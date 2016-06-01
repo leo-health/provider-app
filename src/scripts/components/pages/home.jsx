@@ -1,11 +1,11 @@
-var React = require('react');
-var HomeHeader = require('./homeHeader');
-var FindFamily = require('../modules/search/findFamily');
-var ConversationList = require('../modules/conversation/conversationList');
-var ConversationHeader = require('../modules/conversation/conversationHeader');
-var SessionStore = require('../../stores/sessionStore');
-var Footer = require('./footer');
-var _ = require('lodash');
+var React = require('react'),
+    HomeHeader = require('./homeHeader'),
+    FindFamily = require('../modules/search/findFamily'),
+    ConversationList = require('../modules/conversation/conversationList'),
+    ConversationHeader = require('../modules/conversation/conversationHeader'),
+    SessionStore = require('../../stores/sessionStore'),
+    Footer = require('./footer'),
+    _ = require('lodash');
 
 module.exports = React.createClass({
   componentWillMount: function(){

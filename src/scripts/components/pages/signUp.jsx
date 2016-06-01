@@ -45,7 +45,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    Stripe.setPublishableKey(leo.STRIPE_KEY);
+    Stripe.setPublishableKey(leo.THE_STRIPE_KEY);
   },
 
   componentWillMount: function(){
@@ -131,8 +131,8 @@ module.exports = React.createClass({
                 <span className="signup-xs-text show">(1/5) Enroll</span>
                 <span className="signup-xs-text">(2/5) You</span>
                 <span className="signup-xs-text">(3/5) Your Child</span>
-                <span className="signup-xs-text">(4/5) Review</span>
-                <span className="signup-xs-text">(5/5) Payment</span>
+                <span className="signup-xs-text">(4/5) Payment</span>
+                <span className="signup-xs-text">(5/5) Review</span>
               </div>
               <div className="progress-text" id="progress">
                 <div className="progress-table">
