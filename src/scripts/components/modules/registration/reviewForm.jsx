@@ -1,6 +1,7 @@
 var React = require('react'),
     ReactRouter = require('react-router'),
     {Link} = ReactRouter,
+    Helper = require('../../../utils/registrationHelper'),
     RegistrationActions = require('../../../actions/registrationActions'),
     ShowCreditCard = require('./creditCard/showCreditCard'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
@@ -22,11 +23,11 @@ module.exports = React.createClass({
     if(this.state.editGuardian){
       return <ShowGuardian enrollment={this.props.enrollment}
                            guardianStateToggle={this.guardianStateToggle}
-                           formatPhoneNumber={this.formatPhoneNumber}/>
+                           formatPhoneNumber={Helper.formatPhoneNumber}/>
     }else{
       return <EditGuardian enrollment={this.props.enrollment}
                            guardianStateToggle={this.guardianStateToggle}
-                           formatPhoneNumber={this.formatPhoneNumber}/>
+                           formatPhoneNumber={Helper.formatPhoneNumber}/>
     }
   },
 
@@ -34,7 +35,7 @@ module.exports = React.createClass({
     this.setState({editGuardian: !this.state.editGuardian})
   },
 
-  editOrSave: function(isEdit){
+  editOrSavePayment: function(isEdit){
     if(isEdit){
       return <a onClick={this.handlePayment}>edit</a>
     }else{
@@ -53,12 +54,6 @@ module.exports = React.createClass({
       this.refs.paymentForm.createCreditCard();
       this.setState({editPayment: false});
     }
-  },
-
-  formatPhoneNumber: function(s) {
-    var s2 = (""+s).replace(/\D/g, '');
-    var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
-    return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
   },
 
   componentWillMount: function() {
@@ -141,7 +136,7 @@ module.exports = React.createClass({
                 <h4>Payment</h4>
               </div>
               <div className="form-group col-md-1">
-                {this.editOrSave(this.state.editPayment)}
+                {this.editOrSavePayment(this.state.editPayment)}
               </div>
               <div className="form-group col-md-11 col-md-offset-1">
                 {this.creditCardDisplay()}
