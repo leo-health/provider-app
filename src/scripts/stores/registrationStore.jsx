@@ -171,14 +171,14 @@ module.exports = Reflux.createStore({
            .send(params)
            .end(function(err,res){
               if(res.ok){
-                RegistrationActions.updateEnrollmentRequest.completed(res.body);
+                RegistrationActions.updatePatientEnrollmentRequest.completed(res.body);
               }else{
-                RegistrationActions.updateEnrollmentRequest.failed(res.body)
+                RegistrationActions.updatePatientEnrollmentRequest.failed(res.body)
               }
             })
   },
 
-  onUpdateEnrollmentRequestCompleted: function(res) {
+  onUpdatePatientEnrollmentRequestCompleted: function(res) {
     this.trigger({ updatedPatient: res.data.patient })
   },
 

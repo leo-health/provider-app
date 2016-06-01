@@ -13,7 +13,6 @@ module.exports = React.createClass({
   getInitialState: function() {
     return({
       editGuardian: true,
-      editFamily: "edit",
       editPayment: true,
       showAddPatient: false
     })
@@ -27,8 +26,7 @@ module.exports = React.createClass({
     }else{
       return <EditGuardian enrollment={this.props.enrollment}
                            guardianStateToggle={this.guardianStateToggle}
-                           formatPhoneNumber={this.formatPhoneNumber}
-                           ref="editGuardian"/>
+                           formatPhoneNumber={this.formatPhoneNumber}/>
     }
   },
 
@@ -68,11 +66,11 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps){
-    //if (nextProps.enrollment && nextProps.enrollment.patient_enrollments) this.setState({showAddPatient: false})
+    if (nextProps.enrollment) this.setState({editGuardian: true});
     if (nextProps.patients) this.setState({showAddPatient: false})
   },
 
-  parsePatientEnrollments: function(patient){
+  parsePatients: function(patient){
     return patient.map(function(patient, i){
       return <SinglePatient key={i} patient={patient}/>
     });
@@ -87,15 +85,11 @@ module.exports = React.createClass({
   },
 
   addOrDisplayPatient: function () {
-    this.props.patients.length > 0 ? this.parsePatientEnrollments(this.props.patients) : <EditPatient cacel={false}/>
+    this.props.patients.length > 0 ? this.parsePatients(this.props.patients) : <EditPatient cacel={false}/>
   },
 
   displayOrHideAddPatientButton: function(){
-    if(this.props.patients.length > 0){
-      return {display: "inline-block"}
-    }else{
-      return {display: "none"}
-    }
+    return this.props.patients.length > 0 ? {display: "inline-block"} : {display: "none"}
   },
 
   addPatientToggle: function(){

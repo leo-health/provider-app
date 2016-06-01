@@ -47,14 +47,12 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   updateEnrollment: function(){
-    RegistrationActions.updateEnrollmentRequest(
-        {
-          authentication_token: sessionStorage.enrollmentToken,
-          phone: this.state.phone.replace(/\D/g,''),
-          first_name: this.state.firstName,
-          last_name: this.state.lastName
-        }, "patient"
-    )
+    RegistrationActions.updateEnrollmentRequest({
+      authentication_token: sessionStorage.enrollmentToken,
+      phone: this.state.phone.replace(/\D/g,''),
+      first_name: this.state.firstName,
+      last_name: this.state.lastName
+    })
   },
 
   renderHelpText: function(message){
@@ -89,11 +87,6 @@ module.exports = validation(strategy)(React.createClass({
   handlePhoneChange: function(e) {
     if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
     this.setState({ phone: e.target.value })
-  },
-
-  handleSave: function(){
-    this.handleOnSubmit();
-    this.props.guardianStateToggle();
   },
 
   render: function(){
