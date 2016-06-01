@@ -45,7 +45,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    Stripe.setPublishableKey(leo.THE_STRIPE_KEY);
+    Stripe.setPublishableKey(leo.STRIPE_KEY);
   },
 
   componentWillMount: function(){
