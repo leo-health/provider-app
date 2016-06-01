@@ -7,17 +7,13 @@ var React = require('react'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
-  validatorTypes: Helper.validatorTypes,
+  validatorTypes: _.merge(Helper.enrollmentValidatorTypes, Helper.userValidatorTypes),
 
   getValidatorData: function(){
     return this.state
   },
 
   getInitialState: function(){
-    return this.getInitialGuardian()
-  },
-
-  getInitialGuardian: function(){
     if(this.props.enrollment) {
       return {
         email: this.props.enrollment.email,
@@ -37,7 +33,6 @@ module.exports = validation(strategy)(React.createClass({
         this.updateEnrollment();
       }
     };
-
     this.props.validate(onValidate);
     this.submitHasBeenAttemptedOnce = true;
   },
