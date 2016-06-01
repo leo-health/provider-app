@@ -54,17 +54,12 @@ module.exports = React.createClass({
 
   componentWillMount: function() {
     RegistrationActions.fetchEnrollmentRequest(sessionStorage.enrollmentToken);
+    RegistrationActions.fetchPatientsRequest(sessionStorage.enrollmentToken)
   },
 
   componentWillReceiveProps: function(nextProps){
     if (nextProps.enrollment) this.setState({editGuardian: true});
     if (nextProps.patients) this.setState({showAddPatient: false})
-  },
-
-  parsePatients: function(patient){
-    return patient.map(function(patient, i){
-      return <SinglePatient key={i} patient={patient}/>
-    });
   },
 
   creditCardDisplay: function(){
@@ -76,7 +71,13 @@ module.exports = React.createClass({
   },
 
   addOrDisplayPatient: function () {
-    this.props.patients.length > 0 ? this.parsePatients(this.props.patients) : <EditPatient cacel={false}/>
+    return this.props.patients.length > 0 ? this.parsePatients(this.props.patients) : <EditPatient cancel={false}/>
+  },
+
+  parsePatients: function(patients){
+    return patients.map(function(patient, i){
+      return <SinglePatient key={i} patient={patient}/>
+    });
   },
 
   displayOrHideAddPatientButton: function(){
@@ -92,8 +93,6 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    if(this.props.enrollment) var patients = this.addOrDisplayPatient();
-
     return (
       <div>
         <div className="row">
@@ -119,7 +118,7 @@ module.exports = React.createClass({
                 </a>
               </div>
               <div className="form-group col-md-11 col-md-offset-1">
-                {patients}
+                {this.addOrDisplayPatient()}
               </div>
               <br/>
               <div className="form-group col-md-11 col-md-offset-1">

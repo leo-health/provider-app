@@ -9,7 +9,8 @@ var RegistrationActions = {
   createCreditCardRequest: {asyncResult: true},
   createPatientEnrollmentRequest: {asyncResult: true},
   removePatientEnrollmentRequest: {asyncResult: true},
-  updatePatientEnrollmentRequest: {asyncResult: true}
+  updatePatientEnrollmentRequest: {asyncResult: true},
+  fetchPatientsRequest: {asyncResult: true}
 };
 
 module.exports = Reflux.createActions(RegistrationActions);

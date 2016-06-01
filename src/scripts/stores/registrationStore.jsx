@@ -163,8 +163,7 @@ module.exports = Reflux.createStore({
 
   onRemovePatientEnrollmentRequestFailed: function(res) {
     this.trigger({
-      status: "error",
-      message: res.error.message
+      status: "error", message: res.error.message
     })
   },
 
@@ -185,6 +184,26 @@ module.exports = Reflux.createStore({
   },
 
   onUpdatePatientEnrollmentRequestFailed: function(res){
+    this.trigger({ status: "error", message: res.error.message })
+  },
+
+  onFetchPatientsRequest: function(params){
+    request.get(leo.API_URL + "/patients")
+           .query({ authentication_token: params })
+           .end(function(err, res){
+             if(res.ok){
+               RegistrationActions.fetchPatientsRequest.completed(res.body);
+             }else{
+               RegistrationActions.fetchPatientsRequest.failed(res.body);
+             }
+           })
+  },
+
+  onFetchPatientsRequestCompleted: function(res){
+    this.trigger({ patients: res.data.patients })
+  },
+
+  onFetchPatientsRequestFailed: function(res){
     this.trigger({ status: "error", message: res.error.message })
   }
 });
