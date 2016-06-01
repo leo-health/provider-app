@@ -58,14 +58,13 @@ module.exports = React.createClass({
 
     return(
       <div>
-        <div className="row">
-          <div className="col-md-11 col-md-offset-1">
-            <h3 className="signup-header">Let's set up a profile for each of your children</h3>
-          </div>
+        <div className="col-lg-11 col-lg-offset-1">
+          <h4 className="signup-header">Let's set up a profile for each of your children</h4>
+          <p className="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
         </div>
-        <br/>
+        <div className="inline-hr"></div>
         <div className="row">
-          <div className="col-md-10 col-md-offset-1">
+          <div className="col-lg-10 col-lg-offset-1">
             <ErrorAlert message={this.state.message}
                         status={this.state.status}/>
           </div>
