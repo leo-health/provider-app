@@ -1,15 +1,12 @@
 var React = require('react'),validation = require('react-validation-mixin'),
     RegistrationActions = require('../../../../actions/registrationActions'),
+    Helper = require('../../../../utils/registrationHelper'),
     _ = require('lodash'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
-  validatorTypes: {
-    firstName: Joi.string().min(2).trim().required().label("First name"),
-    lastName: Joi.string().min(2).trim().required().label("Last name"),
-    birthDate: Joi.date().max(new Date()).required().label("Birth Date")
-  },
+  validatorTypes: Helper.patientValidatorTypes,
 
   getValidatorData: function(){
     return this.state
@@ -84,15 +81,6 @@ module.exports = validation(strategy)(React.createClass({
     RegistrationActions.updatePatientEnrollmentRequest(this.patientParams())
   },
 
-  renderHelpText: function(message){
-    var messageClass = classNames({
-      "text-danger": message.length > 0,
-      "text-muted": message.length === 0
-    });
-
-    return <label className={messageClass}>{message}</label>
-  },
-
   render: function(){
     var showCancelButton = this.props.cancel ? {display: "inline-block"} : {display: "none"};
 
@@ -107,7 +95,7 @@ module.exports = validation(strategy)(React.createClass({
                      onChange={this.handleFirstNameChange}
                      autoFocus/>
               <label className="text-muted">First Name</label>
-              {this.renderHelpText(this.props.getValidationMessages('firstName'))}
+              {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
             </div>
 
             <div className="col-md-3">
@@ -116,7 +104,7 @@ module.exports = validation(strategy)(React.createClass({
                      value={this.state.lastName}
                      onChange={this.handleLastNameChange}/>
               <label className="text-muted">Last Name</label>
-              {this.renderHelpText(this.props.getValidationMessages('lastName'))}
+              {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
             </div>
 
             <div className="col-md-2">
@@ -136,7 +124,7 @@ module.exports = validation(strategy)(React.createClass({
                      value={this.state.birthDate}
                      onChange={this.handleBirthDateChange}/>
               <label className="text-muted">Birth Date</label>
-              {this.renderHelpText(this.props.getValidationMessages('birthDate'))}
+              {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
             </div>
           </div>
         </div>

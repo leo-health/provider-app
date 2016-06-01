@@ -1,17 +1,13 @@
 var React = require('react'),
     _ = require('lodash'),
     RegistrationActions = require('../../../../actions/registrationActions'),
+    Helper = require('../../../../utils/registrationHelper'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
-  validatorTypes: {
-    email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
-    firstName: Joi.string().min(2).trim().required().label("First name"),
-    lastName: Joi.string().min(2).trim().required().label("Last name"),
-    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone")
-  },
+  validatorTypes: Helper.validatorTypes,
 
   getValidatorData: function(){
     return this.state
@@ -55,20 +51,6 @@ module.exports = validation(strategy)(React.createClass({
     })
   },
 
-  renderHelpText: function(message){
-    var messageClass = classNames({
-      "text-danger": message.length > 0,
-      "text-muted": message.length === 0
-    });
-
-    return <label className={messageClass}>{message}</label>
-  },
-
-  phoneMask: function(e){
-    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-  },
-
   handleEmailChange: function(e) {
     if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
     this.setState({ email: e.target.value })
@@ -108,7 +90,7 @@ module.exports = validation(strategy)(React.createClass({
                    onChange={this.handleEmailChange}
                    ref="email"/>
             <label className="text-muted">Email</label>
-            {this.renderHelpText(this.props.getValidationMessages('email'))}
+            {Helper.renderHelpText(this.props.getValidationMessages('email'))}
           </div>
         </div>
         <br/>
@@ -120,7 +102,7 @@ module.exports = validation(strategy)(React.createClass({
                    onChange={this.handleFirstNameChange}
                    ref="firstName"/>
             <label className="text-muted">First Name</label>
-            {this.renderHelpText(this.props.getValidationMessages('firstName'))}
+            {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
           </div>
 
           <div className="form-group col-md-4">
@@ -130,7 +112,7 @@ module.exports = validation(strategy)(React.createClass({
                    onChange={this.handleLastNameChange}
                    ref="lastName"/>
             <label className="text-muted">Last Name</label>
-            {this.renderHelpText(this.props.getValidationMessages('lastName'))}
+            {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
           </div>
 
           <div className="form-group col-md-4">
@@ -139,9 +121,9 @@ module.exports = validation(strategy)(React.createClass({
                    value={this.state.phone}
                    onChange={this.handlePhoneChange}
                    ref="phone"
-                   onInput={this.phoneMask}/>
+                   onInput={Helper.phoneMask}/>
             <label className="text-muted">Phone</label>
-            {this.renderHelpText(this.props.getValidationMessages('phone'))}
+            {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
           </div>
         </div>
       </div>

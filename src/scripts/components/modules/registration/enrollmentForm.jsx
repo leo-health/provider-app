@@ -1,5 +1,6 @@
 var React = require('react'),
     _ = require('lodash'),
+    Helper = require('../../../utils/registrationHelper'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy'),
@@ -9,10 +10,7 @@ var React = require('react'),
     RegistrationStore = require('../../../stores/registrationStore');
 
 module.exports = validation(strategy)(React.createClass({
-  validatorTypes: {
-    email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
-    password: Joi.string().min(8).max(127).trim().required().label("Password")
-  },
+  validatorTypes: Helper.enrollmentValidatorTypes,
 
   getValidatorData: function(){
     return this.state

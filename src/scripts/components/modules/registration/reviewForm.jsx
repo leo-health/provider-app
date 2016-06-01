@@ -12,11 +12,7 @@ var React = require('react'),
 
 module.exports = React.createClass({
   getInitialState: function() {
-    return({
-      editGuardian: true,
-      editPayment: true,
-      showAddPatient: false
-    })
+    return({ editGuardian: true, editPayment: true, showAddPatient: false })
   },
 
   editOrShowGuardian: function(){

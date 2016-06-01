@@ -1,16 +1,13 @@
 var React = require('react'),
     _ = require('lodash'),
     RegistrationActions = require('../../../../actions/registrationActions'),
+    Helper = require('../../../../utils/registrationHelper'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
-  validatorTypes: {
-    firstName: Joi.string().min(2).trim().required().label("First name"),
-    lastName: Joi.string().min(2).trim().required().label("Last name"),
-    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone")
-  },
+  validatorTypes: Helper.userValidatorTypes,
 
   getValidatorData: function(){
     return this.state
@@ -55,20 +52,6 @@ module.exports = validation(strategy)(React.createClass({
     })
   },
 
-  renderHelpText: function(message){
-    var messageClass = classNames({
-      "text-danger": message.length > 0,
-      "text-muted": message.length === 0
-    });
-
-    return <label className={messageClass}>{message}</label>
-  },
-
-  phoneMask: function(e){
-    var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-  },
-
   handleFirstNameChange: function(e) {
     if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
     this.setState({ firstName: e.target.value })
@@ -95,7 +78,7 @@ module.exports = validation(strategy)(React.createClass({
                  autoFocus
                  ref="firstName"/>
           <label className="text-muted">First Name</label>
-          {this.renderHelpText(this.props.getValidationMessages('firstName'))}
+          {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
 
         <div className="form-group col-md-4">
@@ -105,7 +88,7 @@ module.exports = validation(strategy)(React.createClass({
                  onChange={this.handleLastNameChange}
                  ref="lastName"/>
           <label className="text-muted">Last Name</label>
-          {this.renderHelpText(this.props.getValidationMessages('lastName'))}
+          {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
 
         <div className="form-group col-md-4">
@@ -114,9 +97,9 @@ module.exports = validation(strategy)(React.createClass({
                  value={this.state.phone}
                  onChange={this.handlePhoneChange}
                  ref="phone"
-                 onInput={this.phoneMask}/>
+                 onInput={Helper.phoneMask}/>
           <label className="text-muted">Phone</label>
-          {this.renderHelpText(this.props.getValidationMessages('phone'))}
+          {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
         </div>
       </div>
     )
