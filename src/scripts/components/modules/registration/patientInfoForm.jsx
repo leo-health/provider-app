@@ -59,9 +59,10 @@ module.exports = React.createClass({
 
     return(
       <div>
+        <br/>
         <div className="col-lg-11 col-lg-offset-1">
           <h4 className="signup-header">Now it’s time to add children to your account</h4>
-          <p className="lead">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+          <p className="lead">If you’re an expecting parent, you won’t be able to enroll with Leo until your child is born.</p>
         </div>
         <div className="inline-hr"></div>
         <div className="row">

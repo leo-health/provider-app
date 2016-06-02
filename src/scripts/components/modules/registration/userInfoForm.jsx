@@ -38,9 +38,6 @@ module.exports =React.createClass({
             <br/><br/>
             <FAQ/>
           </div>
-          <div className="col-md-6 col-md-offset-1">
-            <h5 className="signup-header">Invite another guardian to this account</h5>
-          </div>
         </div>
       </div>
     )

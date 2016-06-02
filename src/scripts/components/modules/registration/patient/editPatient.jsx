@@ -4,13 +4,19 @@ var React = require('react'),
     Helper = require('../../../../utils/registrationHelper'),
     _ = require('lodash'),
     Joi = require('joi'),
+    DatePicker = require('react-datepicker'),
+    moment = require('moment'),
     strategy = require('joi-validation-strategy');
+
+require('react-datepicker/dist/react-datepicker.css');
 
 module.exports = validation(strategy)(React.createClass({
   validatorTypes: Helper.patientValidatorTypes,
 
   getValidatorData: function(){
-    return this.state
+    var data = $.extend({}, this.state);
+    if (data.birthDate) data.birthDate = data.birthDate.format('MM-DD-YYYY');
+    return data
   },
 
   getInitialState: function(){
@@ -28,7 +34,7 @@ module.exports = validation(strategy)(React.createClass({
         isCreate: false
       }
     }else{
-      return { firstName: '', lastName: '', sex: 'M', birthDate: '', isCreate: true}
+      return { firstName: '', lastName: '', sex: 'M', birthDate: moment(), isCreate: true}
     }
   },
 
@@ -46,9 +52,9 @@ module.exports = validation(strategy)(React.createClass({
     this.setState({sex: e.target.value});
   },
 
-  handleBirthDateChange: function(e){
+  handleBirthDateChange: function(date){
     if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('birthDate')();
-    this.setState({birthDate: e.target.value});
+    this.setState({birthDate: date});
   },
 
   handleOnSubmit: function(){
@@ -121,10 +127,11 @@ module.exports = validation(strategy)(React.createClass({
         </div>
         <div className="form-group row">
           <div className="col-md-4">
-            <input type="date"
-                   className="form-control"
-                   value={this.state.birthDate}
-                   onChange={this.handleBirthDateChange}/>
+            <DatePicker
+                className="form-control"
+                showYearDropdown
+                selected={this.state.birthDate}
+                onChange={this.handleBirthDateChange} />
             <label className="text-muted">Birth Date</label>
             {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
           </div>
