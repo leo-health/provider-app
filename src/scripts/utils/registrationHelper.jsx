@@ -11,7 +11,7 @@ var RegistrationHelper = {
       "text-muted": message.length === 0
     });
 
-    return <label className={messageClass}>{message}</label>
+    return <label className={messageClass}>{message[0]}</label>
   },
 
   phoneMask: function(e){
@@ -19,12 +19,9 @@ var RegistrationHelper = {
     e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
   },
 
-  enrollmentValidatorTypes: {
-    email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
-    password: Joi.string().min(8).max(127).trim().required().label("Password")
-  },
-
   userValidatorTypes: {
+    email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
+    password: Joi.string().min(8).max(127).trim().required().label("Password"),
     firstName: Joi.string().min(2).trim().required().label("First name"),
     lastName: Joi.string().min(2).trim().required().label("Last name"),
     phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone")

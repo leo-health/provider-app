@@ -103,7 +103,8 @@ module.exports = React.createClass({
                            enrollment={this.state.enrollment}/>;
         break;
       default:
-        page = <EnrollmentForm/>;
+        page = <UserInfoForm status={this.state.status}
+                             message={this.state.message}/>;
         break;
     }
     return page

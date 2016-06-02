@@ -28,10 +28,8 @@ module.exports =React.createClass({
         </div>
         <div className="row">
           <div className="col-md-6 col-md-offset-1">
-            <h5 className="signup-header">You</h5>
             <EditGuardian ref="editGuardian" insurers={this.props.insurers}/>
           </div>
-          <br/>
           <div className="col-md-4 form-group">
             <button onClick={this.handleOnSubmit}
                     className="btn btn-lg btn-primary full-width-button">
@@ -39,6 +37,9 @@ module.exports =React.createClass({
             </button>
             <br/><br/>
             <FAQ/>
+          </div>
+          <div className="col-md-6 col-md-offset-1">
+            <h5 className="signup-header">Invite another guardian to this account</h5>
           </div>
         </div>
       </div>

@@ -36,7 +36,7 @@ module.exports = validation(strategy)(React.createClass({
       if (error) {
         return
       } else {
-        this.updateEnrollment();
+        this.createEnrollment();
       }
     };
 
@@ -44,12 +44,14 @@ module.exports = validation(strategy)(React.createClass({
     this.submitHasBeenAttemptedOnce = true;
   },
 
-  updateEnrollment: function(){
-    RegistrationActions.updateEnrollmentRequest({
+  createEnrollment: function(){
+    RegistrationActions.createEnrollmentRequest({
       authentication_token: sessionStorage.enrollmentToken,
       phone: this.state.phone.replace(/\D/g,''),
       first_name: this.state.firstName,
       last_name: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
       next_page: "patient"
     })
   },
@@ -131,8 +133,6 @@ module.exports = validation(strategy)(React.createClass({
           <label className="text-muted">Phone</label>
           {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
         </div>
-
-
       </div>
     )
   }
