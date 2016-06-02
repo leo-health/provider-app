@@ -1,5 +1,6 @@
 var React = require('react'),
     ErrorAlert = require('../alert/errorAlert'),
+    FAQ = require('./faq'),
     EditGuardian = require('./guardian/editGuardian');
 
 module.exports =React.createClass({
@@ -13,7 +14,10 @@ module.exports =React.createClass({
         <br/>
         <div className="row">
           <div className="col-md-11 col-md-offset-1">
-            <h3 className="signup-header">Tell us about yourself!</h3>
+            <h4 className="signup-header">Tell us a little about yourself</h4>
+            <p className="lead">We are thrilled to welcome you to the practice!
+              We need to collect some information about you and your family in order to get you enrolled in the practice.
+            </p>
           </div>
         </div>
         <br/>
@@ -23,20 +27,18 @@ module.exports =React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="col-md-8 col-md-offset-1">
+          <div className="col-md-6 col-md-offset-1">
             <h5 className="signup-header">You</h5>
+            <EditGuardian ref="editGuardian" insurers={this.props.insurers}/>
           </div>
           <br/>
-          <div className="col-md-2 form-group">
+          <div className="col-md-4 form-group">
             <button onClick={this.handleOnSubmit}
-                    className="btn btn-primary full-width-button">
+                    className="btn btn-lg btn-primary full-width-button">
               Continue
             </button>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-8 col-md-offset-1">
-            <EditGuardian ref="editGuardian" insurers={this.props.insurers}/>
+            <br/><br/>
+            <FAQ/>
           </div>
         </div>
       </div>

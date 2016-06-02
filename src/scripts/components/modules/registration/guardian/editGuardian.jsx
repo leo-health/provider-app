@@ -21,12 +21,13 @@ module.exports = validation(strategy)(React.createClass({
   getInitialGuardian: function(){
     if(this.props.enrollment){
       return {
+        email: this.props.enrollment.email,
         firstName: this.props.enrollment.first_name,
         lastName: this.props.enrollment.last_name,
-        phone: this.props.formatPhoneNumber(this.props.enrollment.phone),
+        phone: this.props.formatPhoneNumber(this.props.enrollment.phone)
       }
     }else{
-      return { firstName: '', lastName: '', phone: ''}
+      return { firstName: '', lastName: '', phone: '', email: '', password: ''}
     }
   },
 
@@ -68,10 +69,20 @@ module.exports = validation(strategy)(React.createClass({
     this.setState({ phone: e.target.value })
   },
 
+  handleEmailChange: function(e){
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
+    this.setState({email: e.target.value})
+  },
+
+  handlePasswordChange: function(e){
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('password')();
+    this.setState({password: e.target.value})
+  },
+
   render: function(){
     return(
-      <div className="row">
-        <div className="form-group col-md-4">
+      <div className="row well">
+        <div className="form-group col-md-6">
           <input type="text"
                  className="form-control"
                  value={this.state.firstName}
@@ -82,7 +93,7 @@ module.exports = validation(strategy)(React.createClass({
           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
 
-        <div className="form-group col-md-4">
+        <div className="form-group col-md-6">
           <input type="text"
                  className="form-control"
                  value={this.state.lastName}
@@ -92,7 +103,25 @@ module.exports = validation(strategy)(React.createClass({
           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
 
-        <div className="form-group col-md-4">
+        <div className="form-group col-md-12">
+          <input type="text"
+                 value={this.state.email}
+                 className="form-control"
+                 onChange={this.handleEmailChange}/>
+          <label className="text-muted">Email</label>
+          {Helper.renderHelpText(this.props.getValidationMessages('email'))}
+        </div>
+
+        <div className="form-group col-md-12">
+          <input type="password"
+                 value={this.state.password}
+                 className="form-control"
+                 onChange={this.handlePasswordChange}/>
+          <label className="text-muted">Password</label>
+          {Helper.renderHelpText(this.props.getValidationMessages('password'))}
+        </div>
+
+        <div className="form-group col-md-12">
           <input type="text"
                  className="form-control"
                  value={this.state.phone}
@@ -102,6 +131,8 @@ module.exports = validation(strategy)(React.createClass({
           <label className="text-muted">Phone</label>
           {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
         </div>
+
+
       </div>
     )
   }

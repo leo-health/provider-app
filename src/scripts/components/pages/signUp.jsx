@@ -5,14 +5,12 @@ var React = require('react'),
     classNames = require('classnames'),
     _ = require('lodash'),
     RegistrationStore = require('../../stores/registrationStore'),
-    EnrollmentForm = require('../modules/registration/enrollmentForm'),
     UserInfoForm = require('../modules/registration/userInfoForm'),
     PatientInfoForm = require('../modules/registration/patientInfoForm'),
     PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
     ReviewForm = require('../modules/registration/reviewForm'),
     ProgressBarMap = {
-      enroll: "7%",
-      you: "21%",
+      you: "12%",
       patient: "45%",
       payment: "67%",
       review: "90%"
@@ -34,8 +32,8 @@ module.exports = React.createClass({
       creditCardToken: '',
       creditCardBrand: '',
       last4: '',
-      nextPage: 'enroll',
-      progressBar: ProgressBarMap.enroll,
+      nextPage: 'you',
+      progressBar: ProgressBarMap.you,
       status: '',
       message: ''
     }
@@ -85,10 +83,6 @@ module.exports = React.createClass({
   selectPage: function(){
     var page;
     switch(this.state.nextPage){
-      case "enroll":
-        page = <EnrollmentForm status={this.state.status}
-                               message={this.state.message}/>;
-        break;
       case "you":
         page = <UserInfoForm status={this.state.status}
                              message={this.state.message}/>;
@@ -125,16 +119,13 @@ module.exports = React.createClass({
             <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
             <div id="signup_progress">
               <div className="progress-text" id="progress_xs">
-                <span className="signup-xs-text show">(1/5) Enroll</span>
-                <span className="signup-xs-text">(2/5) You</span>
-                <span className="signup-xs-text">(3/5) Your Child</span>
-                <span className="signup-xs-text">(4/5) Payment</span>
-                <span className="signup-xs-text">(5/5) Review</span>
+                <span className="signup-xs-text">(1/5) You</span>
+                <span className="signup-xs-text">(2/5) Your Child</span>
+                <span className="signup-xs-text">(3/5) Payment</span>
+                <span className="signup-xs-text">(4/5) Review</span>
               </div>
               <div className="progress-text" id="progress">
                 <div className="progress-table">
-                  <div className="signup-progress-text progress-text-container">Enroll</div>
-                  <div className="progress-text-spacer"></div>
                   <div className="signup-progress-text progress-text-container">You</div>
                   <div className="progress-text-spacer"></div>
                   <div className="signup-progress-text progress-text-container">Your Child</div>
@@ -152,7 +143,8 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            <PaymentInfoForm status={this.state.status} message={this.state.message}/>
+            <UserInfoForm status={this.state.status}
+                          message={this.state.message}/>
           </div>
         </div>
       </div>
