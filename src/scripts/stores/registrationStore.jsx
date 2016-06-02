@@ -76,7 +76,7 @@ module.exports = Reflux.createStore({
                         }else{
                           RegistrationActions.createEnrollmentRequest.failed(res.body);
                         }
-                        })
+                      })
              }else{
                this.trigger({status: 'error', errorMessage: "couldn't generate your vendor id"})
              }

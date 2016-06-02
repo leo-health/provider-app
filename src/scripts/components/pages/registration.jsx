@@ -1,7 +1,6 @@
 var React = require('react');
     ReactDom = require('react-dom'),
     ReactRouter = require('react-router'),
-    {Router, Route, browserHistory, IndexRoute} = ReactRouter,
     Reflux = require('reflux'),
     RegistrationActions = require('../../actions/registrationActions'),
     RegistrationStore = require('../../stores/registrationStore'),

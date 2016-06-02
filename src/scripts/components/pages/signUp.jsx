@@ -1,7 +1,7 @@
 var React = require('react'),
     Reflux = require('reflux'),
     ReactRouter = require('react-router'),
-    {browserHistory, withRouter, } = ReactRouter,
+    {browserHistory, withRouter} = ReactRouter,
     classNames = require('classnames'),
     _ = require('lodash'),
     validation = require('react-validation-mixin'),
@@ -154,12 +154,7 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-
-            <ReviewForm navigateTo={this.navigateTo}
-                        creditCardBrand={this.state.creditCardBrand}
-                        last4={this.state.last4}
-                        patients={this.state.patients}
-                        enrollment={this.state.enrollment}/>
+            {signUpContent}
 
           </div>
         </div>

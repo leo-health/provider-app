@@ -36,6 +36,7 @@ module.exports = validation(strategy)(React.createClass({
       if (error) {
         return
       } else {
+        debugger
         RegistrationActions.createEnrollmentRequest(_.merge(this.state, {nextPage: 'you'}));
       }
     };
