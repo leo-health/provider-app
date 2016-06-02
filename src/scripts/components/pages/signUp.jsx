@@ -10,10 +10,10 @@ var React = require('react'),
     PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
     ReviewForm = require('../modules/registration/reviewForm'),
     ProgressBarMap = {
-      you: "12%",
-      patient: "45%",
-      payment: "67%",
-      review: "90%"
+      you: ["12%", "1/4", "Personal Information"],
+      patient: ["45%", "2/4", "Add a Child"],
+      payment: ["67%", "3/4", "Payment"],
+      review: ["90%", "4/4", "Review"]
     };
 
 module.exports = React.createClass({
@@ -118,12 +118,9 @@ module.exports = React.createClass({
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
             <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
-            <div id="signup_progress">
+            <div id="signup_progress" style={{"margin-left: 1em"}}>
               <div className="progress-text" id="progress_xs">
-                <span className="signup-xs-text">(1/5) You</span>
-                <span className="signup-xs-text">(2/5) Your Child</span>
-                <span className="signup-xs-text">(3/5) Payment</span>
-                <span className="signup-xs-text">(4/5) Review</span>
+                <span className="signup-xs-text">({this.state.progressBar[1]}) {this.state.progressBar[2]}</span>
               </div>
               <div className="progress-text" id="progress">
                 <div className="progress-table">
@@ -136,7 +133,7 @@ module.exports = React.createClass({
                   <div className="signup-progress-text progress-text-container">Review</div>
                 </div>
                 <div className="progress progress-table">
-                  <div className="progress-bar" style={{width: this.state.progressBar}}></div>
+                  <div className="progress-bar" style={{width: this.state.progressBar[0]}}></div>
                 </div>
               </div>
             </div>
@@ -144,9 +141,8 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            <PatientInfoForm navigateTo={this.navigateTo}
-                             patients={this.state.patients}
-                             enrollment={this.state.enrollment}/>
+            <UserInfoForm status={this.state.status}
+                          message={this.state.message}/>
           </div>
         </div>
       </div>
