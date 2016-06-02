@@ -85,7 +85,7 @@ module.exports = validation(strategy)(React.createClass({
     var showCancelButton = this.props.cancel ? {display: "inline-block"} : {display: "none"};
 
     return(
-      <form className="form-horizontal well col-md-6">
+      <form className="form-horizontal well">
         <div className="row">
           <div className="col-md-4">
             <input type="text"
@@ -94,7 +94,7 @@ module.exports = validation(strategy)(React.createClass({
                    onChange={this.handleFirstNameChange}
                    autoFocus/>
             <label className="text-muted">First Name</label>
-            {this.renderHelpText(this.props.getValidationMessages('firstName'))}
+            {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
           </div>
 
           <div className="col-md-4">
@@ -103,7 +103,7 @@ module.exports = validation(strategy)(React.createClass({
                    value={this.state.lastName}
                    onChange={this.handleLastNameChange}/>
             <label className="text-muted">Last Name</label>
-            {this.renderHelpText(this.props.getValidationMessages('lastName'))}
+            {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
           </div>
         </div>
         <div className="form-group row">
@@ -125,7 +125,7 @@ module.exports = validation(strategy)(React.createClass({
                    value={this.state.birthDate}
                    onChange={this.handleBirthDateChange}/>
             <label className="text-muted">Birth Date</label>
-            {this.renderHelpText(this.props.getValidationMessages('birthDate'))}
+            {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
           </div>
         </div>
 
