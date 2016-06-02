@@ -11,8 +11,8 @@ var React = require('react'),
     ReviewForm = require('../modules/registration/reviewForm'),
     ProgressBarMap = {
       you: ["12%", "1/4", "Personal Information"],
-      patient: ["45%", "2/4", "Add a Child"],
-      payment: ["67%", "3/4", "Payment"],
+      patient: ["40%", "2/4", "Add a Child"],
+      payment: ["62%", "3/4", "Payment"],
       review: ["90%", "4/4", "Review"]
     };
 
@@ -118,19 +118,19 @@ module.exports = React.createClass({
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
             <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
-            <div id="signup_progress" style={{"margin-left: 1em"}}>
+            <div id="signup_progress">
               <div className="progress-text" id="progress_xs">
                 <span className="signup-xs-text">({this.state.progressBar[1]}) {this.state.progressBar[2]}</span>
               </div>
               <div className="progress-text" id="progress">
                 <div className="progress-table">
-                  <div className="signup-progress-text progress-text-container">You</div>
+                  <div className="signup-progress-text progress-text-container">{ProgressBarMap.you[2]}</div>
                   <div className="progress-text-spacer"></div>
-                  <div className="signup-progress-text progress-text-container">Your Child</div>
+                  <div className="signup-progress-text progress-text-container">{ProgressBarMap.patient[2]}</div>
                   <div className="progress-text-spacer"></div>
-                  <div className="signup-progress-text progress-text-container">Payment</div>
+                  <div className="signup-progress-text progress-text-container">{ProgressBarMap.payment[2]}</div>
                   <div className="progress-text-spacer"></div>
-                  <div className="signup-progress-text progress-text-container">Review</div>
+                  <div className="signup-progress-text progress-text-container">{ProgressBarMap.review[2]}</div>
                 </div>
                 <div className="progress progress-table">
                   <div className="progress-bar" style={{width: this.state.progressBar[0]}}></div>
@@ -141,8 +141,7 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            <UserInfoForm status={this.state.status}
-                          message={this.state.message}/>
+            {signUpContent}
           </div>
         </div>
       </div>
