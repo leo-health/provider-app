@@ -126,6 +126,7 @@ module.exports = Reflux.createStore({
   },
 
   onCreatePatientEnrollmentRequest: function(patientParams){
+    debugger
     request.post(leo.API_URL+"/patients")
            .send(patientParams)
            .end(function(err, res){
@@ -143,6 +144,7 @@ module.exports = Reflux.createStore({
   },
 
   onCreatePatientEnrollmentRequestFailed: function(res){
+    debugger
     this.trigger({ error: res.data.message })
   },
 

@@ -37,7 +37,6 @@ module.exports = validation(strategy)(React.createClass({
         RegistrationActions.createEnrollmentRequest(_.merge(this.state, {nextPage: 'you'}));
       }
     };
-    debugger
     this.props.validate(onValidate);
     this.submitHasBeenAttemptedOnce = true;
   },

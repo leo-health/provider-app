@@ -86,47 +86,47 @@ module.exports = validation(strategy)(React.createClass({
     var showCancelButton = this.props.cancel ? {display: "inline-block"} : {display: "none"};
 
     return(
-      <div className="row">
-        <div className="form-group col-md-11">
-          <div className="row">
-            <div className="col-md-3">
-              <input type="text"
-                     className="form-control"
-                     value={this.state.firstName}
-                     onChange={this.handleFirstNameChange}
-                     autoFocus/>
-              <label className="text-muted">First Name</label>
-              {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
-            </div>
+      <form className="form-horizontal well">
+        <div className="row">
+          <div className="col-md-4">
+            <input type="text"
+                   className="form-control"
+                   value={this.state.firstName}
+                   onChange={this.handleFirstNameChange}
+                   autoFocus/>
+            <label className="text-muted">First Name</label>
+            {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
+          </div>
 
-            <div className="col-md-3">
-              <input type="text"
-                     className="form-control"
-                     value={this.state.lastName}
-                     onChange={this.handleLastNameChange}/>
-              <label className="text-muted">Last Name</label>
-              {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
-            </div>
-
-            <div className="col-md-2">
-              <select className="form-control"
-                      id="select"
-                      value={this.state.sex}
-                      onChange={this.handleSexChange}>
-                <option value={"M"}>M</option>
-                <option value={"F"}>F</option>
-              </select>
-              <label className="text-muted">Gender</label>
-            </div>
-
-            <div className="col-md-4">
-              <input type="date"
-                     className="form-control"
-                     value={this.state.birthDate}
-                     onChange={this.handleBirthDateChange}/>
-              <label className="text-muted">Birth Date</label>
-              {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
-            </div>
+          <div className="col-md-4">
+            <input type="text"
+                   className="form-control"
+                   value={this.state.lastName}
+                   onChange={this.handleLastNameChange}/>
+            <label className="text-muted">Last Name</label>
+            {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
+          </div>
+        </div>
+        <div className="form-group row">
+          <div className="col-md-4">
+            <select className="form-control"
+                    id="select"
+                    value={this.state.sex}
+                    onChange={this.handleSexChange}>
+              <option value={"M"}>M</option>
+              <option value={"F"}>F</option>
+            </select>
+            <label className="text-muted">Gender</label>
+          </div>
+        </div>
+        <div className="form-group row">
+          <div className="col-md-4">
+            <input type="date"
+                   className="form-control"
+                   value={this.state.birthDate}
+                   onChange={this.handleBirthDateChange}/>
+            <label className="text-muted">Birth Date</label>
+            {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
           </div>
         </div>
 
@@ -134,7 +134,7 @@ module.exports = validation(strategy)(React.createClass({
           <a href="#" onClick={this.handleOnSubmit}>S</a>
           <a href="#" onClick={this.props.handleCancel} style={showCancelButton}>C</a>
         </div>
-      </div>
+      </form>
     )
   }
 }));
