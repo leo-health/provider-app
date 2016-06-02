@@ -72,6 +72,7 @@ module.exports = Reflux.createStore({
                       .send(enrollmentParams)
                       .end(function(err, res){
                         if(res.ok){
+                          debugger
                           RegistrationActions.createEnrollmentRequest.completed(res.body, enrollmentParams.nextPage);
                         }else{
                           RegistrationActions.createEnrollmentRequest.failed(res.body);

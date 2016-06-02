@@ -1,4 +1,5 @@
-var React = require('react'),validation = require('react-validation-mixin'),
+var React = require('react'),
+    validation = require('react-validation-mixin'),
     RegistrationActions = require('../../../../actions/registrationActions'),
     Helper = require('../../../../utils/registrationHelper'),
     _ = require('lodash'),
