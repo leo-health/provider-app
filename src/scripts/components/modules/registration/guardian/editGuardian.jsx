@@ -1,9 +1,10 @@
 var React = require('react'),
     _ = require('lodash'),
-    RegistrationActions = require('../../../../actions/registrationActions'),
     Helper = require('../../../../utils/registrationHelper'),
     validation = require('react-validation-mixin'),
+    RegistrationActions = require('../../../../actions/registrationActions'),
     Joi = require('joi'),
+    classNames = require('classnames'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
@@ -29,7 +30,7 @@ module.exports = validation(strategy)(React.createClass({
     }
   },
 
-  handleOnSubmit: function(){
+  handleOnSubmit: function() {
     const onValidate = (error) => {
       if (error) {
         return

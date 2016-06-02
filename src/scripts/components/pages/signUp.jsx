@@ -4,9 +4,6 @@ var React = require('react'),
     {browserHistory, withRouter} = ReactRouter,
     classNames = require('classnames'),
     _ = require('lodash'),
-    validation = require('react-validation-mixin'),
-    Joi = require('joi'),
-    strategy = require('joi-validation-strategy'),
     RegistrationStore = require('../../stores/registrationStore'),
     EnrollmentForm = require('../modules/registration/enrollmentForm'),
     UserInfoForm = require('../modules/registration/userInfoForm'),
@@ -154,8 +151,8 @@ module.exports = React.createClass({
           </div>
 
           <div id="signup_content">
-            {signUpContent}
-
+            <UserInfoForm status={this.state.status}
+                          message={this.state.message}/>
           </div>
         </div>
       </div>

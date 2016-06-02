@@ -6,8 +6,7 @@ var React = require('react'),
     strategy = require('joi-validation-strategy'),
     classNames = require('classnames'),
     RegistrationActions = require('../../../actions/registrationActions'),
-    ErrorAlert = require('../alert/errorAlert'),
-    RegistrationStore = require('../../../stores/registrationStore');
+    ErrorAlert = require('../alert/errorAlert');
 
 module.exports = validation(strategy)(React.createClass({
   validatorTypes: Helper.enrollmentValidatorTypes,
@@ -30,16 +29,15 @@ module.exports = validation(strategy)(React.createClass({
     this.setState({password: e.target.value})
   },
 
-  handleOnSubmit: function(e){
-    e.preventDefault();
+  handleOnSubmit: function() {
     const onValidate = (error) => {
       if (error) {
         return
       } else {
-        debugger
         RegistrationActions.createEnrollmentRequest(_.merge(this.state, {nextPage: 'you'}));
       }
     };
+
     this.props.validate(onValidate);
     this.submitHasBeenAttemptedOnce = true;
   },
