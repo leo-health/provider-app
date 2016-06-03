@@ -49,7 +49,7 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <div className="row">
+      <div className="row well">
         <div className="form-group col-md-8">
           <input type="text"
                  className="form-control"
