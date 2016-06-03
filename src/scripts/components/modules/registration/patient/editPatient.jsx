@@ -113,7 +113,7 @@ module.exports = validation(strategy)(React.createClass({
             <label className="text-muted">Last Name</label>
             {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
           </div>
-          <a href="#" className="col-md-3" onClick={this.props.handleCancel} style={showCancelButton}>
+          <a href="#" className="col-md-4" onClick={this.props.handleCancel} style={showCancelButton}>
             <span className="glyphicon glyphicon-trash pull-right"></span>
           </a>
         </div>

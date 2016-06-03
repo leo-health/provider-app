@@ -78,7 +78,7 @@ module.exports = Reflux.createStore({
                         }
                       })
              }else{
-               this.trigger({status: 'error', errorMessage: "couldn't generate your vendor id"})
+               this.trigger({status: 'error', errorMessage: "Server error, our engineers are working on it."})
              }
            });
   },
@@ -93,7 +93,7 @@ module.exports = Reflux.createStore({
   onCreateEnrollmentRequestFailed: function(response){
     this.trigger({
       status: response.status,
-      message: response.message.user_message,
+      message: response.message.user_message || "Server error, our engineers are working on it.",
       nextPage: false
     })
   },
@@ -150,15 +150,15 @@ module.exports = Reflux.createStore({
            .send(params)
            .end(function(err,res){
              if(res.ok){
-               RegistrationActions.removePatientEnrollmentRequest.completed(res.body)
+               RegistrationActions.removePatientEnrollmentRequest.completed(params)
              }else{
                RegistrationActions.removePatientEnrollmentRequest.failed(res.body)
              }
            })
   },
 
-  onRemovePatientEnrollmentRequestCompleted: function(res) {
-    this.trigger({ deletedPatient: res.data })
+  onRemovePatientEnrollmentRequestCompleted: function(params) {
+    this.trigger({ deletedPatient: {id: params.id}})
   },
 
   onRemovePatientEnrollmentRequestFailed: function(res) {
