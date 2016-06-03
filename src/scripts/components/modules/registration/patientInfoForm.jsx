@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
   addPatient: function(){
     if(this.props.patients.length > 0 && !this.state.edit){
-      return React.createElement('a',  {className: "col-md-1 col-md-offset-11", onClick: this.switchToEdit}, 'add')
+      return <div className="row"><button className="btn btn-primary col-lg-3" onClick={this.switchToEdit}>Add Another</button></div>
     }else{
       return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
     }
@@ -72,6 +72,7 @@ module.exports = React.createClass({
           </div>
         </div>
         <div className="row">
+          <br/>
           <div className="col-lg-6 col-lg-offset-1">
             {this.showPatients()}
             {this.addPatient()}

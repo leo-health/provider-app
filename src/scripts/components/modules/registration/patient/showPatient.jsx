@@ -12,8 +12,8 @@ module.exports = React.createClass({
     var patient = this.props.patient;
 
     return(
-      <div className="row">
-        <div className="form-group col-md-11">
+      <div className="row well">
+        <div className="form-group col-md-10">
           <div className="row">
             <div className="col-md-3">
               {patient.first_name}
@@ -29,10 +29,9 @@ module.exports = React.createClass({
             </div>
           </div>
         </div>
-
-        <div className="form-group col-md-1">
-          <a href="#" onClick={this.props.handleEdit}>E</a>
-          <a href="#" onClick={this.handleDelete}>D</a>
+        <div className="form-group col-md-2">
+          <a className="icon" href="#" onClick={this.handleDelete}><span className="glyphicon glyphicon-trash pull-right"></span></a>
+          <a className="icon" href="#" onClick={this.props.handleEdit}><span className="glyphicon glyphicon-pencil pull-right"></span></a>
         </div>
       </div>
     )

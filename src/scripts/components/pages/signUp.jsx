@@ -10,7 +10,7 @@ var React = require('react'),
     PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
     ReviewForm = require('../modules/registration/reviewForm'),
     ProgressBarMap = {
-      you: ["12%", "1/4", "Personal Information"],
+      you: ["12%", "1/4", "You"],
       patient: ["40%", "2/4", "Add a Child"],
       payment: ["62%", "3/4", "Payment"],
       review: ["90%", "4/4", "Review"]

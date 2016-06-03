@@ -30,7 +30,7 @@ module.exports = validation(strategy)(React.createClass({
         firstName: this.props.patient.first_name,
         lastName: this.props.patient.last_name,
         sex: this.props.patient.sex,
-        birthDate: this.props.patient.birth_date.substring(0,10),
+        birthDate: moment(this.props.patient.birth_date),
         isCreate: false
       }
     }else{
@@ -57,7 +57,8 @@ module.exports = validation(strategy)(React.createClass({
     this.setState({birthDate: date});
   },
 
-  handleOnSubmit: function(){
+  handleOnSubmit: function(e){
+    e.preventDefault();
     const onValidate = (error) => {
       if (error) {
         return
@@ -92,7 +93,7 @@ module.exports = validation(strategy)(React.createClass({
     var showCancelButton = this.props.cancel ? {display: "inline-block"} : {display: "none"};
 
     return(
-      <form className="form-horizontal well">
+      <div className="row well">
         <div className="row">
           <div className="col-md-4">
             <input type="text"
@@ -112,7 +113,11 @@ module.exports = validation(strategy)(React.createClass({
             <label className="text-muted">Last Name</label>
             {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
           </div>
+          <a href="#" className="col-md-3" onClick={this.props.handleCancel} style={showCancelButton}>
+            <span className="glyphicon glyphicon-trash pull-right"></span>
+          </a>
         </div>
+
         <div className="form-group row">
           <div className="col-md-4">
             <select className="form-control"
@@ -137,11 +142,12 @@ module.exports = validation(strategy)(React.createClass({
           </div>
         </div>
 
-        <div className="form-group col-md-1">
-          <a href="#" onClick={this.handleOnSubmit}>S</a>
-          <a href="#" onClick={this.props.handleCancel} style={showCancelButton}>C</a>
+        <div className="form-group row">
+          <div className="col-md-2">
+            <button onClick={this.handleOnSubmit} className="btn btn-primary full-width-button">Done</button>
+          </div>
         </div>
-      </form>
+      </div>
     )
   }
 }));
