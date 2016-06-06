@@ -63,16 +63,16 @@ module.exports = Reflux.createStore({
     });
   },
 
-  onCreateEnrollmentRequest: function(enrollmentParams){
+  onCreateEnrollmentRequest: function(userParams){
     request.get(leo.API_URL+"/ios_configuration")
            .end(function(err, res){
              if(res.ok){
-               enrollmentParams["vendor_id"]= res.body.data.vendor_id;
-               request.post(leo.API_URL+"/enrollments")
-                      .send(enrollmentParams)
+               userParams["vendor_id"]= res.body.data.vendor_id;
+               request.post(leo.API_URL+"/users")
+                      .send(userParams)
                       .end(function(err, res){
                         if(res.ok){
-                          RegistrationActions.createEnrollmentRequest.completed(res.body, enrollmentParams.next_page);
+                          RegistrationActions.createEnrollmentRequest.completed(res.body, userParams.next_page);
                         }else{
                           RegistrationActions.createEnrollmentRequest.failed(res.body);
                         }

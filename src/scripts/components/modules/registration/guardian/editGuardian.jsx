@@ -52,6 +52,7 @@ module.exports = validation(strategy)(React.createClass({
       last_name: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
+      client_version: "1.0.1",
       next_page: "patient"
     })
   },
