@@ -17,6 +17,7 @@ var React = require('react'),
     FourOhFour = require('./pages/404'),
     DeepLink = require('./pages/deepLinkWarning'),
     Success = require('./pages/success'),
+    RegistrationSuccess = require('./modules/registration/registrationSuccess'),
     SignUp = require('./pages/signUp');
 
 window.React = React;
@@ -45,6 +46,7 @@ render((
       <Route path="/privacy" component={Privacy}/>
       <Route path="/invalid-device" component={DeepLink}/>
       <Route path="/success" component={Success}/>
+      <Route path="/registation-success" component={RegistrationSuccess}/>
       <Route path="/signup" component={SignUp}/>
       <Route path="*" component={FourOhFour}/>
     </Route>

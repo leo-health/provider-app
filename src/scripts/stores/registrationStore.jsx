@@ -205,5 +205,25 @@ module.exports = Reflux.createStore({
 
   onFetchPatientsRequestFailed: function(res){
     this.trigger({ status: "error", message: res.error.message })
+  },
+
+  onCreateSubscriptionRequest: function(params){
+    request.post(leo.API_URL + "/subscriptions")
+           .send(params)
+           .end(function(err,res){
+             if(res.ok){
+               RegistrationActions.createSubscriptionRequest.completed(res.body);
+             }else{
+               RegistrationActions.createSubscriptionRequest.failed(res.body)
+             }
+           })
+  },
+
+  onCreateSubscriptionRequestCompleted: function(){
+    this.trigger({ createdSubscription: true })
+  },
+
+  onCreateSubscriptionRequestFailed: function(res){
+    this.trigger({ status: "error", message: res.message.user_message })
   }
 });

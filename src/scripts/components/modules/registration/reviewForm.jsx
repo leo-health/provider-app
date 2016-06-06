@@ -2,6 +2,7 @@ var React = require('react'),
     ReactRouter = require('react-router'),
     {Link} = ReactRouter,
     Helper = require('../../../utils/registrationHelper'),
+    ErrorAlert = require('../alert/errorAlert'),
     RegistrationActions = require('../../../actions/registrationActions'),
     ShowCreditCard = require('./creditCard/showCreditCard'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
@@ -12,7 +13,7 @@ var React = require('react'),
 
 module.exports = React.createClass({
   getInitialState: function() {
-    return({ editGuardian: true, editPayment: true, showAddPatient: false })
+    return({ editGuardian: true, editPayment: true, showAddPatient: false, status: '', message: '' })
   },
 
   editOrShowGuardian: function(){
@@ -92,12 +93,26 @@ module.exports = React.createClass({
     }
   },
 
+  chargeUser: function(){
+    RegistrationActions.createSubscriptionRequest({
+      authentication_token: sessionStorage.enrollmentToken,
+      credit_card_token: this.props.creditCardToken
+    })
+  },
+
   render: function() {
     return (
       <div>
         <div className="row">
-          <div className="col-md-11 col-md-offset-1">
+          <div className="col-md-10 col-md-offset-1">
             <h3 className="signup-header">Let's double check!</h3>
+          </div>
+        </div>
+        <div className="inline-hr"></div>
+        <div className="row">
+          <div className="col-md-10 col-md-offset-1">
+            <ErrorAlert message={this.props.message}
+                        status={this.props.status}/>
           </div>
         </div>
         <br/>
@@ -140,7 +155,11 @@ module.exports = React.createClass({
           </div>
           <div className="col-md-1 col-md-offset-1">
             <div className="form-group">
-              <Link to="/success"><button type="submit" className="btn btn-primary full-width-button">Go!</button></Link>
+              <button type="submit"
+                      onClick={this.chargeUser}
+                      className="btn btn-primary full-width-button">
+                Go!
+              </button>
             </div>
           </div>
         </div>

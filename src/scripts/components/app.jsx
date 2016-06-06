@@ -18,7 +18,7 @@ module.exports = React.createClass({
 
   componentWillMount: function(){
     var currentRouteName = this.props.location.pathname;
-    if (["/resetPassword", "/changePassword", "/registration", "/success", "/404", "/terms", "/privacy", "/acceptInvitation", "/invalid-device", "/signup", "/signup/"].indexOf(currentRouteName) > -1) return;
+    if (["/resetPassword", "/changePassword", "/registration", "/success", "/404", "/terms", "/privacy", "/acceptInvitation", "/invalid-device", "/signup", "/signup/", "/registation-success"].indexOf(currentRouteName) > -1) return;
     this.pageTransition();
   },
 

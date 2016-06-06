@@ -55,7 +55,8 @@ module.exports = React.createClass({
     if(status.deletedPatient) this.setState({patients: _.reject(this.state.patients, {id: status.deletedPatient.id})});
     if(status.updatedPatient) this.setState({patients: this.replacePatient(this.state.patients, status.updatedPatient)});
     if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
-    if(status.nextPage){this.navigateTo(status.nextPage)}
+    if(status.nextPage){this.navigateTo(status.nextPage)};
+    if(status.createdSubscription){}
   },
 
   replacePatient: function(patients, newPatient){
@@ -98,7 +99,10 @@ module.exports = React.createClass({
       case "review":
         page = <ReviewForm navigateTo={this.navigateTo}
                            creditCardBrand={this.state.creditCardBrand}
+                           creditCardToken={this.state.creditCardToken}
                            last4={this.state.last4}
+                           status={this.state.status}
+                           message={this.state.message}
                            patients={this.state.patients}
                            enrollment={this.state.enrollment}/>;
         break;
@@ -143,8 +147,11 @@ module.exports = React.createClass({
           <div id="signup_content">
             <ReviewForm navigateTo={this.navigateTo}
                         creditCardBrand={this.state.creditCardBrand}
+                        creditCardToken={this.state.creditCardToken}
                         last4={this.state.last4}
                         patients={this.state.patients}
+                        status={this.state.status}
+                        message={this.state.message}
                         enrollment={this.state.enrollment}/>
           </div>
         </div>

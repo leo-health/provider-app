@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react'),
+    InviteGuardian = require('./guardian/inviteGuardian');
 
 module.exports = React.createClass({
   render: function(){
@@ -13,6 +14,7 @@ module.exports = React.createClass({
             <img src="../images/screenshot.png"/>
           </div>
         </div>
+        <InviteGuardian/>
       </div>
     )
   }
