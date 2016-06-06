@@ -225,5 +225,25 @@ module.exports = Reflux.createStore({
 
   onCreateSubscriptionRequestFailed: function(res){
     this.trigger({ status: "error", message: res.message.user_message })
+  },
+
+  onInviteSecondParentRequest: function(params){
+    request.post(leo.API_URL + "/enrollments/invite")
+        .send(params)
+        .end(function(err,res){
+          if(res.ok){
+            RegistrationActions.inviteSecondParentRequest.completed(res.body);
+          }else{
+            RegistrationActions.inviteSecondParentRequest.failed(res.body)
+          }
+        })
+  },
+
+  onInviteSecondParentRequestCompleted: function(res){
+    this.trigger({ inviteSuccess: true })
+  },
+
+  onInviteSecondParentRequestFailed: function(res){
+    this.trigger({ status: "error", message: res.message.user_message })
   }
 });

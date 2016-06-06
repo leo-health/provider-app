@@ -1,7 +1,27 @@
 var React = require('react'),
+    Reflux = require('reflux'),
+    ReactRouter = require('react-router'),
+    {browserHistory} = ReactRouter,
+    RegistrationStore = require('../../../stores/registrationStore'),
     InviteGuardian = require('./guardian/inviteGuardian');
 
 module.exports = React.createClass({
+  mixins: [
+    Reflux.listenTo(RegistrationStore, "onStatusChange")
+  ],
+
+  getInitialState: function(){
+    return { display: false }
+  },
+
+  onStatusChange: function(status) {
+    if(status.inviteSuccess) this.setState({ display: true })
+  },
+
+  inputOrDisplay: function(){
+    return this.state.display ? <div className="col-lg-12">Successfully Invited</div> : <InviteGuardian/>
+  },
+
   render: function(){
     return(
       <div className="row">
@@ -14,7 +34,7 @@ module.exports = React.createClass({
             <img src="../images/screenshot.png"/>
           </div>
         </div>
-        <InviteGuardian/>
+        {this.inputOrDisplay()}
       </div>
     )
   }

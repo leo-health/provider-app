@@ -56,7 +56,9 @@ module.exports = React.createClass({
     if(status.updatedPatient) this.setState({patients: this.replacePatient(this.state.patients, status.updatedPatient)});
     if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
     if(status.nextPage){this.navigateTo(status.nextPage)};
-    if(status.createdSubscription){}
+    if(status.createdSubscription){
+      this.context.router.push({pathname: "/registation-success", query: {token: sessionStorage.enrollmentToken}})
+    }
   },
 
   replacePatient: function(patients, newPatient){
@@ -145,14 +147,7 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            <ReviewForm navigateTo={this.navigateTo}
-                        creditCardBrand={this.state.creditCardBrand}
-                        creditCardToken={this.state.creditCardToken}
-                        last4={this.state.last4}
-                        patients={this.state.patients}
-                        status={this.state.status}
-                        message={this.state.message}
-                        enrollment={this.state.enrollment}/>
+            {signUpContent}
           </div>
         </div>
       </div>
