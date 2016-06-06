@@ -15,7 +15,7 @@ module.exports =React.createClass({
           <h4>Basic Info</h4>
         </div>
         <div className="form-group col-md-1">
-          <a onClick={this.props.guardianStateToggle}>edit</a>
+          <a href="#" onClick={this.props.guardianStateToggle}>edit</a>
         </div>
         <div className="form-group col-md-11 col-md-offset-1">
           <div className="row">

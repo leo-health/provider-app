@@ -7,7 +7,7 @@ var React = require('react'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
-  validatorTypes: _.merge(Helper.enrollmentValidatorTypes, Helper.userValidatorTypes),
+  validatorTypes: _.omit(Helper.userValidatorTypes, ['password']),
 
   getValidatorData: function(){
     return this.state
@@ -25,7 +25,8 @@ module.exports = validation(strategy)(React.createClass({
     return { email: '', firstName: '', lastName: '', phone: ''}
   },
 
-  handleOnSubmit: function(){
+  handleOnSubmit: function(e){
+    e.preventDefault();
     const onValidate = (error) => {
       if (error) {
         return
@@ -33,6 +34,7 @@ module.exports = validation(strategy)(React.createClass({
         this.updateEnrollment();
       }
     };
+
     this.props.validate(onValidate);
     this.submitHasBeenAttemptedOnce = true;
   },
@@ -73,8 +75,8 @@ module.exports = validation(strategy)(React.createClass({
         <h4>Basic Info</h4>
       </div>
       <div className="form-group col-md-1">
-        <a onClick={this.handleOnSubmit}>S</a>
-        <a onClick={this.props.guardianStateToggle}>C</a>
+        <a href="#" onClick={this.handleOnSubmit}>S</a>
+        <a href="#" onClick={this.props.guardianStateToggle}>C</a>
       </div>
       <div className="form-group col-md-11 col-md-offset-1">
         <div className="row">
