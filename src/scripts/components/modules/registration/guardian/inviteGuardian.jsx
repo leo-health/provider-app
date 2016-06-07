@@ -1,7 +1,5 @@
 var React = require('react'),
     _ = require('lodash'),
-    ReactRouter = require('react-router'),
-    {browserHistory} = ReactRouter,
     RegistrationActions = require('../../../../actions/registrationActions'),
     Helper = require('../../../../utils/registrationHelper'),
     ErrorAlert = require('../../alert/errorAlert'),
@@ -11,10 +9,6 @@ var React = require('react'),
 
 module.exports = validation(strategy)(React.createClass({
   validatorTypes: _.omit(Helper.userValidatorTypes, ['phone', 'password']),
-
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
 
   getValidatorData: function(){
     return this.state
@@ -39,9 +33,8 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   inviteGuardian: function(){
-    //this.props.location.pathname;
     RegistrationActions.inviteSecondParentRequest({
-      authentication_token: 'DaZ4sE9JVa-S2aJpGEXE',
+      authentication_token: this.props.token,
       email: this.state.email,
       first_name: this.state.firstName,
       last_name: this.state.lastName

@@ -228,7 +228,7 @@ module.exports = Reflux.createStore({
   },
 
   onInviteSecondParentRequest: function(params){
-    request.post(leo.API_URL + "/enrollments/invite")
+    request.post(leo.API_URL + "/family/invite")
         .send(params)
         .end(function(err,res){
           if(res.ok){
