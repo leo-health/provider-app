@@ -39,7 +39,7 @@ module.exports = Reflux.createStore({
            .send(enrollmentParams)
            .end(function(err, res){
               if(res.ok){
-                RegistrationActions.updateEnrollmentRequest.completed(res.body, enrollmentParams.next_page);
+                RegistrationActions.updateEnrollmentRequest.completed(res.body);
               }else{
                 RegistrationActions.updateEnrollmentRequest.failed(res.body);
               }
@@ -50,7 +50,6 @@ module.exports = Reflux.createStore({
     this.trigger({
       action: "update",
       status: response.status,
-      nextPage: nextPage,
       enrollment: response.data.user
     });
   },
@@ -219,7 +218,7 @@ module.exports = Reflux.createStore({
            })
   },
 
-  onCreateSubscriptionRequestCompleted: function(){
+  onCreateSubscriptionRequestCompleted: function(res){
     this.trigger({ createdSubscription: true })
   },
 
