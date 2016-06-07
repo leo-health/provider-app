@@ -56,8 +56,10 @@ module.exports = React.createClass({
     if(status.updatedPatient) this.setState({patients: this.replacePatient(this.state.patients, status.updatedPatient)});
     if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
     if(status.nextPage){this.navigateTo(status.nextPage)};
+    if(status.creditCardToken) fbq('track', 'AddPaymentInfo');
     if(status.createdSubscription){
       this.context.router.push({pathname: "/registation-success", query: {token: sessionStorage.enrollmentToken}})
+      fbq('track', 'Purchase', {value: '1.00', currency: 'USD'});
     }
   },
 

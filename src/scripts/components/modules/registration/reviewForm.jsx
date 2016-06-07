@@ -58,6 +58,10 @@ module.exports = React.createClass({
     RegistrationActions.fetchPatientsRequest(sessionStorage.enrollmentToken)
   },
 
+  componentDidMount: function(){
+    fbq('track', 'CompleteRegistration');
+  },
+
   componentWillReceiveProps: function(nextProps){
     if (nextProps.enrollment) this.setState({editGuardian: true});
     if (nextProps.patients) this.setState({showAddPatient: false})
