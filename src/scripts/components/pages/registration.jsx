@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react'),
     ReactDom = require('react-dom'),
     ReactRouter = require('react-router'),
     Reflux = require('reflux'),
@@ -54,7 +54,6 @@ var Registration  = React.createClass({
 
     var val = this.state[refName];
     var labelOrValidation = (messages.length === 0 ? labelText : messages[0]);
-    // show the label only if there is a message, or the user has replaced the placeholder
     var styles = (val && val.length > 0) || messages.length > 0 ? {} : {visibility: "hidden"};
     return <label style={styles} className={messageClass}>{labelOrValidation}</label>
   },

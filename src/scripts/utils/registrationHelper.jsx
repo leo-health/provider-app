@@ -1,3 +1,6 @@
+var Joi = require('joi'),
+    classNames = require('classnames');
+
 var RegistrationHelper = {
   formatPhoneNumber: function(s) {
     var s2 = (""+s).replace(/\D/g, '');
