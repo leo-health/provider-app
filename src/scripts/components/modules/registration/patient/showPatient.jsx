@@ -9,8 +9,20 @@ module.exports = React.createClass({
   },
 
   formatDisplay: function(patient){
-    var sex = patient.sex === "M" ? 'boy' : 'girl';
-    return patient.first_name + ' ' +  patient.last_name + ' is a ' + sex + ' born at ' + patient.birth_date.substring(0, 10)
+    var text;
+    if(patient.sex === "M"){
+      text = patient.first_name + ' ' +  patient.last_name + ' is a boy born at ' + patient.birth_date.substring(0, 10);
+      return <span className="pull-left">
+               <img src="../images/Avatar_Patient_Son.png" alt="son"/><span> </span>
+               <p style={{display: "inline-block"}} className="lead">{text}</p>
+             </span>
+    }else{
+      text = patient.first_name + ' ' +  patient.last_name + ' is a girl born at ' + patient.birth_date.substring(0, 10);
+      return <span className="pull-left">
+               <img src="../images/Avatar_Patient_Daughter.png" alt="daughter"/><span> </span>
+               <p style={{display: "inline-block"}} className="lead">{text}</p>
+             </span>
+    }
   },
 
   render: function(){
@@ -18,10 +30,7 @@ module.exports = React.createClass({
       <div className="row well">
         <a className="icon" onClick={this.handleDelete}><span className="glyphicon glyphicon-trash pull-right"></span></a>
         <a className="icon" onClick={this.props.handleEdit}><span className="glyphicon glyphicon-pencil pull-right"></span></a>
-        <span className="pull-left">
-          <img src="../images/leo.png" alt="..." />
-          <p style={{display: "inline-block"}} className="lead">{this.formatDisplay(this.props.patient)}</p>
-        </span>
+        {this.formatDisplay(this.props.patient)}
       </div>
     )
   }

@@ -88,8 +88,7 @@ module.exports = React.createClass({
     var page;
     switch(this.state.nextPage){
       case "you":
-        page = <UserInfoForm status={this.state.status}
-                             message={this.state.message}/>;
+        page = <UserInfoForm status={this.state.status} message={this.state.message}/>;
         break;
       case "patient":
         page = <PatientInfoForm navigateTo={this.navigateTo}
@@ -100,8 +99,7 @@ module.exports = React.createClass({
         page = <PaymentInfoForm status={this.state.status} message={this.state.message}/>;
         break;
       case "review":
-        page = <ReviewForm navigateTo={this.navigateTo}
-                           creditCardBrand={this.state.creditCardBrand}
+        page = <ReviewForm creditCardBrand={this.state.creditCardBrand}
                            creditCardToken={this.state.creditCardToken}
                            last4={this.state.last4}
                            status={this.state.status}
@@ -110,16 +108,13 @@ module.exports = React.createClass({
                            enrollment={this.state.enrollment}/>;
         break;
       default:
-        page = <UserInfoForm status={this.state.status}
-                             message={this.state.message}/>;
+        page = <UserInfoForm status={this.state.status} message={this.state.message}/>;
         break;
     }
     return page
   },
 
   render: function(){
-    var signUpContent = this.selectPage();
-
     return(
       <div id="signup_page">
         <div className="row">
@@ -148,7 +143,7 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            <PaymentInfoForm status={this.state.status} message={this.state.message}/>
+            {this.selectPage()}
           </div>
         </div>
       </div>
