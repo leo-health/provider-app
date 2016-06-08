@@ -11,7 +11,7 @@ var RegistrationHelper = {
       "text-muted": message.length === 0
     });
 
-    return <label className={messageClass}>{message[0]}</label>
+    return <label style={{display: "block"}} className={messageClass}>{message[0]}</label>
   },
 
   phoneMask: function(e){

@@ -137,7 +137,7 @@ module.exports = validation(strategy)(React.createClass({
                 showYearDropdown
                 selected={this.state.birthDate}
                 onChange={this.handleBirthDateChange} />
-                <br/>
+            <br/>
             <label className="text-muted">Birth Date</label>
             {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
           </div>
