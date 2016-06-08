@@ -8,20 +8,20 @@ module.exports = React.createClass({
     })
   },
 
+  formatDisplay: function(patient){
+    var sex = patient.sex === "M" ? 'boy' : 'girl';
+    return patient.first_name + ' ' +  patient.last_name + ' is a ' + sex + ' born at ' + patient.birth_date.substring(0, 10)
+  },
+
   render: function(){
-    var patient = this.props.patient;
-
     return(
-      <div className="row well col-md-10">
+      <div className="row well">
         <a className="icon" href="#" onClick={this.handleDelete}><span className="glyphicon glyphicon-trash pull-right"></span></a>
-
         <a className="icon" href="#" onClick={this.props.handleEdit}><span className="glyphicon glyphicon-pencil pull-right"></span></a>
         <span className="pull-left">
           <img src="../images/leo.png" alt="..." />
-            <p className="lead">{patient.first_name} {patient.last_name}
-            {patient.birth_date.substring(0, 10)}</p>
+          <p style={{display: "inline-block"}} className="lead">{this.formatDisplay(this.props.patient)}</p>
         </span>
-
       </div>
     )
   }

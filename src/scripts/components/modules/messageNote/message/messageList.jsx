@@ -93,10 +93,7 @@ module.exports = React.createClass({
     var messageForm;
     if (this.props.conversation) {
       messageForm = (
-        <MessageForm
-          conversation={this.props.conversation}
-          staff={this.props.staff}
-          />
+        <MessageForm conversation={this.props.conversation} staff={this.props.staff}/>
       );
     }
     return (

@@ -55,11 +55,11 @@ module.exports = React.createClass({
     if(status.deletedPatient) this.setState({patients: _.reject(this.state.patients, {id: status.deletedPatient.id})});
     if(status.updatedPatient) this.setState({patients: this.replacePatient(this.state.patients, status.updatedPatient)});
     if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
-    if(status.nextPage){this.navigateTo(status.nextPage)};
-    if(status.creditCardToken) fbq('track', 'AddPaymentInfo');
+    if(status.nextPage) this.navigateTo(status.nextPage);
+    if(status.creditCardToken && leo.env === 'production') fbq('track', 'AddPaymentInfo');
     if(status.createdSubscription){
-      this.context.router.push({pathname: "/registation-success", query: {token: sessionStorage.enrollmentToken}})
-      fbq('track', 'Purchase', {value: '1.00', currency: 'USD'});
+      this.context.router.push({pathname: "/registation-success", query: {token: sessionStorage.enrollmentToken}});
+      if(leo.env === 'production') fbq('track', 'Purchase', {value: '1.00', currency: 'USD'});
     }
   },
 

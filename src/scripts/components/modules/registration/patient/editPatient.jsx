@@ -95,7 +95,7 @@ module.exports = validation(strategy)(React.createClass({
     return(
       <div className="row well">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-5">
             <input type="text"
                    className="form-control"
                    value={this.state.firstName}
@@ -105,7 +105,7 @@ module.exports = validation(strategy)(React.createClass({
             {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
           </div>
 
-          <div className="col-md-6">
+          <div className="col-md-5">
             <input type="text"
                    className="form-control"
                    value={this.state.lastName}
@@ -113,7 +113,7 @@ module.exports = validation(strategy)(React.createClass({
             <label className="text-muted">Last Name</label>
             {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
           </div>
-          <a href="#" className="col-md-4" onClick={this.props.handleCancel} style={showCancelButton}>
+          <a className="col-md-2" onClick={this.props.handleCancel} style={showCancelButton}>
             <span className="glyphicon glyphicon-trash pull-right"></span>
           </a>
         </div>

@@ -34,6 +34,7 @@ module.exports = {
     new webpack.DefinePlugin({
       // This has effect on the react lib size.
       "leo" : {
+        env: 'production',
         API_URL: JSON.stringify(process.env.API_URL),
         PUSHER_APPLICATION_KEY: JSON.stringify(process.env.PUSHER_APPLICATION_KEY),
         STRIPE_KEY: JSON.stringify(process.env.STRIPE_KEY)
