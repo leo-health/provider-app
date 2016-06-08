@@ -148,7 +148,7 @@ module.exports = React.createClass({
     }.bind(this));
 
     return(
-      <div href="#" className={this.props.selected ? "list-group-item active" : "list-group-item"} onClick={this.props.onClick}>
+      <div className={this.props.selected ? "list-group-item active" : "list-group-item"} onClick={this.props.onClick}>
         <h6 className="list-group-item-heading">{primaryGuardian}
           <span className="pull-right">{messageSendAt}</span>
         </h6>
