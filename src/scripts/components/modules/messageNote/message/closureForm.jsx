@@ -14,7 +14,6 @@ module.exports = React.createClass({
     e.preventDefault();
     NoteActions.createCloseNoteRequest(sessionStorage.authenticationToken, this.props.conversation.id, this.state.closureNote);
     this.props.showMessage();
-    //this.setState({closureNote: ""});
   },
 
   render: function(){

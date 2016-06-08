@@ -1,29 +1,11 @@
 var React = require('react'),
-    ReactDom = require('react-dom'),
-    MessageActions = require('../../../../actions/messageActions'),
     SendMessageForm = require('./sendMessageForm'),
     ClosureForm = require('./closureForm'),
-    EscalationForm = require('./escalationForm'),
-    NoteActions = require('../../../../actions/noteActions');
+    EscalationForm = require('./escalationForm');
 
 module.exports = React.createClass({
   getInitialState: function () {
-    return {
-      escalatedToId: 0,
-      priority: 0,
-      action: "message"
-    }
-  },
-
-  handleEscalate: function (e) {
-    e.preventDefault();
-    var note = ReactDom.findDOMNode(this.refs.escalationNote).value.trim();
-    var conversationId = this.props.conversation.id;
-    var escalatedToId = this.state.escalatedToId;
-    var priority = this.state.priority;
-    NoteActions.createEscalateNoteRequest( sessionStorage.authenticationToken, conversationId, escalatedToId, note, priority );
-    this.setState({action: "message"});
-    ReactDom.findDOMNode(this.refs.escalationNote).value = "";
+    return {action: "message"}
   },
 
   showClose: function() {
@@ -38,15 +20,13 @@ module.exports = React.createClass({
     this.setState({ action: "message" })
   },
 
-  setPriority: function(e){
-    this.setState({ priority: e.target.value})
-  },
-
   formSelection: function(){
     var page;
     switch(this.state.action){
       case 'escalate':
-        page = <EscalationForm/>;
+        page = <EscalationForm conversation={this.props.conversation}
+                               staff={this.props.staff}
+                               showMessage={this.showMessage}/>;
         break;
       case 'close':
         page = <ClosureForm conversation={this.props.conversation}
@@ -55,7 +35,7 @@ module.exports = React.createClass({
       default:
         page = <SendMessageForm conversation={this.props.conversation}
                                 showClose={this.showClose}
-                                showEscalatio={this.showEscalation}/>;
+                                showEscalation={this.showEscalation}/>;
         break;
     }
     return page;
