@@ -9,6 +9,10 @@ module.exports = React.createClass({
     this.refs.paymentForm.createCreditCard();
   },
 
+  componentDidMount: function(){
+    if(leo.env === 'production') fbq('track', 'AddPaymentInfo');
+  },
+
   render: function(){
     return(
       <div>
