@@ -8,7 +8,6 @@ var MessageActions = require('../../../../actions/messageActions');
 var NoteActions = require('../../../../actions/noteActions');
 
 module.exports = React.createClass({
-
   componentWillMount: function(){
     this.shouldScrollToBottom = true;
   },
@@ -23,7 +22,7 @@ module.exports = React.createClass({
     var currentUserSentLastMessage = newMessage && newMessage !== lastMessage && currentUser.id == newMessage.created_by.id;
     var selectedConversationWasChanged = newProps.conversation && this.props.conversation && newProps.conversation.id !== this.props.conversation.id;
     var loadingBatchMessages = newProps.page !== this.props.page;
-    var scrollPositionAlreadyAtBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight
+    var scrollPositionAlreadyAtBottom = (node.scrollTop + node.offsetHeight) === node.scrollHeight;
 
     if (currentUserSentLastMessage) this.shouldScrollToBottom = true;
     else if (selectedConversationWasChanged) this.shouldScrollToBottom = true;

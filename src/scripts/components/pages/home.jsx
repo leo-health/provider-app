@@ -10,6 +10,8 @@ var React = require('react'),
 module.exports = React.createClass({
   componentWillMount: function(){
     this.subscribeToPusher();
+    this.subscribeToBrowserTabFocusEvent();
+    this.titleBlink()
   },
 
   subscribeToPusher: function(){
@@ -22,13 +24,10 @@ module.exports = React.createClass({
     });
 
     this.pusher.subscribe('presence-provider_app');
-    this.subscribeToBrowserTabFocusEvent();
   },
 
   subscribeToBrowserTabFocusEvent: function() {
-    window.originalTabTitle = "LeoHealth - WebApp";
-    document.title = window.originalTabTitle;
-
+    window.originalTabTitle = document.title;
     window.onblur = function() {
       window.windowHasFocus = false;
     };
@@ -36,6 +35,18 @@ module.exports = React.createClass({
       window.windowHasFocus = true;
       document.title = window.originalTabTitle;
     };
+  },
+
+  titleBlink: function(){
+    window.flashTitle = function(newMessage, count){
+      function step() {
+        if(window.windowHasFocus) return;
+        document.title = (document.title == window.originalTabTitle) ? newMessage : window.originalTabTitle;
+        if (--count > 0) setTimeout(step, 600)
+      }
+
+      step()
+    }
   },
 
   componentWillUnmount: function () {
