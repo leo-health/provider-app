@@ -11,7 +11,7 @@ var React = require('react'),
     ReviewForm = require('../modules/registration/reviewForm'),
     ProgressBarMap = {
       you: ["12%", "1/4", "You"],
-      patient: ["40%", "2/4", "Add a Child"],
+      patient: ["36%", "2/4", "Add a Child"],
       payment: ["62%", "3/4", "Payment"],
       review: ["90%", "4/4", "Review"]
     };
@@ -143,7 +143,7 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            {this.selectPage()}
+            <UserInfoForm status={this.state.status} message={this.state.message}/>;
           </div>
         </div>
       </div>

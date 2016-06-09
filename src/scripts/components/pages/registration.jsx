@@ -1,10 +1,13 @@
 var React = require('react'),
-    ReactDom = require('react-dom'),
     ReactRouter = require('react-router'),
     Reflux = require('reflux'),
+    _ = require('lodash'),
+    ErrorAlert = require('../modules/alert/errorAlert'),
+    FAQ = require('../modules/registration/faq'),
     RegistrationActions = require('../../actions/registrationActions'),
     RegistrationStore = require('../../stores/registrationStore'),
     classNames = require('classnames'),
+    Helper = require('../../utils/registrationHelper'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
     strategy = require('joi-validation-strategy');
@@ -16,79 +19,35 @@ var Registration  = React.createClass({
     router: React.PropTypes.object.isRequired
   },
 
+  getValidatorData: function(){
+    return this.state;
+  },
+
+  validatorTypes: _.merge(Helper.userValidatorTypes, Helper.passwordConfirmation),
+
+  getInitialState: function() {
+    return { firstName: "", lastName: "", email: "", phone: "", password: "", passwordConfirmation: "", state: "", message: "" }
+  },
+
   componentWillMount: function(){
     RegistrationActions.fetchEnrollmentRequest(this.props.location.query.token);
   },
 
-  validatorTypes: {
-    firstName: Joi.string().min(2).trim().required().label("First name"),
-    lastName: Joi.string().min(2).trim().required().label("Last name"),
-    email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
-    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone"),
-    password: Joi.string().min(8).max(127).trim().required().label("Password"),
-    passwordConfirmation: Joi.any().valid(Joi.ref('password')).required().label("Password confirmation").options({
-      language: {
-        any: {
-          allowOnly: "does not match password"
-        }
-      }
-    })
-  },
-
-  getInitialState: function() {
-    return {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-      passwordConfirmation: ""
-    }
-  },
-
-  renderMessage: function(messages, labelText, refName){
-    var messageClass = classNames({
-      "text-danger": messages.length > 0,
-      "text-muted": messages.length === 0
-    });
-
-    var val = this.state[refName];
-    var labelOrValidation = (messages.length === 0 ? labelText : messages[0]);
-    var styles = (val && val.length > 0) || messages.length > 0 ? {} : {visibility: "hidden"};
-    return <label style={styles} className={messageClass}>{labelOrValidation}</label>
-  },
-
-  onStatusChange: function(response){
-    if(response.status != "error"){
-      switch(response.action) {
-        case "fetch": {
-          var user = response.data.user;
-          this.setState({
-            firstName: user.first_name || "",
-            lastName: user.last_name || "",
-            email: user.email || ""
-          });
-          break;
-        }
-        case "update": {
-          this.context.router.push("registration/completed");
-          break;
-        }
-        case "convert": {
-          this.context.router.push("registration/completed");
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-    }else{
+  onStatusChange: function(status){
+    if(status.action === "update") {
       this.context.router.push("registration/completed");
+      return
     }
-  },
 
-  getValidatorData: function(){
-    return this.state;
+    if(status.action === "fetch"){
+      this.setState({
+        firstName: status.enrollment.first_name,
+        lastName: status.enrollment.last_name,
+        email: status.enrollment.email
+      });
+      return
+    }
+    this.setState(status);
   },
 
   handleOnSubmit: function (e) {
@@ -98,7 +57,7 @@ var Registration  = React.createClass({
         return;
       } else {
         RegistrationActions.updateEnrollmentRequest({
-          authentication_token: this.context.router.getCurrentQuery().token,
+          authentication_token: this.props.location.query.token,
           first_name: this.state.firstName,
           last_name: this.state.lastName,
           email: this.state.email,
@@ -112,88 +71,121 @@ var Registration  = React.createClass({
     this.submitHasBeenAttemptedOnce = true;
   },
 
-  onChange: function(ref) {
-    return event => {
-      if (this.submitHasBeenAttemptedOnce) this.props.handleValidation(ref)();
-      var newState = {};
-      newState[ref] = event.target.value;
-      this.setState(newState);
-    }
+  handleEmailChange: function(e) {
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
+    this.setState({ email: e.target.value })
+  },
+
+  handleFirstNameChange: function(e) {
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
+    this.setState({ firstName: e.target.value })
+  },
+
+  handleLastNameChange: function (e) {
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
+    this.setState({ lastName: e.target.value })
+  },
+
+  handlePhoneChange: function(e) {
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
+    this.setState({ phone: e.target.value })
+  },
+
+  handlePasswordChange: function(e){
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('password')();
+    this.setState({password: e.target.value})
+  },
+
+  handlePasswordConfirmationChange: function(e){
+    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('passwordConfirmation')();
+    this.setState({passwordConfirmation: e.target.value})
   },
 
   render: function(){
-    var formData = [
-      {
-        ftype: "text",
-        ref: "firstName",
-        placeholder: "First name",
-        labelText: "first name"
-      },
-      {
-        ftype: "text",
-        ref: "lastName",
-        placeholder: "Last name",
-        labelText: "last name"
-      },
-      {
-        ftype: "text",
-        ref: "email",
-        placeholder: "Email",
-        labelText: "email"
-      },
-      {
-        ftype: "text",
-        ref: "phone",
-        placeholder: "Phone",
-        labelText: "phone"
-      },
-      {
-        ftype: "password",
-        ref: "password",
-        placeholder: "Password",
-        labelText: "password"
-      },
-      {
-        ftype: "password",
-        ref: "passwordConfirmation",
-        placeholder: "Password Confirmation",
-        labelText: "password confirmation"
-      }
-    ];
-
     return(
-      <div className="container page-header">
+      <div id="signup_page">
         <div className="row">
-          <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4 jumbotron">
-            <form className="form-horizontal" onSubmit={this.handleOnSubmit}>
-              <div className="text-center">
-                <a href="../" className=""><img src="../images/leo.png" alt="..." /></a>
-                <h4>You have been invited to join Leo.</h4>
+          <div className="col-md-10 col-md-offset-1">
+            <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
+            <h4 id="signup_progress" className="signup-header">You are invited to join Leo!</h4>
+            <p className="lead">We are thrilled to welcome you to the practice!
+              We need to collect some information about you and your family in order to get you enrolled in the practice.
+            </p>
+          </div>
+        </div>
+        <br/>
+        <div className="row">
+          <div className="col-md-10 col-md-offset-1">
+            <ErrorAlert message={this.state.message} status={this.state.status}/>
+          </div>
+          <div className="col-md-6 col-md-offset-1">
+            <div className="row well">
+              <div className="form-group col-md-6">
+                <input type="text"
+                       className="form-control"
+                       value={this.state.firstName}
+                       onChange={this.handleFirstNameChange}
+                       autoFocus
+                       ref="firstName"/>
+                <label className="text-muted">First Name</label>
+                {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
               </div>
-              <fieldset>
-                <div className="form-group">
-                  {formData.map(function(fieldData) {
-                  }.bind(this))}
-                  return (
-                  <div>
-                    <input
-                        key={fieldData.ref}
-                        type={fieldData.ftype}
-                        className="form-control"
-                        placeholder={fieldData.placeholder}
-                        onChange={this.onChange(fieldData.ref)}
-                        ref={fieldData.ref}
-                        value={this.state[fieldData.ref]}
-                        />
-                    {this.renderMessage(this.props.getValidationMessages(fieldData.ref), fieldData.labelText, fieldData.ref)}
-                  </div>
-                  )
-                </div>
-                <div className="form-group text-center">
-                  <button type="submit" className="btn btn-primary">Sign Up</button>
-                </div>
-              </fieldset>
-            </form>
+
+              <div className="form-group col-md-6">
+                <input type="text"
+                       className="form-control"
+                       value={this.state.lastName}
+                       onChange={this.handleLastNameChange}
+                       ref="lastName"/>
+                <label className="text-muted">Last Name</label>
+                {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
+              </div>
+
+              <div className="form-group col-md-12">
+                <input type="text"
+                       value={this.state.email}
+                       className="form-control"
+                       onChange={this.handleEmailChange}/>
+                <label className="text-muted">Email</label>
+                {Helper.renderHelpText(this.props.getValidationMessages('email'))}
+              </div>
+
+              <div className="form-group col-md-12">
+                <input type="password"
+                       value={this.state.password}
+                       className="form-control"
+                       onChange={this.handlePasswordChange}/>
+                <label className="text-muted">Password</label>
+                {Helper.renderHelpText(this.props.getValidationMessages('password'))}
+              </div>
+
+              <div className="form-group col-md-12">
+                <input type="password"
+                       value={this.state.passwordConfirmation}
+                       className="form-control"
+                       onChange={this.handlePasswordConfirmationChange}/>
+                <label className="text-muted">Password Confirmation</label>
+                {Helper.renderHelpText(this.props.getValidationMessages('passwordConfirmation'))}
+              </div>
+
+              <div className="form-group col-md-12">
+                <input type="text"
+                       className="form-control"
+                       value={this.state.phone}
+                       onChange={this.handlePhoneChange}
+                       ref="phone"
+                       onInput={Helper.phoneMask}/>
+                <label className="text-muted">Phone</label>
+                {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-4 form-group">
+            <button onClick={this.handleOnSubmit} className="btn btn-lg btn-primary full-width-button">
+              Join
+            </button><br/><br/>
+            <FAQ/>
           </div>
         </div>
       </div>

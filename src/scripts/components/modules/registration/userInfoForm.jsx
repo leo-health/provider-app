@@ -31,11 +31,11 @@ module.exports =React.createClass({
             <EditGuardian ref="editGuardian" insurers={this.props.insurers}/>
           </div>
           <div className="col-md-4 form-group">
-            <button onClick={this.handleOnSubmit}
-                    className="btn btn-lg btn-primary full-width-button">
+            <button onClick={this.handleOnSubmit} className="btn btn-lg btn-primary full-width-button">
               Continue
             </button>
-            <br/><br/>
+            <br/>
+            <br/>
             <FAQ/>
           </div>
         </div>

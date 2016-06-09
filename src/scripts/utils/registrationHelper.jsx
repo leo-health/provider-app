@@ -34,6 +34,16 @@ var RegistrationHelper = {
     firstName: Joi.string().min(2).trim().required().label("First name"),
     lastName: Joi.string().min(2).trim().required().label("Last name"),
     birthDate: Joi.date().max(new Date()).required().label("Birth Date")
+  },
+
+  passwordConfirmation: {
+    passwordConfirmation: Joi.any().valid(Joi.ref('password')).required().label("Password confirmation").options({
+      language: {
+        any: {
+          allowOnly: "does not match password"
+        }
+      }
+    })
   }
 };
 

@@ -20,15 +20,12 @@ module.exports = Reflux.createStore({
   onFetchEnrollmentRequestCompleted: function(response){
     this.trigger({
       action: "fetch",
-      status: response.status,
-      data: response.data,
       enrollment: response.data.user
     });
   },
 
   onFetchEnrollmentRequestFailed: function(response){
     this.trigger({
-      action: "fetch",
       status: response.status,
       message: "There was an error retrieving your enrollment information."
     });
@@ -49,14 +46,12 @@ module.exports = Reflux.createStore({
   onUpdateEnrollmentRequestCompleted: function(response, nextPage){
     this.trigger({
       action: "update",
-      status: response.status,
       enrollment: response.data.user
     });
   },
 
   onUpdateEnrollmentRequestFailed: function(response){
     this.trigger({
-      action: "update",
       status: response.status,
       message: "There was an error updating your enrollment information."
     });
