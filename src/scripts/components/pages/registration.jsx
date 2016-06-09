@@ -23,7 +23,7 @@ var Registration  = React.createClass({
     return this.state;
   },
 
-  validatorTypes: _.merge(Helper.userValidatorTypes, Helper.passwordConfirmation),
+  validatorTypes: _.merge($.extend({}, Helper.userValidatorTypes), Helper.passwordConfirmation),
 
   getInitialState: function() {
     return { firstName: "", lastName: "", email: "", phone: "", password: "", passwordConfirmation: "", state: "", message: "" }
