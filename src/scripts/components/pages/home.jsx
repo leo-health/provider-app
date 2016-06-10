@@ -44,7 +44,6 @@ module.exports = React.createClass({
         document.title = (document.title == window.originalTabTitle) ? newMessage : window.originalTabTitle;
         if (--count > 0) setTimeout(step, 600)
       }
-
       step()
     }
   },

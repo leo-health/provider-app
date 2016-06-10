@@ -49,7 +49,7 @@ module.exports = React.createClass({
       this.setState({editPayment: false})
     }else{
       this.refs.paymentForm.createCreditCard();
-      this.setState({editPayment: false});
+      this.setState({editPayment: true});
     }
   },
 
