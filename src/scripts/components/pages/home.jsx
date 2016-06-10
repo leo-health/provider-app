@@ -67,7 +67,7 @@ module.exports = React.createClass({
               <FindFamily/>
             </div>
           </div>
-           <ConversationList pusher={this.pusher}/>
+          <ConversationList pusher={this.pusher}/>
           <Footer/>
         </div>
       </div>
