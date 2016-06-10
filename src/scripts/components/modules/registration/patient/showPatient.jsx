@@ -27,7 +27,7 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <div className="row well">
+      <div className="well row">
         <a className="icon" onClick={this.handleDelete}><span className="glyphicon glyphicon-trash pull-right"></span></a>
         <a className="icon" onClick={this.props.handleEdit}><span className="glyphicon glyphicon-pencil pull-right"></span></a>
         {this.formatDisplay(this.props.patient)}

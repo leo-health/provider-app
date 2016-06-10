@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
   addPatient: function(){
     if(this.props.patients.length > 0 && !this.state.edit){
-      return <div className="row"><button className="btn btn-primary col-lg-3" onClick={this.switchToEdit}>Add Another</button></div>
+      return <button type="button" className="btn btn-primary full-width-button" onClick={this.switchToEdit}>Add Another</button>
     }else{
       return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
     }
@@ -59,34 +59,30 @@ module.exports = React.createClass({
     });
 
     return(
-      <div>
+      <div className="row">
         <br/>
         <div className="col-lg-11 col-lg-offset-1">
           <h4 className="signup-header">Now it’s time to add children to your account</h4>
           <p className="lead">If you’re an expecting parent, you won’t be able to enroll with Leo until your child is born.</p>
         </div>
-        <div className="inline-hr"></div>
-        <div className="row">
-          <div className="col-lg-10 col-lg-offset-1">
-            <ErrorAlert message={this.state.message}
-                        status={this.state.status}/>
-          </div>
+
+        <div className="col-lg-10 col-lg-offset-1">
+          <ErrorAlert message={this.state.message}
+                      status={this.state.status}/>
         </div>
-        <div className="row">
-          <br/>
-          <div className="col-lg-6 col-lg-offset-1">
-            {this.showPatients()}
-            {this.addPatient()}
-          </div>
-          <div className="col-lg-4">
-            <button type="button"
-                    onClick={this.handleContinue}
-                    className={continueButtonClass}>
-              Continue
-            </button>
-            <br/><br/>
-            <FAQ/>
-          </div>
+        <br/>
+        <div className="col-lg-6 col-lg-offset-1" style={{paddingBottom: "2%"}}>
+          {this.showPatients()}
+          {this.addPatient()}
+        </div>
+        <div className="col-lg-4">
+          <button type="button"
+                  onClick={this.handleContinue}
+                  className={continueButtonClass}>
+            Continue
+          </button>
+          <br/><br/>
+          <FAQ/>
         </div>
       </div>
     )
