@@ -59,7 +59,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    fbq('track', 'CompleteRegistration');
+    if(leo.env === 'production') fbq('track', 'CompleteRegistration');
   },
 
   componentWillReceiveProps: function(nextProps){

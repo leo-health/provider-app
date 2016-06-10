@@ -46,7 +46,7 @@ module.exports = React.createClass({
   handleContinue: function(){
     if(this.props.patients.length > 0){
       this.props.navigateTo('payment');
-      fbq('track', 'AddToCart');
+      if(leo.env === 'production') fbq('track', 'AddToCart');
     }else{
       this.setState({message: "At least one child is required!", status: "error"})
     }
