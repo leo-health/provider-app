@@ -73,6 +73,8 @@ module.exports = React.createClass({
     });
 
     this.setState({
+      status: '',
+      message: '',
       progressBar: ProgressBarMap[destination],
       nextPage: destination
     });

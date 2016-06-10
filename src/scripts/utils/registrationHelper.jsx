@@ -33,7 +33,7 @@ var RegistrationHelper = {
   patientValidatorTypes: {
     firstName: Joi.string().min(2).trim().required().label("First name"),
     lastName: Joi.string().min(2).trim().required().label("Last name"),
-    birthDate: Joi.date().max(new Date()).required().label("Birth Date")
+    birthDate: Joi.date().format('MM-DD-YYYY').max(new Date()).required().label("Birth Date")
   },
 
   passwordConfirmation: {

@@ -151,6 +151,17 @@ var Registration  = React.createClass({
               </div>
 
               <div className="form-group col-md-12">
+                <input type="text"
+                       className="form-control"
+                       value={this.state.phone}
+                       onChange={this.handlePhoneChange}
+                       ref="phone"
+                       onInput={Helper.phoneMask}/>
+                <label className="text-muted">Phone</label>
+                {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
+              </div>
+
+              <div className="form-group col-md-12">
                 <input type="password"
                        value={this.state.password}
                        className="form-control"
@@ -166,17 +177,6 @@ var Registration  = React.createClass({
                        onChange={this.handlePasswordConfirmationChange}/>
                 <label className="text-muted">Password Confirmation</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('passwordConfirmation'))}
-              </div>
-
-              <div className="form-group col-md-12">
-                <input type="text"
-                       className="form-control"
-                       value={this.state.phone}
-                       onChange={this.handlePhoneChange}
-                       ref="phone"
-                       onInput={Helper.phoneMask}/>
-                <label className="text-muted">Phone</label>
-                {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
               </div>
             </div>
           </div>
