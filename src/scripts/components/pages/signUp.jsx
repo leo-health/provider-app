@@ -86,6 +86,12 @@ module.exports = React.createClass({
     sessionStorage.removeItem('enrollmentToken');
   },
 
+  onPatientError: function(){
+    this.setState({
+      status: "error", message: "To join Leo, you need to have at least one child!"
+    })
+  },
+
   selectPage: function(){
     var page;
     switch(this.state.nextPage){
@@ -107,6 +113,7 @@ module.exports = React.createClass({
                            status={this.state.status}
                            message={this.state.message}
                            patients={this.state.patients}
+                           onPatientError={this.onPatientError}
                            enrollment={this.state.enrollment}/>;
         break;
       default:

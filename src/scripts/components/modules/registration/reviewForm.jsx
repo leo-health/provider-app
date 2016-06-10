@@ -98,10 +98,14 @@ module.exports = React.createClass({
   },
 
   chargeUser: function(){
-    RegistrationActions.createSubscriptionRequest({
-      authentication_token: sessionStorage.enrollmentToken,
-      credit_card_token: this.props.creditCardToken
-    })
+    if(this.props.patients.length > 0){
+      RegistrationActions.createSubscriptionRequest({
+        authentication_token: sessionStorage.enrollmentToken,
+        credit_card_token: this.props.creditCardToken
+      })
+    }else{
+      this.props.onPatientError()
+    }
   },
 
   render: function() {
@@ -124,8 +128,6 @@ module.exports = React.createClass({
           <div className="col-md-8 col-md-offset-1">
             {this.editOrShowGuardian()}
             <br/>
-
-
             <div className="row">
               <div className="form-group col-md-10 col-md-offset-1">
                 <h4>Family</h4>

@@ -17,10 +17,11 @@ module.exports = Reflux.createStore({
             });
   },
 
-  onFetchEnrollmentRequestCompleted: function(response){
+  onFetchEnrollmentRequestCompleted: function(res){
     this.trigger({
       action: "fetch",
-      enrollment: response.data.user
+      status: res.status,
+      enrollment: res.data.user
     });
   },
 
@@ -43,16 +44,17 @@ module.exports = Reflux.createStore({
             });
   },
 
-  onUpdateEnrollmentRequestCompleted: function(response, nextPage){
+  onUpdateEnrollmentRequestCompleted: function(res, nextPage){
     this.trigger({
       action: "update",
-      enrollment: response.data.user
+      status: res.status,
+      enrollment: res.data.user
     });
   },
 
-  onUpdateEnrollmentRequestFailed: function(response){
+  onUpdateEnrollmentRequestFailed: function(res){
     this.trigger({
-      status: response.status,
+      status: res.status,
       message: "There was an error updating your enrollment information."
     });
   },
@@ -77,17 +79,18 @@ module.exports = Reflux.createStore({
            });
   },
 
-  onCreateEnrollmentRequestCompleted: function(response, nextPage){
+  onCreateEnrollmentRequestCompleted: function(res, nextPage){
     this.trigger({
-      enrollmentToken: response.data.session.authentication_token,
+      status: res.status,
+      enrollmentToken: res.data.session.authentication_token,
       nextPage: nextPage
     })
   },
 
-  onCreateEnrollmentRequestFailed: function(response){
+  onCreateEnrollmentRequestFailed: function(res){
     this.trigger({
-      status: response.status,
-      message: response.message.user_message || "Server error, our engineers are working on it.",
+      status: res.status,
+      message: res.message.user_message || "Server error, our engineers are working on it.",
       nextPage: false
     })
   },
@@ -104,6 +107,7 @@ module.exports = Reflux.createStore({
 
   onCreateCreditCardRequestCompleted: function(res, nextPage){
     this.trigger({
+      status: res.status,
       nextPage: nextPage,
       creditCardToken: res.id,
       creditCardBrand: res.card.brand,
@@ -132,7 +136,7 @@ module.exports = Reflux.createStore({
   },
 
   onCreatePatientEnrollmentRequestCompleted: function(res){
-    this.trigger({ patient: res.data.patient })
+    this.trigger({ status: res.status, patient: res.data.patient })
   },
 
   onCreatePatientEnrollmentRequestFailed: function(res){
@@ -144,15 +148,15 @@ module.exports = Reflux.createStore({
            .send(params)
            .end(function(err,res){
              if(res.ok){
-               RegistrationActions.removePatientEnrollmentRequest.completed(params)
+               RegistrationActions.removePatientEnrollmentRequest.completed(res, params)
              }else{
                RegistrationActions.removePatientEnrollmentRequest.failed(res.body)
              }
            })
   },
 
-  onRemovePatientEnrollmentRequestCompleted: function(params) {
-    this.trigger({ deletedPatient: {id: params.id}})
+  onRemovePatientEnrollmentRequestCompleted: function(res, params) {
+    this.trigger({ status: res.status, deletedPatient: {id: params.id}})
   },
 
   onRemovePatientEnrollmentRequestFailed: function(res) {
@@ -194,7 +198,7 @@ module.exports = Reflux.createStore({
   },
 
   onFetchPatientsRequestCompleted: function(res){
-    this.trigger({ patients: res.data.patients })
+    this.trigger({ status: res.status, patients: res.data.patients })
   },
 
   onFetchPatientsRequestFailed: function(res){
@@ -214,7 +218,7 @@ module.exports = Reflux.createStore({
   },
 
   onCreateSubscriptionRequestCompleted: function(res){
-    this.trigger({ createdSubscription: true })
+    this.trigger({ status: res.status, createdSubscription: true })
   },
 
   onCreateSubscriptionRequestFailed: function(res){
@@ -234,7 +238,7 @@ module.exports = Reflux.createStore({
   },
 
   onInviteSecondParentRequestCompleted: function(res){
-    this.trigger({ inviteSuccess: true })
+    this.trigger({ status: res.status, inviteSuccess: true })
   },
 
   onInviteSecondParentRequestFailed: function(res){
