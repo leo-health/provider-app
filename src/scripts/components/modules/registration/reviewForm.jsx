@@ -34,7 +34,7 @@ module.exports = React.createClass({
 
   editOrSavePayment: function(isEdit){
     if(isEdit){
-      return <a onClick={this.handlePayment}>edit</a>
+      return <a className="icon" onClick={this.handlePayment}><span className="glyphicon glyphicon-pencil pull-right"></span></a>
     }else{
       return <div className="row"><a onClick={this.handlePayment}>S</a><a onClick={this.cancelPayment}>C</a></div>
     }
@@ -86,7 +86,7 @@ module.exports = React.createClass({
   },
 
   displayOrHideAddPatientButton: function(){
-    return this.props.patients.length > 0 ? {display: "inline-block"} : {display: "none"}
+    return this.props.patients.length > 0 ? {display: "block"} : {display: "none"}
   },
 
   addPatientToggle: function(){
@@ -122,18 +122,18 @@ module.exports = React.createClass({
         <br/>
         <div className="row">
           <div className="col-md-8 col-md-offset-1">
-            <div className="row">
-              {this.editOrShowGuardian()}
-            </div>
+            {this.editOrShowGuardian()}
             <br/>
+
+
             <div className="row">
               <div className="form-group col-md-10 col-md-offset-1">
                 <h4>Family</h4>
               </div>
               <div className="form-group col-md-1">
-                <a onClick={this.addPatientToggle}
+                <a className="icon" onClick={this.addPatientToggle}
                    style={this.displayOrHideAddPatientButton()}>
-                  add
+                  <span className="glyphicon glyphicon-plus pull-right"></span>
                 </a>
               </div>
               <div className="form-group col-md-11 col-md-offset-1">
@@ -144,6 +144,7 @@ module.exports = React.createClass({
                 {this.state.showAddPatient}
               </div>
             </div>
+
             <br/>
             <div className="row">
               <div className="form-group col-md-10 col-md-offset-1">

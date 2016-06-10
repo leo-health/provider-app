@@ -75,8 +75,8 @@ module.exports = validation(strategy)(React.createClass({
         <h4>Basic Info</h4>
       </div>
       <div className="form-group col-md-1">
-        <a onClick={this.handleOnSubmit}>S</a>
-        <a onClick={this.props.guardianStateToggle}>C</a>
+        <a onClick={this.handleOnSubmit}><span className="glyphicon glyphicon-ok"></span></a>
+        <a onClick={this.props.guardianStateToggle}><span className="glyphicon glyphicon-remove"></span></a>
       </div>
       <div className="form-group col-md-11 col-md-offset-1">
         <div className="row">

@@ -10,12 +10,14 @@ module.exports =React.createClass({
     }
 
     return(
-      <div>
+      <div className="row">
         <div className="form-group col-md-10 col-md-offset-1">
           <h4>Basic Info</h4>
         </div>
         <div className="form-group col-md-1">
-          <a onClick={this.props.guardianStateToggle}>edit</a>
+          <a className="icon" onClick={this.props.guardianStateToggle}>
+            <span className="glyphicon glyphicon-pencil pull-right"></span>
+          </a>
         </div>
         <div className="form-group col-md-11 col-md-offset-1">
           <div className="row">
