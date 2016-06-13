@@ -1,104 +1,132 @@
 var React = require('react'),
-    ReactRouter = require('react-router'),
     Reflux = require('reflux'),
-    _ = require('lodash'),
-    ErrorAlert = require('../modules/alert/errorAlert'),
-    FAQ = require('../modules/registration/guardian/userFaq'),
-    RegistrationActions = require('../../actions/registrationActions'),
-    RegistrationStore = require('../../stores/registrationStore'),
+    ReactRouter = require('react-router'),
+    {browserHistory, withRouter} = ReactRouter,
     classNames = require('classnames'),
-    Helper = require('../../utils/registrationHelper'),
-    validation = require('react-validation-mixin'),
-    Joi = require('joi'),
-    strategy = require('joi-validation-strategy');
+    _ = require('lodash'),
+    RegistrationStore = require('../../stores/registrationStore'),
+    UserInfoForm = require('../modules/registration/userInfoForm'),
+    PatientInfoForm = require('../modules/registration/patientInfoForm'),
+    PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
+    ReviewForm = require('../modules/registration/reviewForm'),
+    ProgressBarMap = {
+      you: ["12%", "1/4", "You"],
+      patient: ["36%", "2/4", "Add a Child"],
+      payment: ["62%", "3/4", "Payment"],
+      review: ["90%", "4/4", "Review"]
+    };
 
-var Registration  = React.createClass({
-  mixins: [Reflux.listenTo(RegistrationStore, "onStatusChange")],
+module.exports = React.createClass({
+  mixins: [
+    Reflux.listenTo(RegistrationStore, "onRegistrationStatusChange")
+  ],
 
   contextTypes: {
-    router: React.PropTypes.object.isRequired
+    router: React.PropTypes.object
   },
 
-  getValidatorData: function(){
-    return this.state;
+  getInitialState: function(){
+    return {
+      enrollment: '',
+      patients: [],
+      creditCardToken: '',
+      creditCardBrand: '',
+      last4: '',
+      nextPage: 'you',
+      progressBar: ProgressBarMap.you,
+      status: '',
+      message: ''
+    }
   },
 
-  validatorTypes: _.merge($.extend({}, Helper.userValidatorTypes), Helper.passwordConfirmation),
-
-  getInitialState: function() {
-    return { firstName: "", lastName: "", email: "", phone: "", password: "", passwordConfirmation: "", state: "", message: "" }
+  componentDidMount: function(){
+    Stripe.setPublishableKey(leo.STRIPE_KEY);
+    if(PRODUCTION){
+      fbq('init', '830521543747446');
+      fbq('track', "PageView");
+      ga('create', 'UA-56852793-1', 'auto');
+      ga('send', 'pageview');
+    }
   },
 
   componentWillMount: function(){
-    RegistrationActions.fetchEnrollmentRequest(this.props.location.query.token);
-  },
-
-  onStatusChange: function(status){
-    if(status.action === "update") {
-      this.context.router.push("registration/completed");
-      return
-    }
-
-    if(status.action === "fetch"){
-      this.setState({
-        firstName: status.enrollment.first_name,
-        lastName: status.enrollment.last_name,
-        email: status.enrollment.email
-      });
-      return
-    }
-    this.setState(status);
-  },
-
-  handleOnSubmit: function (e) {
-    e.preventDefault();
-    const onValidate = (error) => {
-      if (error) {
-        return;
-      } else {
-        RegistrationActions.updateEnrollmentRequest({
-          authentication_token: this.props.location.query.token,
-          first_name: this.state.firstName,
-          last_name: this.state.lastName,
-          email: this.state.email,
-          phone: this.state.phone,
-          password: this.state.password
-        })
-      }
+    window.onbeforeunload = function(){
+      return "You will lose all unsaved changes to your application."
     };
-
-    this.props.validate(onValidate);
-    this.submitHasBeenAttemptedOnce = true;
   },
 
-  handleEmailChange: function(e) {
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
-    this.setState({ email: e.target.value })
+  onRegistrationStatusChange: function(status){
+    this.setState(status);
+    if(status.patient) this.setState({patients: this.state.patients.concat(status.patient)});
+    if(status.deletedPatient) this.setState({patients: _.reject(this.state.patients, {id: status.deletedPatient.id})});
+    if(status.updatedPatient) this.setState({patients: this.replacePatient(this.state.patients, status.updatedPatient)});
+    if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
+    if(status.nextPage) this.navigateTo(status.nextPage);
+    if(status.createdSubscription){
+      this.context.router.push({pathname: "/registation/success", query: {token: sessionStorage.enrollmentToken}});
+      if(leo.env === 'production') fbq('track', 'Purchase', {value: '1.00', currency: 'USD'});
+    }
   },
 
-  handleFirstNameChange: function(e) {
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
-    this.setState({ firstName: e.target.value })
+  replacePatient: function(patients, newPatient){
+    return _.map(patients, function(patient){ return (patient.id === newPatient.id) ? newPatient : patient })
   },
 
-  handleLastNameChange: function (e) {
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
-    this.setState({ lastName: e.target.value })
+  navigateTo: function(destination){
+    this.context.router.push({
+      pathname: "/registration",
+      query: {page: destination}
+    });
+
+    this.setState({
+      status: '',
+      message: '',
+      progressBar: ProgressBarMap[destination],
+      nextPage: destination
+    });
+
+    return false;
   },
 
-  handlePhoneChange: function(e) {
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
-    this.setState({ phone: e.target.value })
+  componentWillUnmount: function(){
+    sessionStorage.removeItem('enrollmentToken');
   },
 
-  handlePasswordChange: function(e){
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('password')();
-    this.setState({password: e.target.value})
+  onPatientError: function(){
+    this.setState({
+      status: "error", message: "To join Leo, you need to have at least one child!"
+    })
   },
 
-  handlePasswordConfirmationChange: function(e){
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('passwordConfirmation')();
-    this.setState({passwordConfirmation: e.target.value})
+  selectPage: function(){
+    var page;
+    switch(this.state.nextPage){
+      case "you":
+        page = <UserInfoForm status={this.state.status} message={this.state.message}/>;
+        break;
+      case "patient":
+        page = <PatientInfoForm navigateTo={this.navigateTo}
+                                patients={this.state.patients}
+                                enrollment={this.state.enrollment}/>;
+        break;
+      case "payment":
+        page = <PaymentInfoForm status={this.state.status} message={this.state.message}/>;
+        break;
+      case "review":
+        page = <ReviewForm creditCardBrand={this.state.creditCardBrand}
+                           creditCardToken={this.state.creditCardToken}
+                           last4={this.state.last4}
+                           status={this.state.status}
+                           message={this.state.message}
+                           patients={this.state.patients}
+                           onPatientError={this.onPatientError}
+                           enrollment={this.state.enrollment}/>;
+        break;
+      default:
+        page = <UserInfoForm status={this.state.status} message={this.state.message}/>;
+        break;
+    }
+    return page
   },
 
   render: function(){
@@ -107,90 +135,33 @@ var Registration  = React.createClass({
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
             <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
-            <h4 id="signup_progress" className="signup-header">You are invited to join Leo!</h4>
-            <p className="lead">We are thrilled to welcome you to the practice!
-              We need to collect some information about you and your family in order to get you enrolled in the practice.
-            </p>
-          </div>
-        </div>
-        <br/>
-        <div className="row">
-          <div className="col-md-10 col-md-offset-1">
-            <ErrorAlert message={this.state.message} status={this.state.status}/>
-          </div>
-          <div className="col-md-6 col-md-offset-1">
-            <div className="row well">
-              <div className="form-group col-md-6">
-                <input type="text"
-                       className="form-control"
-                       value={this.state.firstName}
-                       onChange={this.handleFirstNameChange}
-                       autoFocus
-                       ref="firstName"/>
-                <label className="text-muted">First Name</label>
-                {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
+            <div id="signup_progress">
+              <div className="progress-text" id="progress_xs">
+                <span className="signup-xs-text">({this.state.progressBar[1]}) {this.state.progressBar[2]}</span>
               </div>
-
-              <div className="form-group col-md-6">
-                <input type="text"
-                       className="form-control"
-                       value={this.state.lastName}
-                       onChange={this.handleLastNameChange}
-                       ref="lastName"/>
-                <label className="text-muted">Last Name</label>
-                {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
-              </div>
-
-              <div className="form-group col-md-12">
-                <input type="text"
-                       value={this.state.email}
-                       className="form-control"
-                       onChange={this.handleEmailChange}/>
-                <label className="text-muted">Email</label>
-                {Helper.renderHelpText(this.props.getValidationMessages('email'))}
-              </div>
-
-              <div className="form-group col-md-12">
-                <input type="text"
-                       className="form-control"
-                       value={this.state.phone}
-                       onChange={this.handlePhoneChange}
-                       ref="phone"
-                       onInput={Helper.phoneMask}/>
-                <label className="text-muted">Phone</label>
-                {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
-              </div>
-
-              <div className="form-group col-md-12">
-                <input type="password"
-                       value={this.state.password}
-                       className="form-control"
-                       onChange={this.handlePasswordChange}/>
-                <label className="text-muted">Password</label>
-                {Helper.renderHelpText(this.props.getValidationMessages('password'))}
-              </div>
-
-              <div className="form-group col-md-12">
-                <input type="password"
-                       value={this.state.passwordConfirmation}
-                       className="form-control"
-                       onChange={this.handlePasswordConfirmationChange}/>
-                <label className="text-muted">Password Confirmation</label>
-                {Helper.renderHelpText(this.props.getValidationMessages('passwordConfirmation'))}
+              <div className="progress-text" id="progress">
+                <div className="progress-table">
+                  <div className="signup-progress-text progress-text-container">{ProgressBarMap.you[2]}</div>
+                  <div className="progress-text-spacer"></div>
+                  <div className="signup-progress-text progress-text-container">{ProgressBarMap.patient[2]}</div>
+                  <div className="progress-text-spacer"></div>
+                  <div className="signup-progress-text progress-text-container">{ProgressBarMap.payment[2]}</div>
+                  <div className="progress-text-spacer"></div>
+                  <div className="signup-progress-text progress-text-container">{ProgressBarMap.review[2]}</div>
+                </div>
+                <div className="progress progress-table">
+                  <div className="progress-bar" style={{width: this.state.progressBar[0]}}></div>
+                </div>
               </div>
             </div>
           </div>
-
-          <div className="col-md-4 form-group">
-            <button onClick={this.handleOnSubmit} className="btn btn-lg btn-primary full-width-button">
-              Join
-            </button><br/><br/>
-            <FAQ/>
+        </div>
+        <div className="row">
+          <div id="signup_content">
+            {this.selectPage()}
           </div>
         </div>
       </div>
     )
   }
 });
-
-module.exports = validation(strategy)(Registration);

@@ -9,7 +9,7 @@ var React = require('react'),
     Home = require('./pages/home'),
     ResetPassword = require('./pages/resetPassword'),
     ChangePassword = require('./pages/changePassword'),
-    Registration = require('./pages/registration'),
+    Invite = require('./pages/invite'),
     SecondaryUserSuccess = require('./pages/secondaryUserSignUp'),
     AcceptInvitation = require('./pages/acceptInvitation'),
     Terms = require('./pages/terms'),
@@ -18,7 +18,7 @@ var React = require('react'),
     DeepLink = require('./pages/deepLinkWarning'),
     Success = require('./pages/success'),
     RegistrationSuccess = require('./modules/registration/registrationSuccess'),
-    SignUp = require('./pages/signUp');
+    Registration = require('./pages/registration');
 
 window.React = React;
 
@@ -35,20 +35,21 @@ render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Home} onEnter={requireAuth}/>
-      <Route path="/login" component={Login}/>
-      <Route path ="/resetPassword" component={ResetPassword}/>
-      <Route path ="/changePassword" component={ChangePassword}/>
-      <Route path ="/registration" component={Registration}/>
-      <Route path ="/registration/completed" component={SecondaryUserSuccess}/>
-      <Route path ="/acceptInvitation" component={AcceptInvitation}/>
-      <Route path="/home" component={Home} onEnter={requireAuth}/>
-      <Route path="/terms" component={Terms}/>
-      <Route path="/privacy" component={Privacy}/>
-      <Route path="/invalid-device" component={DeepLink}/>
-      <Route path="/success" component={Success}/>
-      <Route path="/registation-success" component={RegistrationSuccess}/>
-      <Route path="/signup" component={SignUp}/>
+      <Route path="login" component={Login}/>
+      <Route path ="resetPassword" component={ResetPassword}/>
+      <Route path ="changePassword" component={ChangePassword}/>
+      <Route path="home" component={Home} onEnter={requireAuth}/>
+      <Route path="terms" component={Terms}/>
+      <Route path="privacy" component={Privacy}/>
+      <Route path="invalid-device" component={DeepLink}/>
+      <Route path="registration" component={Registration}/>
+      <Route path="registration/success" component={RegistrationSuccess}/>
+      <Route path ="registration/invite" component={Invite}/>
+      <Route path ="registration/invite/success" component={SecondaryUserSuccess}/>
+      <Route path ="registration/acceptInvitation" component={AcceptInvitation}/>
       <Route path="*" component={FourOhFour}/>
     </Route>
   </Router>
 ), document.getElementById("container"));
+
+//<Route path="success" component={Success}/>
