@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
   addPatient: function(){
     if(this.props.patients.length > 0 && !this.state.edit){
-      return <button type="button" className="btn btn-primary full-width-button" onClick={this.switchToEdit}>Add Another</button>
+      return <button type="button" className="btn btn-primary" onClick={this.switchToEdit}>Add Another</button>
     }else{
       return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
     }
@@ -54,8 +54,8 @@ module.exports = React.createClass({
 
   render: function(){
     var continueButtonClass = classNames({
-      "btn btn-primary full-width-button": this.props.patients.length > 0,
-      "btn btn-primary full-width-button disabled": this.props.patients < 1
+      "btn btn-primary btn-lg full-width-button": this.props.patients.length > 0,
+      "btn btn-primary btn-lg full-width-button disabled": this.props.patients < 1
     });
 
     return(
