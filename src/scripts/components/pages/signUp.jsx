@@ -41,7 +41,7 @@ module.exports = React.createClass({
 
   componentDidMount: function(){
     Stripe.setPublishableKey(leo.STRIPE_KEY);
-    if(leo.env === "production"){
+    if(PRODUCTION){
       fbq('init', '830521543747446');
       fbq('track', "PageView");
       ga('create', 'UA-56852793-1', 'auto');

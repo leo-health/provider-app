@@ -5,7 +5,7 @@ var React = require('react'),
     moment = require('moment'),
     ErrorAlert = require('../alert/errorAlert'),
     EditPatient = require('./patient/editPatient'),
-    FAQ = require('./faq'),
+    FAQ = require('./patient/patientFaq'),
     SinglePatient = require('./patient/singlePatient');
 
 module.exports = React.createClass({

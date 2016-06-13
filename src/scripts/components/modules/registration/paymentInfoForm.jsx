@@ -1,7 +1,7 @@
 var React = require('react'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
     ErrorAlert = require('../alert/errorAlert'),
-    FAQ = require('./faq'),
+    FAQ = require('./creditCard/paymentFaq'),
     RegistrationActions = require('../../../actions/registrationActions');
 
 module.exports = React.createClass({

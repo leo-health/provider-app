@@ -1,6 +1,6 @@
 var React = require('react'),
     ErrorAlert = require('../alert/errorAlert'),
-    FAQ = require('./faq'),
+    FAQ = require('./guardian/userFaq'),
     EditGuardian = require('./guardian/editGuardian');
 
 module.exports =React.createClass({
