@@ -20,7 +20,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialState: function(){
-    return this.getInitialPatient()
+    return _.merge(this.getInitialPatient(), { disabled: false })
   },
 
   getInitialPatient: function(){
@@ -64,6 +64,7 @@ module.exports = validation(strategy)(React.createClass({
         return
       } else {
         this.state.isCreate ? this.createPatient() : this.updatePatient()
+        this.setState({disabled: true})
       }
     };
     this.props.validate(onValidate);
@@ -147,7 +148,11 @@ module.exports = validation(strategy)(React.createClass({
 
         <div className="row">
           <div className="col-lg-4">
-            <button onClick={this.handleOnSubmit} className="btn btn-primary">Done</button>
+            <button onClick={this.handleOnSubmit}
+                    disabled={this.state.disabled}
+                    className="btn btn-primary">
+              Done
+            </button>
           </div>
         </div>
       </div>
