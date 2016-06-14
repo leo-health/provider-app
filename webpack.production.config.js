@@ -32,7 +32,6 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      PRODUCTION: true,
       "leo" : {
         API_URL: JSON.stringify(process.env.API_URL),
         PUSHER_APPLICATION_KEY: JSON.stringify(process.env.PUSHER_APPLICATION_KEY),
