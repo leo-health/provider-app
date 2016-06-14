@@ -4,12 +4,7 @@ var React = require('react'),
 
 module.exports = React.createClass({
   getInitialState: function(){
-    return {
-      cardNumber: "",
-      zip: "",
-      expirationDate: "",
-      cvc: ""
-    }
+    return { cardNumber: "", zip: "", expirationDate: "", cvc: "" }
   },
 
   createCreditCard: function(creditCardComponent){
@@ -20,6 +15,10 @@ module.exports = React.createClass({
       exp_year: this.state.expirationDate.substring(3,5),
       address_zip: this.state.zip
     }, "review");
+  },
+
+  componentWillReceiveProps: function(nextProps){
+    if(nextProps.status === "error" && this.state.disabled) this.setState({disabled: fals})
   },
 
   handleCardChange: function(e){

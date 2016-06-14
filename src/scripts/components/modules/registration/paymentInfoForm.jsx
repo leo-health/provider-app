@@ -5,12 +5,21 @@ var React = require('react'),
     RegistrationActions = require('../../../actions/registrationActions');
 
 module.exports = React.createClass({
+  getInitialState: function(){
+    return { disabled: false }
+  },
+
   handleOnClick: function(){
     this.refs.paymentForm.createCreditCard();
+    this.setState({disabled: true})
   },
 
   componentDidMount: function(){
     if(leo.env === 'production') fbq('track', 'AddPaymentInfo');
+  },
+
+  componentWillReceiveProps: function(nextProps){
+    if(nextProps.status === "error" && this.state.disabled) this.setState({disabled: false})
   },
 
   render: function(){
@@ -39,6 +48,7 @@ module.exports = React.createClass({
           </div>
           <div className="col-md-4 form-group">
             <button onClick={this.handleOnClick}
+                    disabled = {this.state.disabled}
                     className="btn btn-primary full-width-button">
               Continue
             </button>

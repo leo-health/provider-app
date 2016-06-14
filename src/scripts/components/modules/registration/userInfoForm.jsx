@@ -17,7 +17,7 @@ module.exports =React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps){
-    if(nextProps.status === "error" && this.state.disabled) this.setState({disabled: fals})
+    if(nextProps.status === "error" && this.state.disabled) this.setState({disabled: false})
   },
 
   render: function () {
