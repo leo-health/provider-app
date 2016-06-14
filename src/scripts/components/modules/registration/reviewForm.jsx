@@ -34,9 +34,12 @@ module.exports = React.createClass({
 
   editOrSavePayment: function(isEdit){
     if(isEdit){
-      return <a className="icon" onClick={this.handlePayment}><span className="glyphicon glyphicon-pencil pull-right"></span></a>
+      return <a className="icon" onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-pencil pull-right"></span></a>
     }else{
-      return <div className="row"><a onClick={this.handlePayment}>S</a><a onClick={this.cancelPayment}>C</a></div>
+      return <div className="row">
+               <a onClick={this.cancelPayment}><span className="registration-icon glyphicon glyphicon-remove pull-right"></span></a>
+               <a onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-ok pull-right"></span></a>
+             </div>
     }
   },
 

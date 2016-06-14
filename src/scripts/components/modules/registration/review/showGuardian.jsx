@@ -16,7 +16,7 @@ module.exports =React.createClass({
         </div>
         <div className="form-group col-md-1">
           <a className="icon" onClick={this.props.guardianStateToggle}>
-            <span className="glyphicon glyphicon-pencil pull-right"></span>
+            <span className="registration-icon glyphicon glyphicon-pencil pull-right"></span>
           </a>
         </div>
         <div className="form-group col-md-11 col-md-offset-1">

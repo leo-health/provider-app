@@ -71,12 +71,12 @@ module.exports = validation(strategy)(React.createClass({
   render: function(){
     return(
      <div>
-      <div className="form-group col-md-10 col-md-offset-1">
+      <div className="form-group col-md-9 col-md-offset-1">
         <h4>Basic Info</h4>
       </div>
-      <div className="form-group col-md-1">
-        <a onClick={this.handleOnSubmit}><span className="glyphicon glyphicon-ok"></span></a>
-        <a onClick={this.props.guardianStateToggle}><span className="glyphicon glyphicon-remove"></span></a>
+      <div className="form-group col-md-2">
+        <a onClick={this.props.guardianStateToggle}><span className="registration-icon glyphicon glyphicon-remove pull-right"></span></a>
+        <a onClick={this.handleOnSubmit}><span className="registration-icon glyphicon glyphicon-ok pull-right"></span></a>
       </div>
       <div className="form-group col-md-11 col-md-offset-1">
         <div className="row">
