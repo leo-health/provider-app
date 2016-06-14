@@ -218,7 +218,7 @@ module.exports = Reflux.createStore({
   },
 
   onCreateSubscriptionRequestCompleted: function(res){
-    this.trigger({ status: res.status, createdSubscription: true })
+    this.trigger({ status: res.status, createdSubscription: true, quantity: data.subscriptions.data[0].plan.amount })
   },
 
   onCreateSubscriptionRequestFailed: function(res){

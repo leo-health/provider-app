@@ -64,7 +64,9 @@ module.exports = React.createClass({
     if(status.nextPage) this.navigateTo(status.nextPage);
     if(status.createdSubscription){
       this.context.router.push({pathname: "/registation/success", query: {token: sessionStorage.enrollmentToken}});
-      if(leo.env === 'production') fbq('track', 'Purchase', {value: '1.00', currency: 'USD'});
+      if(leo.env === 'production'){
+        fbq('track', 'Purchase', {value: status.quantity * 20, currency: 'USD'});
+      }
     }
   },
 
