@@ -16,20 +16,19 @@ var React = require('react'),
     Privacy = require('./pages/privacy'),
     FourOhFour = require('./pages/404'),
     DeepLink = require('./pages/deepLinkWarning'),
-    Success = require('./pages/success'),
     RegistrationSuccess = require('./modules/registration/registrationSuccess'),
     Registration = require('./pages/registration');
 
 window.React = React;
 
-function requireAuth(nextState, replace){
+requireAuth = function(nextState, replace) {
   if(!SessionStore.getSession().isLoggedIn){
     replace({
       pathname: "/login",
       state: { nextPathname: nextState.location.pathname }
     })
   }
-}
+};
 
 render((
   <Router history={browserHistory}>
@@ -51,5 +50,3 @@ render((
     </Route>
   </Router>
 ), document.getElementById("container"));
-
-//<Route path="success" component={Success}/>

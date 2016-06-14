@@ -34,7 +34,7 @@ module.exports = validation(strategy)(React.createClass({
         isCreate: false
       }
     }else{
-      return { firstName: '', lastName: '', sex: 'M', birthDate: undefined, isCreate: true}
+      return { firstName: '', lastName: '', sex: 'M', birthDate: undefined, isCreate: true }
     }
   },
 
