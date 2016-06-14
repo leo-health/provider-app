@@ -63,7 +63,7 @@ module.exports = React.createClass({
     if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
     if(status.nextPage) this.navigateTo(status.nextPage);
     if(status.createdSubscription){
-      this.context.router.push({pathname: "/registation/success", query: {token: sessionStorage.enrollmentToken}});
+      this.context.router.push({pathname: "/registration/success", query: {token: sessionStorage.enrollmentToken}});
       if(leo.env === 'production'){
         var value = parseInt(status.quantity) * 20;
         fbq('track', 'Purchase', {value: value.toString(), currency: 'USD'});
