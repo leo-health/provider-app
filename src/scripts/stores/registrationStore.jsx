@@ -6,7 +6,7 @@ module.exports = Reflux.createStore({
   listenables: [RegistrationActions],
 
   onFetchEnrollmentRequest: function(token){
-    request.get(leo.API_URL+"/enrollments/current")
+    request.get(leo.API_URL+"/users")
            .query({ authentication_token: token })
            .end(function(err, res){
               if(res.ok){
@@ -140,7 +140,7 @@ module.exports = Reflux.createStore({
   },
 
   onCreatePatientEnrollmentRequestFailed: function(res){
-    this.trigger({ error: res.data.message })
+    this.trigger({ error: 'Having problem creating records, please try again!'  })
   },
 
   onRemovePatientEnrollmentRequest: function (params) {
@@ -161,7 +161,7 @@ module.exports = Reflux.createStore({
 
   onRemovePatientEnrollmentRequestFailed: function(res) {
     this.trigger({
-      status: "error", message: res.error.message
+      status: "error", message: 'Having problem removing records, please try again!'
     })
   },
 
@@ -182,7 +182,7 @@ module.exports = Reflux.createStore({
   },
 
   onUpdatePatientEnrollmentRequestFailed: function(res){
-    this.trigger({ status: "error", message: res.error.message })
+    this.trigger({ status: "error", message: 'Having problem updating records, please try again!'  })
   },
 
   onFetchPatientsRequest: function(params){
@@ -202,7 +202,7 @@ module.exports = Reflux.createStore({
   },
 
   onFetchPatientsRequestFailed: function(res){
-    this.trigger({ status: "error", message: res.error.message })
+    this.trigger({ status: "error", message: 'Having problem fetching records, please try again!' })
   },
 
   onCreateSubscriptionRequest: function(params){
@@ -218,7 +218,7 @@ module.exports = Reflux.createStore({
   },
 
   onCreateSubscriptionRequestCompleted: function(res){
-    this.trigger({ status: res.status, createdSubscription: true, quantity: data.subscriptions.data[0].plan.amount })
+    this.trigger({ status: res.status, createdSubscription: true, quantity: res.data.subscriptions.data[0].quantity })
   },
 
   onCreateSubscriptionRequestFailed: function(res){
