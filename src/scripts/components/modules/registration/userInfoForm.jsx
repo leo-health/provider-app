@@ -4,8 +4,20 @@ var React = require('react'),
     EditGuardian = require('./guardian/editGuardian');
 
 module.exports =React.createClass({
+  getInitialState: function(){
+    return {disabled: false}
+  },
+
   handleOnSubmit: function (e) {
     this.refs.editGuardian.refs.component.handleOnSubmit();
+  },
+
+  setDisableState: function(){
+    this.setState({disabled: true})
+  },
+
+  componentWillReceiveProps: function(nextProps){
+    if(nextProps.status === "error" && this.state.disabled) this.setState({disabled: fals})
   },
 
   render: function () {
@@ -28,10 +40,14 @@ module.exports =React.createClass({
         </div>
         <div className="row">
           <div className="col-md-6 col-md-offset-1">
-            <EditGuardian ref="editGuardian" insurers={this.props.insurers}/>
+            <EditGuardian ref="editGuardian"
+                          insurers={this.props.insurers}
+                          setDisableState={this.setDisableState}/>
           </div>
           <div className="col-md-4 form-group">
-            <button onClick={this.handleOnSubmit} className="btn btn-lg btn-primary full-width-button">
+            <button onClick={this.handleOnSubmit}
+                    disabled={this.state.disabled}
+                    className="btn btn-lg btn-primary full-width-button">
               Continue
             </button>
             <br/>
