@@ -94,8 +94,13 @@ module.exports = validation(strategy)(React.createClass({
 
     return(
       <div className="row well">
+        <div className="form-group row">
+          <a className="col-sm-12" onClick={this.props.handleCancel} style={showCancelButton}>
+            <span className="registration-icon glyphicon glyphicon-trash pull-right"></span>
+          </a>
+        </div>
         <div className="row">
-          <div className="col-md-5">
+          <div className="col-lg-5">
             <input type="text"
                    className="form-control"
                    value={this.state.firstName}
@@ -105,7 +110,7 @@ module.exports = validation(strategy)(React.createClass({
             {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
           </div>
 
-          <div className="col-md-5">
+          <div className="col-lg-5">
             <input type="text"
                    className="form-control"
                    value={this.state.lastName}
@@ -113,19 +118,16 @@ module.exports = validation(strategy)(React.createClass({
             <label className="text-muted">Last Name</label>
             {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
           </div>
-          <a className="col-md-2" onClick={this.props.handleCancel} style={showCancelButton}>
-            <span className="glyphicon glyphicon-trash pull-right"></span>
-          </a>
         </div>
 
         <div className="form-group row">
-          <div className="col-md-6">
+          <div className="col-lg-6">
             <select className="form-control"
                     id="select"
                     value={this.state.sex}
                     onChange={this.handleSexChange}>
-              <option value={"M"}>M</option>
-              <option value={"F"}>F</option>
+              <option value={"M"}>Male</option>
+              <option value={"F"}>Female</option>
             </select>
             <label className="text-muted">Gender</label>
           </div>
@@ -143,9 +145,9 @@ module.exports = validation(strategy)(React.createClass({
           </div>
         </div>
 
-        <div className="form-group row">
-          <div className="col-md-4">
-            <button onClick={this.handleOnSubmit} className="btn btn-primary full-width-button">Done</button>
+        <div className="row">
+          <div className="col-lg-4">
+            <button onClick={this.handleOnSubmit} className="btn btn-primary">Done</button>
           </div>
         </div>
       </div>

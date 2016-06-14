@@ -85,7 +85,7 @@ module.exports = validation(strategy)(React.createClass({
   render: function(){
     return(
       <div className="row well">
-        <div className="form-group col-md-6">
+        <div className="form-group col-lg-6">
           <input type="text"
                  className="form-control"
                  value={this.state.firstName}
@@ -96,7 +96,7 @@ module.exports = validation(strategy)(React.createClass({
           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
 
-        <div className="form-group col-md-6">
+        <div className="form-group col-lg-6">
           <input type="text"
                  className="form-control"
                  value={this.state.lastName}
@@ -106,7 +106,7 @@ module.exports = validation(strategy)(React.createClass({
           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
 
-        <div className="form-group col-md-12">
+        <div className="form-group col-lg-12">
           <input type="text"
                  value={this.state.email}
                  className="form-control"
@@ -115,7 +115,7 @@ module.exports = validation(strategy)(React.createClass({
           {Helper.renderHelpText(this.props.getValidationMessages('email'))}
         </div>
 
-        <div className="form-group col-md-12">
+        <div className="form-group col-lg-12">
           <input type="password"
                  value={this.state.password}
                  className="form-control"
@@ -124,7 +124,7 @@ module.exports = validation(strategy)(React.createClass({
           {Helper.renderHelpText(this.props.getValidationMessages('password'))}
         </div>
 
-        <div className="form-group col-md-12">
+        <div className="form-group col-lg-12">
           <input type="text"
                  className="form-control"
                  value={this.state.phone}
