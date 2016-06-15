@@ -20,22 +20,23 @@ module.exports =React.createClass({
           </a>
         </div>
         <div className="form-group col-md-11 col-md-offset-1">
-          <div className="row">
-            <div className="form-group col-md-12">
-              {email}
-            </div>
-          </div>
-          <br/>
-          <div className="row">
-            <div className="form-group col-md-4">
+          <div className="form-group">
+            <label class="control-label">First name</label>
+            <p className="lead">
               {firstName}
-            </div>
-            <div className="form-group col-md-4">
+            </p>
+            <label class="control-label">Last name</label>
+            <p className="lead">
               {lastName}
-            </div>
-            <div className="form-group col-md-4">
+            </p>
+            <label class="control-label">E-mail address</label>
+            <p className="lead">
+              {email}
+            </p>
+            <label class="control-label">Phone number</label>
+            <p className="lead">
               {phone}
-            </div>
+            </p>
           </div>
         </div>
       </div>
