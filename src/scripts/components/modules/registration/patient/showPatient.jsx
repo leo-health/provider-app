@@ -10,21 +10,37 @@ module.exports = React.createClass({
   },
 
   formatDisplay: function(patient){
-    var text;
+    var text, avatar_url;
     name_text = patient.first_name + ' ' +  patient.last_name;
     birthday_text = moment(patient.birth_date.substring(0, 10)).format('l');
 
     if(patient.sex === "M"){
-      return <div className="pull-left">
-               <img className="patient-avatar" src="../images/Avatar_Patient_Son.png" alt="son"/>
-               <p style={{display: "inline-block"}} className="lead">{name_text} born on {birthday_text}</p>
-             </div>
+      avatar_url = "../images/Avatar_Patient_Son.png";
     }else{
-      return <div className="pull-left">
-               <img className="patient-avatar" src="../images/Avatar_Patient_Daughter.png" alt="daughter"/>
-               <p style={{display: "inline-block"}} className="lead">{name_text} born on {birthday_text}</p>
-             </div>
+      avatar_url = "../images/Avatar_Patient_Daughter.png";
     }
+
+    return <span className="pull-left">
+      <img className="patient-avatar pull-left" src={avatar_url}/>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Full name</td>
+            <td>Sex</td>
+            <td>Birthday</td>
+          </tr>
+          <tr>
+            <td>
+              <p className="lead right-fix">{name_text}</p>
+            </td>
+            <td>
+              <p className="lead  right-fix">{patient.sex}</p>
+            </td>
+            <td><p className="lead  right-fix">{birthday_text}</p></td>
+          </tr>
+        </tbody>
+      </table>
+     </span>
   },
 
   render: function(){

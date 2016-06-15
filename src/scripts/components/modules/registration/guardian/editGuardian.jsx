@@ -54,8 +54,7 @@ module.exports = validation(strategy)(React.createClass({
       password: this.state.password,
       client_version: "1.0.1",
       next_page: "patient"
-    });
-    this.props.setDisableState();
+    })
   },
 
   handleFirstNameChange: function(e) {

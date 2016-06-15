@@ -144,13 +144,11 @@ module.exports = React.createClass({
               <div className="form-group col-md-11 col-md-offset-1">
                 {this.addOrDisplayPatient()}
               </div>
-              <br/>
               <div className="form-group col-md-11 col-md-offset-1">
                 {this.state.showAddPatient}
               </div>
             </div>
 
-            <br/>
             <div className="row">
               <div className="form-group col-md-10 col-md-offset-1">
                 <h4>Payment</h4>
@@ -158,7 +156,7 @@ module.exports = React.createClass({
               <div className="form-group col-md-1">
                 {this.editOrSavePayment(this.state.editPayment)}
               </div>
-              <div className="form-group col-md-11 col-md-offset-1">
+              <div className="form-group col-md-10 col-md-offset-1">
                 {this.creditCardDisplay()}
               </div>
             </div>
