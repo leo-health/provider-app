@@ -56,6 +56,7 @@ module.exports = React.createClass({
                  onChange={this.handleCardChange}
                  maxLength="16"
                  required
+                 pattern="[0-9]*"
                  autoFocus/>
           <label className="text-muted">Card Number</label>
         </div>
@@ -65,6 +66,7 @@ module.exports = React.createClass({
                  value={this.state.cvc}
                  onChange={this.handleCvcChange}
                  maxLength="4"
+                 pattern="[0-9]*"
                  required/>
           <label className="text-muted">CVC</label>
         </div>
@@ -76,6 +78,7 @@ module.exports = React.createClass({
                  onChange={this.handleExpirationDateChange}
                  maxLength="5"
                  onInput={this.expirationDateMask}
+                 pattern="[0-9]*"
                  required/>
           <label className="text-muted">Expiration (MM/YY)</label>
         </div>
@@ -85,6 +88,7 @@ module.exports = React.createClass({
                  className="form-control"
                  value={this.state.zip}
                  onChange={this.handleZipChange}
+                 pattern="[0-9]*"
                  required/>
           <label className="text-muted">Zip Code</label>
         </div>

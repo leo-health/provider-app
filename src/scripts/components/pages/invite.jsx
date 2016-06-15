@@ -34,14 +34,13 @@ var Registration  = React.createClass({
       phone: "",
       password: "",
       passwordConfirmation: "",
-      state: "",
+      status: "",
       message: ""
     }
   },
 
   componentWillMount: function(){
-    this.pickHeader();
-    RegistrationActions.fetchEnrollmentRequest(this.props.location.query.token);
+    if(this.pickHeader()) RegistrationActions.fetchEnrollmentRequest(this.props.location.query.token);
   },
 
   pickHeader: function() {
@@ -49,33 +48,42 @@ var Registration  = React.createClass({
       this.setState({
         header: 'You are invited to join Leo!',
         secondHeader: 'We are thrilled to welcome you to the practice! We need to collect some information about you in order to get you enrolled in the practice.'
-      })
+      });
+      return true;
     }else if(this.props.location.query.onboarding_group === 'secondary'){
       this.setState({
-        header: ' Become a Leo member for FREE!',
+        header: 'Become a Leo member for FREE!',
         secondHeader: 'Thank you for being a Flatiron Pediatrics family. We appreciate your loyalty and as a sign of our continued commitment to your family, we are excited to invite you to become a Leo member for free (a $240 annual value per child)!'
-      })
+      });
+      return true;
     }else{
-      this.setState({ state: 'error', message: 'Please check your invitation link and come back again!' })
-      return
+      this.setState({ status: 'error', message: 'Please check your invitation link and come back again!' });
+      return false;
     }
   },
 
   onStatusChange: function(status){
     if(status.action === "update") {
+      //redirect user to different success page
       this.context.router.push("/registration/invited/success");
       return
     }
 
     if(status.action === "fetch"){
+      this.checkEligiblity(status);
       this.setState({
         firstName: status.enrollment.first_name,
         lastName: status.enrollment.last_name,
         email: status.enrollment.email
       });
+      //check user eligibility
       return
     }
     this.setState(status);
+  },
+
+  checkEligiblity: function(user){
+    debugger
   },
 
   handleOnSubmit: function (e) {
@@ -182,6 +190,7 @@ var Registration  = React.createClass({
                        value={this.state.phone}
                        onChange={this.handlePhoneChange}
                        ref="phone"
+                       pattern="[0-9]*"
                        onInput={Helper.phoneMask}/>
                 <label className="text-muted">Phone</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('phone'))}

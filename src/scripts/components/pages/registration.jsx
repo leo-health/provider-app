@@ -161,7 +161,7 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            {this.selectPage()}
+            <PaymentInfoForm status={this.state.status} message={this.state.message}/>
           </div>
         </div>
       </div>

@@ -122,6 +122,7 @@ module.exports = validation(strategy)(React.createClass({
                  value={this.state.phone}
                  onChange={this.handlePhoneChange}
                  ref="phone"
+                 pattern="[0-9]*"
                  onInput={Helper.phoneMask}/>
           <label className="text-muted">Phone</label>
           {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
