@@ -1,10 +1,8 @@
 var React = require('react');
-var LoginAction = require('../../actions/loginActions');
-var Router = require('react-router');
-var leoUtil = require('../../utils/common').StringUtils;
+    LoginAction = require('../../actions/loginActions');
+    leoUtil = require('../../utils/common').StringUtils;
 
 module.exports = React.createClass({
-
   handleOnLogout: function(){
     var authenticationToken = sessionStorage.authenticationToken;
     if(!authenticationToken) return;

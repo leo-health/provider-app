@@ -104,11 +104,8 @@ module.exports = React.createClass({
   componentDidMount: function() {
     var channel = this.props.pusher.subscribe('private-newConversation');
     channel.bind('new_conversation', function(data){
-      if (!window.windowHasFocus) {
-        document.title = "New conversation";
-      }
+      if (!window.windowHasFocus) window.flashTitle("You have a new conversation", 20);
       if(data.conversation_state === this.state.conversationState){
-
         if(this.state.conversationState === "escalated" && this.isInConversationList(data.id)) return;
         this.fetchNewConversation(data.id)
       }
@@ -174,7 +171,6 @@ module.exports = React.createClass({
       }, this);
     } else {
       var state = this.state.conversationState;
-
       if(state === parseInt(state, 10)){
         conversations = <div>There is no matching conversation.</div>
       }else{

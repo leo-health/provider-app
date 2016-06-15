@@ -79,19 +79,19 @@ module.exports = React.createClass({
 
   renderCloseButton: function() {
     return (
-      <a href="#" className="btn btn-primary btn-sm message-button" onClick={this.showClose}>
+      <a className="btn btn-primary btn-sm message-button" onClick={this.showClose}>
         <span className="glyphicon glyphicon-ok"></span> Close Case
-        </a>
-      );
+      </a>
+    );
   },
 
   renderEscalateButton: function() {
     return (
-      <a href="#" className="btn btn-danger btn-sm" onClick={this.showEscalation}>
+      <a className="btn btn-danger btn-sm" onClick={this.showEscalation}>
         <span className="glyphicon glyphicon-fire"></span> Assign
-        </a>
-      );
-    },
+      </a>
+    );
+  },
 
   render: function () {
     var staffData = this.props.staff;
@@ -159,7 +159,7 @@ module.exports = React.createClass({
           </div>
           <div className="">
             <form>
-              <a href="#" className="btn btn-success btn-sm message-button" onClick={this.handleSendMessage}>
+              <a className="btn btn-success btn-sm message-button" onClick={this.handleSendMessage}>
                 <span className="glyphicon glyphicon-ok"></span> Send
               </a>
               {closeButton}

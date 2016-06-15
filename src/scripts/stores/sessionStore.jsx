@@ -1,12 +1,12 @@
 var Reflux = require('reflux'),
-    Router = require('react-router'),
-    RouteHandler = Router.RouteHandler,
-    Navigation = Router.Navigation,
+    ReactRouter = require('react-router'),
+    {Router, Route, hashHistory} = ReactRouter,
+    History = require('history'),
     request = require('superagent'),
     LoginActions = require('../actions/loginActions');
 
 module.exports = Reflux.createStore({
-  mixins: [Router.Navigation],
+  mixins: [History],
 
   listenables: [LoginActions],
 
