@@ -43,8 +43,8 @@ render((
       <Route path="invalid-device" component={DeepLink}/>
       <Route path="registration" component={Registration}/>
       <Route path="registration/success" component={RegistrationSuccess}/>
-      <Route path ="registration/invite" component={Invite}/>
-      <Route path ="registration/invite/success" component={SecondaryUserSuccess}/>
+      <Route path ="registration/invited" component={Invite}/>
+      <Route path ="registration/invited/success" component={SecondaryUserSuccess}/>
       <Route path ="registration/acceptInvitation" component={AcceptInvitation}/>
       <Route path="*" component={FourOhFour}/>
     </Route>

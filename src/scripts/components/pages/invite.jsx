@@ -25,16 +25,45 @@ var Registration  = React.createClass({
   validatorTypes: _.merge($.extend({}, Helper.userValidatorTypes), Helper.passwordConfirmation),
 
   getInitialState: function() {
-    return { header: "", firstName: "", lastName: "", email: "", phone: "", password: "", passwordConfirmation: "", state: "", message: "" }
+    return {
+      header: "",
+      secondHeader: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      password: "",
+      passwordConfirmation: "",
+      state: "",
+      message: ""
+    }
   },
 
   componentWillMount: function(){
+    this.pickHeader()
     RegistrationActions.fetchEnrollmentRequest(this.props.location.query.token);
+  },
+
+  pickHeader: function() {
+    if(this.props.location.query.onboarding_group === 'primary'){
+      this.setState({
+        header: 'You are invited to join Leo!',
+        secondHeader: 'We are thrilled to welcome you to the practice! We need to collect some information about you in order to get you enrolled in the practice.'
+      })
+    }else if(this.props.location.query.onboarding_group === 'secondary'){
+      this.setState({
+        header: ' Become a Leo member for FREE!',
+        secondHeader: 'Thank you for being a Flatiron Pediatrics family. We appreciate your loyalty and as a sign of our continued commitment to your family, we are excited to invite you to become a Leo member for free (a $240 annual value per child)!'
+      })
+    }else{
+      this.setState({ state: 'error', message: 'Please check your invitation link and come back again!' })
+      return
+    }
   },
 
   onStatusChange: function(status){
     if(status.action === "update") {
-      this.context.router.push("registration/invite/success");
+      this.context.router.push("registration/invited/success");
       return
     }
 
@@ -106,10 +135,8 @@ var Registration  = React.createClass({
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
             <img src="/images/leo.png" alt="Leo Logo" id="signup_logo" style={{marginRight: "2%"}}/>
-            <h4 id="signup_progress" className="signup-header">You are invited to join Leo!</h4>
-            <p className="lead">We are thrilled to welcome you to the practice!
-              We need to collect some information about you in order to get you enrolled in the practice.
-            </p>
+            <h4 id="signup_progress" className="signup-header">{this.state.header}</h4>
+            <p className="lead">{this.state.secondHeader}</p>
           </div>
         </div>
         <br/>

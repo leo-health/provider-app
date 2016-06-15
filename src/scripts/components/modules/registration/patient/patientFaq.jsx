@@ -3,7 +3,7 @@ var React = require('react');
 module.exports = React.createClass({
   render: function() {
     return(
-      <div id="accordion" role="tablist" aria-multiselectable="true" hide="false" className="panel panel-body">
+      <div id="accordion" role="tablist" aria-multiselectable="true" hide="false">
         <div className="">
           <div className="panel-heading" role="tab" id="headingOne">
             <h4 className="panel-title">
