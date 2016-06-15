@@ -37,9 +37,9 @@ module.exports = React.createClass({
       return <a className="icon" onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-pencil pull-right"></span></a>
     }else{
       return <div className="row">
-               <a onClick={this.cancelPayment}><span className="registration-icon glyphicon glyphicon-remove pull-right"></span></a>
-               <a onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-ok pull-right"></span></a>
-             </div>
+         <a onClick={this.cancelPayment}><span className="registration-icon glyphicon glyphicon-remove pull-right"></span></a>
+         <a onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-ok pull-right"></span></a>
+       </div>
     }
   },
 
@@ -62,7 +62,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    if(leo.env === 'production') fbq('track', 'CompleteRegistration');
+    fbq('track', 'CompleteRegistration');
   },
 
   componentWillReceiveProps: function(nextProps){
@@ -138,17 +138,17 @@ module.exports = React.createClass({
               <div className="form-group col-md-1">
                 <a className="icon" onClick={this.addPatientToggle}
                    style={this.displayOrHideAddPatientButton()}>
-                  <span className="glyphicon glyphicon-plus pull-right"></span>
+                  <span className="registration-icon glyphicon glyphicon-plus pull-right"></span>
                 </a>
               </div>
               <div className="form-group col-md-11 col-md-offset-1">
                 {this.addOrDisplayPatient()}
               </div>
+              <br/>
               <div className="form-group col-md-11 col-md-offset-1">
                 {this.state.showAddPatient}
               </div>
             </div>
-
             <div className="row">
               <div className="form-group col-md-10 col-md-offset-1">
                 <h4>Payment</h4>
@@ -156,19 +156,20 @@ module.exports = React.createClass({
               <div className="form-group col-md-1">
                 {this.editOrSavePayment(this.state.editPayment)}
               </div>
-              <div className="form-group col-md-10 col-md-offset-1">
+              <div className="form-group col-md-11 col-md-offset-1">
                 {this.creditCardDisplay()}
               </div>
             </div>
           </div>
-          <div className="col-md-1 col-md-offset-1">
+          <div className="col-md-2">
             <div className="form-group">
               <button type="submit"
                       onClick={this.chargeUser}
-                      className="btn btn-primary full-width-button">
-                Go!
+                      className="btn btn-primary btn-lg full-width-button">
+                Sign Up
               </button>
             </div>
+            <p className="lead">By clicking sign up you agree to our <a href="/terms">terms of service</a> and <a href="/privacy">privacy policies.</a></p>
           </div>
         </div>
       </div>

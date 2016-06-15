@@ -161,7 +161,14 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            {this.selectPage()}
+            <ReviewForm creditCardBrand={this.state.creditCardBrand}
+                           creditCardToken={this.state.creditCardToken}
+                           last4={this.state.last4}
+                           status={this.state.status}
+                           message={this.state.message}
+                           patients={this.state.patients}
+                           onPatientError={this.onPatientError}
+                           enrollment={this.state.enrollment}/>;
           </div>
         </div>
       </div>
