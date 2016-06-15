@@ -40,7 +40,7 @@ var Registration  = React.createClass({
   },
 
   componentWillMount: function(){
-    this.pickHeader()
+    this.pickHeader();
     RegistrationActions.fetchEnrollmentRequest(this.props.location.query.token);
   },
 
@@ -63,7 +63,7 @@ var Registration  = React.createClass({
 
   onStatusChange: function(status){
     if(status.action === "update") {
-      this.context.router.push("registration/invited/success");
+      this.context.router.push("/registration/invited/success");
       return
     }
 
