@@ -15,7 +15,7 @@ module.exports = React.createClass({
                 Once we've heard from them, you'll receive an email from us with instructions on how to download the app, and then you can take advantage of all of Leo's services.
               </p>
               <br/>
-              <a href=""><img src="../../images/download.png"/></a>
+              <a href="https://itunes.apple.com/app/id1051397244"><img src="../../images/download.png"/></a>
             </div>
         </div>
       </div>
