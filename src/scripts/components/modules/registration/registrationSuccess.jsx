@@ -19,7 +19,7 @@ module.exports = React.createClass({
   },
 
   inputOrDisplay: function(){
-    return !this.state.display ? <div className="text-center col-lg-12"><span className="glyphicon glyphicon-star" aria-hidden="true"></span><h4>Successfully Invited!</h4></div> : <InviteGuardian token={this.props.location.query.token}/>
+    return this.state.display ? <div className="text-center col-lg-12"><span className="glyphicon glyphicon-star" aria-hidden="true"></span><h4>Successfully Invited!</h4></div> : <InviteGuardian token={this.props.location.query.token}/>
   },
 
   render: function(){

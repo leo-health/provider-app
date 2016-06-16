@@ -20,7 +20,7 @@ module.exports =React.createClass({
           </a>
         </div>
         <div className="form-group col-md-11 col-md-offset-1">
-          <table class="table">
+          <table className="table">
             <tbody>
               <tr>
                 <td>Full name</td>
