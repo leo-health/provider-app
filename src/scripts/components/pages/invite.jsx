@@ -26,16 +26,16 @@ var Registration  = React.createClass({
 
   getInitialState: function() {
     return {
-      header: "",
-      secondHeader: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-      passwordConfirmation: "",
-      status: "",
-      message: ""
+      header: '',
+      secondHeader: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      password: '',
+      passwordConfirmation: '',
+      status: '',
+      message: ''
     }
   },
 
