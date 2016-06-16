@@ -161,9 +161,7 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            <PatientInfoForm navigateTo={this.navigateTo}
-                             patients={this.state.patients}
-                             enrollment={this.state.enrollment}/>
+            {this.selectPage()}
           </div>
         </div>
       </div>

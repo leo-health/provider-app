@@ -159,19 +159,3 @@ module.exports = validation(strategy)(React.createClass({
     )
   }
 }));
-
-//<div className="form-group row">
-//  <div className="col-lg-6">
-//    <DatePicker
-//        className="form-control"
-//        onChange={this.handleBirthDateChange} />
-//    <br/>
-//    <label className="text-muted">Birth Date</label>
-//    {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
-//  </div>
-//</div>
-
-//handleBirthDateChange: function(date){
-//  if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('birthDate')();
-//  this.setState({birthDate: date});
-//},
