@@ -34,20 +34,27 @@ module.exports = React.createClass({
   },
 
   handleMonthChange: function (e){
-    this.setState({ month: e.target.value }, this.selectedDate());
+    this.setState({ month: e.target.value }, function(){
+      this.props.onChange(this.selectedDate())
+    });
   },
 
   handleDayChange: function(e){
-    this.setState({ day: e.target.value }, this.props.onChange(this.selectedDate()));
+    this.setState({ day: e.target.value }, function(){
+      this.props.onChange(this.selectedDate())
+    });
   },
 
   handleYearChange: function(e){
-    this.setState({ year: e.target.value }, this.props.onChange(this.selectedDate()))
+    this.setState({ year: e.target.value }, function(){
+      this.props.onChange(this.selectedDate())
+    });
   },
 
   selectedDate: function () {
-    debugger
-    if(this.state.month != 'month' && this.state.day != 'day' && this.state.year != 'year'){
+    if(this.state.month && this.state.month != 'month'
+        && this.state.day && this.state.day != 'day'
+        && this.state.year && this.state.year != 'year'){
       return moment(this.state.month + "-" + this.state.day + "-" + this.state.year, "MM-DD-YYYY");
     }else{
       return ''
