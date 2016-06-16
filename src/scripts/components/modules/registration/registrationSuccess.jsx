@@ -30,7 +30,7 @@ module.exports = React.createClass({
               <img src="../../images/leo.png"/>
               <h3>Account Confirmed</h3>
               <p className="lead">Taking your child to the doctor just got a lot easier! Now, download the app from the app store and sign in to your account.</p>
-              <img className="lead" src="../images/download.png"/>
+              <a href="https://itunes.apple.com/app/id1051397244"><img className="lead" src="../images/download.png"/></a>
             </div>
         </div>
         {this.inputOrDisplay()}
