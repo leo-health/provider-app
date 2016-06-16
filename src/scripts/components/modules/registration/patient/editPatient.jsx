@@ -122,7 +122,7 @@ module.exports = validation(strategy)(React.createClass({
         </div>
 
         <div className="form-group row">
-          <div className="col-lg-6">
+          <div className="col-lg-5">
             <select className="form-control"
                     id="select"
                     value={this.state.sex}
@@ -130,11 +130,9 @@ module.exports = validation(strategy)(React.createClass({
               <option value={"M"}>Male</option>
               <option value={"F"}>Female</option>
             </select>
-            <label className="text-muted">Gender</label>
+            <label className="text-muted">Sex</label>
           </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-lg-6">
+          <div className="col-lg-5">
             <DatePicker
                 className="form-control"
                 showYearDropdown
