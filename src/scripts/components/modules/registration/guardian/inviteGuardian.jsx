@@ -65,16 +65,15 @@ module.exports = validation(strategy)(React.createClass({
                         status={this.props.status}/>
           </div>
         </div>
-        <div className="row well">
-          <div className="row">
-             <div className="col-md-6 col-md-offset-2">
-              <h4 className="signup-header">Invite Another Guardian</h4>
-            </div>
-          </div>
-          <div className="col-md-8 col-md-offset-2">
+        <div className="row">
 
-
+          <div className="col-md-6 col-md-offset-3">
             <div className="row well">
+              <div className="row">
+                <div className="col-md-6">
+                  <h4 className="signup-header">Invite Another Guardian</h4>
+                </div>
+              </div>
               <div className="form-group col-sm-6">
                 <input type="text"
                        className="form-control"
@@ -98,8 +97,8 @@ module.exports = validation(strategy)(React.createClass({
                   {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
                 </div>
               </div>
-              <div className="row">
-                <div className="form-group col-md-12">
+
+                <div className="form-group col-sm-12">
                   <input type="text"
                          className="form-control"
                          value={this.state.email}
@@ -110,11 +109,11 @@ module.exports = validation(strategy)(React.createClass({
                 <div className="form-group col-sm-12">
                   {Helper.renderHelpText(this.props.getValidationMessages('email'))}
                 </div>
-              </div>
+
 
               <button type="submit"
                     onClick={this.handleOnSubmit}
-                    className="btn btn-primary full-width-button">Invite</button>
+                    className="btn btn-primary btn-lg full-width-button">Invite</button>
             </div>
           </div>
         </div>

@@ -161,7 +161,7 @@ module.exports = React.createClass({
               </div>
             </div>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-3">
             <div className="form-group">
               <button type="submit"
                       onClick={this.chargeUser}
