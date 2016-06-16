@@ -8,7 +8,6 @@ var MessageActions = require('../../../../actions/messageActions');
 var NoteActions = require('../../../../actions/noteActions');
 
 module.exports = React.createClass({
-
   componentWillMount: function(){
     this.shouldScrollToBottom = true;
   },
