@@ -35,59 +35,73 @@ var Registration  = React.createClass({
       password: '',
       passwordConfirmation: '',
       status: '',
-      message: ''
+      message: '',
+      eligible: true
     }
   },
 
   componentWillMount: function(){
-    if(this.pickHeader()) RegistrationActions.fetchEnrollmentRequest(this.props.location.query.token);
-  },
-
-  pickHeader: function() {
-    if(this.props.location.query.onboarding_group === 'primary'){
-      this.setState({
-        header: 'You are invited to join Leo!',
-        secondHeader: 'We are thrilled to welcome you to the practice! We need to collect some information about you in order to get you enrolled in the practice.'
-      });
-      return true;
-    }else if(this.props.location.query.onboarding_group === 'secondary'){
-      this.setState({
-        header: 'Become a Leo member for FREE!',
-        secondHeader: 'Thank you for being a Flatiron Pediatrics family. We appreciate your loyalty and as a sign of our continued commitment to your family, we are excited to invite you to become a Leo member for free (a $240 annual value per child)!'
-      });
-      return true;
-    }else{
-      this.setState({ status: 'error', message: 'Please check your invitation link and come back again!' });
-      return false;
-    }
+    RegistrationActions.fetchEnrollmentRequest(this.props.location.query.token);
   },
 
   onStatusChange: function(status){
     if(status.action === "update") {
-      //redirect user to different success page
-      this.context.router.push("/registration/invited/success");
-      return
+      if(this.isInvitedUser(status)){
+        this.context.router.push("/registration/invited/success");
+        return
+      }
+      if(this.isExemptedUser(status)){
+        this.context.router.push({
+          path: "/registration/success",
+          query: {token: status.enrollment.authentication_token}
+        });
+        return
+      }
     }
 
     if(status.action === "fetch"){
-      this.checkEligiblity(status);
-      this.setState({
-        firstName: status.enrollment.first_name,
-        lastName: status.enrollment.last_name,
-        email: status.enrollment.email
-      });
-      //check user eligibility
+      this.checkEligibility(status);
       return
     }
+
     this.setState(status);
   },
 
-  checkEligiblity: function(user){
-    debugger
+  checkEligibility: function(data){
+    if(this.isInvitedUser(data)){
+      this.setState({
+        header: 'Tell us a little about yourself!',
+        secondHeader: 'In order to get setup with your family on Leo, please fill out the information below.',
+        firstName: data.enrollment.first_name,
+        lastName: data.enrollment.last_name,
+        email: data.enrollment.email
+      })
+    }else if(this.isExemptedUser(data)){
+      this.setState({
+        header: 'Become a Leo member!',
+        secondHeader: 'Thank you for being a Flatiron Pediatrics family. Sign up below to access all the Leo features for free.',
+        firstName: data.enrollment.first_name,
+        lastName: data.enrollment.last_name,
+        email: data.enrollment.email
+      })
+    }else{
+      this.setState({ status: 'error', message: 'Please check your invitation link and come back again!' });
+    }
+  },
+
+  isInvitedUser: function(data){
+    return data.enrollment.onboarding_group.group_name === "invited_secondary_guardian" &&
+    this.props.location.query.onboarding_group === 'secondary'
+  },
+
+  isExemptedUser: function(data){
+    return data.enrollment.onboarding_group.group_name === "generated_from_athena" &&
+    this.props.location.query.onboarding_group === 'primary'
   },
 
   handleOnSubmit: function (e) {
     e.preventDefault();
+    if(!this.state.eligible) return
     const onValidate = (error) => {
       if (error) {
         return;
@@ -107,34 +121,46 @@ var Registration  = React.createClass({
     this.submitHasBeenAttemptedOnce = true;
   },
 
-  handleEmailChange: function(e) {
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
-    this.setState({ email: e.target.value })
+  handlePhoneChange: function(e) {
+    this.setState({ phone: e.target.value }, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
+    });
   },
 
   handleFirstNameChange: function(e) {
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
-    this.setState({ firstName: e.target.value })
+    this.setState({ firstName: e.target.value }, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
+    });
   },
 
   handleLastNameChange: function (e) {
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
-    this.setState({ lastName: e.target.value })
+    this.setState({ lastName: e.target.value }, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
+    });
   },
 
   handlePhoneChange: function(e) {
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
-    this.setState({ phone: e.target.value })
+    this.setState({ phone: e.target.value }, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
+    });
+  },
+
+  handleEmailChange: function(e){
+    this.setState({email: e.target.value}, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
+    });
   },
 
   handlePasswordChange: function(e){
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('password')();
-    this.setState({password: e.target.value})
+    this.setState({password: e.target.value}, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('password')();
+    });
   },
 
   handlePasswordConfirmationChange: function(e){
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('passwordConfirmation')();
-    this.setState({passwordConfirmation: e.target.value})
+    this.setState({passwordConfirmation: e.target.value}, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('passwordConfirmation')();
+    })
   },
 
   render: function(){
@@ -217,7 +243,8 @@ var Registration  = React.createClass({
           </div>
 
           <div className="col-md-4 form-group">
-            <button onClick={this.handleOnSubmit} className="btn btn-lg btn-primary full-width-button">
+            <button onClick={this.handleOnSubmit}
+                    className="btn btn-lg btn-primary full-width-button">
               Join
             </button><br/><br/>
             <FAQ/>
