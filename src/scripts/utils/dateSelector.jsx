@@ -7,11 +7,10 @@ module.exports = React.createClass({
       return {
         month: this.props.value.format('MM'),
         day: this.props.value.format('DD'),
-        year: this.props.value.format('YYYY'),
-        birthDate: the.props.value
+        year: this.props.value.format('YYYY')
       }
     }else{
-      return {month: "month", day: "day", year: "year", birthDate: ""}
+      return {month: "month", day: "day", year: "year"}
     }
   },
 

@@ -22,7 +22,7 @@ module.exports = React.createClass({
 
     return <span className="pull-left">
       <img className="patient-avatar pull-left" src={avatarUrl}/>
-      <table class="table">
+      <table>
         <tbody>
           <tr>
             <td>Full name</td>
