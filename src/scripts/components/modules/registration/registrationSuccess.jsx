@@ -19,22 +19,20 @@ module.exports = React.createClass({
   },
 
   inputOrDisplay: function(){
-    return this.state.display ? <div className="text-center col-lg-12"><span className="glyphicon glyphicon-star" aria-hidden="true"></span><h4>Successfully Invited!</h4></div> : <InviteGuardian token={this.props.location.query.token}/>
+    return this.state.display ? <div className="text-center col-lg-12"><span className="glyphicon glyphicon-star" aria-hidden="true"></span><h3>Successfully Invited!</h3></div> : <InviteGuardian token={this.props.location.query.token}/>
   },
 
   render: function(){
     return(
-      <div className="row">
+      <div className="page-header row">
         <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4">
-          <div className="text-center">
-            <img src="../images/leo.png"/>
-            <h2>Account Confirmed</h2>
-            <p className="lead">Taking your child to the doctor just got a lot easier! Now, download the app from the app store and sign in to your account.</p>
-            <img src="../images/download.png"/>
-          </div>
-          <br/>
+            <div className="text-center">
+              <img src="../../images/leo.png"/>
+              <h3>Account Confirmed</h3>
+              <p className="lead">Taking your child to the doctor just got a lot easier! Now, download the app from the app store and sign in to your account.</p>
+              <img className="lead" src="../images/download.png"/>
+            </div>
         </div>
-        <br/>
         {this.inputOrDisplay()}
       </div>
     )
