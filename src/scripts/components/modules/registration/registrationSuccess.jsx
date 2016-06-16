@@ -19,21 +19,22 @@ module.exports = React.createClass({
   },
 
   inputOrDisplay: function(){
-    return this.state.display ? <div className="col-lg-offset-4 col-lg-8"><span className="glyphicon glyphicon-star" aria-hidden="true"></span><h4>Successfully Invited</h4></div> : <InviteGuardian token={this.props.location.query.token}/>
+    return !this.state.display ? <div className="text-center col-lg-12"><span className="glyphicon glyphicon-star" aria-hidden="true"></span><h4>Successfully Invited!</h4></div> : <InviteGuardian token={this.props.location.query.token}/>
   },
 
   render: function(){
     return(
       <div className="row">
-        <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4 jumbotron">
+        <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4">
           <div className="text-center">
             <img src="../images/leo.png"/>
-            <h4>Account Confirmed</h4>
-            <p>Taking your child to the doctor just got a lot easier!</p>
-            <br/>
-            <img src="../images/screenshot.png"/>
+            <h2>Account Confirmed</h2>
+            <p className="lead">Taking your child to the doctor just got a lot easier! Now, download the app from the app store and sign in to your account.</p>
+            <img src="../images/download.png"/>
           </div>
+          <br/>
         </div>
+        <br/>
         {this.inputOrDisplay()}
       </div>
     )

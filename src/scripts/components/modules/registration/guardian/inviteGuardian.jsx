@@ -60,34 +60,21 @@ module.exports = validation(strategy)(React.createClass({
     return(
       <div>
         <div className="row">
-          <div className="col-md-7 col-md-offset-1">
-            <h3 className="signup-header">Invite Another Guardian</h3>
-          </div>
-        </div>
-        <div className="inline-hr"></div>
-        <div className="row">
-          <div className="col-md-10 col-md-offset-1">
+          <div className="col-md-8 col-md-offset-1">
             <ErrorAlert message={this.props.message}
                         status={this.props.status}/>
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-7 col-md-offset-1">
-            <div className="row">
-              <div className="form-group col-sm-12">
-                <input type="text"
-                       className="form-control"
-                       value={this.state.email}
-                       onChange={this.handleEmailChange}
-                       ref="email"/>
-                <label className="text-muted">Email</label>
-              </div>
-              <div className="form-group col-sm-12">
-                {Helper.renderHelpText(this.props.getValidationMessages('email'))}
-              </div>
+        <div className="row well">
+          <div className="row">
+             <div className="col-md-6 col-md-offset-2">
+              <h4 className="signup-header">Invite Another Guardian</h4>
             </div>
+          </div>
+          <div className="col-md-8 col-md-offset-2">
 
-            <div className="row">
+
+            <div className="row well">
               <div className="form-group col-sm-6">
                 <input type="text"
                        className="form-control"
@@ -111,15 +98,24 @@ module.exports = validation(strategy)(React.createClass({
                   {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
                 </div>
               </div>
-            </div>
-          </div>
+              <div className="row">
+                <div className="form-group col-md-12">
+                  <input type="text"
+                         className="form-control"
+                         value={this.state.email}
+                         onChange={this.handleEmailChange}
+                         ref="email"/>
+                  <label className="text-muted">Email</label>
+                </div>
+                <div className="form-group col-sm-12">
+                  {Helper.renderHelpText(this.props.getValidationMessages('email'))}
+                </div>
+              </div>
 
-          <div className="col-md-2">
-            <button type="submit"
+              <button type="submit"
                     onClick={this.handleOnSubmit}
-                    className="btn btn-primary full-width-button">
-              Invite
-            </button>
+                    className="btn btn-primary full-width-button">Invite</button>
+            </div>
           </div>
         </div>
       </div>
