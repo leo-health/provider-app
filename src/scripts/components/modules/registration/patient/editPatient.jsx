@@ -6,6 +6,7 @@ var React = require('react'),
     Joi = require('joi'),
     DatePicker = require('react-datepicker'),
     moment = require('moment'),
+    DateSelector=require('../../../../utils/dateSelector'),
     strategy = require('joi-validation-strategy');
 
 require('react-datepicker/dist/react-datepicker.css');
@@ -34,7 +35,7 @@ module.exports = validation(strategy)(React.createClass({
         isCreate: false
       }
     }else{
-      return { firstName: '', lastName: '', sex: 'M', birthDate: undefined, isCreate: true }
+      return { firstName: '', lastName: '', sex: 'M', birthDate: '', isCreate: true }
     }
   },
 
@@ -63,7 +64,7 @@ module.exports = validation(strategy)(React.createClass({
       if (error) {
         return
       } else {
-        this.state.isCreate ? this.createPatient() : this.updatePatient()
+        this.state.isCreate ? this.createPatient() : this.updatePatient();
         this.setState({disabled: true})
       }
     };
@@ -122,27 +123,21 @@ module.exports = validation(strategy)(React.createClass({
         </div>
 
         <div className="form-group row">
-          <div className="col-lg-6">
+          <div className="col-lg-8">
+            <DateSelector onChange={this.handleBirthDateChange}
+                          value={this.state.birthDate}/>
+            <label className="text-muted">Birth Date</label>
+            {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
+          </div>
+
+          <div className="col-lg-2">
             <select className="form-control"
-                    id="select"
                     value={this.state.sex}
                     onChange={this.handleSexChange}>
               <option value={"M"}>Male</option>
               <option value={"F"}>Female</option>
             </select>
             <label className="text-muted">Gender</label>
-          </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-lg-6">
-            <DatePicker
-                className="form-control"
-                showYearDropdown
-                selected={this.state.birthDate}
-                onChange={this.handleBirthDateChange} />
-            <br/>
-            <label className="text-muted">Birth Date</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
           </div>
         </div>
 
@@ -159,3 +154,19 @@ module.exports = validation(strategy)(React.createClass({
     )
   }
 }));
+
+//<div className="form-group row">
+//  <div className="col-lg-6">
+//    <DatePicker
+//        className="form-control"
+//        onChange={this.handleBirthDateChange} />
+//    <br/>
+//    <label className="text-muted">Birth Date</label>
+//    {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
+//  </div>
+//</div>
+
+//handleBirthDateChange: function(date){
+//  if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('birthDate')();
+//  this.setState({birthDate: date});
+//},

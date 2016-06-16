@@ -10,18 +10,18 @@ module.exports = React.createClass({
   },
 
   formatDisplay: function(patient){
-    var text, avatar_url;
-    name_text = patient.first_name + ' ' +  patient.last_name;
-    birthday_text = moment(patient.birth_date.substring(0, 10)).format('l');
+    var avatarUrl;
+    var nameText = patient.first_name + ' ' +  patient.last_name;
+    var birthdayText = moment(patient.birth_date.substring(0, 10)).format('l');
 
     if(patient.sex === "M"){
-      avatar_url = "../images/Avatar_Patient_Son.png";
+      avatarUrl = "../images/Avatar_Patient_Son.png";
     }else{
-      avatar_url = "../images/Avatar_Patient_Daughter.png";
+      avatarUrl = "../images/Avatar_Patient_Daughter.png";
     }
 
     return <span className="pull-left">
-      <img className="patient-avatar pull-left" src={avatar_url}/>
+      <img className="patient-avatar pull-left" src={avatarUrl}/>
       <table class="table">
         <tbody>
           <tr>
@@ -31,12 +31,12 @@ module.exports = React.createClass({
           </tr>
           <tr>
             <td>
-              <p className="lead right-fix">{name_text}</p>
+              <p className="lead right-fix">{nameText}</p>
             </td>
             <td>
-              <p className="lead  right-fix">{patient.sex}</p>
+              <p className="lead right-fix">{patient.sex}</p>
             </td>
-            <td><p className="lead  right-fix">{birthday_text}</p></td>
+            <td><p className="lead right-fix">{birthdayText}</p></td>
           </tr>
         </tbody>
       </table>
