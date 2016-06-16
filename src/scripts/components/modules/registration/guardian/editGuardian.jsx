@@ -58,6 +58,12 @@ module.exports = validation(strategy)(React.createClass({
     this.props.setDisableState();
   },
 
+  handlePhoneChange: function(e) {
+    this.setState({ phone: e.target.value }, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
+    });
+  },
+
   handleFirstNameChange: function(e) {
     this.setState({ firstName: e.target.value }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();

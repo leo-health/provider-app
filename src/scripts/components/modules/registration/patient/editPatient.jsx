@@ -39,23 +39,28 @@ module.exports = validation(strategy)(React.createClass({
     }
   },
 
-  handleFirstNameChange: function(e){
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
-    this.setState({firstName: e.target.value});
+  handleFirstNameChange: function(e) {
+    this.setState({ firstName: e.target.value }, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
+    });
   },
 
-  handleLastNameChange: function(e){
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
-    this.setState({lastName: e.target.value});
+  handleLastNameChange: function (e) {
+    this.setState({ lastName: e.target.value }, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
+    });
   },
 
   handleSexChange: function(e){
-    this.setState({sex: e.target.value});
+    this.setState({sex: e.target.value}, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('sex')();
+    });
   },
 
   handleBirthDateChange: function(date){
-    if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('birthDate')();
-    this.setState({birthDate: date});
+    this.setState({birthDate: date}, function(){
+      if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('birthDate')();
+    });
   },
 
   handleOnSubmit: function(e){

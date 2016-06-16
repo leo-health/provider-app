@@ -18,7 +18,7 @@ module.exports = React.createClass({
   generateYears: function(){
     var years = [];
     var currentYear = parseInt(moment().format("YYYY"));
-    for( var i = 0; currentYear - i > currentYear - 19; i++){
+    for( var i = 0; currentYear - i > currentYear - 27; i++){
       years[i] = <option key={i} value={(currentYear - i).toString()}>{(currentYear - i).toString()}</option>
     }
     return years
@@ -34,24 +34,24 @@ module.exports = React.createClass({
   },
 
   handleMonthChange: function (e){
-    this.setState({ month: e.target.value });
-    this.props.onChange(this.selectedDate(e.target.value, this.state.day, this.state.year))
+    this.setState({ month: e.target.value }, this.selectedDate());
   },
 
   handleDayChange: function(e){
-    this.setState({ day: e.target.value });
-    this.props.onChange(this.selectedDate(this.state.month, e.target.value, this.state.year))
+    this.setState({ day: e.target.value }, this.props.onChange(this.selectedDate()));
   },
 
   handleYearChange: function(e){
-    this.setState({ year: e.target.value });
-    this.props.onChange(this.selectedDate(this.state.month, this.state.day, e.target.value))
+    this.setState({ year: e.target.value }, this.props.onChange(this.selectedDate()))
   },
 
-  selectedDate: function (month, day, year) {
-    var a = '';
-    if(month != 'month' && day != 'day' && year != 'year') a = moment(month + "-" + day + "-" + year, "MM-DD-YYYY");
-    return a
+  selectedDate: function () {
+    debugger
+    if(this.state.month != 'month' && this.state.day != 'day' && this.state.year != 'year'){
+      return moment(this.state.month + "-" + this.state.day + "-" + this.state.year, "MM-DD-YYYY");
+    }else{
+      return ''
+    }
   },
 
   render: function(){
