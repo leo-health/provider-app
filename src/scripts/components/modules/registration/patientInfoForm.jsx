@@ -65,7 +65,6 @@ module.exports = React.createClass({
           <h4 className="signup-header">Now it’s time to add children to your account</h4>
           <p className="lead">If you’re an expecting parent, you won’t be able to enroll with Leo until your child is born.</p>
         </div>
-
         <div className="col-lg-10 col-lg-offset-1">
           <ErrorAlert message={this.state.message}
                       status={this.state.status}/>

@@ -75,26 +75,13 @@ module.exports = validation(strategy)(React.createClass({
   render: function(){
     return(
      <div>
-      <div className="form-group col-md-9 col-md-offset-1">
+      <div className="form-group col-md-10 col-md-offset-1">
         <h4>Basic Info</h4>
       </div>
-      <div className="form-group col-md-2">
+      <div className="form-group col-md-1">
         <a onClick={this.props.guardianStateToggle}><span className="registration-icon glyphicon glyphicon-remove pull-right"></span></a>
-        <a onClick={this.handleOnSubmit}><span className="registration-icon glyphicon glyphicon-ok pull-right"></span></a>
       </div>
-      <div className="form-group col-md-11 col-md-offset-1">
-        <div className="row">
-          <div className="form-group col-md-3">
-            <input type="text"
-                   className="form-control"
-                   value={this.state.email}
-                   onChange={this.handleEmailChange}
-                   ref="email"/>
-            <label className="text-muted">Email</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('email'))}
-          </div>
-        </div>
-        <br/>
+      <div className="row well form-group col-md-11 col-md-offset-1">
         <div className="row">
           <div className="form-group col-md-4">
             <input type="text"
@@ -115,7 +102,8 @@ module.exports = validation(strategy)(React.createClass({
             <label className="text-muted">Last Name</label>
             {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
           </div>
-
+        </div>
+        <div className="row">
           <div className="form-group col-md-4">
             <input type="text"
                    className="form-control"
@@ -126,6 +114,14 @@ module.exports = validation(strategy)(React.createClass({
                    onInput={Helper.phoneMask}/>
             <label className="text-muted">Phone</label>
             {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-4">
+            <button onClick={this.handleOnSubmit}
+                    className="btn btn-primary">
+              Done
+            </button>
           </div>
         </div>
       </div>

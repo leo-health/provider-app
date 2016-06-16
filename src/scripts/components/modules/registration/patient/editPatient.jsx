@@ -137,7 +137,7 @@ module.exports = validation(strategy)(React.createClass({
               <option value={"M"}>Male</option>
               <option value={"F"}>Female</option>
             </select>
-            <label className="text-muted">Gender</label>
+            <label className="text-muted">Sex</label>
           </div>
         </div>
 
