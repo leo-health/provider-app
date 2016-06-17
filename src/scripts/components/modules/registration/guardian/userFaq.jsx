@@ -12,8 +12,7 @@ module.exports = React.createClass({
               </a></strong>
             </h4>
           </div>
-          <div id="collapseOne" className="collapse panel-body" role="tabpanel" aria-labelledby="headingOne">
-            Not to worry, once you complete registration you’ll be able to invite another guardian or caregiver to have access to the account.  So, continue on with registration and you can add your spouse at the end (at no cost!).           </div>
+          <div id="collapseOne" className="collapse panel-body" role="tabpanel" aria-labelledby="headingOne">Not to worry, once you complete registration you’ll be able to invite another guardian or caregiver to access your account (at no additional cost).</div>
         </div>
         <div className="">
           <div className="panel-heading" role="tab" id="headingTwo">
@@ -24,7 +23,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseTwo" className="collapse panel-body" role="tabpanel" aria-labelledby="headingTwo">
-            Its up to you!  There are many features of Leo that do not involve the iPhone app.  However, the majority of the features of the practice like messaging and scheduling are only available on the iPhone app currently.  Hopefully we will have an Andriod app soon.
+            It's up to you.  While there are many features of Leo that do not involve the iPhone app, many features, like messaging and scheduling, are only currently available on the iPhone app.  We hope to have an Android app soon.
           </div>
         </div>
         <div className="">
@@ -36,7 +35,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseThree" className="collapse panel-body" role="tabpanel" aria-labelledby="headingThree">
-            No, not quite yet.  Currently this is our only practice so you’ll only be able to enjoy all of the awesome Leo feature at this practice.  However, go here and let us know you are interested in Leo in another location.
+            No, not quite yet.  We are currently operating only out of our Flatiron practice in NYC.  That said, help us select our next location by going <a href="http://www.leohealth.com/practice" target="_blank">here</a> and let us know where you’d like to see us go next.
           </div>
         </div>
       </div>

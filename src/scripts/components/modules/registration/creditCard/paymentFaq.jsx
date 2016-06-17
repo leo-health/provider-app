@@ -25,7 +25,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseTwo" className="collapse panel-body" role="tabpanel" aria-labelledby="headingTwo">
-            We hope you never have to leave us but if you do you can contact us at info@leohealth.com to cancel your account at anytime.
+            We hope you never have to leave us but if you do you can contact us at support@leohealth.com to cancel your account at anytime.
           </div>
         </div>
         <div className="">
@@ -37,8 +37,16 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseThree" className="collapse panel-body" role="tabpanel" aria-labelledby="headingThree">
-            No, all you will be charged for is $20/month/child.  There are no other hidden fees or charges.
+            No, all you will be charged for is $20/month per child. There are no other hidden fees or charges.
           </div>
+        </div>
+        <div className="">
+          <div className="panel-heading" role="tab" id="headingFour">
+            <h4 className="panel-title">
+              <strong><a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Can I pay the membership fee with my HSA/FSA savings card?</a></strong>
+            </h4>
+          </div>
+          <div id="collapseFour" className="collapse panel-body" role="tabpanel" aria-labelledby="headingFour">You should be able to, but we cannot guarantee it. On occasion, our online payment processor (Stripe) declines HSA/FSA savings cards. However, in the event that occurs, we suggest that you pay with your personal credit card and we can provide you with a statement for possible reimbursement from your HSA/FSA savings account.</div>
         </div>
       </div>
     )
