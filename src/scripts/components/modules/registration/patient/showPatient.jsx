@@ -15,9 +15,9 @@ module.exports = React.createClass({
     var birthdayText = moment(patient.birth_date.substring(0, 10)).format('l');
 
     if(patient.sex === "M"){
-      avatarUrl = "../images/Avatar_Patient_Son.png";
+      avatarUrl = "../../images/Avatar_Patient_Son.png";
     }else{
-      avatarUrl = "../images/Avatar_Patient_Daughter.png";
+      avatarUrl = "../../images/Avatar_Patient_Daughter.png";
     }
 
     return <span className="pull-left">
