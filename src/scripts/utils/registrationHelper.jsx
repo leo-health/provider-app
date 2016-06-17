@@ -23,16 +23,68 @@ var RegistrationHelper = {
   },
 
   userValidatorTypes: {
-    email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address"),
-    password: Joi.string().min(8).max(127).trim().required().label("Password"),
-    firstName: Joi.string().min(2).trim().required().label("First name"),
-    lastName: Joi.string().min(2).trim().required().label("Last name"),
-    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone")
+    email: Joi.string().required().regex(/^([+\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, "E-mail address").label("E-mail address").options({
+      language: {
+        any: {
+          empty: '{{key}} cannot be empty'
+        },
+        string: {
+          regex: {
+            name: '{{key}} does not appear to be a valid',
+          }
+        }
+      }
+    }),
+    password: Joi.string().min(8).max(127).trim().required().label("Password").options({
+      language: {
+        any: {
+          empty: '{{key}} cannot be empty'
+        }
+      }
+    }),
+    firstName: Joi.string().min(2).trim().required().label("First name").options({
+      language: {
+        any: {
+          empty: '{{key}} cannot be empty'
+        }
+      }
+    }),
+    lastName: Joi.string().min(2).trim().required().label("Last name").options({
+      language: {
+        any: {
+          empty: '{{key}} cannot be empty'
+        }
+      }
+    }),
+    phone: Joi.string().required().regex(/^\(?[0-9]{3}\)?[\.\ \-]?[0-9]{3}[\.\ \-]?[0-9]{4}$/, "US phone number").label("Phone").options({
+      language: {
+        any: {
+          empty: '{{key}} cannot be empty'
+        },
+        string: {
+          regex: {
+            name: '{{key}} does not appear to be a valid'
+          }
+        }
+      }
+    })
   },
 
   patientValidatorTypes: {
-    firstName: Joi.string().min(2).trim().required().label("First name"),
-    lastName: Joi.string().min(2).trim().required().label("Last name"),
+    firstName: Joi.string().min(2).trim().required().label("First name").options({
+      language: {
+        any: {
+          empty: '{{key}} cannot be empty'
+        }
+      }
+    }),
+    lastName: Joi.string().min(2).trim().required().label("Last name").options({
+      language: {
+        any: {
+          empty: '{{key}} cannot be empty'
+        }
+      }
+    }),
     birthDate: Joi.date().format('MM-DD-YYYY').max(new Date()).required().label("Birth Date")
   },
 
@@ -40,6 +92,7 @@ var RegistrationHelper = {
     passwordConfirmation: Joi.any().valid(Joi.ref('password')).required().label("Password confirmation").options({
       language: {
         any: {
+          empty: '{{key}} cannot be empty',
           allowOnly: "does not match password"
         }
       }
