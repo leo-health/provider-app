@@ -43,7 +43,7 @@ module.exports = React.createClass({
         <div className="">
           <div className="panel-heading" role="tab" id="headingFour">
             <h4 className="panel-title">
-              <strong><a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">Can I pay the membership fee with my HSA/FSA savings card?</a></strong>
+              <strong><a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Can I pay the membership fee with my HSA/FSA savings card?</a></strong>
             </h4>
           </div>
           <div id="collapseFour" className="collapse panel-body" role="tabpanel" aria-labelledby="headingFour">You should be able to, but we cannot guarantee it. On occasion, our online payment processor (Stripe) declines HSA/FSA savings cards. However, in the event that occurs, we suggest that you pay with your personal credit card and we can provide you with a statement for possible reimbursement from your HSA/FSA savings account.</div>
