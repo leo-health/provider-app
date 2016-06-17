@@ -115,7 +115,7 @@ module.exports = React.createClass({
     return (
       <div>
         <div className="row">
-          <div className="col-md-10 col-md-offset-1">
+          <div className="col-md-9 col-md-offset-2">
             <h3 className="signup-header">Let's double check!</h3>
           </div>
         </div>
@@ -161,7 +161,7 @@ module.exports = React.createClass({
               </div>
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-2">
             <div className="form-group">
               <button type="submit"
                       onClick={this.chargeUser}
@@ -169,7 +169,7 @@ module.exports = React.createClass({
                 Sign Up
               </button>
             </div>
-            <p className="lead">By clicking sign up you agree to our <a href="/terms">terms of service</a> and <a href="/privacy">privacy policies.</a></p>
+            <p className="lead">By clicking sign up you agree to our <a href="/terms" target="_blank">terms of service</a> and <a href="/privacy" target="_blank">privacy policies.</a></p>
           </div>
         </div>
       </div>
