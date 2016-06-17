@@ -9,6 +9,23 @@
   .child-label { margin-right: 0.5em; display: inline-block }
   .message-button { margin-right: 0.5em }
   .guardian-name { background-color: red }
+  .progress-table {display: table; width: 100%; }
+  #signup_page {padding-top: 10px}
+  #signup_logo { float: left; display: inline; vertical-align: middle }
+  #signup_progress{ overflow: hidden}
+  #progress { padding-left: 60px }
+  .progress-text {color: black; font-size: 18px; font-weight: 400}
+  .signup_header{font-weight: 100}
+  .progress-text-container{width: 15%}
+  .signup-progress-text,
+  .progress-text-spacer{display: table-cell; float: none; padding: 0 0 14px; vertical-align: bottom}
+  .full-width-button{width: 100%}
+  @media (min-width: 650px) {
+    #progress_xs {display: none};
+  }
+  @media (max-width: 650px) {
+    #progress {display: none};
+  }
   .message-cell { margin-right: 1em; }
   /*Inline HR for System Messages*/
   .inline-hr {
@@ -191,4 +208,34 @@
 	blockquote .small:before {
 	  content: "";
 	}
+
+  /*Registration*/
+  .right-fix {
+    padding-right: 2em;
+  }
+
+  .page-header {
+    padding-top: .5%;
+  }
+
+  .patient-avatar {
+    height: 3.5em;
+    margin-top: 0.2em;
+    margin-right: 1.5em;
+  }
+
+  .registration-icon {
+    font-size: 20px;
+    padding: 3px;
+  }
+
+  .well.registration-well {
+    background-color: #fff;
+  }
+
+  .well.faq-well {
+   background-color: #fff;
+   border-radius: 2px;
+   border-color: #eee;
+  }
 }
