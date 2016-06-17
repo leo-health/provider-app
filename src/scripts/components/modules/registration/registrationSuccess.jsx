@@ -15,7 +15,9 @@ module.exports = React.createClass({
   },
 
   onStatusChange: function(status) {
-    if(status.inviteSuccess) this.setState({ display: true })
+    if(status.inviteSuccess){
+      this.setState({ display: true })
+    }
   },
 
   inputOrDisplay: function(){
