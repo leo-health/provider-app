@@ -2,7 +2,7 @@ var React = require('react'),
     ReactDom = require('react-dom'),
     {render} = ReactDom,
     ReactRouter = require('react-router'),
-    {Router, Route, browserHistory, IndexRoute} = ReactRouter,
+    {Router, Route, browserHistory, IndexRoute, Redirect} = ReactRouter,
     SessionStore = require('../stores/sessionStore'),
     App = require('./app'),
     Login = require('./pages/login'),
@@ -21,7 +21,7 @@ var React = require('react'),
 
 window.React = React;
 
-requireAuth = function(nextState, replace) {
+var requireAuth = function(nextState, replace) {
   if(!SessionStore.getSession().isLoggedIn){
     replace({
       pathname: "/login",
@@ -30,9 +30,16 @@ requireAuth = function(nextState, replace) {
   }
 };
 
+var stripHash = function(){
+  var hash = window.location.href.split('#/')[1] || '';
+  if(hash === 'privacy'){
+    window.location = window.location.origin + window.location.pathname + window.location.search + hash
+  }
+};
+
 render((
   <Router history={browserHistory}>
-    <Route path="/" component={App}>
+    <Route path="/" component={App} onEnter={stripHash}>
       <IndexRoute component={Home} onEnter={requireAuth}/>
       <Route path="login" component={Login}/>
       <Route path ="resetPassword" component={ResetPassword}/>

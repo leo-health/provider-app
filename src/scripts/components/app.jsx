@@ -1,6 +1,4 @@
-var React = require('react'),
-    ReactRouter = require('react-router'),
-    {browserHistory} = ReactRouter;
+var React = require('react');
 
 module.exports = React.createClass({
   render: function(){

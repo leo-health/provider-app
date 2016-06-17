@@ -101,7 +101,7 @@ var Registration  = React.createClass({
 
   handleOnSubmit: function (e) {
     e.preventDefault();
-    if(!this.state.eligible) return
+    if(!this.state.eligible) return;
     const onValidate = (error) => {
       if (error) {
         return;
