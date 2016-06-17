@@ -2,7 +2,7 @@ var React = require('react'),
     ReactDom = require('react-dom'),
     {render} = ReactDom,
     ReactRouter = require('react-router'),
-    {Router, Route, browserHistory, IndexRoute, Redirect} = ReactRouter,
+    {Router, Route, browserHistory, IndexRoute } = ReactRouter,
     SessionStore = require('../stores/sessionStore'),
     App = require('./app'),
     Login = require('./pages/login'),
@@ -22,24 +22,20 @@ var React = require('react'),
 window.React = React;
 
 var requireAuth = function(nextState, replace) {
-  if(!SessionStore.getSession().isLoggedIn){
-    replace({
-      pathname: "/login",
-      state: { nextPathname: nextState.location.pathname }
-    })
+  var hash = window.location.href.split('#/')[1];
+  if( hash === 'privacy' || hash === 'terms'){
+    replace({ pathname: "/" + hash });
+    return
   }
-};
 
-var stripHash = function(){
-  var hash = window.location.href.split('#/')[1] || '';
-  if(hash === 'privacy'){
-    window.location = window.location.origin + window.location.pathname + window.location.search + hash
+  if(!SessionStore.getSession().isLoggedIn){
+    replace({ pathname: "/login", state: { nextPathname: nextState.location.pathname }})
   }
 };
 
 render((
   <Router history={browserHistory}>
-    <Route path="/" component={App} onEnter={stripHash}>
+    <Route path="/" component={App}>
       <IndexRoute component={Home} onEnter={requireAuth}/>
       <Route path="login" component={Login}/>
       <Route path ="resetPassword" component={ResetPassword}/>
