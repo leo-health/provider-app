@@ -1,8 +1,21 @@
-var React = require('react');
-    LoginAction = require('../../actions/loginActions');
+var React = require('react'),
+    Reflux = require('reflux'),
+    ReactRouter = require('react-router'),
+    SessionStore = require('../../stores/sessionStore'),
+    LoginAction = require('../../actions/loginActions'),
     leoUtil = require('../../utils/common').StringUtils;
 
 module.exports = React.createClass({
+  mixins: [Reflux.listenTo(SessionStore, "onStatusChange")],
+
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
+  onStatusChange: function (status) {
+    if(status.isLoggedIn === false) this.context.router.push('/login')
+  },
+
   handleOnLogout: function(){
     var authenticationToken = sessionStorage.authenticationToken;
     if(!authenticationToken) return;

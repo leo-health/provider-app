@@ -1,4 +1,5 @@
 var React = require('react'),
+    ReactRouter = require('react-router'),
     Reflux = require('reflux'),
     ReactDom = require('react-dom'),
     LoginAction = require('../../actions/loginActions'),
@@ -8,14 +9,19 @@ var React = require('react'),
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(SessionStore, "onStatusChange")],
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function(){
-    return{
-      status: "initial",
-      message: ""
-    }
+    return { status: '', message: '' }
   },
 
   onStatusChange: function (status) {
+    if(status.isLoggedIn){
+      this.context.router.push('/home');
+      return
+    }
     this.setState(status);
   },
 
@@ -39,7 +45,7 @@ module.exports = React.createClass({
 
   handleOnForget: function(){
     if(this.isSessionStorageNameSupported()){
-      browserHistory.push('resetPassword');
+      this.context.router.push('/resetPassword');
     }
   },
 
