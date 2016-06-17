@@ -5,7 +5,6 @@ var moment = require('moment');
 var leoUtil = require('../../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
-
   render: function(){
     var sentAt = moment(this.props.sentAt).calendar() + " ";
     var sender = this.props.sender;
@@ -21,7 +20,6 @@ module.exports = React.createClass({
 
     var noteDisplayString;
     switch (messageType) {
-
       case "close":
         noteDisplayString = `${sentAt} - ${sender} closed this case`;
         break;

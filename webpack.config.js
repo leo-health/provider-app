@@ -32,9 +32,11 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       // This has effect on the react lib size.
+      "PRODUCTION": false,
       "leo" : {
         API_URL: JSON.stringify(process.env.API_URL),
-        PUSHER_APPLICATION_KEY: JSON.stringify(process.env.PUSHER_APPLICATION_KEY)
+        PUSHER_APPLICATION_KEY: JSON.stringify(process.env.PUSHER_APPLICATION_KEY),
+        STRIPE_KEY: JSON.stringify(process.env.STRIPE_KEY)
       }
     }),
     new webpack.HotModuleReplacementPlugin(),

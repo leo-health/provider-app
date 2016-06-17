@@ -1,26 +1,17 @@
-var React = require('react');
-var HomeHeader = require('./homeHeader');
-var FindFamily = require('../modules/search/findFamily');
-var ConversationList = require('../modules/conversation/conversationList');
-var ConversationHeader = require('../modules/conversation/conversationHeader');
-var SessionStore = require('../../stores/sessionStore');
-var Footer = require('./footer');
-var _ = require('lodash');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
-var Navigation = Router.Navigation;
+var React = require('react'),
+    HomeHeader = require('./homeHeader'),
+    FindFamily = require('../modules/search/findFamily'),
+    ConversationList = require('../modules/conversation/conversationList'),
+    ConversationHeader = require('../modules/conversation/conversationHeader'),
+    SessionStore = require('../../stores/sessionStore'),
+    Footer = require('./footer'),
+    _ = require('lodash');
 
 module.exports = React.createClass({
-  mixins: [Navigation],
-
-  getInitialState: function() {
-    var loginStatus = SessionStore.getSession();
-    if(!loginStatus.isLoggedIn) this.transitionTo('login');
-    return loginStatus;
-  },
-
   componentWillMount: function(){
     this.subscribeToPusher();
+    this.subscribeToBrowserTabFocusEvent();
+    this.titleBlink()
   },
 
   subscribeToPusher: function(){
@@ -33,14 +24,10 @@ module.exports = React.createClass({
     });
 
     this.pusher.subscribe('presence-provider_app');
-    this.subscribeToBrowserTabFocusEvent();
   },
 
   subscribeToBrowserTabFocusEvent: function() {
-
-    window.originalTabTitle = "LeoHealth - WebApp";
-    document.title = window.originalTabTitle;
-
+    window.originalTabTitle = document.title;
     window.onblur = function() {
       window.windowHasFocus = false;
     };
@@ -48,6 +35,17 @@ module.exports = React.createClass({
       window.windowHasFocus = true;
       document.title = window.originalTabTitle;
     };
+  },
+
+  titleBlink: function(){
+    window.flashTitle = function(newMessage, count){
+      function step() {
+        if(window.windowHasFocus) return;
+        document.title = (document.title == window.originalTabTitle) ? newMessage : window.originalTabTitle;
+        if (--count > 0) setTimeout(step, 600)
+      }
+      step()
+    }
   },
 
   componentWillUnmount: function () {
@@ -68,7 +66,7 @@ module.exports = React.createClass({
               <FindFamily/>
             </div>
           </div>
-           <ConversationList pusher={this.pusher}/>
+          <ConversationList pusher={this.pusher}/>
           <Footer/>
         </div>
       </div>
