@@ -113,7 +113,7 @@ module.exports = validation(strategy)(React.createClass({
                    value={this.state.firstName}
                    onChange={this.handleFirstNameChange}
                    autoFocus/>
-            <label className="text-muted">First Name</label>
+            <label className="text-muted">Child's First Name</label>
             {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
           </div>
 
@@ -122,7 +122,7 @@ module.exports = validation(strategy)(React.createClass({
                    className="form-control"
                    value={this.state.lastName}
                    onChange={this.handleLastNameChange}/>
-            <label className="text-muted">Last Name</label>
+            <label className="text-muted">Child's Last Name</label>
             {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
           </div>
         </div>

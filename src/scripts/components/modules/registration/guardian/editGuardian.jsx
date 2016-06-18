@@ -128,6 +128,15 @@ module.exports = validation(strategy)(React.createClass({
         </div>
 
         <div className="form-group col-lg-12">
+          <input type="password"
+                 value={this.state.password}
+                 className="form-control"
+                 onChange={this.handlePasswordChange}/>
+          <label className="text-muted">Password</label>
+          {Helper.renderHelpText(this.props.getValidationMessages('password'))}
+        </div>
+
+        <div className="form-group col-lg-12">
           <input type="text"
                  className="form-control"
                  value={this.state.phone}
@@ -137,15 +146,6 @@ module.exports = validation(strategy)(React.createClass({
                  onInput={Helper.phoneMask}/>
           <label className="text-muted">Phone</label>
           {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
-        </div>
-
-        <div className="form-group col-lg-12">
-          <input type="password"
-                 value={this.state.password}
-                 className="form-control"
-                 onChange={this.handlePasswordChange}/>
-          <label className="text-muted">Password</label>
-          {Helper.renderHelpText(this.props.getValidationMessages('password'))}
         </div>
       </div>
     )
