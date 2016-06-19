@@ -12,7 +12,7 @@ module.exports =React.createClass({
     return(
       <div className="row">
         <div className="form-group col-md-10 col-md-offset-1">
-          <h4>Basic Info</h4>
+          <h4>Your Information</h4>
         </div>
         <div className="form-group col-md-1">
           <a className="icon" onClick={this.props.guardianStateToggle}>

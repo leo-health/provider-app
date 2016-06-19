@@ -12,7 +12,7 @@ module.exports = React.createClass({
                 We're excited to have you onboard, but to make sure your child's data is safe, the person who originally invited you must confirm that the details you provided to us are correct.
               </p>
               <p>
-                Once we've heard from them, you'll receive an email from us with instructions on how to download the app, and then you can take advantage of all of Leo's services.
+                Once we've heard from them, you can sign in to the app and take advantage of all of Leo's services.
               </p>
               <br/>
               <a href="https://itunes.apple.com/app/id1051397244"><img src="../../images/download.png"/></a>

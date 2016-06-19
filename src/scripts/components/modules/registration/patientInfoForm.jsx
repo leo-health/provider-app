@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
   addPatient: function(){
     if(this.props.patients.length > 0 && !this.state.edit){
-      return <button type="button" className="btn btn-primary" onClick={this.switchToEdit}>Add Another</button>
+      return <button type="button" className="btn btn-primary" onClick={this.switchToEdit}>Add Another Child</button>
     }else{
       return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
     }
@@ -63,7 +63,7 @@ module.exports = React.createClass({
         <br/>
         <div className="col-lg-11 col-lg-offset-1">
           <h4 className="signup-header">Now it’s time to add children to your account</h4>
-          <p className="lead">If you’re an expecting parent, you won’t be able to enroll with Leo until your child is born.</p>
+          <br/>
         </div>
         <div className="col-lg-10 col-lg-offset-1">
           <ErrorAlert message={this.state.message}
