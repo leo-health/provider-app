@@ -114,14 +114,9 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="row">
-          <div className="col-md-9 col-md-offset-2">
-            <h3 className="signup-header">Let's double check!</h3>
-            <p className="lead">Please review all of the information below.</p>
-          </div>
-        </div>
         <div className="inline-hr"></div>
         <div className="row">
+          <br/>
           <div className="col-md-10 col-md-offset-1">
             <ErrorAlert message={this.props.message}
                         status={this.props.status}/>
@@ -129,17 +124,25 @@ module.exports = React.createClass({
         </div>
         <br/>
         <div className="row">
-          <div className="col-md-8 col-md-offset-1">
+          <div className="col-md-7 col-md-offset-1">
+                  <div className="row">
+          <div className="col-md-9 col-md-offset-1">
+            <h3 className="signup-header">Let's double check!</h3>
+            <p className="lead">Please review all of the information below.</p>
+            <br/>
+          </div>
+        </div>
             {this.editOrShowGuardian()}
             <br/>
             <div className="row">
               <div className="form-group col-md-10 col-md-offset-1">
-                <h4>Family</h4>
+                <h4>Your Family</h4>
               </div>
               <div className="form-group col-md-1">
                 <a className="icon" onClick={this.addPatientToggle}
                    style={this.displayOrHideAddPatientButton()}>
                   <span className="registration-icon glyphicon glyphicon-plus pull-right"></span>
+                  <br/>
                 </a>
               </div>
               <div className="form-group col-md-11 col-md-offset-1">
@@ -162,7 +165,7 @@ module.exports = React.createClass({
               </div>
             </div>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-3">
             <div className="form-group">
               <button type="submit"
                       onClick={this.chargeUser}
@@ -170,7 +173,7 @@ module.exports = React.createClass({
                 Sign Up
               </button>
             </div>
-            <p className="lead">By clicking sign up you agree to our <a href="/terms" target="_blank">terms of service</a> and <a href="/privacy" target="_blank">privacy policies.</a></p>
+            <p className='lead'>By clicking sign up you agree to our <a href='/terms' target='_blank'>terms of service</a> and <a href='/privacy' target='_blank'>privacy policies.</a></p>
           </div>
         </div>
       </div>

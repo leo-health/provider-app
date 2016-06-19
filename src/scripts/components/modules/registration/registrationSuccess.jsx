@@ -21,17 +21,17 @@ module.exports = React.createClass({
   },
 
   inputOrDisplay: function(){
-    return this.state.display ? <div className="text-center col-lg-12"><span className="glyphicon glyphicon-star" aria-hidden="true"></span><h3>Successfully Invited!</h3></div> : <InviteGuardian token={this.props.location.query.token}/>
+    return this.state.display ? <div className="text-center col-lg-12"><span className="glyphicon glyphicon-star" aria-hidden="true"></span><h3>You’ve successfully invited another guardian!</h3></div> : <InviteGuardian token={this.props.location.query.token}/>
   },
 
   render: function(){
     return(
       <div className="page-header row">
         <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4">
-            <div className="text-center">
-              <img src="../../images/leo.png"/>
+            <div className="text-center"><img src="../../images/leo.png"/>
               <h3>Account Confirmed</h3>
-              <p className="lead">Taking your child to the doctor just got a lot easier! Now, download the app from the app store and sign in to your account.</p>
+              <p className="lead">You are good to go, taking your child to the doctor just got a lot easier! If you have any questions or need assistance feel free to reach out to us at support@leohealth.com.</p>
+              <p className="lead">Now all you have to do is download the app from the App Store and sign in to your account.</p>
               <a href="https://itunes.apple.com/app/id1051397244"><img className="lead" src="../images/download.png"/></a>
             </div>
         </div>

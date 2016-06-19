@@ -151,7 +151,7 @@ module.exports = validation(strategy)(React.createClass({
             <button onClick={this.handleOnSubmit}
                     disabled={this.state.disabled}
                     className="btn btn-primary">
-              Done
+              Save
             </button>
           </div>
         </div>

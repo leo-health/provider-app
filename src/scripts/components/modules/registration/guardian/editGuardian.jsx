@@ -132,7 +132,7 @@ module.exports = validation(strategy)(React.createClass({
                  value={this.state.password}
                  className="form-control"
                  onChange={this.handlePasswordChange}/>
-          <label className="text-muted">Password</label>
+          <label className="text-muted">Create Password</label>
           {Helper.renderHelpText(this.props.getValidationMessages('password'))}
         </div>
 

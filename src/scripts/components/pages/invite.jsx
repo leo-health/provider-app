@@ -227,7 +227,7 @@ var Registration  = React.createClass({
                        value={this.state.password}
                        className="form-control"
                        onChange={this.handlePasswordChange}/>
-                <label className="text-muted">Password</label>
+                <label className="text-muted">Create Password</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('password'))}
               </div>
 
@@ -236,7 +236,7 @@ var Registration  = React.createClass({
                        value={this.state.passwordConfirmation}
                        className="form-control"
                        onChange={this.handlePasswordConfirmationChange}/>
-                <label className="text-muted">Password Confirmation</label>
+                <label className="text-muted">Re-enter Password</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('passwordConfirmation'))}
               </div>
             </div>

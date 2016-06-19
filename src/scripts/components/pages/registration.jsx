@@ -10,7 +10,7 @@ var React = require('react'),
     PaymentInfoForm = require('../modules/registration/paymentInfoForm'),
     ReviewForm = require('../modules/registration/reviewForm'),
     ProgressBarMap = {
-      you: ["12%", "1/4", "You"],
+      you: ["12%", "1/4", "About You"],
       patient: ["36%", "2/4", "Add a Child"],
       payment: ["62%", "3/4", "Payment"],
       review: ["90%", "4/4", "Review"]
@@ -141,10 +141,11 @@ module.exports = React.createClass({
             <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
             <div id="signup_progress">
               <div className="progress-text" id="progress_xs">
-                <span className="signup-xs-text">({this.state.progressBar[1]}) {this.state.progressBar[2]}</span>
+                <p className="signup-progress-text progress-text-container">({this.state.progressBar[1]}) {this.state.progressBar[2]}</p>
               </div>
               <div className="progress-text" id="progress">
                 <div className="progress-table">
+                  <div className="progress-text-spacer"></div>
                   <div className="signup-progress-text progress-text-container">{ProgressBarMap.you[2]}</div>
                   <div className="progress-text-spacer"></div>
                   <div className="signup-progress-text progress-text-container">{ProgressBarMap.patient[2]}</div>
