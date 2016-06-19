@@ -4,7 +4,8 @@ var Joi = require('joi'),
 var error_strings = {
   any_empty: '{{key}} cannot be empty',
   string_invalid: '{{key}} does not appear to be a valid',
-  any_allowOnly: '{{key}} does not match'
+  any_allowOnly: '{{key}} does not match',
+  date_max: '{{key}} cannot be in the future'
 };
 
 var RegistrationHelper = {
@@ -91,7 +92,14 @@ var RegistrationHelper = {
         }
       }
     }),
-    birthDate: Joi.date().format('MM-DD-YYYY').max(new Date()).required().label("Birth Date")
+    birthDate: Joi.date().format('MM-DD-YYYY').max(new Date()).required().label("Birth Date").options({
+      language: {
+        date: {
+          base: error_strings.string_invalid,
+          max: error_strings.date_max
+        }
+      }
+    })
   },
 
   passwordConfirmation: {

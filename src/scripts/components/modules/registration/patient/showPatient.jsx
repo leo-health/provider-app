@@ -25,18 +25,20 @@ module.exports = React.createClass({
       <table>
         <tbody>
           <tr>
-            <td>Full name</td>
-            <td>Sex</td>
+            <td>Child's Full Name</td>
             <td>Birthday</td>
+            <td>Sex</td>
           </tr>
           <tr>
             <td>
               <p className="lead right-fix">{nameText}</p>
             </td>
             <td>
+              <p className="lead right-fix">{birthdayText}</p>
+            </td>
+            <td>
               <p className="lead right-fix">{patient.sex}</p>
             </td>
-            <td><p className="lead right-fix">{birthdayText}</p></td>
           </tr>
         </tbody>
       </table>

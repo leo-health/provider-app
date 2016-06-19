@@ -71,7 +71,7 @@ module.exports = validation(strategy)(React.createClass({
             <div className="row well">
               <div className="row">
                 <div className="col-md-6">
-                  <h4 className="signup-header">Invite Another Guardian</h4>
+                  <h4 className="signup-header">Invite another parent or caregiver</h4>
                 </div>
               </div>
               <div className="form-group col-sm-6">
@@ -114,6 +114,8 @@ module.exports = validation(strategy)(React.createClass({
               <button type="submit"
                     onClick={this.handleOnSubmit}
                     className="btn btn-primary btn-lg full-width-button">Invite</button>
+              <p className="lead"></p>
+              <p className="text-muted lead">By adding a parent or caregiver you are providing this individual with access to your family's account and health data.</p>
             </div>
           </div>
         </div>
