@@ -13,7 +13,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseOne" className="collapse panel-body" role="tabpanel" aria-labelledby="headingOne">
-            Your card will charged at this time each month.  So, if you complete registration on the 12th that is the start of your billing cycle and you’ll be charged again 30 days later.
+            Your card will charged monthly starting when you register.
           </div>
         </div>
         <div className="">
@@ -37,7 +37,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseThree" className="collapse panel-body" role="tabpanel" aria-labelledby="headingThree">
-            No, all you will be charged for is $20/month per child. There are no other hidden fees or charges.
+            No, you will only be charged $20/month for each child.  There are no hidden fees or charges.
           </div>
         </div>
         <div className="">
