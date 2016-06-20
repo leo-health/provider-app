@@ -13,8 +13,12 @@ module.exports = React.createClass({
     return{ message: '' }
   },
 
+  contextTypes: {
+    router: React.PropTypes.object
+  },
+
   componentWillMount: function(){
-    UserActions.signUpUser(this.context.router.getCurrentQuery().token);
+    UserActions.signUpUser(this.props.location.query.token);
   },
 
   onStatusChange: function (status) {
