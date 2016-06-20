@@ -23,7 +23,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseTwo" className="collapse panel-body" role="tabpanel" aria-labelledby="headingTwo">
-            It's up to you.  While there are many features of Leo that do not involve the iPhone app, many features, like messaging and scheduling, are only currently available on the iPhone app.  We hope to have an Android app soon.
+            It's up to you.  While there are many features of Leo that do not involve the iPhone app, many features, like messaging and scheduling, are only currently available on the iPhone.  We hope to have an Android app soon.
           </div>
         </div>
         <div className="">

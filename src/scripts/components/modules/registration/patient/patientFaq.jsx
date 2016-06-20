@@ -37,7 +37,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseThree" className="collapse panel-body" role="tabpanel" aria-labelledby="headingThree">
-            Your family’s informations especially health record is secured and all technology is HIPAA compliant.
+            Your family’s information, especially the health record, is secured and all of Leo’s technology is HIPAA compliant.
           </div>
         </div>
       </div>
