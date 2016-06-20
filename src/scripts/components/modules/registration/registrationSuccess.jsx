@@ -21,7 +21,11 @@ module.exports = React.createClass({
   },
 
   inputOrDisplay: function(){
-    return this.state.display ? <div className="text-center col-lg-12"><span className="glyphicon glyphicon-star" aria-hidden="true"></span><h3>You’ve successfully invited another guardian!</h3></div> : <InviteGuardian token={this.props.location.query.token}/>
+    return this.state.display ?
+      <div className="text-center col-lg-12">
+        <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
+        <h3>You’ve successfully invited another guardian!</h3></div> :
+      <InviteGuardian token={this.props.location.query.token}/>
   },
 
   render: function(){
