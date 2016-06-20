@@ -37,7 +37,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseThree" className="collapse panel-body" role="tabpanel" aria-labelledby="headingThree">
-            No, you will only be charged $20/month for each child.  There are no hidden fees or charges.
+            No, you will only be charged $20/month for each child. There are no hidden fees or charges.
           </div>
         </div>
         <div className="">
