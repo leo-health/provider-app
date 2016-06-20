@@ -1,13 +1,6 @@
-var React = require('react'),
-    Reflux = require('reflux'),
-    ReactRouter = require('react-router'),
-    {browserHistory} = ReactRouter;
+var React = require('react');
 
 module.exports = React.createClass({
-  getInitialState: function(){
-    return { display: false }
-  },
-
   render: function(){
     return(
       <div className="page-header row">
