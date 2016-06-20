@@ -70,7 +70,7 @@ var Registration  = React.createClass({
   checkEligibility: function(data){
     if(this.isInvitedUser(data)){
       this.setState({
-        header: 'Tell us a little about yourself!',
+        header: 'Join your family’s account on Leo!',
         secondHeader: 'In order to get setup with your family on Leo, please fill out the information below.',
         firstName: data.enrollment.first_name,
         lastName: data.enrollment.last_name,

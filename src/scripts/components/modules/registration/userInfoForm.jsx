@@ -27,8 +27,7 @@ module.exports =React.createClass({
         <div className="row">
           <div className="col-md-11 col-md-offset-1">
             <h4 className="signup-header">Tell us a little about yourself</h4>
-            <p className="lead">We are thrilled to welcome you to the practice!
-              We need to collect some information about you and your family in order to get you enrolled in the practice.
+            <p className="lead">We are thrilled to welcome you to the Practice! To get your enrolled, we need to collect some info about you and your family.
             </p>
           </div>
         </div>

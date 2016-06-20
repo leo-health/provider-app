@@ -20,7 +20,7 @@ module.exports = React.createClass({
           <div className="panel-heading" role="tab" id="headingTwo">
             <h4 className="panel-title">
               <strong><a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Is there a cancellation policy?
+                Can I cancel my membership?
               </a></strong>
             </h4>
           </div>
