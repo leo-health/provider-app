@@ -68,7 +68,7 @@ module.exports = validation(strategy)(React.createClass({
         <div className="row">
           <div className="col-lg-6 col-lg-offset-3">
             <div className="row well">
-              <div className="form-group col-lg-6">
+              <div className="form-group col-lg-12">
                 <h4 className="signup-header">Invite another parent or caregiver to your account</h4>
               </div>
               <div className="form-group col-lg-6">
