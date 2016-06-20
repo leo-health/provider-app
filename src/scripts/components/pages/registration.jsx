@@ -1,4 +1,5 @@
 var React = require('react'),
+    ReactDom = require('react-dom'),
     Reflux = require('reflux'),
     ReactRouter = require('react-router'),
     {browserHistory, withRouter} = ReactRouter,
@@ -47,6 +48,7 @@ module.exports = React.createClass({
       ga('create', 'UA-56852793-1', 'auto');
       ga('send', 'pageview');
     }
+    ReactDom.findDOMNode(this.refs.signUp).scrollTop = 0
   },
 
   componentWillMount: function(){
@@ -135,7 +137,7 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <div id="signup_page">
+      <div id="signup_page" ref='signUp'>
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
             <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
