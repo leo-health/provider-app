@@ -25,7 +25,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseTwo" className="collapse panel-body" role="tabpanel" aria-labelledby="headingTwo">
-            We hope you never have to leave us but if you do you can contact us at support@leohealth.com to cancel your account at anytime.
+            We hope you never have to leave us, but if you do, you can contact us at support@leohealth.com to cancel your subscription at anytime.
           </div>
         </div>
         <div className="">

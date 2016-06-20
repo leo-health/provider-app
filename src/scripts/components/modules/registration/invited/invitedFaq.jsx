@@ -25,7 +25,7 @@ module.exports = React.createClass({
             </h4>
           </div>
           <div id="collapseTwo" className="collapse panel-body" role="tabpanel" aria-labelledby="headingTwo">
-            To download the Leo app today, please enter the information below and from there you will be prompted to head over the the App Store.
+            To download the Leo app today, please enter the information below and from there you will be prompted to head over to the App Store.
           </div>
         </div>
       </div>
