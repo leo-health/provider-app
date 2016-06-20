@@ -29,10 +29,6 @@ module.exports = React.createClass({
         <div className="row">
           <div className="col-md-11 col-md-offset-1">
             <h4 className="signup-header">Please enter in your payment information.</h4>
-            <p className="lead">
-              At just $20 per month, a Leo membership gives you access to our comprehensive set of features and
-              services—beyond what insurance covers—to give your child a superior care experience.
-            </p>
           </div>
         </div>
         <br/>

@@ -128,7 +128,7 @@ module.exports = React.createClass({
                   <div className="row">
           <div className="col-md-9 col-md-offset-1">
             <h3 className="signup-header">Let's double check!</h3>
-            <p className="lead">Please review all of the information below.</p>
+            <p className="lead">Please review all of the information below and click 'Sign Up' to complete enrollment.</p>
             <br/>
           </div>
         </div>

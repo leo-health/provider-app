@@ -32,7 +32,7 @@ module.exports = React.createClass({
               <h3>Account Confirmed</h3>
               <p className="lead">You are good to go, taking your child to the doctor just got a lot easier! If you have any questions or need assistance feel free to reach out to us at support@leohealth.com.</p>
               <p className="lead">Now all you have to do is download the app from the App Store and sign in to your account.</p>
-              <a href="https://itunes.apple.com/app/id1051397244"><img className="lead" src="../images/download.png"/></a>
+              <a href="https://itunes.apple.com/app/id1051397244" target="_blank"><img className="lead" src="../images/download.png"/></a>
             </div>
         </div>
         {this.inputOrDisplay()}

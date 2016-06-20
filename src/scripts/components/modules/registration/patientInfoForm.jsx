@@ -62,7 +62,7 @@ module.exports = React.createClass({
       <div className="row">
         <br/>
         <div className="col-lg-11 col-lg-offset-1">
-          <h4 className="signup-header">Now it’s time to add children to your account</h4>
+          <h4 className="signup-header">Now let’s enroll your family</h4>
           <br/>
         </div>
         <div className="col-lg-10 col-lg-offset-1">

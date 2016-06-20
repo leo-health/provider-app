@@ -15,7 +15,7 @@ module.exports = React.createClass({
                 Once we've heard from them, you can sign in to the app and take advantage of all of Leo's services.
               </p>
               <br/>
-              <a href="https://itunes.apple.com/app/id1051397244"><img src="../../images/download.png"/></a>
+              <a href="https://itunes.apple.com/app/id1051397244" target="_blank"><img src="../../images/download.png"/></a>
             </div>
         </div>
       </div>

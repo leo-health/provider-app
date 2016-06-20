@@ -71,7 +71,7 @@ module.exports = validation(strategy)(React.createClass({
             <div className="row well">
               <div className="row">
                 <div className="col-md-6">
-                  <h4 className="signup-header">Invite another parent or caregiver</h4>
+                  <h4 className="signup-header">Invite another parent or caregiver to your account</h4>
                 </div>
               </div>
               <div className="form-group col-sm-6">
