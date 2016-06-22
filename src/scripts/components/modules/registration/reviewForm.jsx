@@ -133,11 +133,9 @@ module.exports = React.createClass({
           <div className="col-lg-7 col-lg-offset-1">
             <h3 className="signup-header">Let's double check!</h3>
             <p className="lead">Please review all of the information below and click 'Sign Up' to complete enrollment.</p>
-
             <div className="col-lg-12">
               {this.editOrShowGuardian()}
             </div>
-
             <div className="col-lg-12">
               <h4 style={{display: 'inline-block'}}>Your Family</h4>
               <a className="icon"
@@ -146,19 +144,17 @@ module.exports = React.createClass({
                 <span className="registration-icon glyphicon glyphicon-plus pull-right"></span>
               </a>
             </div>
-
             <div className="col-lg-12">
               {this.addOrDisplayPatient()}
             </div>
             <div className="col-lg-12">
               {this.state.showAddPatient}
             </div>
-
             <div className="col-lg-12">
               <h4 style={{display: 'inline-block'}}>Payment</h4>
               {this.editOrSavePayment(this.state.editPayment)}
             </div>
-            <div className="form-group col-lg-12">
+            <div className="col-lg-12">
               {this.creditCardDisplay()}
             </div>
           </div>
