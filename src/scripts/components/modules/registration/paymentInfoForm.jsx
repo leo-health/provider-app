@@ -9,13 +9,17 @@ module.exports = React.createClass({
     return { disabled: false }
   },
 
+  componentDidMount: function(){
+    if(PRODUCTION){
+      fbq('track', 'AddPaymentInfo');
+      ga('create', 'UA-56852793-1', 'auto');
+      ga('send', 'pageview');
+    }
+  },
+
   handleOnClick: function(){
     this.refs.paymentForm.createCreditCard();
     this.setState({disabled: true})
-  },
-
-  componentDidMount: function(){
-    if(leo.env === 'production') fbq('track', 'AddPaymentInfo');
   },
 
   componentWillReceiveProps: function(nextProps){

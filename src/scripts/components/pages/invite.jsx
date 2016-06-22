@@ -52,8 +52,8 @@ var Registration  = React.createClass({
       }
       if(this.isExemptedUser(status)){
         this.context.router.push({
-          path: "/registration/success",
-          query: {token: status.enrollment.authentication_token}
+          pathname: "/registration/success",
+          query: {token: status.session.authentication_token}
         });
         return
       }

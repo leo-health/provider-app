@@ -45,8 +45,6 @@ module.exports = React.createClass({
     if(PRODUCTION){
       fbq('init', '830521543747446');
       fbq('track', "PageView");
-      ga('create', 'UA-56852793-1', 'auto');
-      ga('send', 'pageview');
     }
     ReactDom.findDOMNode(this.refs.signUp).scrollTop = 0
   },
@@ -66,7 +64,7 @@ module.exports = React.createClass({
     if(status.nextPage) this.navigateTo(status.nextPage);
     if(status.createdSubscription){
       this.context.router.push({pathname: "/registration/success", query: {token: sessionStorage.enrollmentToken}});
-      if(leo.env === 'production'){
+      if(PRODUCTION){
         var value = parseInt(status.quantity) * 20;
         fbq('track', 'Purchase', {value: value.toString(), currency: 'USD'});
       }
