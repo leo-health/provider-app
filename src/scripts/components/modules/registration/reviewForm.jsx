@@ -36,10 +36,12 @@ module.exports = React.createClass({
     if(isEdit){
       return <a className="icon" onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-pencil pull-right"></span></a>
     }else{
-      return <div className="row">
-         <a onClick={this.cancelPayment}><span className="registration-icon glyphicon glyphicon-remove pull-right"></span></a>
-         <a onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-ok pull-right"></span></a>
-       </div>
+      return(
+        <div style={{display: 'inline-block'}} className="pull-right">
+          <a onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-ok"></span></a>
+          <a onClick={this.cancelPayment}><span className="registration-icon glyphicon glyphicon-remove"></span></a>
+        </div>
+      )
     }
   },
 
@@ -152,19 +154,14 @@ module.exports = React.createClass({
               {this.state.showAddPatient}
             </div>
 
-            <div className="col-lg-11">
-              <h4>Payment</h4>
-            </div>
-            <div className="form-group col-lg-1">
+            <div className="col-lg-12">
+              <h4 style={{display: 'inline-block'}}>Payment</h4>
               {this.editOrSavePayment(this.state.editPayment)}
             </div>
             <div className="form-group col-lg-12">
               {this.creditCardDisplay()}
             </div>
           </div>
-
-
-
           <div className="col-lg-3">
               <button type="submit"
                       style={{marginTop: '23px'}}

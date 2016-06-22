@@ -20,10 +20,11 @@ module.exports = React.createClass({
       avatarUrl = "../../images/Avatar_Patient_Daughter.png";
     }
 
-    return <span className="pull-left">
-      <img className="patient-avatar pull-left" src={avatarUrl}/>
-      <table>
-        <tbody>
+    return(
+      <span className="pull-left">
+        <img className="patient-avatar pull-left" src={avatarUrl}/>
+        <table>
+          <tbody>
           <tr>
             <td>Child's Full Name</td>
             <td>Birthday</td>
@@ -40,9 +41,10 @@ module.exports = React.createClass({
               <p className="lead right-fix">{patient.sex}</p>
             </td>
           </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
      </span>
+    )
   },
 
   render: function(){

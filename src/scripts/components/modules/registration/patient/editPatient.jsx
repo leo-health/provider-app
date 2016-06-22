@@ -101,9 +101,13 @@ module.exports = validation(strategy)(React.createClass({
 
     return(
       <div className="row well">
-        <a className="col-lg-12" onClick={this.props.handleCancel} style={showCancelButton}>
-          <span className="registration-icon glyphicon glyphicon-trash pull-right"></span>
-        </a>
+        <div className="col-lg-12">
+          <a onClick={this.props.handleCancel}
+             className="pull-right"
+             style={showCancelButton}>
+            <span className="registration-icon glyphicon glyphicon-trash"></span>
+          </a>
+        </div>
         <div className="col-lg-6">
           <input type="text"
                  className="form-control"

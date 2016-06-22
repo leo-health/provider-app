@@ -17,8 +17,6 @@ module.exports =React.createClass({
             <span className="registration-icon glyphicon glyphicon-pencil pull-right"></span>
           </a>
         </div>
-
-
         <div className="col-lg-12">
           <table>
             <tbody>
