@@ -23,11 +23,15 @@
   p.signup-progress-text.progress-text-container {
     padding:0 2em 1em;
   }
+  @media (min-width: 1200px) {
+    .no-right-padding {padding-right: 0%}
+    .tiny-left-padding {padding-left: 1%}
+  }
   @media (min-width: 650px) {
-    #progress_xs {display: none};
+    #progress_xs {display: none}
   }
   @media (max-width: 650px) {
-    #progress {display: none};
+    #progress {display: none}
   }
   .message-cell { margin-right: 1em; }
   /*Inline HR for System Messages*/

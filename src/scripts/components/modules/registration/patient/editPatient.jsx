@@ -128,14 +128,14 @@ module.exports = validation(strategy)(React.createClass({
         </div>
 
         <div className="form-group row">
-          <div className="col-lg-8">
+          <div className="col-lg-6">
             <DateSelector onChange={this.handleBirthDateChange}
                           value={this.state.birthDate}/>
             <label className="text-muted">Birth Date</label>
             {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
           </div>
 
-          <div className="col-lg-2">
+          <div className="col-lg-4">
             <select className="form-control"
                     value={this.state.sex}
                     onChange={this.handleSexChange}>
