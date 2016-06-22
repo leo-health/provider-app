@@ -74,43 +74,47 @@ module.exports = validation(strategy)(React.createClass({
 
   render: function(){
     return(
-     <div>
-      <div className="form-group col-lg-10 col-lg-offset-1">
-        <h4>Your Information</h4>
-      </div>
-      <div className="form-group col-lg-1">
-        <a onClick={this.props.guardianStateToggle}><span className="registration-icon glyphicon glyphicon-remove pull-right"></span></a>
-      </div>
-      <div className="row well form-group col-lg-11 col-lg-offset-1">
-        <div className="form-group col-lg-6">
-          <input type="text"
-                 className="form-control"
-                 value={this.state.firstName}
-                 onChange={this.handleFirstNameChange}
-                 ref="firstName"/>
-          <label className="text-muted">First Name</label>
-          {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
-        </div>
-        <div className="form-group col-lg-6">
-          <input type="text"
-                 className="form-control"
-                 value={this.state.lastName}
-                 onChange={this.handleLastNameChange}
-                 ref="lastName"/>
-          <label className="text-muted">Last Name</label>
-          {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
-        </div>
-        <div className="form-group col-lg-6">
-          <input type="text"
-                 className="form-control"
-                 value={this.state.phone}
-                 onChange={this.handlePhoneChange}
-                 ref="phone"
-                 pattern="[0-9]*"
-                 onInput={Helper.phoneMask}/>
-          <label className="text-muted">Phone</label>
-          {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
-        </div>
+     <div className="row">
+       <div className="col-lg-12">
+         <h4 style={{display: 'inline-block'}}>Your Information</h4>
+         <a onClick={this.props.guardianStateToggle}>
+           <span className="registration-icon glyphicon glyphicon-remove pull-right"></span>
+         </a>
+       </div>
+
+       <div className="col-lg-12 well">
+         <div className="col-lg-6">
+           <input type="text"
+                  className="form-control"
+                  value={this.state.firstName}
+                  onChange={this.handleFirstNameChange}
+                  ref="firstName"/>
+           <label className="text-muted">First Name</label>
+           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
+         </div>
+
+         <div className="col-lg-6">
+           <input type="text"
+                  className="form-control"
+                  value={this.state.lastName}
+                  onChange={this.handleLastNameChange}
+                  ref="lastName"/>
+           <label className="text-muted">Last Name</label>
+           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
+         </div>
+
+         <div className="col-lg-6">
+           <input type="text"
+                  className="form-control"
+                  value={this.state.phone}
+                  onChange={this.handlePhoneChange}
+                  ref="phone"
+                  pattern="[0-9]*"
+                  onInput={Helper.phoneMask}/>
+           <label className="text-muted">Phone</label>
+           {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
+         </div>
+
         <div className="col-lg-12">
           <button onClick={this.handleOnSubmit}
                   className="btn btn-primary full-width-button">

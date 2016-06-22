@@ -93,7 +93,9 @@ module.exports = React.createClass({
   },
 
   displayOrHideAddPatientButton: function(){
-    return this.props.patients.length > 0 ? {display: "block"} : {display: "none"}
+    if(this.props.patients.length === 0){
+      return {display: "none"}
+    }
   },
 
   addPatientToggle: function(){
@@ -118,65 +120,58 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="inline-hr"></div>
         <div className="row">
-          <br/>
-          <div className="col-md-10 col-md-offset-1">
+          <div className="col-lg-10 col-lg-offset-1">
             <ErrorAlert message={this.props.message}
                         status={this.props.status}/>
           </div>
         </div>
-        <br/>
+
         <div className="row">
-          <div className="col-md-7 col-md-offset-1">
-                  <div className="row">
-          <div className="col-md-9 col-md-offset-1">
+          <div className="col-lg-7 col-lg-offset-1">
             <h3 className="signup-header">Let's double check!</h3>
             <p className="lead">Please review all of the information below and click 'Sign Up' to complete enrollment.</p>
-            <br/>
-          </div>
-        </div>
-            {this.editOrShowGuardian()}
-            <br/>
-            <div className="row">
-              <div className="form-group col-md-10 col-md-offset-1">
-                <h4>Your Family</h4>
-              </div>
-              <div className="form-group col-md-1">
-                <a className="icon" onClick={this.addPatientToggle}
-                   style={this.displayOrHideAddPatientButton()}>
-                  <span className="registration-icon glyphicon glyphicon-plus pull-right"></span>
-                  <br/>
-                </a>
-              </div>
-              <div className="form-group col-md-11 col-md-offset-1">
-                {this.addOrDisplayPatient()}
-              </div>
-              <br/>
-              <div className="form-group col-md-11 col-md-offset-1">
-                {this.state.showAddPatient}
-              </div>
+
+            <div className="col-lg-12">
+              {this.editOrShowGuardian()}
             </div>
-            <div className="row">
-              <div className="form-group col-md-10 col-md-offset-1">
-                <h4>Payment</h4>
-              </div>
-              <div className="form-group col-md-1">
-                {this.editOrSavePayment(this.state.editPayment)}
-              </div>
-              <div className="form-group col-md-11 col-md-offset-1">
-                {this.creditCardDisplay()}
-              </div>
+
+            <div className="col-lg-12">
+              <h4 style={{display: 'inline-block'}}>Your Family</h4>
+              <a className="icon"
+                 onClick={this.addPatientToggle}
+                 style={this.displayOrHideAddPatientButton()}>
+                <span className="registration-icon glyphicon glyphicon-plus pull-right"></span>
+              </a>
+            </div>
+
+            <div className="col-lg-12">
+              {this.addOrDisplayPatient()}
+            </div>
+            <div className="col-lg-12">
+              {this.state.showAddPatient}
+            </div>
+
+            <div className="col-lg-11">
+              <h4>Payment</h4>
+            </div>
+            <div className="form-group col-lg-1">
+              {this.editOrSavePayment(this.state.editPayment)}
+            </div>
+            <div className="form-group col-lg-12">
+              {this.creditCardDisplay()}
             </div>
           </div>
-          <div className="col-md-3">
-            <div className="form-group">
+
+
+
+          <div className="col-lg-3">
               <button type="submit"
+                      style={{marginTop: '23px'}}
                       onClick={this.chargeUser}
                       className="btn btn-primary btn-lg full-width-button">
                 Sign Up
               </button>
-            </div>
             <p className='lead'>By clicking sign up you agree to our <a href='/terms' target='_blank'>terms of service</a> and <a href='/privacy' target='_blank'>privacy policies.</a></p>
           </div>
         </div>

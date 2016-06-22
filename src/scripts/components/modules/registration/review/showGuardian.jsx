@@ -11,15 +11,15 @@ module.exports =React.createClass({
 
     return(
       <div className="row">
-        <div className="form-group col-md-10 col-md-offset-1">
-          <h4>Your Information</h4>
-        </div>
-        <div className="form-group col-md-1">
+        <div className="col-lg-12">
+          <h4 style={{display: 'inline-block'}}>Your Information</h4>
           <a className="icon" onClick={this.props.guardianStateToggle}>
             <span className="registration-icon glyphicon glyphicon-pencil pull-right"></span>
           </a>
         </div>
-        <div className="form-group col-md-11 col-md-offset-1">
+
+
+        <div className="col-lg-12">
           <table>
             <tbody>
               <tr>
@@ -31,8 +31,8 @@ module.exports =React.createClass({
                 </td>
               </tr>
               <tr>
-                  <td>E-mail address</td>
-                  <td>Phone</td>
+                <td>E-mail address</td>
+                <td>Phone</td>
               </tr>
               <tr>
                 <td><p className="lead  right-fix">{email}</p></td>
