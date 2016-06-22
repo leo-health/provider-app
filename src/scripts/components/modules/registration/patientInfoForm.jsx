@@ -78,8 +78,6 @@ module.exports = React.createClass({
             <ErrorAlert message={this.state.message}
                         status={this.state.status}/>
           </div>
-        </div>
-        <div className="row">
           <div className="col-lg-6 col-lg-offset-1" style={{paddingBottom: "2%"}}>
             {this.showPatients()}
             {this.addPatient()}

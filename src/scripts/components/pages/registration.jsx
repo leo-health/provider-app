@@ -45,6 +45,8 @@ module.exports = React.createClass({
     if(PRODUCTION){
       fbq('init', '830521543747446');
       fbq('track', "PageView");
+      ga('create', 'UA-56852793-1', 'auto');
+      ga('send', 'pageview');
     }
     ReactDom.findDOMNode(this.refs.signUp).scrollTop = 0
   },
@@ -163,9 +165,14 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            <PatientInfoForm navigateTo={this.navigateTo}
-                             patients={this.state.patients}
-                             enrollment={this.state.enrollment}/>
+            <ReviewForm creditCardBrand={this.state.creditCardBrand}
+                        creditCardToken={this.state.creditCardToken}
+                        last4={this.state.last4}
+                        status={this.state.status}
+                        message={this.state.message}
+                        patients={this.state.patients}
+                        onPatientError={this.onPatientError}
+                        enrollment={this.state.enrollment}/>
           </div>
         </div>
       </div>
