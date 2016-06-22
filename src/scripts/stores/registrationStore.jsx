@@ -48,7 +48,8 @@ module.exports = Reflux.createStore({
     this.trigger({
       action: "update",
       status: res.status,
-      enrollment: res.data.user
+      enrollment: res.data.user,
+      session: res.data.session
     });
   },
 
