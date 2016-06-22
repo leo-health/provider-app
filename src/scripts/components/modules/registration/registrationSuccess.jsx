@@ -14,6 +14,13 @@ module.exports = React.createClass({
     return { display: false }
   },
 
+  componentDidMount: function(){
+    if(PRODUCTION){
+      ga('create', 'UA-56852793-1', 'auto');
+      ga('send', 'pageview');
+    }
+  },
+
   onStatusChange: function(status) {
     if(status.inviteSuccess){
       this.setState({ display: true })

@@ -62,7 +62,11 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    if(leo.env === 'production') fbq('track', 'CompleteRegistration');
+    if(PRODUCTION){
+      fbq('track', 'CompleteRegistration');
+      ga('create', 'UA-56852793-1', 'auto');
+      ga('send', 'pageview');
+    }
   },
 
   componentWillReceiveProps: function(nextProps){
