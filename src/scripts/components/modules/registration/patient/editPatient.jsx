@@ -101,13 +101,14 @@ module.exports = validation(strategy)(React.createClass({
 
     return(
       <div className="row well">
-        <div className="form-group row">
-          <a className="col-sm-12" onClick={this.props.handleCancel} style={showCancelButton}>
+        <div className="row">
+          <a className="col-lg-12" onClick={this.props.handleCancel} style={showCancelButton}>
             <span className="registration-icon glyphicon glyphicon-trash pull-right"></span>
           </a>
         </div>
+
         <div className="row">
-          <div className="col-lg-5">
+          <div className="col-lg-6">
             <input type="text"
                    className="form-control"
                    value={this.state.firstName}
@@ -116,8 +117,7 @@ module.exports = validation(strategy)(React.createClass({
             <label className="text-muted">Child's First Name</label>
             {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
           </div>
-
-          <div className="col-lg-5">
+          <div className="col-lg-6">
             <input type="text"
                    className="form-control"
                    value={this.state.lastName}
@@ -127,7 +127,7 @@ module.exports = validation(strategy)(React.createClass({
           </div>
         </div>
 
-        <div className="form-group row">
+        <div className="row">
           <div className="col-lg-6">
             <DateSelector onChange={this.handleBirthDateChange}
                           value={this.state.birthDate}/>

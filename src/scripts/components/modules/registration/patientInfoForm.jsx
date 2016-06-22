@@ -59,29 +59,33 @@ module.exports = React.createClass({
     });
 
     return(
-      <div className="row">
-        <br/>
-        <div className="col-lg-11 col-lg-offset-1">
-          <h4 className="signup-header">Now let’s enroll your family</h4>
-          <br/>
-        </div>
-        <div className="col-lg-10 col-lg-offset-1">
-          <ErrorAlert message={this.state.message}
-                      status={this.state.status}/>
+      <div>
+        <div className="row">
+          <div className="col-lg-11 col-lg-offset-1">
+            <h4 className="signup-header">Now let’s enroll your family</h4>
+          </div>
         </div>
         <br/>
-        <div className="col-lg-6 col-lg-offset-1" style={{paddingBottom: "2%"}}>
-          {this.showPatients()}
-          {this.addPatient()}
+        <div className="row">
+          <div className="col-lg-10 col-lg-offset-1">
+            <ErrorAlert message={this.state.message}
+                        status={this.state.status}/>
+          </div>
         </div>
-        <div className="col-lg-4">
-          <button type="button"
-                  onClick={this.handleContinue}
-                  className={continueButtonClass}>
-            Continue
-          </button>
-          <br/><br/>
-          <FAQ/>
+        <div className="row">
+          <div className="col-lg-6 col-lg-offset-1" style={{paddingBottom: "2%"}}>
+            {this.showPatients()}
+            {this.addPatient()}
+          </div>
+          <div className="col-lg-4">
+            <button type="button"
+                    onClick={this.handleContinue}
+                    className={continueButtonClass}>
+              Continue
+            </button>
+            <br/><br/>
+            <FAQ/>
+          </div>
         </div>
       </div>
     )
