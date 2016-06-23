@@ -41,7 +41,7 @@ var Registration  = React.createClass({
   },
 
   componentWillMount: function(){
-    RegistrationActions.fetchEnrollmentRequest(this.props.location.query.token);
+    RegistrationActions.fetchUserRequest(this.props.location.query.token);
   },
 
   onStatusChange: function(status){
