@@ -6,7 +6,7 @@ var SystemMessage = require('./systemMessage.jsx');
 
 module.exports = React.createClass({
   render: function () {
-    var sentAt = moment(this.props.sentAt).calendar();
+    var sentAt = moment(this.props.sentAt).format('MMMM Do YYYY, h:mm:ss a');
     var sender = this.props.sender;
     var messageType = this.props.messageType;
     var body = this.props.body;
