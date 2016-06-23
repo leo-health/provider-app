@@ -18,11 +18,11 @@ module.exports = React.createClass({
 
   editOrShowGuardian: function(){
     if(this.state.editGuardian){
-      return <ShowGuardian enrollment={this.props.enrollment}
+      return <ShowGuardian user={this.props.user}
                            guardianStateToggle={this.guardianStateToggle}
                            formatPhoneNumber={Helper.formatPhoneNumber}/>
     }else{
-      return <EditGuardian enrollment={this.props.enrollment}
+      return <EditGuardian user={this.props.user}
                            guardianStateToggle={this.guardianStateToggle}
                            formatPhoneNumber={Helper.formatPhoneNumber}/>
     }
@@ -70,7 +70,7 @@ module.exports = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps){
-    if (nextProps.enrollment) this.setState({editGuardian: true});
+    if (nextProps.user) this.setState({editGuardian: true});
     if (nextProps.patients) this.setState({showAddPatient: false})
   },
 

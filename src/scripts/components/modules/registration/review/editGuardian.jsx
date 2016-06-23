@@ -14,12 +14,12 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialState: function(){
-    if(this.props.enrollment) {
+    if(this.props.user) {
       return {
-        email: this.props.enrollment.email,
-        firstName: this.props.enrollment.first_name,
-        lastName: this.props.enrollment.last_name,
-        phone: this.props.formatPhoneNumber(this.props.enrollment.phone)
+        email: this.props.user.email,
+        firstName: this.props.user.first_name,
+        lastName: this.props.user.last_name,
+        phone: this.props.formatPhoneNumber(this.props.user.phone)
       }
     }
     return { email: '', firstName: '', lastName: '', phone: ''}
@@ -40,7 +40,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   updateEnrollment: function(){
-    RegistrationActions.updateEnrollmentRequest({
+    RegistrationActions.updateUserRequest({
       authentication_token: sessionStorage.enrollmentToken,
       phone: this.state.phone.replace(/\D/g,''),
       first_name: this.state.firstName,

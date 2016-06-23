@@ -28,7 +28,7 @@ module.exports = React.createClass({
 
   getInitialState: function(){
     return {
-      enrollment: '',
+      user: '',
       patients: [],
       creditCardToken: '',
       creditCardBrand: '',
@@ -92,7 +92,7 @@ module.exports = React.createClass({
   },
 
   componentWillUnmount: function(){
-    window.onbeforeunload = null
+    window.onbeforeunload = null;
     sessionStorage.removeItem('enrollmentToken');
   },
 
@@ -111,7 +111,7 @@ module.exports = React.createClass({
       case "patient":
         page = <PatientInfoForm navigateTo={this.navigateTo}
                                 patients={this.state.patients}
-                                enrollment={this.state.enrollment}/>;
+                                user={this.state.user}/>;
         break;
       case "payment":
         page = <PaymentInfoForm status={this.state.status} message={this.state.message}/>;
@@ -124,7 +124,7 @@ module.exports = React.createClass({
                            message={this.state.message}
                            patients={this.state.patients}
                            onPatientError={this.onPatientError}
-                           enrollment={this.state.enrollment}/>;
+                           user={this.state.user}/>;
         break;
       default:
         page = <UserInfoForm status={this.state.status} message={this.state.message}/>;

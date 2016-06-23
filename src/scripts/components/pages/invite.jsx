@@ -72,17 +72,17 @@ var Registration  = React.createClass({
       this.setState({
         header: 'Join your family’s account on Leo!',
         secondHeader: 'In order to get setup with your family on Leo, please fill out the information below.',
-        firstName: data.enrollment.first_name,
-        lastName: data.enrollment.last_name,
-        email: data.enrollment.email
+        firstName: data.user.first_name,
+        lastName: data.user.last_name,
+        email: data.user.email
       })
     }else if(this.isExemptedUser(data)){
       this.setState({
         header: 'Become a Leo member!',
         secondHeader: 'Thank you for being a Flatiron Pediatrics family. Sign up below to access all the Leo features for free.',
-        firstName: data.enrollment.first_name,
-        lastName: data.enrollment.last_name,
-        email: data.enrollment.email
+        firstName: data.user.first_name,
+        lastName: data.user.last_name,
+        email: data.user.email
       })
     }else{
       this.setState({ status: 'error', message: 'Please check your invitation link and come back again!' });
@@ -90,12 +90,12 @@ var Registration  = React.createClass({
   },
 
   isInvitedUser: function(data){
-    return data.enrollment.onboarding_group.group_name === "invited_secondary_guardian" &&
+    return data.user.onboarding_group.group_name === "invited_secondary_guardian" &&
     this.props.location.query.onboarding_group === 'secondary'
   },
 
   isExemptedUser: function(data){
-    return data.enrollment.onboarding_group.group_name === "generated_from_athena" &&
+    return data.user.onboarding_group.group_name === "generated_from_athena" &&
     this.props.location.query.onboarding_group === 'primary'
   },
 
@@ -106,7 +106,7 @@ var Registration  = React.createClass({
       if (error) {
         return;
       } else {
-        RegistrationActions.updateEnrollmentRequest({
+        RegistrationActions.updateUserRequest({
           authentication_token: this.props.location.query.token,
           first_name: this.state.firstName,
           last_name: this.state.lastName,

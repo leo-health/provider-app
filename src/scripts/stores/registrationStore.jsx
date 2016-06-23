@@ -21,7 +21,7 @@ module.exports = Reflux.createStore({
     this.trigger({
       action: "fetch",
       status: res.status,
-      enrollment: res.data.user
+      user: res.data.user
     });
   },
 
@@ -32,35 +32,35 @@ module.exports = Reflux.createStore({
     });
   },
 
-  onUpdateEnrollmentRequest: function(enrollmentParams){
+  onUpdateUserRequest: function(enrollmentParams){
     request.put(leo.API_URL+"/enrollments/current")
            .send(enrollmentParams)
            .end(function(err, res){
               if(res.ok){
-                RegistrationActions.updateEnrollmentRequest.completed(res.body);
+                RegistrationActions.updateUserRequest.completed(res.body);
               }else{
-                RegistrationActions.updateEnrollmentRequest.failed(res.body);
+                RegistrationActions.updateUserRequest.failed(res.body);
               }
             });
   },
 
-  onUpdateEnrollmentRequestCompleted: function(res, nextPage){
+  onUpdateUserRequestCompleted: function(res, nextPage){
     this.trigger({
       action: "update",
       status: res.status,
-      enrollment: res.data.user,
+      user: res.data.user,
       session: res.data.session
     });
   },
 
-  onUpdateEnrollmentRequestFailed: function(res){
+  onUpdateUserRequestFailed: function(res){
     this.trigger({
       status: res.status,
       message: "There was an error updating your enrollment information."
     });
   },
 
-  onCreateEnrollmentRequest: function(userParams){
+  onCreateUserRequest: function(userParams){
     request.get(leo.API_URL+"/ios_configuration")
            .end(function(err, res){
              if(res.ok){
@@ -69,9 +69,9 @@ module.exports = Reflux.createStore({
                       .send(userParams)
                       .end(function(err, res){
                         if(res.ok){
-                          RegistrationActions.createEnrollmentRequest.completed(res.body, userParams.next_page);
+                          RegistrationActions.createUserRequest.completed(res.body, userParams.next_page);
                         }else{
-                          RegistrationActions.createEnrollmentRequest.failed(res.body);
+                          RegistrationActions.createUserRequest.failed(res.body);
                         }
                       })
              }else{
@@ -80,7 +80,7 @@ module.exports = Reflux.createStore({
            });
   },
 
-  onCreateEnrollmentRequestCompleted: function(res, nextPage){
+  onCreateUserRequestCompleted: function(res, nextPage){
     this.trigger({
       status: res.status,
       enrollmentToken: res.data.session.authentication_token,
@@ -88,7 +88,7 @@ module.exports = Reflux.createStore({
     })
   },
 
-  onCreateEnrollmentRequestFailed: function(res){
+  onCreateUserRequestFailed: function(res){
     this.trigger({
       status: res.status,
       message: res.message.user_message || "Server error, our engineers are working on it.",

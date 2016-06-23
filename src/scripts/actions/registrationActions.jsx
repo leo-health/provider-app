@@ -2,9 +2,8 @@ var Reflux = require('reflux');
 
 var RegistrationActions = {
   fetchUserRequest: {asyncResult: true},
-  updateEnrollmentRequest: {asyncResult: true},
-  convertEnrollmentRequest: {asyncResult: true},
-  createEnrollmentRequest: {asyncResult: true},
+  updateUserRequest: {asyncResult: true},
+  createUserRequest: {asyncResult: true},
   fetchInsurersRequest: {asyncResult: true},
   createCreditCardRequest: {asyncResult: true},
   createPatientEnrollmentRequest: {asyncResult: true},
