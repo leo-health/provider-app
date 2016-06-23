@@ -159,12 +159,13 @@ module.exports = React.createClass({
             </div>
           </div>
           <div className="col-lg-3">
-              <button type="submit"
-                      style={{marginTop: '23px'}}
-                      onClick={this.chargeUser}
-                      className="btn btn-primary btn-lg full-width-button">
-                Sign Up
-              </button>
+            <button type="submit"
+                    style={{marginTop: '23px'}}
+                    onClick={this.chargeUser}
+                    className="btn btn-primary btn-lg full-width-button">
+              Sign Up
+            </button>
+            <br/><br/>
             <p className='lead'>By clicking sign up you agree to our <a href='/terms' target='_blank'>terms of service</a> and <a href='/privacy' target='_blank'>privacy policies.</a></p>
           </div>
         </div>

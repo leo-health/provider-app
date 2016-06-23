@@ -25,7 +25,7 @@ module.exports =React.createClass({
               </tr>
               <tr>
                 <td>
-                  <p className="lead right-fix">{firstName + ' ' + lastName}</p>
+                  <p className="lead">{firstName + ' ' + lastName}</p>
                 </td>
               </tr>
               <tr>
