@@ -33,7 +33,7 @@ module.exports = Reflux.createStore({
   },
 
   onUpdateUserRequest: function(enrollmentParams){
-    request.put(leo.API_URL+"/enrollments/current")
+    request.put(leo.API_URL+"/users/current")
            .send(enrollmentParams)
            .end(function(err, res){
               if(res.ok){
