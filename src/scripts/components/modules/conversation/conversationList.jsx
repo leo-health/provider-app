@@ -174,7 +174,7 @@ module.exports = React.createClass({
       if(state === parseInt(state, 10)){
         conversations = <div>There is no matching conversation.</div>
       }else{
-        conversations = <div> There are no more {state} conversations for you to review. Please be sure to review the other sections. </div>;
+        conversations = <div className="medium-font-size"> There are no more {state} conversations for you to review. Please be sure to review the other sections. </div>;
       }
     }
 

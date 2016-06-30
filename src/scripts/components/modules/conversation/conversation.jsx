@@ -149,7 +149,7 @@ module.exports = React.createClass({
 
     return(
       <div className={this.props.selected ? "list-group-item active" : "list-group-item"} onClick={this.props.onClick}>
-        <h6 className="list-group-item-heading">{primaryGuardian}
+        <h6 className="list-group-item-heading heavy-font-size">{primaryGuardian}
           <span className="pull-right">{messageSendAt}</span>
         </h6>
         <div>
@@ -159,7 +159,7 @@ module.exports = React.createClass({
           {patients}
           <ConversationState conversationState = {conversationState} conversationId = {conversationId}/>
         </p>
-        <p className="list-group-item-text">
+        <p className="list-group-item-text medium-font-size dark-gray-font">
           { leoUtil.shorten(this.props.lastMessage) }
         </p>
       </div>

@@ -55,7 +55,7 @@ module.exports = React.createClass({
 
     var message;
     return(
-      <div className="message-cell">
+      <div className="message-cell medium-font-size">
         {message}
       </div>
     )

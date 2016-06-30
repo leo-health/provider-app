@@ -19,7 +19,7 @@ module.exports = React.createClass({
       tagClass = "primary"
     }
     return(
-      <div className="inline-hr">
+      <div className="inline-hr medium-font-size">
         <span className={tagClass} onClick={this.handleClick}>
           {message}
         </span>

@@ -78,12 +78,12 @@ module.exports = React.createClass({
                />
       }, this);
     }else{
-      notes = <div> Be the first to share context with your colleagues when escalating and closing conversations. Remember to use search to find and check in on your patients! </div>;
+      notes = <div className="medium-font-size"> Be the first to share context with your colleagues when escalating and closing conversations. Remember to use search to find and check in on your patients! </div>;
     }
 
     return (
       <div className="pre-scrollable panel panel-body" ref="notesContainer">
-        <h4>Notes</h4>
+        <h4 className="heavy-font-size">Notes</h4>
         {notes}
       </div>
     )
