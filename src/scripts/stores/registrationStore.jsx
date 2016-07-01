@@ -5,9 +5,8 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [RegistrationActions],
 
-
   onFetchEnrollmentRequest: function(token){
-    request.get(leo.API_URL+"/enrollments/current")
+    request.get(leo.API_URL+"/users")
            .query({ authentication_token: token })
            .end(function(err, res){
               if(res.ok){
@@ -18,29 +17,24 @@ module.exports = Reflux.createStore({
             });
   },
 
-  onFetchEnrollmentRequestCompleted: function(response){
-
-    this.trigger({ action: "fetch",
-                   status: response.status,
-                   data: response.data });
+  onFetchEnrollmentRequestCompleted: function(res){
+    this.trigger({
+      action: "fetch",
+      status: res.status,
+      enrollment: res.data.user
+    });
   },
 
   onFetchEnrollmentRequestFailed: function(response){
-    this.trigger({ action: "fetch",
-                   status: response.status,
-                   message: "There was an error retrieiving your enrollment information."});
+    this.trigger({
+      status: response.status,
+      message: "There was an error retrieving your enrollment information."
+    });
   },
 
-  onUpdateEnrollmentRequest: function(enrollmentParams, token){
+  onUpdateEnrollmentRequest: function(enrollmentParams){
     request.put(leo.API_URL+"/enrollments/current")
-           .send({
-              authentication_token: token,
-              first_name: enrollmentParams.firstName,
-              last_name: enrollmentParams.lastName,
-              email: enrollmentParams.email,
-              phone: enrollmentParams.phone,
-              password: enrollmentParams.password
-            })
+           .send(enrollmentParams)
            .end(function(err, res){
               if(res.ok){
                 RegistrationActions.updateEnrollmentRequest.completed(res.body);
@@ -50,21 +44,205 @@ module.exports = Reflux.createStore({
             });
   },
 
-  onUpdateEnrollmentRequestCompleted: function(response){
-    var user_data = {
-      first_name: response.data.user.first_name,
-      last_name: response.data.user.last_name,
-      phone: response.data.user.phone
-    };
-
-    this.trigger({ action: "update",
-                   status: response.status,
-                   data: response.data });
+  onUpdateEnrollmentRequestCompleted: function(res, nextPage){
+    this.trigger({
+      action: "update",
+      status: res.status,
+      enrollment: res.data.user,
+      session: res.data.session
+    });
   },
 
-  onUpdateEnrollmentRequestFailed: function(response){
-    this.trigger({ action: "update",
-                   status: response.status,
-                   message: "There was an error updating your enrollment information."});
+  onUpdateEnrollmentRequestFailed: function(res){
+    this.trigger({
+      status: res.status,
+      message: "There was an error updating your enrollment information."
+    });
+  },
+
+  onCreateEnrollmentRequest: function(userParams){
+    request.get(leo.API_URL+"/ios_configuration")
+           .end(function(err, res){
+             if(res.ok){
+               userParams["vendor_id"]= res.body.data.vendor_id;
+               request.post(leo.API_URL+"/users")
+                      .send(userParams)
+                      .end(function(err, res){
+                        if(res.ok){
+                          RegistrationActions.createEnrollmentRequest.completed(res.body, userParams.next_page);
+                        }else{
+                          RegistrationActions.createEnrollmentRequest.failed(res.body);
+                        }
+                      })
+             }else{
+               this.trigger({status: 'error', errorMessage: "Server error, our engineers are working on it."})
+             }
+           });
+  },
+
+  onCreateEnrollmentRequestCompleted: function(res, nextPage){
+    this.trigger({
+      status: res.status,
+      enrollmentToken: res.data.session.authentication_token,
+      nextPage: nextPage
+    })
+  },
+
+  onCreateEnrollmentRequestFailed: function(res){
+    this.trigger({
+      status: res.status,
+      message: res.message.user_message || "Server error, our engineers are working on it.",
+      nextPage: false
+    })
+  },
+
+  onCreateCreditCardRequest: function(params, nextPage){
+    Stripe.card.createToken(params, function (status, response) {
+      if(status === 200){
+        RegistrationActions.createCreditCardRequest.completed(response, nextPage)
+      }else{
+        RegistrationActions.createCreditCardRequest.failed(response)
+      }
+    })
+  },
+
+  onCreateCreditCardRequestCompleted: function(res, nextPage){
+    this.trigger({
+      status: res.status,
+      nextPage: nextPage,
+      creditCardToken: res.id,
+      creditCardBrand: res.card.brand,
+      last4: res.card.last4
+    })
+  },
+
+  onCreateCreditCardRequestFailed: function(res){
+    this.trigger({
+      status: "error",
+      message: res.error.message
+    })
+  },
+
+  onCreatePatientEnrollmentRequest: function(patientParams){
+    request.post(leo.API_URL+"/patients")
+           .send(patientParams)
+           .end(function(err, res){
+              if(res.ok){
+                RegistrationActions.createPatientEnrollmentRequest.completed(res.body)
+              }else{
+                RegistrationActions.createPatientEnrollmentRequest.failed(res.body)
+              }
+            })
+
+  },
+
+  onCreatePatientEnrollmentRequestCompleted: function(res){
+    this.trigger({ status: res.status, patient: res.data.patient })
+  },
+
+  onCreatePatientEnrollmentRequestFailed: function(res){
+    this.trigger({ error: 'Having problem creating records, please try again!'  })
+  },
+
+  onRemovePatientEnrollmentRequest: function (params) {
+    request.delete(leo.API_URL + "/patients/" + params.id)
+           .send(params)
+           .end(function(err,res){
+             if(res.ok){
+               RegistrationActions.removePatientEnrollmentRequest.completed(res, params)
+             }else{
+               RegistrationActions.removePatientEnrollmentRequest.failed(res.body)
+             }
+           })
+  },
+
+  onRemovePatientEnrollmentRequestCompleted: function(res, params) {
+    this.trigger({ status: res.status, deletedPatient: {id: params.id}})
+  },
+
+  onRemovePatientEnrollmentRequestFailed: function(res) {
+    this.trigger({
+      status: "error", message: 'Having problem removing records, please try again!'
+    })
+  },
+
+  onUpdatePatientEnrollmentRequest: function(params){
+    request.put(leo.API_URL + "/patients/" + params.id)
+           .send(params)
+           .end(function(err,res){
+              if(res.ok){
+                RegistrationActions.updatePatientEnrollmentRequest.completed(res.body);
+              }else{
+                RegistrationActions.updatePatientEnrollmentRequest.failed(res.body)
+              }
+            })
+  },
+
+  onUpdatePatientEnrollmentRequestCompleted: function(res) {
+    this.trigger({ updatedPatient: res.data.patient })
+  },
+
+  onUpdatePatientEnrollmentRequestFailed: function(res){
+    this.trigger({ status: "error", message: 'Having problem updating records, please try again!'  })
+  },
+
+  onFetchPatientsRequest: function(params){
+    request.get(leo.API_URL + "/patients")
+           .query({ authentication_token: params })
+           .end(function(err, res){
+             if(res.ok){
+               RegistrationActions.fetchPatientsRequest.completed(res.body);
+             }else{
+               RegistrationActions.fetchPatientsRequest.failed(res.body);
+             }
+           })
+  },
+
+  onFetchPatientsRequestCompleted: function(res){
+    this.trigger({ status: res.status, patients: res.data.patients })
+  },
+
+  onFetchPatientsRequestFailed: function(res){
+    this.trigger({ status: "error", message: 'Having problem fetching records, please try again!' })
+  },
+
+  onCreateSubscriptionRequest: function(params){
+    request.post(leo.API_URL + "/subscriptions")
+           .send(params)
+           .end(function(err,res){
+             if(res.ok){
+               RegistrationActions.createSubscriptionRequest.completed(res.body);
+             }else{
+               RegistrationActions.createSubscriptionRequest.failed(res.body)
+             }
+           })
+  },
+
+  onCreateSubscriptionRequestCompleted: function(res){
+    this.trigger({ status: res.status, createdSubscription: true, quantity: res.data.subscriptions.data[0].quantity })
+  },
+
+  onCreateSubscriptionRequestFailed: function(res){
+    this.trigger({ status: "error", message: res.message.user_message })
+  },
+
+  onInviteSecondParentRequest: function(params){
+    request.post(leo.API_URL + "/family/invite")
+        .send(params)
+        .end(function(err,res){
+          if(res.ok){
+            RegistrationActions.inviteSecondParentRequest.completed(res.body);
+          }else{
+            RegistrationActions.inviteSecondParentRequest.failed(res.body)
+          }
+        })
+  },
+
+  onInviteSecondParentRequestCompleted: function(res){
+    this.trigger({ status: res.status, inviteSuccess: true })
+  },
+
+  onInviteSecondParentRequestFailed: function(res){
+    this.trigger({ status: "error", message: res.message.user_message })
   }
 });

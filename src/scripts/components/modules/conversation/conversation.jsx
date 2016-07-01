@@ -90,9 +90,9 @@ module.exports = React.createClass({
         channel.bind('new_message', function(data){
           if (!window.windowHasFocus) {
             if (data && data.message_type === "message") {
-              document.title = "New message";
+              window.flashTitle("You have a new message", 20)
             } else {
-              document.title = "New note";
+              window.flashTitle("You have a new note", 20)
             }
           }
           this.fetchNewMessage(data)
@@ -148,7 +148,7 @@ module.exports = React.createClass({
     }.bind(this));
 
     return(
-      <div href="#" className={this.props.selected ? "list-group-item active" : "list-group-item"} onClick={this.props.onClick}>
+      <div className={this.props.selected ? "list-group-item active" : "list-group-item"} onClick={this.props.onClick}>
         <h6 className="list-group-item-heading">{primaryGuardian}
           <span className="pull-right">{messageSendAt}</span>
         </h6>

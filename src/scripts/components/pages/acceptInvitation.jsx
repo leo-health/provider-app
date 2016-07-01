@@ -13,17 +13,19 @@ module.exports = React.createClass({
     return{ message: '' }
   },
 
+  contextTypes: {
+    router: React.PropTypes.object
+  },
+
   componentWillMount: function(){
-    UserActions.signUpUser(this.context.router.getCurrentQuery().token);
+    UserActions.confirmInvitedGuardian(this.props.location.query.token);
   },
 
   onStatusChange: function (status) {
-    if(status.sign_up){
-      if(status.status == "ok"){
-        this.setState({ message: <h5>Thank you for confirming this invitation.</h5>})
-      }else{
-        this.setState({ message: <h5>Oops, something went wrong :(</h5>})
-      }
+    if(status.status == "ok"){
+      this.setState({ message: <h5>Thank you for confirming this invitation.</h5>})
+    }else{
+      this.setState({ message: <h5>Oops, something went wrong :(</h5>})
     }
   },
 

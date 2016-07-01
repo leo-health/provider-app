@@ -16,7 +16,6 @@ module.exports = React.createClass({
     var prevType = this.props.prevType;
     var typeName = this.props.typeName;
     sender = leoUtil.formatName(sender);
-
     if (escalatedTo) escalatedTo = leoUtil.formatName(escalatedTo);
     switch (messageType){
       case "message":
@@ -55,9 +54,8 @@ module.exports = React.createClass({
     }
 
     var message;
-
     return(
-      <div>
+      <div className="message-cell">
         {message}
       </div>
     )
