@@ -11,7 +11,7 @@ module.exports = React.createClass({
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
     return (
       <div>
-        <ul className="nav nav-tabs">
+        <ul className="nav nav-tabs tags-container">
           <li className={openTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
             <a href="#open" data-toggle="tab">
               <span className="glyphicon glyphicon glyphicon-star-empty" aria-hidden="false"></span>
@@ -31,9 +31,7 @@ module.exports = React.createClass({
               <span className="medium-font-size">Closed</span>
             </a>
           </li>
-        </ul>
-
-        <div className="btn-group" id="staff-selection" style={showStaffSelectionStyle}>
+          <div className="btn-group" id="staff-selection" style={showStaffSelectionStyle}>
           <li className="btn btn-sm btn-default medium-font-size">Assigned to</li>
           <div className="btn-group">
             <li className="btn btn-sm btn-default medium-font-size">{selectedStaffName}</li>
@@ -56,6 +54,7 @@ module.exports = React.createClass({
             </ul>
           </div>
         </div>
+        </ul>
       </div>
     )
   }
