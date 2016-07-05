@@ -18,16 +18,14 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function(){
-    UserActions.signUpUser(this.props.location.query.token);
+    UserActions.confirmInvitedGuardian(this.props.location.query.token);
   },
 
   onStatusChange: function (status) {
-    if(status.sign_up){
-      if(status.status == "ok"){
-        this.setState({ message: <h5>Thank you for confirming this invitation.</h5>})
-      }else{
-        this.setState({ message: <h5>Oops, something went wrong :(</h5>})
-      }
+    if(status.status == "ok"){
+      this.setState({ message: <h5>Thank you for confirming this invitation.</h5>})
+    }else{
+      this.setState({ message: <h5>Oops, something went wrong :(</h5>})
     }
   },
 

@@ -43,8 +43,8 @@ module.exports = React.createClass({
   componentDidMount: function(){
     Stripe.setPublishableKey(leo.STRIPE_KEY);
     if(PRODUCTION){
-      ga('create', 'UA-56852793-1', 'auto');
-      ga('send', 'pageview');
+      fbq('init', '255223491501781');
+      fbq('track', "PageView");
     }
     ReactDom.findDOMNode(this.refs.signUp).scrollTop = 0
   },
