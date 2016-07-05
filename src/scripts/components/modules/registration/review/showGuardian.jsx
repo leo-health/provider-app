@@ -12,7 +12,7 @@ module.exports =React.createClass({
     return(
       <div className="row">
         <div className="col-lg-12">
-          <h4 style={{display: 'inline-block'}}>Your Information</h4>
+          <h4 className="inline-block">Your Information</h4>
           <a className="icon" onClick={this.props.guardianStateToggle}>
             <span className="registration-icon glyphicon glyphicon-pencil pull-right"></span>
           </a>

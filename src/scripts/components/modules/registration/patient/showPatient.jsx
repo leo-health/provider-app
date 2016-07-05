@@ -26,7 +26,7 @@ module.exports = React.createClass({
         <table>
           <tbody>
           <tr>
-            <td style={{paddingRight: '1em'}}>Child's Full Name</td>
+            <td className="right-padding">Child's Full Name</td>
             <td>Birthday</td>
             <td>Sex</td>
           </tr>

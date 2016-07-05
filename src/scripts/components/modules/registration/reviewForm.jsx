@@ -37,7 +37,7 @@ module.exports = React.createClass({
       return <a className="icon" onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-pencil pull-right"></span></a>
     }else{
       return(
-        <div style={{display: 'inline-block'}} className="pull-right">
+        <div className="pull-right inline-block">
           <a onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-ok"></span></a>
           <a onClick={this.cancelPayment}><span className="registration-icon glyphicon glyphicon-remove"></span></a>
         </div>
@@ -151,7 +151,7 @@ module.exports = React.createClass({
               {this.state.showAddPatient}
             </div>
             <div className="col-lg-12">
-              <h4 style={{display: 'inline-block'}}>Payment</h4>
+              <h4 className="inline-block">Payment</h4>
               {this.editOrSavePayment(this.state.editPayment)}
             </div>
             <div className="col-lg-12">
@@ -160,9 +160,8 @@ module.exports = React.createClass({
           </div>
           <div className="col-lg-3">
             <button type="submit"
-                    style={{marginTop: '23px'}}
                     onClick={this.chargeUser}
-                    className="btn btn-primary btn-lg full-width-button">
+                    className="btn btn-primary btn-lg full-width-button button-margin-top">
               Sign Up
             </button>
             <br/><br/>
