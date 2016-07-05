@@ -27,7 +27,8 @@ module.exports = React.createClass({
       conversations: [],
       maxPage: 1,
       offset: 0,
-      selectedStaff: null
+      selectedStaff: null,
+      escalatedCount: 0,
     }
   },
 
@@ -116,7 +117,7 @@ module.exports = React.createClass({
     this.props.pusher.unsubscribe('private-conversation')
   },
 
-  isInConversationList: function(conversation_id){
+  isInConversationList: function(conversation_id) {
     return !!_.find(this.state.conversations, {id: conversation_id})
   },
 
@@ -167,8 +168,8 @@ module.exports = React.createClass({
                         currentListState = {this.state.conversationState}
                         selectedStaff = {this.state.selectedStaff}
           />
-        )
-      }, this);
+
+)      }, this);
     } else {
       var state = this.state.conversationState;
       if(state === parseInt(state, 10)){

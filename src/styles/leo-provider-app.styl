@@ -63,6 +63,65 @@
 
   .main-container { height: 88vh }
 
+  /*Tab styling*/
+  .tags-container {
+    width: 420px
+  }
+
+  .active-open > a,
+  .active-escalated > a,
+  .active-closed > a {
+    color: white !important;
+    box-shadow: none !important;
+    &: hover {
+      box-shadow: none !important;
+    }
+  }
+
+  .open-case,
+  .escalated,
+  .closed {
+    width: 33% !important;
+    text-align: center !important;
+    height: 44px !important;
+  }
+
+  .open-div,
+  .escalated-div,
+  .closed-div {
+    width: 100% !important;
+    height: 10px !important;
+  }
+
+  .open-div,
+  .active-open {
+    background-color: #77DD77
+  }
+
+  .inactive-open > a,
+  .inactive-escalated > a,
+  .inactive-closed > a {
+    box-shadow: none !important;
+    &: hover {
+      box-shadow: none !important;
+    color: #575757 !important;
+    }
+  }
+
+  .tab-name {
+    padding-top: 15px !important;
+    height: 100% !important;
+  }
+
+  .escalated-div,
+  .active-escalated {
+    background-color: #FFB347
+  }
+
+  .closed-div,
+  .active-closed {
+    background-color: #696969
+  }
 
   /*Messaging & Conversations*/
   #staff-selection { margin-bottom: -10px}

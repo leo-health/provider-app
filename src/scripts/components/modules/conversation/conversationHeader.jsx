@@ -4,32 +4,32 @@ var leoUtil = require('../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   render: function () {
-    var openTabCSSClass = this.props.currentListState === "open" ? "active" : "";
-    var escalationTabCSSClass = this.props.currentListState === "escalated" ? "active" : "";
-    var closeTabCSSClass = this.props.currentListState === "closed" ? "active" : "";
+    var openTabCSSClass = this.props.currentListState === "open" ? "active-open open-case" : "inactive-open open-case";
+    var escalationTabCSSClass = this.props.currentListState === "escalated" ? "active-escalated escalated" : "inactive-escalated escalated";
+    var closeTabCSSClass = this.props.currentListState === "closed" ? "active-closed closed" : "inactive-closed closed";
     var showStaffSelectionStyle = escalationTabCSSClass === "active" ? {display: "inline-block"} : {display: "none"};
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
     return (
       <div>
         <ul className="nav nav-tabs tags-container">
           <li className={openTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
-            <a href="#open" data-toggle="tab">
-              <span className="glyphicon glyphicon glyphicon-star-empty" aria-hidden="false"></span>
-                <span className="medium-font-size">Open</span>
+            <a href="#open" className="tab-name" data-toggle="tab">
+                <span className="heavy-font-size">Open</span>
             </a>
+            <div className="open-div"></div>
           </li>
           <li className={escalationTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'escalated')}>
-            <a href="#escalated" data-toggle="tab">
-              <span className="glyphicon glyphicon-exclamation-sign-default" aria-hidden="false"></span>
-              <span className="medium-font-size">Assigned
+            <a href="#escalated" className="tab-name" data-toggle="tab">
+              <span className="heavy-font-size">Assigned
               </span>
             </a>
+            <div className="escalated-div"></div>
           </li>
           <li className={closeTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'closed')}>
-            <a href="#closed" data-toggle="tab">
-              <span className="glyphicon glyphicon-ok-circle" aria-hidden="false"></span>
-              <span className="medium-font-size">Closed</span>
+            <a href="#closed" className="tab-name" data-toggle="tab">
+              <span className="heavy-font-size">Closed</span>
             </a>
+            <div className="closed-div"></div>
           </li>
           <div className="btn-group" id="staff-selection" style={showStaffSelectionStyle}>
           <li className="btn btn-sm btn-default medium-font-size">Assigned to</li>
