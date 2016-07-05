@@ -49,7 +49,7 @@ module.exports = React.createClass({
                   <a className="heavy-font-size navbar-welcome">Welcome, {user}</a>
                 </li>
                 <li>
-                  <a onClick={this.handleOnLogout} className="heavy-font-size"><strong>logout</strong></a>
+                  <a onClick={this.handleOnLogout} className="heavy-font-size logout-button"><strong>logout</strong></a>
                 </li>
               </ul>
             </div>

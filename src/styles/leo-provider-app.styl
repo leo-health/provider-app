@@ -16,12 +16,6 @@
   .leo-logo {
     font-size: 40px;
     display: inline;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
   }
 
   .logout-nav {
@@ -38,7 +32,19 @@
 
   .leo-logo-gray { font-family: "Futura PT W01 Book" }
 
+  .leo-logo,
+  .logout-nav > li > .navbar-welcome {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
   .logout-nav > li > .navbar-welcome { padding-right: 15px; }
+
+  .logout-button { cursor: pointer; }
 
   /*Positioning*/
   .message-container { margin-top: -140px }
