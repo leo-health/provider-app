@@ -7,7 +7,7 @@ module.exports = React.createClass({
     var openTabCSSClass = this.props.currentListState === "open" ? "active-open open-case" : "inactive-open open-case";
     var escalationTabCSSClass = this.props.currentListState === "escalated" ? "active-escalated escalated" : "inactive-escalated escalated";
     var closeTabCSSClass = this.props.currentListState === "closed" ? "active-closed closed" : "inactive-closed closed";
-    var showStaffSelectionStyle = escalationTabCSSClass === "active" ? {display: "inline-block"} : {display: "none"};
+    var showStaffSelectionStyle = escalationTabCSSClass === "active-escalated escalated" ? {display: "inline-block"} : {display: "none"};
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
     return (
       <div>
@@ -32,9 +32,9 @@ module.exports = React.createClass({
             <div className="closed-div"></div>
           </li>
           <div className="btn-group" id="staff-selection" style={showStaffSelectionStyle}>
-          <li className="btn btn-sm btn-default medium-font-size">Assigned to</li>
+          <li className="btn btn-sm btn-default assignment-font">Assigned to</li>
           <div className="btn-group">
-            <li className="btn btn-sm btn-default medium-font-size">{selectedStaffName}</li>
+            <li className="btn btn-sm btn-default assignment-font">{selectedStaffName}</li>
             <li className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               <span className="caret"></span>
             </li>

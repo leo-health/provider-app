@@ -3,13 +3,18 @@
   .dark-gray-font { color: #575757 }
   .orange-font { color: #FF906A }
   .heavy-font-size {
-    font-family: "Futura PT W01 Bold"
+    font-family: "Futura PT W01 Medium";
+    font-size: 18px !important;
   }
-  .medium-font-size { font-family: "Futura PT W01 Medium" }
+
+  .medium-font-size {
+    font-family: "Futura PT W01 Book";
+    font-size: 18px !important;
+  }
 
   /*Navbar*/
   .leo-logo {
-    font-size: 2.5em;
+    font-size: 40px;
     display: inline;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -19,7 +24,10 @@
     user-select: none;
   }
 
-  .logout-nav { margin-right: 20px }
+  .logout-nav {
+    margin-right: 20px;
+    margin-top: 8px;
+  }
 
   .leo-nav {
     margin-left: 30px;
@@ -28,25 +36,33 @@
 
   .leo-logo-orange { color: #FF906A }
 
-  /*Positioning*/
+  .leo-logo-gray { font-family: "Futura PT W01 Book" }
 
-  .message-container { margin-top: -147px }
+  .logout-nav > li > .navbar-welcome { padding-right: 15px; }
+
+  /*Positioning*/
+  .message-container { margin-top: -140px }
 
   #all-tab { height: 100% }
 
-  .tags-container { margin-bottom: 30px }
+  .tags-container { margin-bottom: 40px }
 
   .conversations-container {
     height: 655px;
     z-index: 1;
   }
 
-  .find-family-container{ margin-top: -10px }
+  .find-family-container { margin-top: -10px }
 
+  .find-family-container > .panel{
+    padding-bottom: 5px;
+    margin-bottom: 18px;
+  }
   .notes-container {
-    margin-top: -147px;
+    margin-top: -140px;
     height: 780px;
   }
+
   #chatbox {
     height: 610px;
     z-index: 1;
@@ -54,8 +70,8 @@
 
   #staff-selection {
     position: absolute;
-    margin-top: 49px;
-    margin-left: -266px;
+    margin-top: 55px;
+    margin-left: -415px;
     z-index: 2;
   }
 
@@ -65,8 +81,10 @@
 
   /*Tab styling*/
   .tags-container {
-    width: 420px
+    width: 420px;
   }
+
+  .assignment-font { font-family: "Futura PT W01 Book" }
 
   .active-open > a,
   .active-escalated > a,
@@ -109,7 +127,7 @@
   }
 
   .tab-name {
-    padding-top: 15px !important;
+    padding-top: 10px !important;
     height: 100% !important;
   }
 
@@ -202,8 +220,6 @@
   .react-autosuggest__suggestion--focused { background-color: #ddd; }
   .react-autosuggest__suggestions-section-name { font-size: 1.0em; text-transform: uppercase; color: #777; margin-left: 5% ; font-family: "Futura PT W01 Medium" }
   .react-autosuggest__suggestion { padding-left: 15%; font-family: "Futura PT W01 Medium" }
-  /*Readability*/
-  a, div, span, input  { font-size: 15px; }
 
   /*TypeAhead*/
   span.twitter-typeahead { width: 100%; }
