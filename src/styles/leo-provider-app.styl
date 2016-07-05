@@ -58,6 +58,7 @@
     padding-bottom: 5px;
     margin-bottom: 18px;
   }
+
   .notes-container {
     margin-top: -140px;
     height: 780px;
@@ -71,7 +72,7 @@
   #staff-selection {
     position: absolute;
     margin-top: 55px;
-    margin-left: -415px;
+    margin-left: -22.7%;
     z-index: 2;
   }
 
@@ -80,19 +81,21 @@
   .main-container { height: 88vh }
 
   /*Tab styling*/
-  .tags-container {
-    width: 420px;
-  }
+  .tags-container { width: 24%; }
 
   .assignment-font { font-family: "Futura PT W01 Book" }
 
-  .active-open > a,
-  .active-escalated > a,
-  .active-closed > a {
+  .active-tab > a {
     color: white !important;
+    box-shadow: none !important;
+    &: hover { box-shadow: none !important; }
+  }
+
+  .inactive > a {
     box-shadow: none !important;
     &: hover {
       box-shadow: none !important;
+      color: #575757 !important;
     }
   }
 
@@ -111,35 +114,19 @@
     height: 10px !important;
   }
 
-  .open-div,
-  .active-open {
-    background-color: #77DD77
-  }
-
-  .inactive-open > a,
-  .inactive-escalated > a,
-  .inactive-closed > a {
-    box-shadow: none !important;
-    &: hover {
-      box-shadow: none !important;
-    color: #575757 !important;
-    }
-  }
-
   .tab-name {
     padding-top: 10px !important;
     height: 100% !important;
   }
 
+  .open-div,
+  .active-tab.open-case { background-color: #77DD77 }
+
   .escalated-div,
-  .active-escalated {
-    background-color: #FFB347
-  }
+  .active-tab.escalated { background-color: #FFB347 }
 
   .closed-div,
-  .active-closed {
-    background-color: #696969
-  }
+  .active-tab.closed { background-color: #696969 }
 
   /*Messaging & Conversations*/
   #staff-selection { margin-bottom: -10px}

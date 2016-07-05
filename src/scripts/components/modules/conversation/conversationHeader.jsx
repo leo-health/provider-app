@@ -4,10 +4,10 @@ var leoUtil = require('../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   render: function () {
-    var openTabCSSClass = this.props.currentListState === "open" ? "active-open open-case" : "inactive-open open-case";
-    var escalationTabCSSClass = this.props.currentListState === "escalated" ? "active-escalated escalated" : "inactive-escalated escalated";
-    var closeTabCSSClass = this.props.currentListState === "closed" ? "active-closed closed" : "inactive-closed closed";
-    var showStaffSelectionStyle = escalationTabCSSClass === "active-escalated escalated" ? {display: "inline-block"} : {display: "none"};
+    var openTabCSSClass = this.props.currentListState === "open" ? "active-tab open-case" : "inactive open-case";
+    var escalationTabCSSClass = this.props.currentListState === "escalated" ? "active-tab escalated" : "inactive escalated";
+    var closeTabCSSClass = this.props.currentListState === "closed" ? "active-tab closed" : "inactive closed";
+    var showStaffSelectionStyle = escalationTabCSSClass === "active-tab escalated" ? {display: "inline-block"} : {display: "none"};
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
     return (
       <div>

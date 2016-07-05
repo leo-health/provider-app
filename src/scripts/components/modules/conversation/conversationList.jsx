@@ -27,8 +27,7 @@ module.exports = React.createClass({
       conversations: [],
       maxPage: 1,
       offset: 0,
-      selectedStaff: null,
-      escalatedCount: 0,
+      selectedStaff: null
     }
   },
 
