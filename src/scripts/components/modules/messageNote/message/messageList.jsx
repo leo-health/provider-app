@@ -82,7 +82,7 @@ module.exports = React.createClass({
         messages[i].message_type === 'bot_message' ? prevType : prevType = messages[i].message_type;
       }
     } else {
-      var messageElements = <div> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
+      var messageElements = <div className="medium-font-size empty-conversation-container"> Nothing to see here. Please select another conversation on the left or use search box above to find a customer that needs help. </div>;
     }
 
     return messageElements
