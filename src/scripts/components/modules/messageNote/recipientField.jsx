@@ -6,7 +6,8 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className="recipient-field-container">
-        <span className="glyphicon glyphicon-info-sign"></span>
+        <span className="glyphicon glyphicon-info-sign"
+              onClick={this.props.onToggleInformation}></span>
       </div>
     )
   }

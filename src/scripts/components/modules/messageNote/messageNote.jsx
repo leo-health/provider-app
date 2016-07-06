@@ -19,7 +19,8 @@ module.exports = React.createClass({
       messages: [],
       currentConversationId: undefined,
       offset: 0,
-      page: 1
+      page: 1,
+      hiddenNotes: true
     }
   },
 
@@ -73,11 +74,19 @@ module.exports = React.createClass({
     }
   },
 
+  onToggleInformation: function(){
+    this.setState({
+      hiddenNotes: !this.state.hiddenNotes
+    });
+  },
+
   render: function() {
+    var messageSize = (this.state.hiddenNotes) ? "col-lg-6 message-container" : "col-lg-9 message-container";
+    var noteSize = (this.state.hiddenNotes) ? "col-lg-3" : "hidden-notes"
     return (
       <div>
-        <div className="col-lg-6 message-container">
-          <RecipientField/>
+        <div className={messageSize}>
+          <RecipientField onToggleInformation={this.onToggleInformation} />
           <MessageList messages={this.state.messages}
                        conversation={this.props.conversation}
                        page={this.state.page}
@@ -85,7 +94,7 @@ module.exports = React.createClass({
                        staff={this.props.staff}
           />
         </div>
-        <div className="col-lg-3">
+        <div className={noteSize}>
           <NoteList
             currentConversationId={this.state.currentConversationId}
             notes={ _.filter(this.state.messages, function(m){return !m.message_type.includes('message', 'bot_message')}) }/>
