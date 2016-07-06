@@ -148,7 +148,6 @@ module.exports = React.createClass({
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversationId === conversation.id;
         var boundClick = this.handleOnClick.bind(this, conversation.id);
-
         return (
           <Conversation key = {i}
                         reactKey = {i}
@@ -179,6 +178,10 @@ module.exports = React.createClass({
     }
 
     var currentSelectedConversation = _.find(this.state.conversations, {id: this.state.selectedConversationId});
+    if (currentSelectedConversation) {
+      console.log("THIS IS SELECTED Conversation");
+      console.log(currentSelectedConversation.primary_guardian);
+    };
 
     return (
       <div>

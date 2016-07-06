@@ -81,8 +81,8 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var messageSize = (this.state.hiddenNotes) ? "col-lg-6 message-container" : "col-lg-9 message-container";
-    var noteSize = (this.state.hiddenNotes) ? "col-lg-3" : "hidden-notes"
+    var messageSize = (this.state.hiddenNotes) ? "col-lg-9 message-container" : "col-lg-6 message-container";
+    var noteSize = (this.state.hiddenNotes) ? "hidden-notes" : "col-lg-3"
     return (
       <div>
         <div className={messageSize}>
