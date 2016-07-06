@@ -128,7 +128,10 @@ module.exports = React.createClass({
 
   render: function () {
     if (this.props.primaryGuardian) var primaryGuardian =  leoUtil.formatName(this.props.primaryGuardian);
-    var messageSendAt = moment(this.props.createdAt).format('L');
+    var sentToday = moment(this.props.createdAt).isSame(moment(), 'day');
+    var timeFromNow = moment(this.props.createdAt).fromNow();
+    var dateTime = moment(this.props.createdAt).format('L');
+    var messageSendAt = (sentToday) ? timeFromNow : dateTime;
     var conversationState = this.props.conversationState;
     var conversationId = this.props.conversationId;
     var patients = this.props.patients.map(function(patient){
