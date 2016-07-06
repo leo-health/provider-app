@@ -3,6 +3,7 @@ var Reflux = require('reflux');
 var MessageList = require('./message/messageList');
 var NoteList = require('./note/noteList');
 var _ = require('lodash');
+var RecipientField = require('./recipientField');
 var MessageStore = require('../../../stores/messageStore');
 var NoteStore = require('../../../stores/noteStore');
 var ConversationStore = require('../../../stores/conversationStore');
@@ -76,6 +77,7 @@ module.exports = React.createClass({
     return (
       <div>
         <div className="col-lg-6 message-container">
+          <RecipientField/>
           <MessageList messages={this.state.messages}
                        conversation={this.props.conversation}
                        page={this.state.page}

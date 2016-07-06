@@ -76,7 +76,7 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-      <div className="panel panel-heading" data-toggle="tooltip"
+      <div className="panel panel-heading find-family-field" data-toggle="tooltip"
                        data-placement="top" title="Find conversation by participant">
         <Autosuggest inputAttributes={{
                        placeholder: "Find conversations by participant",
