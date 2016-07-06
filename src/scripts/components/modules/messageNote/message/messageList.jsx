@@ -94,6 +94,10 @@ module.exports = React.createClass({
       messageForm = (
         <MessageForm conversation={this.props.conversation} staff={this.props.staff}/>
       );
+    } else {
+      messageForm = (
+        <div className="emptyMessageForm"></div>
+      );
     }
     return (
       <div>
