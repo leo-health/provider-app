@@ -41,7 +41,7 @@ module.exports = React.createClass({
               <ul className="nav navbar-nav leo-nav">
                 <li><a href="../" className="navbar-brand"><img src="../images/leo.png" alt="..." /></a></li>
                 <div>
-                  <span className="leo-logo leo-logo-orange">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
+                  <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
                 </div>
               </ul>
               <ul className="nav navbar-nav navbar-right logout-nav ">
