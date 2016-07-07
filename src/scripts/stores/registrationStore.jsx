@@ -28,7 +28,7 @@ module.exports = Reflux.createStore({
   onFetchUserRequestFailed: function(response){
     this.trigger({
       status: response.status,
-      message: "There was an error retrieving your enrollment information."
+      message: "There was an error retrieving your information."
     });
   },
 
@@ -56,7 +56,7 @@ module.exports = Reflux.createStore({
   onUpdateUserRequestFailed: function(res){
     this.trigger({
       status: res.status,
-      message: "There was an error updating your enrollment information."
+      message: "There was an error updating your information."
     });
   },
 
