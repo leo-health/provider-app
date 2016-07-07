@@ -191,7 +191,7 @@ module.exports = React.createClass({
         />
 
         <div className="row">
-          <div className ="col-lg-3 conversations-container">
+          <div className ="col-lg-3 conversation-container">
             <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
                  id="all-tab"
                  ref="conversationList"
