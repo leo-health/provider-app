@@ -43,7 +43,7 @@ module.exports = React.createClass({
   componentDidMount: function(){
     Stripe.setPublishableKey(leo.STRIPE_KEY);
     if(PRODUCTION){
-      fbq('init', '830521543747446');
+      fbq('init', '255223491501781');
       fbq('track', "PageView");
     }
     ReactDom.findDOMNode(this.refs.signUp).scrollTop = 0
@@ -107,14 +107,17 @@ module.exports = React.createClass({
     switch(this.state.nextPage){
       case "you":
         page = <UserInfoForm status={this.state.status} message={this.state.message}/>;
+        if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'About-you_page-viewed');
         break;
       case "patient":
         page = <PatientInfoForm navigateTo={this.navigateTo}
                                 patients={this.state.patients}
                                 enrollment={this.state.enrollment}/>;
+        if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'Add-child_page-viewed');
         break;
       case "payment":
         page = <PaymentInfoForm status={this.state.status} message={this.state.message}/>;
+        if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'Payment_page-viewed');
         break;
       case "review":
         page = <ReviewForm creditCardBrand={this.state.creditCardBrand}
@@ -125,6 +128,7 @@ module.exports = React.createClass({
                            patients={this.state.patients}
                            onPatientError={this.onPatientError}
                            enrollment={this.state.enrollment}/>;
+        if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'Review_page-viewed');
         break;
       default:
         page = <UserInfoForm status={this.state.status} message={this.state.message}/>;
