@@ -178,10 +178,13 @@ module.exports = React.createClass({
     }
 
     var currentSelectedConversation = _.find(this.state.conversations, {id: this.state.selectedConversationId});
+
+    var guardians = null;
+    var patients = null;
     if (currentSelectedConversation) {
-      console.log("THIS IS SELECTED Conversation");
-      console.log(currentSelectedConversation.primary_guardian);
-    };
+      guardians = currentSelectedConversation.guardians;
+      patients = currentSelectedConversation.patients;
+    }
 
     return (
       <div>
@@ -206,6 +209,8 @@ module.exports = React.createClass({
             <MessageNote
               staff={this.state.staff}
               conversation={currentSelectedConversation}
+              guardians={guardians}
+              patients={patients}
             />
           </div>
         </div>

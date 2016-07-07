@@ -86,7 +86,10 @@ module.exports = React.createClass({
     return (
       <div>
         <div className={messageSize}>
-          <RecipientField onToggleInformation={this.onToggleInformation} />
+          <RecipientField onToggleInformation={this.onToggleInformation}
+                          guardians={this.props.guardians}
+                          patients={this.props.patients}
+          />
           <MessageList messages={this.state.messages}
                        conversation={this.props.conversation}
                        page={this.state.page}
