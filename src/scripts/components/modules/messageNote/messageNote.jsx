@@ -1,6 +1,7 @@
 var React = require('react');
 var Reflux = require('reflux');
 var MessageList = require('./message/messageList');
+var FamilyNotes = require('./note/familyNotes');
 var NoteList = require('./note/noteList');
 var _ = require('lodash');
 var RecipientField = require('./recipientField');
@@ -20,7 +21,7 @@ module.exports = React.createClass({
       currentConversationId: undefined,
       offset: 0,
       page: 1,
-      hiddenNotes: true
+      hiddenNotes: false
     }
   },
 
@@ -98,6 +99,9 @@ module.exports = React.createClass({
           />
         </div>
         <div className={noteSize}>
+          <FamilyNotes guardians={this.props.guardians}
+                       patients={this.props.patients}
+          />
           <NoteList
             currentConversationId={this.state.currentConversationId}
             notes={ _.filter(this.state.messages, function(m){return !m.message_type.includes('message', 'bot_message')}) }/>
