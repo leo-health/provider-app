@@ -3,6 +3,21 @@ var Reflux = require('reflux');
 var _ = require('lodash');
 
 module.exports = React.createClass({
+
+  getInitialState: function () {
+    return { shortened: false }
+  },
+
+  onClick: function() {
+    this.props.onToggleInformation();
+  },
+
+  changeRecipientWidth: function() {
+    this.setState({
+      shortened: !this.state.shortened
+    });
+  },
+
   render: function() {
     var guardians = this.props.guardians;
     var patients = this.props.patients;
@@ -11,8 +26,10 @@ module.exports = React.createClass({
     var userIcon = null;
     var patientIcon = null;
     var hyphenIcon = null;
+    var toIcon = null;
     if (guardians) {
       userIcon = <span className="glyphicon glyphicon-user"></span>;
+      toIcon = <span className="to-field--to">To:</span>;
       guardianDisplay = guardians.map(function(guardian, i){
         if (i + 1 === guardians.length) {
           return (
@@ -44,17 +61,18 @@ module.exports = React.createClass({
     return (
       <div className="recipient-field-container">
         <div className="pull-left to-field">
-          <span className="to-field--to">To:</span>
           <div className="to-field--list">
+            {toIcon}
             {userIcon}
             {guardianDisplay}
             {hyphenIcon}
             {patientIcon}
             {patientDisplay}
+
           </div>
+          <span className="glyphicon glyphicon-info-sign pull-right note-toggler"
+                onClick={this.onClick}></span>
         </div>
-        <span className="glyphicon glyphicon-info-sign pull-right note-toggler"
-              onClick={this.props.onToggleInformation}></span>
       </div>
     )
   }
