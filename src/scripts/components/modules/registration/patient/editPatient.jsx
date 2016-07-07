@@ -80,7 +80,7 @@ module.exports = validation(strategy)(React.createClass({
   patientParams: function(){
     return{
       id: this.state.id,
-      authentication_token: sessionStorage.enrollmentToken,
+      authentication_token: sessionStorage.authenticationToken,
       first_name: this.state.firstName,
       last_name: this.state.lastName,
       sex: this.state.sex,
@@ -89,11 +89,11 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   createPatient: function(){
-    RegistrationActions.createPatientEnrollmentRequest(this.patientParams())
+    RegistrationActions.createPatientRequest(this.patientParams())
   },
 
   updatePatient: function(){
-    RegistrationActions.updatePatientEnrollmentRequest(this.patientParams())
+    RegistrationActions.updatePatientRequest(this.patientParams())
   },
 
   render: function(){

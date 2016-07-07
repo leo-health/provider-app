@@ -83,7 +83,7 @@ module.exports = Reflux.createStore({
   onCreateUserRequestCompleted: function(res, nextPage){
     this.trigger({
       status: res.status,
-      enrollmentToken: res.data.session.authentication_token,
+      authenticationToken: res.data.session.authentication_token,
       nextPage: nextPage
     })
   },
@@ -123,66 +123,66 @@ module.exports = Reflux.createStore({
     })
   },
 
-  onCreatePatientEnrollmentRequest: function(patientParams){
+  onCreatePatientRequest: function(patientParams){
     request.post(leo.API_URL+"/patients")
            .send(patientParams)
            .end(function(err, res){
               if(res.ok){
-                RegistrationActions.createPatientEnrollmentRequest.completed(res.body)
+                RegistrationActions.createPatientRequest.completed(res.body)
               }else{
-                RegistrationActions.createPatientEnrollmentRequest.failed(res.body)
+                RegistrationActions.createPatientRequest.failed(res.body)
               }
             })
 
   },
 
-  onCreatePatientEnrollmentRequestCompleted: function(res){
+  onCreatePatientRequestCompleted: function(res){
     this.trigger({ status: res.status, patient: res.data.patient })
   },
 
-  onCreatePatientEnrollmentRequestFailed: function(res){
+  onCreatePatientRequestFailed: function(res){
     this.trigger({ error: 'Having problem creating records, please try again!'  })
   },
 
-  onRemovePatientEnrollmentRequest: function (params) {
+  onRemovePatientRequest: function (params) {
     request.delete(leo.API_URL + "/patients/" + params.id)
            .send(params)
            .end(function(err,res){
              if(res.ok){
-               RegistrationActions.removePatientEnrollmentRequest.completed(res, params)
+               RegistrationActions.removePatientRequest.completed(res, params)
              }else{
-               RegistrationActions.removePatientEnrollmentRequest.failed(res.body)
+               RegistrationActions.removePatientRequest.failed(res.body)
              }
            })
   },
 
-  onRemovePatientEnrollmentRequestCompleted: function(res, params) {
+  onRemovePatientRequestCompleted: function(res, params) {
     this.trigger({ status: res.status, deletedPatient: {id: params.id}})
   },
 
-  onRemovePatientEnrollmentRequestFailed: function(res) {
+  onRemovePatientRequestFailed: function(res) {
     this.trigger({
       status: "error", message: 'Having problem removing records, please try again!'
     })
   },
 
-  onUpdatePatientEnrollmentRequest: function(params){
+  onUpdatePatientRequest: function(params){
     request.put(leo.API_URL + "/patients/" + params.id)
            .send(params)
            .end(function(err,res){
               if(res.ok){
-                RegistrationActions.updatePatientEnrollmentRequest.completed(res.body);
+                RegistrationActions.updatePatientRequest.completed(res.body);
               }else{
-                RegistrationActions.updatePatientEnrollmentRequest.failed(res.body)
+                RegistrationActions.updatePatientRequest.failed(res.body)
               }
             })
   },
 
-  onUpdatePatientEnrollmentRequestCompleted: function(res) {
+  onUpdatePatientRequestCompleted: function(res) {
     this.trigger({ updatedPatient: res.data.patient })
   },
 
-  onUpdatePatientEnrollmentRequestFailed: function(res){
+  onUpdatePatientRequestFailed: function(res){
     this.trigger({ status: "error", message: 'Having problem updating records, please try again!'  })
   },
 

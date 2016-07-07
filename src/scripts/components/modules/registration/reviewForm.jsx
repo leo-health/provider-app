@@ -57,8 +57,8 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
-    RegistrationActions.fetchUserRequest(sessionStorage.enrollmentToken);
-    RegistrationActions.fetchPatientsRequest(sessionStorage.enrollmentToken)
+    RegistrationActions.fetchUserRequest(sessionStorage.authenticationToken);
+    RegistrationActions.fetchPatientsRequest(sessionStorage.authenticationToken)
   },
 
   componentDidMount: function(){
@@ -107,7 +107,7 @@ module.exports = React.createClass({
   chargeUser: function(){
     if(this.props.patients.length > 0){
       RegistrationActions.createSubscriptionRequest({
-        authentication_token: sessionStorage.enrollmentToken,
+        authentication_token: sessionStorage.authenticationToken,
         credit_card_token: this.props.creditCardToken
       })
     }else{

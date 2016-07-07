@@ -60,10 +60,10 @@ module.exports = React.createClass({
     if(status.patient) this.setState({patients: this.state.patients.concat(status.patient)});
     if(status.deletedPatient) this.setState({patients: _.reject(this.state.patients, {id: status.deletedPatient.id})});
     if(status.updatedPatient) this.setState({patients: this.replacePatient(this.state.patients, status.updatedPatient)});
-    if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
+    if(status.authenticationToken) sessionStorage['authenticationToken'] = status.authenticationToken;
     if(status.nextPage) this.navigateTo(status.nextPage);
     if(status.createdSubscription){
-      this.context.router.push({pathname: "/registration/success", query: {token: sessionStorage.enrollmentToken}});
+      this.context.router.push({pathname: "/registration/success", query: {token: sessionStorage.authenticationToken}});
       if(PRODUCTION){
         var value = parseInt(status.quantity) * 20;
         fbq('track', 'Purchase', {value: value.toString(), currency: 'USD'});
@@ -93,7 +93,7 @@ module.exports = React.createClass({
 
   componentWillUnmount: function(){
     window.onbeforeunload = null;
-    sessionStorage.removeItem('enrollmentToken');
+    sessionStorage.removeItem('authenticationToken');
   },
 
   onPatientError: function(){

@@ -46,7 +46,7 @@ module.exports = validation(strategy)(React.createClass({
 
   createEnrollment: function(){
     RegistrationActions.createUserRequest({
-      authentication_token: sessionStorage.enrollmentToken,
+      authentication_token: sessionStorage.authenticationToken,
       phone: this.state.phone.replace(/\D/g,''),
       first_name: this.state.firstName,
       last_name: this.state.lastName,
