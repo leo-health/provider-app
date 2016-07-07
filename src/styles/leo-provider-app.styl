@@ -94,54 +94,6 @@
 
   .feedback { margin-right: 4%; }
 
-  /*Tab styling*/
-  .tags-container { width: 24%; }
-
-  .assignment-font { font-family: "Futura PT W01 Book" }
-
-  .active-tab > a {
-    color: white !important;
-    box-shadow: none !important;
-    &: hover { box-shadow: none !important; }
-  }
-
-  .inactive > a {
-    box-shadow: none !important;
-    &: hover {
-      box-shadow: none !important;
-      color: #575757 !important;
-    }
-  }
-
-  .open-case,
-  .escalated,
-  .closed {
-    width: 33% !important;
-    text-align: center !important;
-    height: 44px !important;
-  }
-
-  .open-div,
-  .escalated-div,
-  .closed-div {
-    width: 100% !important;
-    height: 10px !important;
-  }
-
-  .tab-name {
-    padding-top: 10px !important;
-    height: 100% !important;
-  }
-
-  .open-div,
-  .active-tab.open-case { background-color: #77DD77 }
-
-  .escalated-div,
-  .active-tab.escalated { background-color: #FFB347 }
-
-  .closed-div,
-  .active-tab.closed { background-color: #696969 }
-
   /*Conversation List*/
   .empty-conversation-container { padding: 15px; }
 
@@ -385,4 +337,49 @@
    border-radius: 2px;
    border-color: #eee;
   }
+
+  /*Tab styling*/
+  .tags-container { width: 24%; }
+
+  .assignment-font { font-family: "Futura PT W01 Book" }
+
+  .active-tab > .tab-name,
+  .nav-tabs > li.active-tab > .tab-name:focus,
+  .nav-tabs > li.active-tab > .tab-name:hover,
+  .nav-tabs > li.active-tab > .tab-name:focus:hover {
+    color: white;
+    box-shadow: none;
+  }
+
+  .inactive > .tab-name,
+  .inactive > .tab-name:hover { box-shadow: none; }
+
+  .open-case,
+  .escalated,
+  .closed {
+    width: 33%;
+    text-align: center;
+    height: 44px;
+  }
+
+  .open-div,
+  .escalated-div,
+  .closed-div {
+    width: 100%;
+    height: 10px;
+  }
+
+  .tab-name {
+    padding-top: 10px;
+    height: 100%;
+  }
+
+  .open-div,
+  .active-tab.open-case { background-color: #77DD77 }
+
+  .escalated-div,
+  .active-tab.escalated { background-color: #FFB347 }
+
+  .closed-div,
+  .active-tab.closed { background-color: #696969 }
 }
