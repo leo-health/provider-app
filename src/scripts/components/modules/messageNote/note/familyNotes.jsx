@@ -22,10 +22,16 @@ module.exports = React.createClass({
       console.log(patients);
       patientList = patients.map(function(patient, i){
         var birthday = patient.birth_date;
-        var age = moment().diff(birthday, 'years');
+        var age = moment().diff(birthday, 'years') + " years";
+        if (age === "0 years") {
+          age = moment().diff(birthday,'months') + " months";
+          if (age === "0 months") {
+            age = moment().diff(birthday, 'days') + " days";
+          }
+        }
         console.log(birthday);
         return (
-          <div>
+          <div key={i}>
             <div className="heavy-font-size">{patient.first_name}, {patient.sex}</div>
             <div className="medium-font-size">Age: {age}</div>
           </div>
