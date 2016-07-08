@@ -141,7 +141,7 @@ module.exports = Reflux.createStore({
   },
 
   onCreatePatientRequestFailed: function(res){
-    this.trigger({ error: 'Having problem creating records, please try again!'  })
+    this.trigger({ error: 'There was a problem creating records, please try again!'  })
   },
 
   onRemovePatientRequest: function (params) {
@@ -162,7 +162,7 @@ module.exports = Reflux.createStore({
 
   onRemovePatientRequestFailed: function(res) {
     this.trigger({
-      status: "error", message: 'Having problem removing records, please try again!'
+      status: "error", message: 'There was a problem removing records, please try again!'
     })
   },
 
@@ -183,7 +183,7 @@ module.exports = Reflux.createStore({
   },
 
   onUpdatePatientRequestFailed: function(res){
-    this.trigger({ status: "error", message: 'Having problem updating records, please try again!'  })
+    this.trigger({ status: "error", message: 'There was a problem updating records, please try again!'  })
   },
 
   onFetchPatientsRequest: function(params){
@@ -203,7 +203,7 @@ module.exports = Reflux.createStore({
   },
 
   onFetchPatientsRequestFailed: function(res){
-    this.trigger({ status: "error", message: 'Having problem fetching records, please try again!' })
+    this.trigger({ status: "error", message: 'There was a problem fetching records, please try again!' })
   },
 
   onCreateSubscriptionRequest: function(params){
