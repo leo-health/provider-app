@@ -30,34 +30,31 @@ module.exports =React.createClass({
   render: function () {
     return (
       <div>
-        <br/>
         <div className="row">
-          <div className="col-md-11 col-md-offset-1">
+          <div className="col-lg-11 col-lg-offset-1">
             <h4 className="signup-header">Tell us a little about yourself</h4>
-            <p className="lead">We are thrilled to welcome you to the Practice! To get your enrolled, we need to collect some info about you and your family.
-            </p>
+            <p className="lead">We are thrilled to welcome you to the Practice! To get your enrolled, we need to collect some info about you and your family.</p>
           </div>
         </div>
         <br/>
         <div className="row">
-          <div className="col-md-10 col-md-offset-1">
+          <div className="col-lg-10 col-lg-offset-1">
             <ErrorAlert message={this.props.message} status={this.props.status}/>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6 col-md-offset-1">
+          <div className="col-lg-6 col-lg-offset-1">
             <EditGuardian ref="editGuardian"
                           insurers={this.props.insurers}
                           setDisableState={this.setDisableState}/>
           </div>
-          <div className="col-md-4 form-group">
+          <div className="col-lg-4 form-group">
             <button onClick={this.handleOnSubmit}
                     disabled={this.state.disabled}
                     className="btn btn-lg btn-primary full-width-button">
               Continue
             </button>
-            <br/>
-            <br/>
+            <br/><br/>
             <FAQ/>
           </div>
         </div>

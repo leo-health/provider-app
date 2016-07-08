@@ -101,59 +101,51 @@ module.exports = validation(strategy)(React.createClass({
 
     return(
       <div className="row well">
-        <div className="form-group row">
-          <a className="col-sm-12" onClick={this.props.handleCancel} style={showCancelButton}>
-            <span className="registration-icon glyphicon glyphicon-trash pull-right"></span>
+        <div className="col-lg-12">
+          <a onClick={this.props.handleCancel}
+             className="pull-right"
+             style={showCancelButton}>
+            <span className="registration-icon glyphicon glyphicon-trash"></span>
           </a>
         </div>
-        <div className="row">
-          <div className="col-lg-5">
-            <input type="text"
-                   className="form-control"
-                   value={this.state.firstName}
-                   onChange={this.handleFirstNameChange}
-                   autoFocus/>
-            <label className="text-muted">Child's First Name</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
-          </div>
-
-          <div className="col-lg-5">
-            <input type="text"
-                   className="form-control"
-                   value={this.state.lastName}
-                   onChange={this.handleLastNameChange}/>
-            <label className="text-muted">Child's Last Name</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
-          </div>
+        <div className="col-lg-6">
+          <input type="text"
+                 className="form-control"
+                 value={this.state.firstName}
+                 onChange={this.handleFirstNameChange}
+                 autoFocus/>
+          <label className="text-muted">Child's First Name</label>
+          {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
-
-        <div className="form-group row">
-          <div className="col-lg-8">
-            <DateSelector onChange={this.handleBirthDateChange}
-                          value={this.state.birthDate}/>
-            <label className="text-muted">Birth Date</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
-          </div>
-
-          <div className="col-lg-2">
-            <select className="form-control"
-                    value={this.state.sex}
-                    onChange={this.handleSexChange}>
-              <option value={"M"}>Male</option>
-              <option value={"F"}>Female</option>
-            </select>
-            <label className="text-muted">Sex</label>
-          </div>
+        <div className="col-lg-6">
+          <input type="text"
+                 className="form-control"
+                 value={this.state.lastName}
+                 onChange={this.handleLastNameChange}/>
+          <label className="text-muted">Child's Last Name</label>
+          {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
-
-        <div className="row">
-          <div className="col-lg-4">
-            <button onClick={this.handleOnSubmit}
-                    disabled={this.state.disabled}
-                    className="btn btn-primary">
-              Save
-            </button>
-          </div>
+        <div className="col-lg-6">
+          <DateSelector onChange={this.handleBirthDateChange}
+                        value={this.state.birthDate}/>
+          <label className="text-muted">Birth Date</label>
+          {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
+        </div>
+        <div className="col-lg-6">
+          <select className="form-control"
+                  value={this.state.sex}
+                  onChange={this.handleSexChange}>
+            <option value={"M"}>Male</option>
+            <option value={"F"}>Female</option>
+          </select>
+          <label className="text-muted">Sex</label>
+        </div>
+        <div className="col-lg-12">
+          <button onClick={this.handleOnSubmit}
+                  disabled={this.state.disabled}
+                  className="btn btn-primary full-width-button">
+            Save
+          </button>
         </div>
       </div>
     )

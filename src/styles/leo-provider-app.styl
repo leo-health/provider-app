@@ -121,14 +121,21 @@
   .signup-progress-text,
   .progress-text-spacer{display: table-cell; float: none; padding: 0 0 14px; vertical-align: bottom; horizontal-align: middle}
   .full-width-button{width: 100%}
+  .inline-block{display: inline-block}
+  .right-padding{padding-right: 1em}
+  .button-margin-top{margin-top: '23px'}
   p.signup-progress-text.progress-text-container {
     padding:0 2em 1em;
   }
+  @media (min-width: 1200px) {
+    .no-right-padding {padding-right: 0%}
+    .tiny-left-padding {padding-left: 1%}
+  }
   @media (min-width: 650px) {
-    #progress_xs {display: none};
+    #progress_xs {display: none}
   }
   @media (max-width: 650px) {
-    #progress {display: none};
+    #progress {display: none}
   }
   .message-cell { margin-right: 1em; }
   /*Inline HR for System Messages*/
