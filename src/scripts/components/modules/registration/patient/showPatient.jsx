@@ -25,22 +25,22 @@ module.exports = React.createClass({
         <img className="patient-avatar pull-left" src={avatarUrl}/>
         <table>
           <tbody>
-          <tr>
-            <td className="right-padding">Child's Full Name</td>
-            <td>Birthday</td>
-            <td>Sex</td>
-          </tr>
-          <tr>
-            <td>
-              <p className="lead right-fix">{nameText}</p>
-            </td>
-            <td>
-              <p className="lead right-fix">{birthdayText}</p>
-            </td>
-            <td>
-              <p className="lead right-fix">{patient.sex}</p>
-            </td>
-          </tr>
+            <tr>
+              <td className="right-padding">Child's Full Name</td>
+              <td>Birthday</td>
+              <td>Sex</td>
+            </tr>
+            <tr>
+              <td>
+                <p className="lead right-fix">{nameText}</p>
+              </td>
+              <td>
+                <p className="lead right-fix">{birthdayText}</p>
+              </td>
+              <td>
+                <p className="lead right-fix">{patient.sex}</p>
+              </td>
+            </tr>
           </tbody>
         </table>
      </span>
