@@ -38,7 +38,7 @@
 
   .logout-nav > li > .navbar-welcome {
     padding-right: 7%;
-    width: 20%;
+    width: 100%;
   }
 
   .leo-logo-gray { font-family: "Futura PT W01 Book" }
@@ -56,7 +56,7 @@
   .logout-button { cursor: pointer; }
 
   /*Positioning*/
-  .message-container { margin-top: 0 }
+  .message-container { margin-top: 10px }
 
   @media (min-width: 1200px) {
     .message-container { margin-top: -160px; }
@@ -140,6 +140,9 @@
     display: inline-block;
   }
 
+  /*Note Toggler*/
+  .hidden-notes { display: none; }
+
   .toggler {
     position: relative;
     margin-top: 5px;
@@ -149,12 +152,37 @@
     display: none;
   }
 
+  @media (min-width: 1200px) {
+    .toggler { display: inline; }
+  }
+
+  /*Family Notes*/
+  .family-notes-container {
+    display: inline-block;
+    height: 400px;
+    margin-top: -160px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    width: 100%;
+  }
+
+  .child-title { padding-top: 5px; }
+
   /*Conversation List*/
   .empty-conversation-container { padding: 15px; }
 
   .empty-message-form { height: 180px; }
 
   /*Messaging & Conversations*/
+  #message-form > .panel { margin-bottom: 10px !important; }
+  #chatbox {
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+  }
+  .find-family-field { line-height: 40px; }
+  .messenger-reply {
+    line-height: 20px;
+    height: 50px;
+  }
   #staff-selection { margin-bottom: -10px}
   #chatbox { position: relative; overflow-x: hidden; width: 100%; }
   #chatmessages { bottom: 3%; position: absolute; overflow: auto; width: 98%; height: 595px }
