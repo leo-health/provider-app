@@ -6,7 +6,7 @@ var leoUtil = require('../../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   render: function(){
-    var sentAt = moment(this.props.sentAt).calendar() + " ";
+    var sentAt = moment(this.props.sentAt).format('MMMM Do YYYY, h:mm:ss a') + " ";
     var sender = this.props.sender;
     var note = this.props.note;
     var messageType = this.props.messageType;
@@ -50,7 +50,7 @@ module.exports = React.createClass({
     return(
       <div>
         <this.props.tagName style={style}>
-          <small>{noteDisplayString}</small>
+          <small className="medium-font-size dark-gray-font">{noteDisplayString}</small>
           {optionalBreak}
           {optionalSender}
           {note}

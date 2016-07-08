@@ -74,58 +74,55 @@ module.exports = validation(strategy)(React.createClass({
 
   render: function(){
     return(
-     <div>
-      <div className="form-group col-md-10 col-md-offset-1">
-        <h4>Your Information</h4>
-      </div>
-      <div className="form-group col-md-1">
-        <a onClick={this.props.guardianStateToggle}><span className="registration-icon glyphicon glyphicon-remove pull-right"></span></a>
-      </div>
-      <div className="row well form-group col-md-11 col-md-offset-1">
-        <div className="row">
-          <div className="form-group col-md-4">
-            <input type="text"
-                   className="form-control"
-                   value={this.state.firstName}
-                   onChange={this.handleFirstNameChange}
-                   ref="firstName"/>
-            <label className="text-muted">First Name</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
-          </div>
+     <div className="row">
+       <div className="col-lg-12">
+         <h4 className="inline-block">Your Information</h4>
+         <a onClick={this.props.guardianStateToggle}>
+           <span className="registration-icon glyphicon glyphicon-remove pull-right"></span>
+         </a>
+       </div>
 
-          <div className="form-group col-md-4">
-            <input type="text"
-                   className="form-control"
-                   value={this.state.lastName}
-                   onChange={this.handleLastNameChange}
-                   ref="lastName"/>
-            <label className="text-muted">Last Name</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
-          </div>
-        </div>
-        <div className="row">
-          <div className="form-group col-md-4">
-            <input type="text"
-                   className="form-control"
-                   value={this.state.phone}
-                   onChange={this.handlePhoneChange}
-                   ref="phone"
-                   pattern="[0-9]*"
-                   onInput={Helper.phoneMask}/>
-            <label className="text-muted">Phone</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-4">
-            <button onClick={this.handleOnSubmit}
-                    className="btn btn-primary">
-              Done
-            </button>
-          </div>
+       <div className="col-lg-12 well">
+         <div className="col-lg-6">
+           <input type="text"
+                  className="form-control"
+                  value={this.state.firstName}
+                  onChange={this.handleFirstNameChange}
+                  ref="firstName"/>
+           <label className="text-muted">First Name</label>
+           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
+         </div>
+
+         <div className="col-lg-6">
+           <input type="text"
+                  className="form-control"
+                  value={this.state.lastName}
+                  onChange={this.handleLastNameChange}
+                  ref="lastName"/>
+           <label className="text-muted">Last Name</label>
+           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
+         </div>
+
+         <div className="col-lg-6">
+           <input type="text"
+                  className="form-control"
+                  value={this.state.phone}
+                  onChange={this.handlePhoneChange}
+                  ref="phone"
+                  pattern="[0-9]*"
+                  onInput={Helper.phoneMask}/>
+           <label className="text-muted">Phone</label>
+           {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
+         </div>
+
+        <div className="col-lg-12">
+          <button onClick={this.handleOnSubmit}
+                  className="btn btn-primary full-width-button">
+            Done
+          </button>
         </div>
       </div>
-     </div>
-    )
+    </div>
+   )
   }
 }));

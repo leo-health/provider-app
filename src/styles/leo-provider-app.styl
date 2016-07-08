@@ -1,8 +1,109 @@
 @css {
+  /*Global styling*/
+  .dark-gray-font { color: #575757 }
+  .orange-font { color: #FF906A }
+  .heavy-font-size {
+    font-family: "Futura PT W01 Medium";
+    font-size: 18px;
+  }
+
+  .medium-font-size,
+  .message-button {
+    font-family: "Futura PT W01 Book";
+    font-size: 18px;
+  }
+
+  /*Navbar*/
+  .leo-logo {
+    font-size: 40px;
+    display: inline;
+  }
+
+  .logout-nav {
+    margin-right: 1.5%;
+    margin-top: 0.4%;
+  }
+
+  .leo-nav {
+    margin-left: 1.5%;
+    width: 40%;
+  }
+
+  .logout-nav > li > .navbar-welcome { padding-right: 7%; }
+
+  .leo-logo-gray { font-family: "Futura PT W01 Book" }
+
+  .leo-logo,
+  .logout-nav > li > .navbar-welcome {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .logout-button { cursor: pointer; }
+
+  /*Positioning*/
+  .message-container,
+  .notes-container {
+    margin-top: -140px;
+  }
+
+  .notes-container {
+    height: 780px;
+  }
+
+  #all-tab { height: 100% }
+
+  .tags-container { margin-bottom: 40px }
+
+  .conversation-container {
+    height: 655px;
+    z-index: 1;
+  }
+
+  .find-family-container { margin-top: -10px }
+
+  .find-family-container > .panel{
+    padding-bottom: 5px;
+    margin-bottom: 18px;
+  }
+
+  #staff-selection {
+    position: absolute;
+    margin-top: 55px;
+    margin-left: -22.7%;
+    z-index: 2;
+  }
+
+  #message-form .panel-body { padding-bottom: 10px }
+
+  #chatbox {
+    height: 610px;
+    z-index: 1;
+  }
+
+  #close-form {
+    padding-bottom: 30px;
+    margin-bottom: 49px;
+  }
+
+  footer { margin: 0px }
+
+  .feedback { margin-right: 4%; }
+
+  /*Conversation List*/
+  .empty-conversation-container { padding: 15px; }
+
+  .emptyMessageForm { height: 210px; }
+
   /*Messaging & Conversations*/
-  #staff-selection { margin-bottom: 1%}
-  #chatbox { position: relative; overflow-x: hidden; width: 100%; height: 700px }
-  #chatmessages { bottom: 3%; position: absolute; overflow: auto; width: 98%; max-height: 700px }
+  .form-control.medium-font-size { line-height: 26px }
+  #staff-selection { margin-bottom: -10px}
+  #chatbox { position: relative; overflow-x: hidden; width: 100%; }
+  #chatmessages { bottom: 3%; position: absolute; overflow: auto; width: 98%; height: 595px }
   .img-chat { max-width:400px; max-height:200px; width: auto; height: auto; }
   .img-wrapper {height: 200px;}
   .img-helper {display: inline-block; height: 100%; vertical-align: middle;}
@@ -20,14 +121,21 @@
   .signup-progress-text,
   .progress-text-spacer{display: table-cell; float: none; padding: 0 0 14px; vertical-align: bottom; horizontal-align: middle}
   .full-width-button{width: 100%}
+  .inline-block{display: inline-block}
+  .right-padding{padding-right: 1em}
+  .button-margin-top{margin-top: '23px'}
   p.signup-progress-text.progress-text-container {
     padding:0 2em 1em;
   }
+  @media (min-width: 1200px) {
+    .no-right-padding {padding-right: 0%}
+    .tiny-left-padding {padding-left: 1%}
+  }
   @media (min-width: 650px) {
-    #progress_xs {display: none};
+    #progress_xs {display: none}
   }
   @media (max-width: 650px) {
-    #progress {display: none};
+    #progress {display: none}
   }
   .message-cell { margin-right: 1em; }
   /*Inline HR for System Messages*/
@@ -70,17 +178,14 @@
   }
 
   /*React AutoSuggest*/
-  .react-autosuggest { position: relative; }
-  .react-autosuggest input { width: 100%; height: 95% }
+  .react-autosuggest { position: relative; font-family: "Futura PT W01 Medium" }
+  .react-autosuggest input { width: 100%; height: 95%; font-size: 18px }
   .react-autosuggest__suggestions{ z-index: 10000; position:absolute; background-color: #fff; width: 100%; border: 1px solid #aaaaaa; }
   .react-autosuggest ul { list-style: none; padding-left: 0; }
   .react-autosuggest li { margin-left: 0; }
   .react-autosuggest__suggestion--focused { background-color: #ddd; }
-  .react-autosuggest__suggestions-section-name { font-size: 1.0em; text-transform: uppercase; color: #777; margin-left: 5% }
-  .react-autosuggest__suggestion { padding-left: 15% }
-
-  /*Readability*/
-  a, div, span, input  { font-size: 15px; }
+  .react-autosuggest__suggestions-section-name { font-size: 1.0em; text-transform: uppercase; color: #777; margin-left: 5% ; font-family: "Futura PT W01 Medium" }
+  .react-autosuggest__suggestion { padding-left: 15%; font-family: "Futura PT W01 Medium" }
 
   /*TypeAhead*/
   span.twitter-typeahead { width: 100%; }
@@ -100,13 +205,11 @@
 
   /*Pre-scrollable Content*/
   .pre-scrollable {
-    min-height: 730px;
-    max-height: 730px;
+    min-height: 100%;
+    max-height: 100%;
     overflow-y: auto;
   }
   .pre-scrollable-left {
-    min-height: 870px;
-    max-height: 870px;
     overflow-y: auto;
   }
   .container {
@@ -241,4 +344,49 @@
    border-radius: 2px;
    border-color: #eee;
   }
+
+  /*Tab styling*/
+  .tags-container { width: 24%; }
+
+  .assignment-font { font-family: "Futura PT W01 Book" }
+
+  .active-tab > .tab-name,
+  .nav-tabs > li.active-tab > .tab-name:focus,
+  .nav-tabs > li.active-tab > .tab-name:hover,
+  .nav-tabs > li.active-tab > .tab-name:focus:hover {
+    color: white;
+    box-shadow: none;
+  }
+
+  .inactive > .tab-name,
+  .inactive > .tab-name:hover { box-shadow: none; }
+
+  .open-case,
+  .escalated,
+  .closed {
+    width: 33%;
+    text-align: center;
+    height: 44px;
+  }
+
+  .open-div,
+  .escalated-div,
+  .closed-div {
+    width: 100%;
+    height: 10px;
+  }
+
+  .tab-name {
+    padding-top: 10px;
+    height: 100%;
+  }
+
+  .open-div,
+  .active-tab.open-case { background-color: #77DD77 }
+
+  .escalated-div,
+  .active-tab.escalated { background-color: #FFB347 }
+
+  .closed-div,
+  .active-tab.closed { background-color: #696969 }
 }
