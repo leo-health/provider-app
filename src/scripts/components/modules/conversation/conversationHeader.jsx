@@ -4,45 +4,48 @@ var leoUtil = require('../../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   render: function () {
-    var openTabCSSClass = this.props.currentListState === "open" ? "active" : "";
-    var escalationTabCSSClass = this.props.currentListState === "escalated" ? "active" : "";
-    var closeTabCSSClass = this.props.currentListState === "closed" ? "active" : "";
-    var showStaffSelectionStyle = escalationTabCSSClass === "active" ? {display: "inline-block"} : {display: "none"};
+    var openTabCSSClass = (this.props.currentListState === "open" ? "active-tab" : "inactive") + " open-case";
+    var escalationTabCSSClass = (this.props.currentListState === "escalated" ? "active-tab" : "inactive") + " escalated";
+    var closeTabCSSClass = (this.props.currentListState === "closed" ? "active-tab" : "inactive") + " closed";
+    var showStaffSelectionStyle = escalationTabCSSClass === "active-tab escalated" ? {display: "inline-block"} : {display: "none"};
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
     return (
       <div>
-        <ul className="nav nav-tabs">
+        <ul className="nav nav-tabs tags-container">
           <li className={openTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
-            <a href="#open" data-toggle="tab">
-              <span className="glyphicon glyphicon glyphicon-star-empty" aria-hidden="false"></span> Open
+            <a href="#open" className="tab-name" data-toggle="tab">
+                <span className="heavy-font-size">Open</span>
             </a>
+            <div className="open-div"></div>
           </li>
           <li className={escalationTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'escalated')}>
-            <a href="#escalated" data-toggle="tab">
-              <span className="glyphicon glyphicon-exclamation-sign-default" aria-hidden="false"></span> Assigned
+            <a href="#escalated" className="tab-name" data-toggle="tab">
+              <span className="heavy-font-size">Assigned
+              </span>
             </a>
+            <div className="escalated-div"></div>
           </li>
           <li className={closeTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'closed')}>
-            <a href="#closed" data-toggle="tab">
-              <span className="glyphicon glyphicon-ok-circle" aria-hidden="false"></span> Closed
+            <a href="#closed" className="tab-name" data-toggle="tab">
+              <span className="heavy-font-size">Closed</span>
             </a>
+            <div className="closed-div"></div>
           </li>
-        </ul>
-
-        <div className="btn-group" id="staff-selection" style={showStaffSelectionStyle}>
-          <li className="btn btn-sm btn-default">Assigned to</li>
+          <div className="btn-group" id="staff-selection" style={showStaffSelectionStyle}>
+          <li className="btn btn-sm btn-default assignment-font">Assigned to</li>
           <div className="btn-group">
-            <li className="btn btn-sm btn-default">{selectedStaffName}</li>
+            <li className="btn btn-sm btn-default assignment-font">{selectedStaffName}</li>
             <li className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               <span className="caret"></span>
             </li>
             <ul className="dropdown-menu">
               <li onClick={this.props.onChangeConversationStateTab.bind(null, 'escalated')}>
-                <a>Anyone</a>
+                <a className="heavy-font-size">Anyone</a>
               </li>
               {this.props.staff.map(function(staff, i) {
                 return (
                   <li key={i}
+                      className="medium-font-size"
                       onClick={this.props.onChangeSelectedStaff.bind(null, staff)}>
                     <a>{leoUtil.formatName(staff)}</a>
                   </li>
@@ -51,6 +54,7 @@ module.exports = React.createClass({
             </ul>
           </div>
         </div>
+        </ul>
       </div>
     )
   }

@@ -50,7 +50,7 @@ module.exports = React.createClass({
     return(
       <div>
         <this.props.tagName style={style}>
-          <small>{noteDisplayString}</small>
+          <small className="medium-font-size dark-gray-font">{noteDisplayString}</small>
           {optionalBreak}
           {optionalSender}
           {note}

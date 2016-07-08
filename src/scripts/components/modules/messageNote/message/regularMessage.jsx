@@ -21,10 +21,10 @@ module.exports = React.createClass({
     return(
       <div>
         {topLine}
-        <small> {this.props.sentAt} </small>
-        <strong>{this.props.sender}</strong>
+        <small className='medium-font-size'> {this.props.sentAt} </small>
+        <strong className='heavy-font-size'>{this.props.sender}</strong>
         &nbsp;
-        {message}
+        <small className='medium-font-size'> {message} </small>
       </div>
     )
   }
