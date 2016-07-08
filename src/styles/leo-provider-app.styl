@@ -25,8 +25,13 @@
   }
 
   .leo-nav {
+<<<<<<< HEAD
     margin-left: 1.5%;
     width: 40%;
+=======
+    margin-left: 30px;
+    width: 50%;
+>>>>>>> Add primitive mobile responsive
   }
 
   .logout-nav > li > .navbar-welcome { padding-right: 7%; }
@@ -46,6 +51,11 @@
   .logout-button { cursor: pointer; }
 
   /*Positioning*/
+  .message-container { margin-top: 0 }
+
+  @media (min-width: 1200px) {
+    .message-container { margin-top: -160px; }
+  }
 
   #all-tab { height: 100% }
 
@@ -342,7 +352,11 @@
   }
 
   /*Tab styling*/
-  .tags-container { width: 24%; }
+  .tags-container { width: 100%; }
+
+  @media (min-width: 1200px) {
+    .tags-container { width: 24%; }
+  }
 
   .assignment-font { font-family: "Futura PT W01 Book" }
 
