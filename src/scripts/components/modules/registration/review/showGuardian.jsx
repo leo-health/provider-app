@@ -2,11 +2,11 @@ var React = require('react');
 
 module.exports =React.createClass({
   render: function(){
-    if(this.props.enrollment){
-      var email = this.props.enrollment.email;
-      var firstName = this.props.enrollment.first_name;
-      var lastName = this.props.enrollment.last_name;
-      var phone = this.props.formatPhoneNumber(this.props.enrollment.phone);
+    if(this.props.user){
+      var email = this.props.user.email;
+      var firstName = this.props.user.first_name;
+      var lastName = this.props.user.last_name;
+      var phone = this.props.formatPhoneNumber(this.props.user.phone);
     }
 
     return(

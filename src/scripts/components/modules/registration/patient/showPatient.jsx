@@ -4,8 +4,8 @@ var React = require('react'),
 
 module.exports = React.createClass({
   handleDelete: function(){
-    RegistrationActions.removePatientEnrollmentRequest({
-      id: this.props.patient.id, authentication_token: sessionStorage.enrollmentToken
+    RegistrationActions.removePatientRequest({
+      id: this.props.patient.id, authentication_token: sessionStorage.authenticationToken
     })
   },
 

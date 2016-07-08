@@ -28,7 +28,7 @@ module.exports = React.createClass({
 
   getInitialState: function(){
     return {
-      enrollment: '',
+      user: '',
       patients: [],
       creditCardToken: '',
       creditCardBrand: '',
@@ -60,10 +60,10 @@ module.exports = React.createClass({
     if(status.patient) this.setState({patients: this.state.patients.concat(status.patient)});
     if(status.deletedPatient) this.setState({patients: _.reject(this.state.patients, {id: status.deletedPatient.id})});
     if(status.updatedPatient) this.setState({patients: this.replacePatient(this.state.patients, status.updatedPatient)});
-    if(status.enrollmentToken) sessionStorage['enrollmentToken'] = status.enrollmentToken;
+    if(status.authenticationToken) sessionStorage['authenticationToken'] = status.authenticationToken;
     if(status.nextPage) this.navigateTo(status.nextPage);
     if(status.createdSubscription){
-      this.context.router.push({pathname: "/registration/success", query: {token: sessionStorage.enrollmentToken}});
+      this.context.router.push({pathname: "/registration/success", query: {token: sessionStorage.authenticationToken}});
       if(PRODUCTION){
         var value = parseInt(status.quantity) * 20;
         fbq('track', 'Purchase', {value: value.toString(), currency: 'USD'});
@@ -93,7 +93,7 @@ module.exports = React.createClass({
 
   componentWillUnmount: function(){
     window.onbeforeunload = null;
-    sessionStorage.removeItem('enrollmentToken');
+    sessionStorage.removeItem('authenticationToken');
   },
 
   onPatientError: function(){
@@ -106,17 +106,22 @@ module.exports = React.createClass({
     var page;
     switch(this.state.nextPage){
       case "you":
-        page = <UserInfoForm status={this.state.status} message={this.state.message}/>;
+        page = <UserInfoForm status={this.state.status}
+                             message={this.state.message}/>;
+
         if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'About-you_page-viewed');
         break;
       case "patient":
         page = <PatientInfoForm navigateTo={this.navigateTo}
                                 patients={this.state.patients}
-                                enrollment={this.state.enrollment}/>;
+                                user={this.state.user}/>;
+
         if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'Add-child_page-viewed');
         break;
       case "payment":
-        page = <PaymentInfoForm status={this.state.status} message={this.state.message}/>;
+        page = <PaymentInfoForm status={this.state.status}
+                                message={this.state.message}/>;
+
         if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'Payment_page-viewed');
         break;
       case "review":
@@ -127,7 +132,8 @@ module.exports = React.createClass({
                            message={this.state.message}
                            patients={this.state.patients}
                            onPatientError={this.onPatientError}
-                           enrollment={this.state.enrollment}/>;
+                           user={this.state.user}/>;
+
         if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'Review_page-viewed');
         break;
       default:
