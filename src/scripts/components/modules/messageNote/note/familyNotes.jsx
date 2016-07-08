@@ -10,19 +10,24 @@ module.exports = React.createClass({
     var patients = this.props.patients;
     var phoneList = null;
     var patientList = null;
+    var emptyNote = null;
     if (guardians) {
-      console.log("GUARDIANS");
-      console.log(guardians);
       phoneList = guardians.map(function(guardian, i){
+        var phone = guardian.phone;
+        var s2 = (""+phone).replace(/\D/g, '');
+        var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+        if (m) {
+          phone = "(" + m[1] + ") " + m[2] + "-" + m[3];
+        }
         return (
-          <div key={i} className="medium-font-size">{guardian.first_name} <span className="glyphicon glyphicon-earphone"></span> {guardian.phone} </div>
+          <div key={i} className="medium-font-size">{guardian.first_name} <span className="glyphicon glyphicon-earphone"></span> {phone} </div>
         )
       });
+    } else {
+      emptyNote = <div className="medium-font-size">No family details to display.</div>
     }
 
     if (patients) {
-      console.log("PATIENTS");
-      console.log(patients);
       patientList = patients.map(function(patient, i){
         var birthday = patient.birth_date;
         var age = moment().diff(birthday, 'years') + " years";
@@ -47,6 +52,7 @@ module.exports = React.createClass({
         <h4><strong>Family Details</strong></h4>
         {phoneList}
         {patientList}
+        {emptyNote}
       </div>
     )
   }
