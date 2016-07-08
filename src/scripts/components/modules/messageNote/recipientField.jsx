@@ -26,10 +26,8 @@ module.exports = React.createClass({
     var userIcon = null;
     var patientIcon = null;
     var hyphenIcon = null;
-    var toIcon = null;
     if (guardians) {
       userIcon = <span className="glyphicon glyphicon-user"></span>;
-      toIcon = <span className="to-field--to">To:</span>;
       guardianDisplay = guardians.map(function(guardian, i){
         if (i + 1 === guardians.length) {
           return (
@@ -62,7 +60,6 @@ module.exports = React.createClass({
       <div className="recipient-field-container">
         <div className="pull-left to-field">
           <div className="to-field--list">
-            {toIcon}
             {userIcon}
             {guardianDisplay}
             {hyphenIcon}
