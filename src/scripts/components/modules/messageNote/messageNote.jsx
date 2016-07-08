@@ -21,7 +21,7 @@ module.exports = React.createClass({
       currentConversationId: undefined,
       offset: 0,
       page: 1,
-      hiddenNotes: false
+      hiddenNotes: true
     }
   },
 

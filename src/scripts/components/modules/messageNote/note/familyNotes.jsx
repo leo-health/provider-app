@@ -11,14 +11,17 @@ module.exports = React.createClass({
     var phoneList = null;
     var patientList = null;
     if (guardians) {
+      console.log("GUARDIANS");
+      console.log(guardians);
       phoneList = guardians.map(function(guardian, i){
         return (
-          <div key={i} className="medium-font-size">{guardian.first_name} <span className="glyphicon glyphicon-earphone"></span> {guardian.email} </div>
+          <div key={i} className="medium-font-size">{guardian.first_name} <span className="glyphicon glyphicon-earphone"></span> {guardian.phone} </div>
         )
       });
     }
 
     if (patients) {
+      console.log("PATIENTS");
       console.log(patients);
       patientList = patients.map(function(patient, i){
         var birthday = patient.birth_date;
@@ -29,10 +32,9 @@ module.exports = React.createClass({
             age = moment().diff(birthday, 'days') + " days";
           }
         }
-        console.log(birthday);
         return (
           <div key={i}>
-            <div className="heavy-font-size">{patient.first_name}, {patient.sex}</div>
+            <div className="heavy-font-size child-title"><strong>{patient.first_name}, {patient.sex}:</strong></div>
             <div className="medium-font-size">Age: {age}</div>
           </div>
 
