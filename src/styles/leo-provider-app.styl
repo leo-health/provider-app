@@ -64,7 +64,8 @@
 
   .tags-container { margin-bottom: 40px }
 
-  .conversation-container {
+  .conversation-container,
+  #charbox {
     height: 610px;
     z-index: 1;
   }
@@ -79,11 +80,6 @@
   .notes-container {
     margin-top: -160px;
     height: 370px;
-  }
-
-  #chatbox {
-    height: 610px;
-    z-index: 1;
   }
 
   #staff-selection {
@@ -124,7 +120,11 @@
     overflow-y: auto;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 94%;
+    width: 86%;
+  }
+
+  @media (min-width: 1000px) {
+    .to-field--list { width: 93%; }
   }
 
   .to-field--individual {
@@ -147,11 +147,15 @@
     padding-right: 10px;
     font-size: 25px;
     cursor: pointer;
-    display: none;
+    display: inline;
   }
 
   @media (min-width: 1200px) {
     .toggler { display: inline; }
+  }
+
+  .message-back {
+    display: none;
   }
 
   /*Family Notes*/

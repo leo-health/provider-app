@@ -27,7 +27,8 @@ module.exports = React.createClass({
       conversations: [],
       maxPage: 1,
       offset: 0,
-      selectedStaff: null
+      selectedStaff: null,
+      clickedConversation: false
     }
   },
 
@@ -92,8 +93,16 @@ module.exports = React.createClass({
   },
 
   handleOnClick: function(conversationId){
-    this.setState({selectedConversationId: conversationId});
+    this.setState({
+      selectedConversationId: conversationId,
+      clickedConversation: true
+    });
     MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
+  },
+
+  handleClickBack: function(){
+    this.setState({clickedConversation: false});
+    console.log("Click Back!");
   },
 
   componentWillMount: function () {
@@ -180,6 +189,7 @@ module.exports = React.createClass({
     var currentSelectedConversation = _.find(this.state.conversations, {id: this.state.selectedConversationId});
 
     var guardians, patients;
+    var conversationListClass = (this.state.clickedConversation ? "clicked-conversation" : "non-clicked-conversation") + " col-lg-3 conversation-container";
     if (currentSelectedConversation) {
       guardians = currentSelectedConversation.guardians;
       patients = currentSelectedConversation.patients;
@@ -193,9 +203,10 @@ module.exports = React.createClass({
           staff={this.state.staff}
           selectedStaff={this.state.selectedStaff}
           onChangeSelectedStaff={this.onChangeSelectedStaff}
+          clickedConversation={this.state.clickedConversation}
         />
         <div className="row">
-          <div className ="col-lg-3 conversation-container">
+          <div className ={conversationListClass}>
             <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
                  id="all-tab"
                  ref="conversationList"
@@ -209,6 +220,8 @@ module.exports = React.createClass({
               conversation={currentSelectedConversation}
               guardians={guardians}
               patients={patients}
+              onClickBack={this.handleClickBack}
+              clickedConversation={this.state.clickedConversation}
             />
           </div>
         </div>

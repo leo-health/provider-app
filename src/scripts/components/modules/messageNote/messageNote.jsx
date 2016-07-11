@@ -39,6 +39,12 @@ module.exports = React.createClass({
     return this.state.currentConversationId === conversation_id;
   },
 
+  onClickBack: function(){
+    this.setState({
+      hiddenNotes: true
+    })
+  },
+
   onMessageStatusChange: function(status){
     if(status.newMessage) {
 
@@ -100,6 +106,7 @@ module.exports = React.createClass({
           <RecipientField onToggleInformation={this.onToggleInformation}
                           guardians={this.props.guardians}
                           patients={this.props.patients}
+                          onClickBack={this.props.onClickBack}
           />
           <MessageList messages={this.state.messages}
                        conversation={this.props.conversation}
@@ -109,6 +116,8 @@ module.exports = React.createClass({
           />
         </div>
         <div className={noteSize}>
+          <span className="pull-left glyphicon glyphicon-chevron-left message-back"
+              onClick={this.onClickBack}></span>
           <FamilyNotes guardians={this.props.guardians}
                        patients={this.props.patients}
           />

@@ -1,0 +1,93 @@
+@css {
+  @media (max-width: 700px) {
+    .message-back {
+        position: fixed;
+        display: inline-block;
+        font-size: 25px;
+        margin-top: 20px;
+        margin-left: -15px;
+        z-index: 10000;
+    }
+
+    #staff-selection {
+      margin-left: -81.5%;
+    }
+
+    .clicked-conversation.tags-container,
+    .find-family-container,
+    .clicked-conversation.conversation-container {
+      display: none;
+    }
+
+    .non-clicked-conversation.message-container {
+      display: none;
+    }
+
+    .family-notes-container,
+    .notes-container,
+    .message-container {
+      margin-top: 0px;
+    }
+
+    .message-button {
+      margin-right: 5px;
+    }
+
+    .conversation-container {
+      height: 410px;
+    }
+    .list-group-item {
+      height: 140px;
+    }
+
+    .conversation-container {
+      height: 400px;
+    }
+
+    #chatbox,
+    #chatmessages {
+      height: 350px;
+    }
+
+    .heavy-font-size {
+      font-size: 14px;
+    }
+
+    .medium-font-size,
+    .message-button {
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 700px) and (max-width: 1200px) {
+    #staff-selection {
+      margin-left: -92.5%;
+    }
+    .clicked-conversation.tags-container,
+    .find-family-container,
+    .clicked-conversation.conversation-container {
+      display: none;
+    }
+
+    .non-clicked-conversation.message-container {
+      display: none;
+    }
+
+    .message-back {
+      position: absolute;
+      display: inline-block;
+      font-size: 25px;
+      margin-top: 15px;
+      margin-left: -30px;
+    }
+
+    .family-notes-container,
+    .notes-container {
+      margin-top: 0px;
+    }
+    .message-button {
+      margin-right: 5px;
+    }
+  }
+
+}

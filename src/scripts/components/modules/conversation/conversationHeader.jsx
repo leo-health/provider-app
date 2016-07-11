@@ -9,9 +9,10 @@ module.exports = React.createClass({
     var closeTabCSSClass = (this.props.currentListState === "closed" ? "active-tab" : "inactive") + " closed";
     var showStaffSelectionStyle = escalationTabCSSClass === "active-tab escalated" ? {display: "inline-block"} : {display: "none"};
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
+    var navTabsContainer = (this.props.clickedConversation ? "clicked-conversation" : "") + " nav nav-tabs tags-container";
     return (
       <div>
-        <ul className="nav nav-tabs tags-container">
+        <ul className={navTabsContainer}>
           <li className={openTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
             <a href="#open" className="tab-name" data-toggle="tab">
                 <span className="heavy-font-size">Open</span>
