@@ -19,12 +19,12 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialGuardian: function(){
-    if(this.props.enrollment){
+    if(this.props.user){
       return {
-        email: this.props.enrollment.email,
-        firstName: this.props.enrollment.first_name,
-        lastName: this.props.enrollment.last_name,
-        phone: this.props.formatPhoneNumber(this.props.enrollment.phone)
+        email: this.props.user.email,
+        firstName: this.props.user.first_name,
+        lastName: this.props.user.last_name,
+        phone: this.props.formatPhoneNumber(this.props.user.phone)
       }
     }else{
       return { firstName: '', lastName: '', phone: '', email: '', password: ''}
@@ -45,8 +45,8 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   createEnrollment: function(){
-    RegistrationActions.createEnrollmentRequest({
-      authentication_token: sessionStorage.enrollmentToken,
+    RegistrationActions.createUserRequest({
+      authentication_token: sessionStorage.authenticationToken,
       phone: this.state.phone.replace(/\D/g,''),
       first_name: this.state.firstName,
       last_name: this.state.lastName,

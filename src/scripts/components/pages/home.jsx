@@ -60,9 +60,9 @@ module.exports = React.createClass({
     return (
       <div>
         <HomeHeader/>
-        <div className="container page-header">
+        <div className="container page-header main-container">
           <div className="row">
-            <div className="col-lg-3">
+            <div className="col-lg-3 find-family-container">
               <FindFamily/>
             </div>
           </div>

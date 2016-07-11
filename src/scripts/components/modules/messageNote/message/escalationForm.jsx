@@ -31,7 +31,7 @@ module.exports = React.createClass({
   parseStaff: function(){
     if(this.props.staff.length > 0){
       return this.props.staff.map(function(staff, i){
-        return <option key={i} value={staff.id}>{leoUtil.formatName(staff)}</option>
+        return <option className="dark-gray-font" key={i} value={staff.id}>{leoUtil.formatName(staff)}</option>
       })
     }
   },
@@ -42,21 +42,21 @@ module.exports = React.createClass({
         <button type="button" className="close" onClick={this.props.showMessage}>×</button>
         <form className="form alert-form">
           <div className="form-group">
-            <label className="control-label"> Assign this conversation to </label>&nbsp;
-            <select className="form-control" onChange={this.handleEscalatedToChange} value={this.state.escalatedToId}>
+            <label className="control-label medium-font-size"> Assign this conversation to </label>&nbsp;
+            <select className="form-control medium-font-size" onChange={this.handleEscalatedToChange} value={this.state.escalatedToId}>
               {this.parseStaff()}
             </select>
-            <label className="control-label"> with a priority level of</label>
-            <select className="form-control"><option value={0}>standard</option></select>
-            <label className="control-label">Please enter any relevant notes to help the assignee resolve the case.</label>
-            <textarea className="form-control"
+            <label className="control-label medium-font-size"> with a priority level of</label>
+            <select className="form-control medium-font-size"><option className="dark-gray-font" value={0}>standard</option></select>
+            <label className="control-label medium-font-size">Please enter any relevant notes to help the assignee resolve the case.</label>
+            <textarea className="form-control medium-font-size"
                       value={this.state.escalationNote}
                       onChange={this.handleEscalationNoteChange}
                       rows="1"
                       type="text">
             </textarea>
           </div>
-          <button type="submit" className="btn btn-danger btn-sm form" onClick={this.handleEscalate}>
+          <button type="submit" className="btn btn-danger btn-sm form message-button" onClick={this.handleEscalate}>
             <span className="glyphicon glyphicon-fire"></span> Assign
           </button>
         </form>

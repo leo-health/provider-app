@@ -14,12 +14,12 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   getInitialState: function(){
-    if(this.props.enrollment) {
+    if(this.props.user) {
       return {
-        email: this.props.enrollment.email,
-        firstName: this.props.enrollment.first_name,
-        lastName: this.props.enrollment.last_name,
-        phone: this.props.formatPhoneNumber(this.props.enrollment.phone)
+        email: this.props.user.email,
+        firstName: this.props.user.first_name,
+        lastName: this.props.user.last_name,
+        phone: this.props.formatPhoneNumber(this.props.user.phone)
       }
     }
     return { email: '', firstName: '', lastName: '', phone: ''}
@@ -40,8 +40,8 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   updateEnrollment: function(){
-    RegistrationActions.updateEnrollmentRequest({
-      authentication_token: sessionStorage.enrollmentToken,
+    RegistrationActions.updateUserRequest({
+      authentication_token: sessionStorage.authenticationToken,
       phone: this.state.phone.replace(/\D/g,''),
       first_name: this.state.firstName,
       last_name: this.state.lastName
@@ -74,58 +74,55 @@ module.exports = validation(strategy)(React.createClass({
 
   render: function(){
     return(
-     <div>
-      <div className="form-group col-md-10 col-md-offset-1">
-        <h4>Your Information</h4>
-      </div>
-      <div className="form-group col-md-1">
-        <a onClick={this.props.guardianStateToggle}><span className="registration-icon glyphicon glyphicon-remove pull-right"></span></a>
-      </div>
-      <div className="row well form-group col-md-11 col-md-offset-1">
-        <div className="row">
-          <div className="form-group col-md-4">
-            <input type="text"
-                   className="form-control"
-                   value={this.state.firstName}
-                   onChange={this.handleFirstNameChange}
-                   ref="firstName"/>
-            <label className="text-muted">First Name</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
-          </div>
+     <div className="row">
+       <div className="col-lg-12">
+         <h4 className="inline-block">Your Information</h4>
+         <a onClick={this.props.guardianStateToggle}>
+           <span className="registration-icon glyphicon glyphicon-remove pull-right"></span>
+         </a>
+       </div>
 
-          <div className="form-group col-md-4">
-            <input type="text"
-                   className="form-control"
-                   value={this.state.lastName}
-                   onChange={this.handleLastNameChange}
-                   ref="lastName"/>
-            <label className="text-muted">Last Name</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
-          </div>
-        </div>
-        <div className="row">
-          <div className="form-group col-md-4">
-            <input type="text"
-                   className="form-control"
-                   value={this.state.phone}
-                   onChange={this.handlePhoneChange}
-                   ref="phone"
-                   pattern="[0-9]*"
-                   onInput={Helper.phoneMask}/>
-            <label className="text-muted">Phone</label>
-            {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-4">
-            <button onClick={this.handleOnSubmit}
-                    className="btn btn-primary">
-              Done
-            </button>
-          </div>
+       <div className="col-lg-12 well">
+         <div className="col-lg-6">
+           <input type="text"
+                  className="form-control"
+                  value={this.state.firstName}
+                  onChange={this.handleFirstNameChange}
+                  ref="firstName"/>
+           <label className="text-muted">First Name</label>
+           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
+         </div>
+
+         <div className="col-lg-6">
+           <input type="text"
+                  className="form-control"
+                  value={this.state.lastName}
+                  onChange={this.handleLastNameChange}
+                  ref="lastName"/>
+           <label className="text-muted">Last Name</label>
+           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
+         </div>
+
+         <div className="col-lg-6">
+           <input type="text"
+                  className="form-control"
+                  value={this.state.phone}
+                  onChange={this.handlePhoneChange}
+                  ref="phone"
+                  pattern="[0-9]*"
+                  onInput={Helper.phoneMask}/>
+           <label className="text-muted">Phone</label>
+           {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
+         </div>
+
+        <div className="col-lg-12">
+          <button onClick={this.handleOnSubmit}
+                  className="btn btn-primary full-width-button">
+            Done
+          </button>
         </div>
       </div>
-     </div>
-    )
+    </div>
+   )
   }
 }));

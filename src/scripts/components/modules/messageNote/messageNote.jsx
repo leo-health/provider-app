@@ -75,7 +75,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="col-lg-6">
+        <div className="col-lg-6 message-container">
           <MessageList messages={this.state.messages}
                        conversation={this.props.conversation}
                        page={this.state.page}

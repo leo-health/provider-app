@@ -4,8 +4,8 @@ var React = require('react'),
 
 module.exports = React.createClass({
   handleDelete: function(){
-    RegistrationActions.removePatientEnrollmentRequest({
-      id: this.props.patient.id, authentication_token: sessionStorage.enrollmentToken
+    RegistrationActions.removePatientRequest({
+      id: this.props.patient.id, authentication_token: sessionStorage.authenticationToken
     })
   },
 
@@ -20,29 +20,31 @@ module.exports = React.createClass({
       avatarUrl = "../../images/Avatar_Patient_Daughter.png";
     }
 
-    return <span className="pull-left">
-      <img className="patient-avatar pull-left" src={avatarUrl}/>
-      <table>
-        <tbody>
-          <tr>
-            <td>Child's Full Name</td>
-            <td>Birthday</td>
-            <td>Sex</td>
-          </tr>
-          <tr>
-            <td>
-              <p className="lead right-fix">{nameText}</p>
-            </td>
-            <td>
-              <p className="lead right-fix">{birthdayText}</p>
-            </td>
-            <td>
-              <p className="lead right-fix">{patient.sex}</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    return(
+      <span className="pull-left">
+        <img className="patient-avatar pull-left" src={avatarUrl}/>
+        <table>
+          <tbody>
+            <tr>
+              <td className="right-padding">Child's Full Name</td>
+              <td>Birthday</td>
+              <td>Sex</td>
+            </tr>
+            <tr>
+              <td>
+                <p className="lead right-fix">{nameText}</p>
+              </td>
+              <td>
+                <p className="lead right-fix">{birthdayText}</p>
+              </td>
+              <td>
+                <p className="lead right-fix">{patient.sex}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
      </span>
+    )
   },
 
   render: function(){
