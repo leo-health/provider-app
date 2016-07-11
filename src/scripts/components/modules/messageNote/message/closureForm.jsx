@@ -22,15 +22,15 @@ module.exports = React.createClass({
         <button type="button" className="close" onClick={this.props.showMessage}>×</button>
         <form className="form alert-form">
           <div className="form-group">
-            <label className="control-label">Please enter any relevant notes to explain how the case was resolved.</label>
+            <label className="control-label medium-font-size">Please enter any relevant notes to explain how the case was resolved.</label>
             <textarea value={this.state.closureNote}
                       onChange={this.handleClosureNoteChange}
-                      className="form-control"
+                      className="form-control medium-font-size"
                       rows="1"
                       type="text">
             </textarea>
           </div>
-          <button type="submit" className="btn btn-primary btn-sm form" onClick={this.handleClose}><span className="glyphicon glyphicon-ok"></span> Close Case</button>
+          <button type="submit" className="btn btn-primary btn-sm form message-button" onClick={this.handleClose}><span className="glyphicon glyphicon-ok"></span> Close Case</button>
         </form>
       </div>
     )

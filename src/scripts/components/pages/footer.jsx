@@ -8,8 +8,8 @@ module.exports = React.createClass({
           <div className="row">
             <div className="col-lg-12">
               <ul className="list-unstyled">
-                <li className="pull-right"><a href="mailto:support@leohealth.com">Feedback?</a></li>
-                <li><span>Need help? Call (206) 819-8549</span></li>
+                <li className="pull-right medium-font-size feedback"><a href="mailto:support@leohealth.com">Feedback?</a></li>
+                <li><span className="medium-font-size">Need help? Call (206) 819-8549</span></li>
               </ul>
             </div>
           </div>

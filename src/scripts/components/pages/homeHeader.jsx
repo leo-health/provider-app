@@ -38,15 +38,18 @@ module.exports = React.createClass({
               </button>
             </div>
             <div className="navbar-collapse collapse" id="navbar-main">
-              <ul className="nav navbar-nav">
+              <ul className="nav navbar-nav leo-nav">
                 <li><a href="../" className="navbar-brand"><img src="../images/leo.png" alt="..." /></a></li>
+                <div>
+                  <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
+                </div>
               </ul>
-              <ul className="nav navbar-nav navbar-right">
+              <ul className="nav navbar-nav navbar-right logout-nav ">
                 <li>
-                  <a>Welcome, {user}</a>
+                  <a className="heavy-font-size navbar-welcome">Welcome, {user}</a>
                 </li>
                 <li>
-                  <a onClick={this.handleOnLogout}><strong>logout</strong></a>
+                  <a onClick={this.handleOnLogout} className="heavy-font-size logout-button"><strong>logout</strong></a>
                 </li>
               </ul>
             </div>

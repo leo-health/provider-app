@@ -8,14 +8,8 @@ module.exports = React.createClass({
 
   render: function (){
     var conversationState = this.props.conversationState;
-    var stateClasses = classNames({
-      'glyphicon glyphicon-exclamation-sign-default pull-right': conversationState === "escalated",
-      'glyphicon glyphicon-star-empty pull-right': conversationState === "open",
-      'glyphicon glyphicon-ok-circle pull-right': conversationState === "closed"
-    });
-
     return(
-      <span className = {stateClasses} aria-hidden = "true"></span>
+      <span aria-hidden = "true"></span>
     )
   }
 });

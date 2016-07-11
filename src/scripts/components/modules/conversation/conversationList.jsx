@@ -116,7 +116,7 @@ module.exports = React.createClass({
     this.props.pusher.unsubscribe('private-conversation')
   },
 
-  isInConversationList: function(conversation_id){
+  isInConversationList: function(conversation_id) {
     return !!_.find(this.state.conversations, {id: conversation_id})
   },
 
@@ -167,14 +167,14 @@ module.exports = React.createClass({
                         currentListState = {this.state.conversationState}
                         selectedStaff = {this.state.selectedStaff}
           />
-        )
-      }, this);
+
+)      }, this);
     } else {
       var state = this.state.conversationState;
       if(state === parseInt(state, 10)){
         conversations = <div>There is no matching conversation.</div>
       }else{
-        conversations = <div> There are no more {state} conversations for you to review. Please be sure to review the other sections. </div>;
+        conversations = <div className="medium-font-size empty-conversation-container"> There are no more {state} conversations for you to review. Please be sure to review the other sections. </div>;
       }
     }
 
@@ -191,7 +191,7 @@ module.exports = React.createClass({
         />
 
         <div className="row">
-          <div className ="col-lg-3">
+          <div className ="col-lg-3 conversation-container">
             <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
                  id="all-tab"
                  ref="conversationList"

@@ -22,7 +22,7 @@ module.exports = React.createClass({
   render: function(){
     if (!this.props.conversation || this.props.conversation.state !== "closed") {
       var closeButton = <a className="btn btn-primary btn-sm message-button" onClick={this.props.showClose}><span className="glyphicon glyphicon-ok"></span> Close Case</a>;
-      var escalateButton = <a className="btn btn-danger btn-sm" onClick={this.props.showEscalation}><span className="glyphicon glyphicon-fire"></span> Assign</a>
+      var escalateButton = <a className="btn btn-danger btn-sm message-button" onClick={this.props.showEscalation}><span className="glyphicon glyphicon-fire"></span> Assign</a>
     }
 
     return(
@@ -33,7 +33,7 @@ module.exports = React.createClass({
             <textarea rows="3"
                       value={this.state.message}
                       onChange={this.handleMessageChange}
-                      className="form-control"
+                      className="form-control medium-font-size"
                       placeholder="Reply">
             </textarea>
           </form>
