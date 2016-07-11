@@ -4,6 +4,7 @@ var MessageList = require('./message/messageList');
 var FamilyNotes = require('./note/familyNotes');
 var NoteList = require('./note/noteList');
 var _ = require('lodash');
+var classNames = require('classnames');
 var RecipientField = require('./recipientField');
 var MessageStore = require('../../../stores/messageStore');
 var NoteStore = require('../../../stores/noteStore');
@@ -78,12 +79,21 @@ module.exports = React.createClass({
   onToggleInformation: function(){
     this.setState({
       hiddenNotes: !this.state.hiddenNotes
-    });
+    });classNames
   },
 
   render: function() {
-    var messageSize = (this.state.hiddenNotes) ? "col-lg-9 message-container" : "col-lg-6 message-container";
-    var noteSize = (this.state.hiddenNotes) ? "hidden-notes" : "col-lg-3"
+    var messageSize = classNames({
+      'message-container': true,
+      'col-lg-9': this.state.hiddenNotes,
+      'col-lg-6': !this.state.hiddenNotes
+    });
+
+    var noteSize = classNames({
+      'hidden-notes': this.state.hiddenNotes,
+      'col-lg-3': !this.state.hiddenNotes
+    });
+
     return (
       <div>
         <div className={messageSize}>

@@ -1,9 +1,6 @@
 var React = require('react');
-var Reflux = require('reflux');
 var _ = require('lodash');
-
 module.exports = React.createClass({
-
   getInitialState: function () {
     return { shortened: false }
   },
@@ -21,11 +18,8 @@ module.exports = React.createClass({
   render: function() {
     var guardians = this.props.guardians;
     var patients = this.props.patients;
-    var guardianDisplay = null;
-    var patientDisplay = null;
-    var userIcon = null;
-    var patientIcon = null;
-    var hyphenIcon = null;
+    var guardianDisplay, patientDisplay, userIcon, patientIcon, hyphenIcon;
+
     if (guardians) {
       userIcon = <span className="glyphicon glyphicon-user"></span>;
       guardianDisplay = guardians.map(function(guardian, i){
@@ -40,6 +34,7 @@ module.exports = React.createClass({
         }
       });
     }
+
     if (patients) {
       patientIcon = <span className="glyphicon glyphicon-ice-lolly to-field--individual orange-font"></span>;
       hyphenIcon = <div className="to-field--individual orange-font">|</div>;

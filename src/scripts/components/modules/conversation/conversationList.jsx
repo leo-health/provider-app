@@ -179,8 +179,7 @@ module.exports = React.createClass({
 
     var currentSelectedConversation = _.find(this.state.conversations, {id: this.state.selectedConversationId});
 
-    var guardians = null;
-    var patients = null;
+    var guardians, patients;
     if (currentSelectedConversation) {
       guardians = currentSelectedConversation.guardians;
       patients = currentSelectedConversation.patients;
