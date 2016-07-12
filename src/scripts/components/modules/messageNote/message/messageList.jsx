@@ -96,7 +96,7 @@ module.exports = React.createClass({
       );
     } else {
       messageForm = (
-        <div className="emptyMessageForm"></div>
+        <div className="empty-message-form"></div>
       );
     }
     return (

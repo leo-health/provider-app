@@ -148,7 +148,6 @@ module.exports = React.createClass({
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversationId === conversation.id;
         var boundClick = this.handleOnClick.bind(this, conversation.id);
-
         return (
           <Conversation key = {i}
                         reactKey = {i}
@@ -167,8 +166,8 @@ module.exports = React.createClass({
                         currentListState = {this.state.conversationState}
                         selectedStaff = {this.state.selectedStaff}
           />
-
-)      }, this);
+        )
+      }, this);
     } else {
       var state = this.state.conversationState;
       if(state === parseInt(state, 10)){
@@ -180,6 +179,12 @@ module.exports = React.createClass({
 
     var currentSelectedConversation = _.find(this.state.conversations, {id: this.state.selectedConversationId});
 
+    var guardians, patients;
+    if (currentSelectedConversation) {
+      guardians = currentSelectedConversation.guardians;
+      patients = currentSelectedConversation.patients;
+    }
+
     return (
       <div>
         <ConversationHeader
@@ -189,7 +194,6 @@ module.exports = React.createClass({
           selectedStaff={this.state.selectedStaff}
           onChangeSelectedStaff={this.onChangeSelectedStaff}
         />
-
         <div className="row">
           <div className ="col-lg-3 conversation-container">
             <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
@@ -203,6 +207,8 @@ module.exports = React.createClass({
             <MessageNote
               staff={this.state.staff}
               conversation={currentSelectedConversation}
+              guardians={guardians}
+              patients={patients}
             />
           </div>
         </div>

@@ -33,7 +33,7 @@ module.exports = React.createClass({
             <textarea rows="3"
                       value={this.state.message}
                       onChange={this.handleMessageChange}
-                      className="form-control medium-font-size"
+                      className="form-control medium-font-size messenger-reply"
                       placeholder="Reply">
             </textarea>
           </form>

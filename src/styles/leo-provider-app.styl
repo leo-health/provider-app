@@ -1,7 +1,8 @@
 @css {
   /*Global styling*/
-  .dark-gray-font { color: #575757 }
-  .orange-font { color: #FF906A }
+  .dark-gray-font { color: #575757; }
+  .orange-font { color: #FFBD6A; }
+  .leo-logo.orange-font { color: #FF906A; }
   .heavy-font-size {
     font-family: "Futura PT W01 Medium";
     font-size: 18px;
@@ -25,8 +26,15 @@
   }
 
   .leo-nav {
-    margin-left: 1.5%;
-    width: 40%;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .leo-nav {
+      margin-left: 1.5%;
+      width: 50%;
+    }
   }
 
   .logout-nav > li > .navbar-welcome { padding-right: 7%; }
@@ -46,13 +54,10 @@
   .logout-button { cursor: pointer; }
 
   /*Positioning*/
-  .message-container,
-  .notes-container {
-    margin-top: -140px;
-  }
+  .message-container { margin-top: 10px }
 
-  .notes-container {
-    height: 780px;
+  @media (min-width: 1200px) {
+    .message-container { margin-top: -160px; }
   }
 
   #all-tab { height: 100% }
@@ -60,7 +65,7 @@
   .tags-container { margin-bottom: 40px }
 
   .conversation-container {
-    height: 655px;
+    height: 610px;
     z-index: 1;
   }
 
@@ -69,6 +74,16 @@
   .find-family-container > .panel{
     padding-bottom: 5px;
     margin-bottom: 18px;
+  }
+
+  .notes-container {
+    margin-top: -160px;
+    height: 370px;
+  }
+
+  #chatbox {
+    height: 610px;
+    z-index: 1;
   }
 
   #staff-selection {
@@ -80,11 +95,6 @@
 
   #message-form .panel-body { padding-bottom: 10px }
 
-  #chatbox {
-    height: 610px;
-    z-index: 1;
-  }
-
   #close-form {
     padding-bottom: 30px;
     margin-bottom: 49px;
@@ -94,13 +104,92 @@
 
   .feedback { margin-right: 4%; }
 
+  /*Recipient Field*/
+  .recipient-field-container {
+    width: 100%;
+    height: 60px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .to-field {
+    position: relative;
+    top: 20%;
+    padding-left: 15px;
+    font-size: 18px;
+    width: 100%;
+  }
+
+  .to-field--list {
+    display: inline-block;
+    overflow-y: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 94%;
+  }
+
+  .to-field--individual {
+    display: inline-block;
+    padding-left: 10px;
+  }
+
+  .to-field--to {
+    padding-right: 10px;
+    font-size: 23px;
+    display: inline-block;
+  }
+
+  /*Note Toggler*/
+  .hidden-notes { display: none; }
+
+  .toggler {
+    position: relative;
+    margin-top: 5px;
+    padding-right: 10px;
+    font-size: 25px;
+    cursor: pointer;
+    display: none;
+  }
+
+  @media (min-width: 1200px) {
+    .toggler { display: inline; }
+  }
+
+  /*Family Notes*/
+  .family-notes-container {
+    display: inline-block;
+    height: 400px;
+    margin-top: -160px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    width: 100%;
+  }
+
+  .child-title { padding-top: 5px; }
+
   /*Conversation List*/
   .empty-conversation-container { padding: 15px; }
 
-  .emptyMessageForm { height: 210px; }
+  .empty-message-form { height: 180px; }
 
+  .label-warning.child-label {
+    font-size: 14px;
+    background-color: #FFBD6A;
+  }
+
+  #all-tab > .list-group-item.active {
+    background-color: #6EB1FF;
+    border-color: #6EB1FF;
+  }
   /*Messaging & Conversations*/
-  .form-control.medium-font-size { line-height: 26px }
+  #message-form > .panel { margin-bottom: 10px !important; }
+  #chatbox {
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+  }
+  .find-family-field { line-height: 40px; }
+  .messenger-reply {
+    line-height: 20px;
+    height: 50px;
+  }
   #staff-selection { margin-bottom: -10px}
   #chatbox { position: relative; overflow-x: hidden; width: 100%; }
   #chatmessages { bottom: 3%; position: absolute; overflow: auto; width: 98%; height: 595px }
@@ -171,10 +260,10 @@
       margin-left: 15px;
   }
   .inline-hr .danger {
-    color: #cb171e;
+    color: #FF906A;
   }
   .inline-hr .primary {
-    color: #0d87e9;
+    color: #6EB1FF;
   }
 
   /*React AutoSuggest*/
@@ -346,7 +435,11 @@
   }
 
   /*Tab styling*/
-  .tags-container { width: 24%; }
+  .tags-container { width: 100%; }
+
+  @media (min-width: 1200px) {
+    .tags-container { width: 24%; }
+  }
 
   .assignment-font { font-family: "Futura PT W01 Book" }
 
@@ -382,11 +475,24 @@
   }
 
   .open-div,
-  .active-tab.open-case { background-color: #77DD77 }
-
+  .active-tab.open-case,
   .escalated-div,
-  .active-tab.escalated { background-color: #FFB347 }
-
+  .active-tab.escalated,
   .closed-div,
-  .active-tab.closed { background-color: #696969 }
+  .active-tab.closed { background-color: #FFBD6A }
+
+  /*Button styling*/
+  .btn-success.message-button { background-color: #63CF9B; }
+
+  .btn-primary.message-button { background-color: #6EB1FF; }
+
+  .btn-danger.message-button { background-color: #FF906A; }
+
+  /*Form styling*/
+  #escalation-form { background-color: rgba(161, 49, 14, 0.5); }
+
+  #close-form { background-color: rgba(66, 80, 90, 0.5); }
+
+  /*Footer*/
+  .feedback > a { color: #6EB1FF; }
 }
