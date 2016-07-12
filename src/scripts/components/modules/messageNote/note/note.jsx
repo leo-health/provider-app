@@ -39,7 +39,7 @@ module.exports = React.createClass({
     var optionalBreak;
     var style;
     if(this.props.tagName === 'blockquote'){
-      var color = messageType === "escalation" ? "#FF6666" : "#21a4f3";
+      var color = messageType === "escalation" ? "#FF906A" : "#6EB1FF";
       style = { borderLeft: `${color} 5px solid`}
     } else {
       optionalBreak = <br></br>
