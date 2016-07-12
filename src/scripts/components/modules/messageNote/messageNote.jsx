@@ -89,11 +89,18 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var clickedConversation = classNames({
+      ' clicked-conversation': this.props.clickedConversation,
+      ' non-clicked-conversation': !this.props.clickedConversation || !this.state.hiddenNotes
+    });
+
     var messageSize = classNames({
       'message-container': true,
       'col-lg-9': this.state.hiddenNotes,
       'col-lg-6': !this.state.hiddenNotes
     });
+
+    messageSize += clickedConversation;
 
     var noteSize = classNames({
       'hidden-notes': this.state.hiddenNotes,
