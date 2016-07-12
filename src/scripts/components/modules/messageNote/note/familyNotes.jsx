@@ -43,12 +43,15 @@ module.exports = React.createClass({
     var guardians = this.props.guardians;
     var patients = this.props.patients;
     var phoneList, patientList, emptyNote;
+
     if (guardians) {
       phoneList = this.processPhoneNumber(guardians);
     } else {
       emptyNote = <div className="medium-font-size">No family details to display.</div>
     }
+
     if (patients) { patientList = this.processAge(patients); }
+
     return (
       <div className="family-notes-container col-lg-3 pre-scrollable panel-body">
         <h4><strong>Family Details</strong></h4>

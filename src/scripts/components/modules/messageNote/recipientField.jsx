@@ -1,6 +1,7 @@
 var React = require('react');
 var _ = require('lodash');
 module.exports = React.createClass({
+
   getInitialState: function () {
     return { shortened: false }
   },
@@ -55,11 +56,13 @@ module.exports = React.createClass({
       userIcon = <span className="glyphicon glyphicon-user"></span>;
       guardianDisplay = this.displayGuardians(guardians);
     }
+
     if (patients) {
       patientDisplay = this.displayPatients(patients);
       hyphenIcon = <div className="to-field--individual orange-font">|</div>;
       patientIcon = <span className="glyphicon glyphicon-ice-lolly to-field--individual orange-font"></span>;
     }
+
     return (
       <div className="recipient-field-container">
         <div className="pull-left to-field">

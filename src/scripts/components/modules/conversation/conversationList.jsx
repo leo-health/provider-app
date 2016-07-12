@@ -166,8 +166,8 @@ module.exports = React.createClass({
                         currentListState = {this.state.conversationState}
                         selectedStaff = {this.state.selectedStaff}
           />
-
-)      }, this);
+        )
+      }, this);
     } else {
       var state = this.state.conversationState;
       if(state === parseInt(state, 10)){
@@ -194,7 +194,6 @@ module.exports = React.createClass({
           selectedStaff={this.state.selectedStaff}
           onChangeSelectedStaff={this.onChangeSelectedStaff}
         />
-
         <div className="row">
           <div className ="col-lg-3 conversation-container">
             <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
