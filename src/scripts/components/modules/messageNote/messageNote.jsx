@@ -79,7 +79,7 @@ module.exports = React.createClass({
   onToggleInformation: function(){
     this.setState({
       hiddenNotes: !this.state.hiddenNotes
-    });classNames
+    });
   },
 
   render: function() {

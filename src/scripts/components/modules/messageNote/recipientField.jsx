@@ -1,5 +1,4 @@
 var React = require('react');
-var _ = require('lodash');
 module.exports = React.createClass({
 
   getInitialState: function () {
@@ -16,35 +15,19 @@ module.exports = React.createClass({
     });
   },
 
-  displayGuardians: function(guardians) {
-    var guardianDisplay = guardians.map(function(guardian, i){
-      if (i + 1 === guardians.length) {
+  displayUsers: function(users) {
+    var userDisplay = users.map(function(user, i){
+      if (i + 1 === users.length) {
         return (
-          <div key={i} className="to-field--individual medium-font-size">{guardian.first_name} {guardian.last_name}</div>
+          <div key={i} className="to-field--individual medium-font-size">{user.first_name} {user.last_name}</div>
         )
       } else {
         return (
-          <div key={i} className="to-field--individual medium-font-size">{guardian.first_name} {guardian.last_name},</div>
+          <div key={i} className="to-field--individual medium-font-size">{user.first_name} {user.last_name},</div>
         )
       }
     });
-    return guardianDisplay;
-  },
-
-  displayPatients: function(patients) {
-    var patientDisplay;
-    patientDisplay = patients.map(function(patient, i){
-      if (i + 1 === patients.length) {
-        return (
-          <div key={i} className="to-field--individual medium-font-size orange-font">{patient.first_name} {patient.last_name}</div>
-        )
-      } else {
-        return (
-          <div key={i} className="to-field--individual medium-font-size orange-font">{patient.first_name} {patient.last_name},</div>
-        )
-      }
-    });
-    return patientDisplay;
+    return userDisplay;
   },
 
   render: function() {
@@ -54,11 +37,11 @@ module.exports = React.createClass({
 
     if (guardians) {
       userIcon = <span className="glyphicon glyphicon-user"></span>;
-      guardianDisplay = this.displayGuardians(guardians);
+      guardianDisplay = this.displayUsers(guardians);
     }
 
     if (patients) {
-      patientDisplay = this.displayPatients(patients);
+      patientDisplay = this.displayUsers(patients);
       hyphenIcon = <div className="to-field--individual orange-font">|</div>;
       patientIcon = <span className="glyphicon glyphicon-ice-lolly to-field--individual orange-font"></span>;
     }
