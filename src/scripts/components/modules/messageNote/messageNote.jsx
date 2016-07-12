@@ -103,6 +103,7 @@ module.exports = React.createClass({
     messageSize += clickedConversation;
 
     var noteSize = classNames({
+      'all-notes': true,
       'hidden-notes': this.state.hiddenNotes,
       'col-lg-3': !this.state.hiddenNotes
     });
