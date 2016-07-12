@@ -31,14 +31,21 @@ module.exports = React.createClass({
         <div className="navbar navbar-default navbar-fixed-top">
           <div className="container">
             <div className="navbar-header">
-              <button className="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
+            <ul className="nav navbar-nav leo-nav collapsed">
+                  <li><a href="../" className="navbar-brand"><img src="../images/leo.png" alt="..." /></a></li>
+                  <div>
+                    <span className="leo-logo leo-logo--collapsed orange-font">leo | </span><span className="leo-logo leo-logo--collapsed leo-logo-gray"> messenger</span>
+                  </div>
+              </ul>
+              <ul className="nav navbar-nav navbar-right logout-nav logout-nav--collapsed">
+                <li>
+                  <a onClick={this.handleOnLogout} className="heavy-font-size logout-button"><strong>logout</strong></a>
+                </li>
+              </ul>
+
             </div>
             <div className="navbar-collapse collapse" id="navbar-main">
-              <ul className="nav navbar-nav leo-nav">
+              <ul className="nav navbar-nav leo-nav non-collapsed">
                 <li><a href="../" className="navbar-brand"><img src="../images/leo.png" alt="..." /></a></li>
                 <div>
                   <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>

@@ -1,0 +1,41 @@
+@css {
+  .navbar-nav.collapsed {
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .logout-nav > li {
+    white-space: nowrap;
+    padding-right: 5px;
+  }
+
+
+  @media (min-width: 768px) {
+    .navbar-nav.collapsed {
+      display: none;
+    }
+
+    .logout-nav--collapsed.logout-nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .navbar-nav.non-collapsed {
+    }
+  }
+
+  .leo-logo--collapsed {
+    font-size: 25px;
+  }
+
+  .logout-nav--collapsed {
+    display: inline-block;
+    float: right;
+    margin-top: 15px;
+  }
+
+  .navbar-nav.collapsed > li > .navbar-brand {
+    height: 0px;
+  }
+}
