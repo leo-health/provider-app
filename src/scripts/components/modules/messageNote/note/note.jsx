@@ -48,7 +48,7 @@ module.exports = React.createClass({
     var optionalSender = note && note.length>0 ? <strong>{sender} </strong> : null;
 
     return(
-      <div>
+      <div className="note-text">
         <this.props.tagName style={style}>
           <small className="medium-font-size dark-gray-font">{noteDisplayString}</small>
           {optionalBreak}
