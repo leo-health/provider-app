@@ -1,20 +1,53 @@
 @css {
-  .family-notes-container {
+  .family-notes-container,
+  .notes-container {
     padding: 0px;
   }
-  .family-notes-title {
+  .family-notes-title,
+  .notes-title {
     text-align: center;
     padding-top: 1.5vh;
     height: 6vh;
     border-bottom: 1px solid #E1E1E1;
   }
 
-  .family-notes-title > h4 {
+  .family-notes-title > h4,
+  .notes-title > h4 {
     margin-top: 0px;
+  }
+
+  .notes-container {
+    margin-top: 21vh;
+  }
+
+  @media (max-height: 900px) {
+    .notes-container {
+      margin-top: 20vh;
+    }
+  }
+  @media (max-height: 850px) {
+    .notes-container {
+      margin-top: 19vh;
+    }
+  }
+  @media (max-height: 800px) {
+    .notes-container {
+      margin-top: 18vh;
+    }
   }
 
   .family-notes-container > .pre-scrollable {
     min-height: 31vh;
     height: 31vh;
   }
+
+  .notes-container > .pre-scrollable {
+    min-height: 29vh;
+    height: 29vh;
+  }
+
+  .note-text {
+    padding-left: 10px;
+  }
+
 }
