@@ -46,6 +46,11 @@
     }
   }
 
+  @media (min-width: 1200px) {
+    .navbar-nav.leo-nav.collapsed,
+    .logout-button.collapsed { display: none }
+  }
+
   .logout-nav > li > .navbar-welcome { padding-right: 7%; }
 
   .leo-logo-gray { font-family: "Futura PT W01 Book" }
@@ -163,6 +168,10 @@
     display: inline-block;
   }
 
+  @media (min-width: 1200px) {
+    .message-back { display: none }
+  }
+
   /*Note Toggler*/
   .hidden-notes { display: none; }
 
@@ -177,10 +186,6 @@
 
   @media (min-width: 1200px) {
     .toggler { display: inline; }
-  }
-
-  .message-back {
-    display: none;
   }
 
   /*Family Notes*/
@@ -635,8 +640,6 @@
     padding-bottom: 0px;
   }
   @media (max-width: 400px) {
-    #staff-selection { margin-left: -77%; }
-
     .message-button { font-size: 16px; }
   }
 
