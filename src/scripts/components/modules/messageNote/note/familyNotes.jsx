@@ -52,11 +52,13 @@ module.exports = React.createClass({
     if (patients) { patientList = this.processAge(patients); }
 
     return (
-      <div className="family-notes-container col-lg-3 pre-scrollable panel-body">
-        <h4><strong>Family Details</strong></h4>
-        {phoneList}
-        {patientList}
-        {emptyNote}
+      <div className="family-notes-container col-lg-3">
+        <div className="family-notes-title"><h4><strong>Family Details</strong></h4></div>
+        <div className="pre-scrollable panel-body">
+          {phoneList}
+          {patientList}
+          {emptyNote}
+        </div>
       </div>
     )
   }
