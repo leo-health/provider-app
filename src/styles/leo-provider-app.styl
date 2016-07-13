@@ -53,33 +53,45 @@
   .logout-button { cursor: pointer; }
 
   /*Positioning*/
-  .message-container { margin-top: 10px }
+  .message-container,
+  .notes-container,
+  .family-notes-container { margin-top: -155px; }
+  #all-tab { height: 100% }
 
-  @media (min-width: 1200px) {
-    .message-container { margin-top: -160px; }
+  @media (max-height: 850px) {
+    .message-container,
+    .notes-container,
+    .family-notes-container { margin-top: -150px; }
+    #all-tab { height: 96%; }
   }
 
-  #all-tab { height: 100% }
+  @media (max-height: 800px) {
+    .message-container,
+    .notes-container,
+    .family-notes-container { margin-top: -145px; }
+  }
+
 
   .tags-container { margin-bottom: 40px }
 
   .conversation-container,
   #chatbox {
-    height: 610px;
+    height: 56vh;
     z-index: 1;
   }
 
   .find-family-container { margin-top: -10px }
+
+  @media (max-height: 800px) {
+    .find-family-container { margin-top: 0px }
+  }
 
   .find-family-container > .panel{
     padding-bottom: 5px;
     margin-bottom: 18px;
   }
 
-  .notes-container {
-    margin-top: -160px;
-    height: 370px;
-  }
+  .notes-container { height: 35vh; }
 
   #staff-selection {
     position: absolute;
@@ -102,7 +114,7 @@
   /*Recipient Field*/
   .recipient-field-container {
     width: 100%;
-    height: 60px;
+    height: 6vh;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
 
@@ -160,8 +172,7 @@
   /*Family Notes*/
   .family-notes-container {
     display: inline-block;
-    height: 400px;
-    margin-top: -160px;
+    height: 37vh;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     width: 100%;
   }
@@ -189,10 +200,10 @@
     margin-bottom: 10px;
   }
 
-  .find-family-field { line-height: 40px; }
-  .messenger-reply {
+  .find-family-field { line-height: 4vh; }
+  .form-control.messenger-reply {
     line-height: 20px;
-    height: 50px;
+    height: 6vh;
   }
   #staff-selection { margin-bottom: -10px}
   #chatbox { position: relative; overflow-x: hidden; width: 100%; }
