@@ -212,7 +212,10 @@
   .img-wrapper {height: 200px;}
   .img-helper {display: inline-block; height: 100%; vertical-align: middle;}
   .child-label { margin-right: 0.5em; display: inline-block }
-  .message-button { margin-right: 0.5em }
+  .message-button { margin-left: 5px; }
+  @media (min-width: 1200px) {
+    .message-button { margin-right: 0.5em }
+  }
   .guardian-name { background-color: red }
   .progress-table {display: table; width: 100%; }
   #signup_page {padding-top: 10px}
@@ -536,10 +539,6 @@
 
     #staff-selection { margin-left: -81%; }
 
-    .family-notes-container,
-    .notes-container,
-    .message-container { margin-top: 0px; }
-
     .conversation-container { height: 410px; }
 
     .list-group-item { height: 140px; }
@@ -551,8 +550,9 @@
 
     .heavy-font-size,
     .medium-font-size,
-    .message-button,
     blockquote { font-size: 14px; }
+
+    .message-button { font-size: 18px; }
 
     .family-notes-container { height: 300px; }
 
@@ -586,8 +586,10 @@
       font-size: 25px;
     }
 
-    .non-clicked-conversation.message-container { display: none; }
+    .family-notes-container,
+    .notes-container,
+    .message-container { margin-top: 0px; }
 
-    .message-button { margin-right: 5px; }
+    .non-clicked-conversation.message-container { display: none; }
   }
 }
