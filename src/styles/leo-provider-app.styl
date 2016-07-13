@@ -25,8 +25,18 @@
     margin-top: 0.4%;
   }
 
+  .logout-nav > li {
+    white-space: nowrap;
+    padding-right: 5px;
+  }
+
   .leo-nav {
     margin-left: 0;
+  }
+
+  .navbar-nav {
+    white-space: nowrap;
+    display: inline-block;
   }
 
   @media (min-width: 768px) {
@@ -52,6 +62,10 @@
 
   .logout-button { cursor: pointer; }
 
+  .logout-nav > li {
+    white-space: nowrap;
+    padding-right: 5px;
+  }
   /*Positioning*/
   .message-container,
   .notes-container,
@@ -515,36 +529,7 @@
   .feedback > a,
   #gc-number-1 { color: #6EB1FF; }
 
-  /* Mobile styling: small */
-
-  @media (max-width: 400px) {
-    #staff-selection {
-      margin-left: -77%;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .message-back {
-        position: fixed;
-        margin-top: 20px;
-        margin-left: -15px;
-        z-index: 10000;
-    }
-
-
-    .list-group-item { height: 140px; }
-
-    .heavy-font-size,
-    .medium-font-size,
-    blockquote { font-size: 14px; }
-
-    .message-button { font-size: 18px; }
-
-    .family-notes-container > h4,
-    .notes-container > h4 { font-size: 20px; }
-  }
-
-  /* Mobile styling: medium */
+  /* Mobile styling: medium-large */
   @media (min-width: 768px) and (max-width: 1200px) {
     .message-back {
       position: absolute;
@@ -554,6 +539,14 @@
 
     .family-notes-container,
     .notes-container { margin-top: 0px; }
+
+    .navbar-nav.collapsed {
+      display: none;
+    }
+
+    .logout-nav--collapsed.logout-nav {
+      display: none;
+    }
   }
 
   @media (max-width: 1200px) {
@@ -581,5 +574,83 @@
     .message-container { margin-top: 0px; }
 
     .non-clicked-conversation.message-container { display: none; }
+  }
+
+  /* Mobile styling: medium */
+  @media (max-height: 830px) {
+    .footer-row { margin-top: -30px; }
+  }
+
+  @media (max-width: 768px) {
+    .message-back {
+        position: fixed;
+        margin-top: 20px;
+        margin-left: -15px;
+        z-index: 10000;
+    }
+
+    .navbar-nav.collapsed {
+      position: absolute;
+      left: 25%;
+    }
+
+    .list-group-item { height: 140px; }
+
+    .heavy-font-size,
+    .medium-font-size,
+    blockquote { font-size: 14px; }
+
+    .message-button { font-size: 18px; }
+
+    .family-notes-container > h4,
+    .notes-container > h4 { font-size: 20px; }
+  }
+
+  /* Mobile styling: small */
+  @media (max-width: 440px) {
+    .navbar-nav.collapsed { left: 35s%; }
+
+    .main-container { padding: 0px; }
+  }
+
+  .leo-logo--collapsed {
+    font-size: 30px;
+    position: relative;
+    bottom: 3px;
+  }
+
+  .logout-nav--collapsed {
+    display: inline-block;
+    float: right;
+    margin-top: 15px;
+  }
+
+  .navbar-nav.collapsed > li > .navbar-brand { height: 0px; }
+
+  .alert-form > .btn-primary.message-button { margin-bottom: -10px; }
+
+  .pull-right.feedback,
+  .container.main-container.page-header {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+  }
+  @media (max-width: 400px) {
+    #staff-selection { margin-left: -77%; }
+
+    .message-button { font-size: 16px; }
+  }
+
+
+
+  /* Mobile styling: small */
+  @media (max-width: 320px) {
+
+    .leo-logo--collapsed { display: none; }
+
+    .navbar-nav.collapsed { left: 40%; }
+
+    .message-button,
+    .medium-font-size.feedback,
+    .medium-font-size.phone-number { font-size: 13px; }
   }
 }
