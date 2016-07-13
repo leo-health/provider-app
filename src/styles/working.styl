@@ -21,12 +21,22 @@
   }
 
   @media (max-width: 768px) {
-    .navbar-nav.non-collapsed {
+    .navbar-nav.collapsed {
+      position: absolute;
+      left: 35%;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .navbar-nav.collapsed {
+      left: 25%;
     }
   }
 
   .leo-logo--collapsed {
-    font-size: 25px;
+    font-size: 30px;
+    position: relative;
+    bottom: 3px;
   }
 
   .logout-nav--collapsed {
