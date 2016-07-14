@@ -167,6 +167,10 @@
     padding-left: 10px;
   }
 
+  @media (max-width: 768px) {
+    .to-field--individual { padding-left: 5px; }
+  }
+
   .to-field--to {
     padding-right: 10px;
     font-size: 23px;
@@ -294,8 +298,11 @@
   .img-wrapper {height: 200px;}
   .img-helper {display: inline-block; height: 100%; vertical-align: middle;}
   .message-button { margin-left: 5px; }
-  @media (min-width: 1200px) {
-    .message-button { margin-right: 0.5em }
+  @media (min-width: 420px) {
+    .message-button {
+      margin-right: 0.5em;
+      margin-left: 0px;
+    }
   }
   .guardian-name { background-color: red }
   .progress-table {display: table; width: 100%; }
