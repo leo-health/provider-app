@@ -149,7 +149,7 @@ module.exports = React.createClass({
         <h6 className="list-group-item-heading heavy-font-size">{primaryGuardian}
           <span className="pull-right">{messageSendAt}</span>
         </h6>
-        <div>
+        <div className="secondary-label">
           {secondaryGuardians}
         </div>
         <p className = "patientList">

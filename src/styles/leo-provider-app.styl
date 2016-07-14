@@ -210,14 +210,23 @@
 
   .empty-message-form { height: 180px; }
 
-  .label.guardian-name {
-    font-size: 14px;
+  .label.guardian-name { font-size: 14px; }
+
+  .list-group-item > .secondary-label > .guardian-name {
+    background-color: #666666;
+    color: white;
+  }
+
+  .list-group-item.active > .secondary-label > .guardian-name {
+    background-color: white;
+    color: #666666;
   }
 
   #all-tab > .list-group-item.active {
     background-color: #6EB1FF;
     border-color: #6EB1FF;
   }
+
   /*Messaging & Conversations*/
   #message-form > .panel { margin-bottom: 10px !important; }
   #chatbox {
@@ -230,6 +239,7 @@
     line-height: 20px;
     height: 6vh;
   }
+
   #staff-selection { margin-bottom: -10px}
   #chatbox { position: relative; overflow-x: hidden; width: 100%; }
   #chatmessages { bottom: 3%; position: absolute; overflow: auto; width: 98%; height: 57vh }
