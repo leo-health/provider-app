@@ -191,6 +191,10 @@
     display: inline;
   }
 
+  @media (max-height: 830px) {
+    .toggler { margin-top: 0px; }
+  }
+
   @media (min-width: 1200px) {
     .toggler { display: inline; }
   }
@@ -204,6 +208,51 @@
   }
 
   .child-title { padding-top: 5px; }
+
+  .family-notes-container,
+  .notes-container { padding: 0px; }
+
+  .family-notes-title,
+  .notes-title {
+    text-align: center;
+    padding-top: 1.5vh;
+    height: 6vh;
+    border-bottom: 1px solid #E1E1E1;
+  }
+
+  @media (max-height: 700px) {
+    .family-notes-title,
+    .notes-title { padding-top: 1vh; }
+  }
+
+  .family-notes-title > h4,
+  .notes-title > h4 { margin-top: 0px; }
+
+  .notes-container { margin-top: 21vh; }
+
+  @media (max-height: 900px) {
+    .notes-container { margin-top: 20vh; }
+  }
+
+  @media (max-height: 830px) {
+    .notes-container { margin-top: 19vh; }
+  }
+
+  @media (max-height: 740px) {
+    .notes-container { margin-top: 18vh; }
+  }
+
+  .family-notes-container > .pre-scrollable {
+    min-height: 31vh;
+    height: 31vh;
+  }
+
+  .notes-container > .pre-scrollable {
+    min-height: 29vh;
+    height: 29vh;
+  }
+
+  .note-text { padding-left: 10px; }
 
   /*Conversation List*/
   .empty-conversation-container { padding: 15px; }
