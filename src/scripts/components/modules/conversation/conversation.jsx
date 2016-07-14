@@ -3,7 +3,6 @@ var Reflux = require('reflux');
 var _ = require('lodash');
 var leoUtil = require('../../../utils/common').StringUtils;
 var moment = require('moment');
-var ConversationState = require("./conversationState");
 var ConversationPatient = require("./conversationPatient");
 var ConversationGuardian = require("./conversationGuardian");
 var ConversationActions = require('../../../actions/conversationActions');
@@ -132,7 +131,6 @@ module.exports = React.createClass({
     var timeFromNow = moment(this.props.createdAt).fromNow();
     var dateTime = moment(this.props.createdAt).format('L');
     var messageSendAt = (sentToday) ? timeFromNow : dateTime;
-    var conversationState = this.props.conversationState;
     var conversationId = this.props.conversationId;
     var secondaryGuardians = _.filter(this.props.guardians, function(guardian){
       return guardian.id !=  this.props.primaryGuardian.id
@@ -152,9 +150,6 @@ module.exports = React.createClass({
         <div className="secondary-label">
           {secondaryGuardians}
         </div>
-        <p className = "patientList">
-          <ConversationState conversationState = {conversationState} conversationId = {conversationId}/>
-        </p>
         <p className="list-group-item-text medium-font-size dark-gray-font">
           { leoUtil.shorten(this.props.lastMessage) }
         </p>
