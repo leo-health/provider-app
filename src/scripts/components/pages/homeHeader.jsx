@@ -45,7 +45,7 @@ module.exports = React.createClass({
 
             </div>
             <div className="navbar-collapse collapse" id="navbar-main">
-              <ul className="nav navbar-nav leo-nav non-collapsed">
+              <ul className="nav navbar-nav leo-nav">
                 <li><a href="../" className="navbar-brand"><img src="../images/leo.png" alt="..." /></a></li>
                 <div>
                   <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>

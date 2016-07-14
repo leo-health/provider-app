@@ -5,6 +5,7 @@ var _ = require('lodash');
 var Conversation = require('./conversation');
 var ConversationHeader = require('./conversationHeader');
 var ConversationActions = require('../../../actions/conversationActions');
+var classNames = require('classnames');
 var MessageActions = require('../../../actions/messageActions');
 var UserActions = require('../../../actions/userActions');
 var ConversationStore = require('../../../stores/conversationStore');
@@ -102,7 +103,6 @@ module.exports = React.createClass({
 
   handleClickBack: function(){
     this.setState({clickedConversation: false});
-    console.log("Click Back!");
   },
 
   componentWillMount: function () {
@@ -189,7 +189,12 @@ module.exports = React.createClass({
     var currentSelectedConversation = _.find(this.state.conversations, {id: this.state.selectedConversationId});
 
     var guardians, patients;
-    var conversationListClass = (this.state.clickedConversation ? "clicked-conversation" : "non-clicked-conversation") + " col-lg-3 conversation-container";
+    var conversationListClass = classNames({
+      'col-lg-3 conversation-container ': true,
+      'clicked-conversation': this.state.clickedConversation,
+      'non-clicked-conversation': !this.state.clickedConversation
+    });
+
     if (currentSelectedConversation) {
       guardians = currentSelectedConversation.guardians;
       patients = currentSelectedConversation.patients;

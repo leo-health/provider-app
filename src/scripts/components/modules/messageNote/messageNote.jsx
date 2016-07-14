@@ -40,9 +40,7 @@ module.exports = React.createClass({
   },
 
   onClickBack: function(){
-    this.setState({
-      hiddenNotes: true
-    })
+    this.setState({ hiddenNotes: true })
   },
 
   onMessageStatusChange: function(status){

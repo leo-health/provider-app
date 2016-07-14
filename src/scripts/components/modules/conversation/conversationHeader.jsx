@@ -1,6 +1,7 @@
 var React = require('react');
 var Reflux = require('reflux');
 var leoUtil = require('../../../utils/common').StringUtils;
+var classNames = require('classnames');
 
 module.exports = React.createClass({
   render: function () {
@@ -9,7 +10,11 @@ module.exports = React.createClass({
     var closeTabCSSClass = (this.props.currentListState === "closed" ? "active-tab" : "inactive") + " closed";
     var showStaffSelectionStyle = escalationTabCSSClass === "active-tab escalated" ? {display: "inline-block"} : {display: "none"};
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
-    var navTabsContainer = (this.props.clickedConversation ? "clicked-conversation" : "") + " nav nav-tabs tags-container";
+    var navTabsContainer = classNames({
+      'nav nav-tabs tags-container': true,
+      ' clicked-conversation': this.props.clickedConversation
+    });
+
     return (
       <div>
         <ul className={navTabsContainer}>
