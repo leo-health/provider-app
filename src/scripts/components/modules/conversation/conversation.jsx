@@ -134,12 +134,6 @@ module.exports = React.createClass({
     var messageSendAt = (sentToday) ? timeFromNow : dateTime;
     var conversationState = this.props.conversationState;
     var conversationId = this.props.conversationId;
-    var patients = this.props.patients.map(function(patient){
-      return (
-        <ConversationPatient key = {patient.id} patient = {leoUtil.formatName(patient)}/>
-      )
-    }.bind(this));
-
     var secondaryGuardians = _.filter(this.props.guardians, function(guardian){
       return guardian.id !=  this.props.primaryGuardian.id
     }.bind(this));
@@ -159,7 +153,6 @@ module.exports = React.createClass({
           {secondaryGuardians}
         </div>
         <p className = "patientList">
-          {patients}
           <ConversationState conversationState = {conversationState} conversationId = {conversationId}/>
         </p>
         <p className="list-group-item-text medium-font-size dark-gray-font">
