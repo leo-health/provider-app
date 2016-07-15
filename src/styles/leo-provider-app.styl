@@ -634,9 +634,16 @@
   @media (max-width: 1200px) {
     #staff-selection { margin-left: -89vw; }
 
+    .find-family-container { display: none }
+
     .clicked-conversation.tags-container,
-    .find-family-container,
-    .clicked-conversation.conversation-container { display: none; }
+    .clicked-conversation.conversation-container {
+      visibility: hidden;
+      opacity: 0;
+      height: 0;
+      margin-bottom: 0px;
+      overflow: hidden;
+    }
 
     .conversation-container { height: 67vh; }
 
