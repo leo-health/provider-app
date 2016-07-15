@@ -557,9 +557,16 @@
     color: white;
     box-shadow: none;
   }
-
-  .inactive > .tab-name,
-  .inactive > .tab-name:hover { box-shadow: none; }
+  .inactive > .tab-name { box-shadow: none; }
+  .inactive > .tab-name:hover,
+  .nav-tabs > li > .tab-name:focus:hover,
+  .nav-tabs> li.active > .tab-name,
+  .nav-tabs> li.active > .tab-name:focus,
+  .nav-tabs> li.active > .tab-name:focus:hover {
+    box-shadow: none;
+    color: white;
+    background-color: #FFBD6A;
+  }
 
   .open-case,
   .escalated,
@@ -712,8 +719,6 @@
   @media (max-width: 400px) {
     .message-button { font-size: 16px; }
   }
-
-
 
   /* Mobile styling: small */
   @media (max-width: 320px) {
