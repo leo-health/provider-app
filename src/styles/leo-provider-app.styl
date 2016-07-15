@@ -662,7 +662,13 @@
     .notes-container,
     .message-container { margin-top: 0px; }
 
-    .non-clicked-conversation.message-container { display: none; }
+    .non-clicked-conversation.message-container {
+      visibility: hidden;
+      opacity: 0;
+      height: 0;
+      margin-bottom: 0px;
+      overflow: hidden;
+    }
   }
 
   /* Mobile styling: medium */
@@ -672,10 +678,10 @@
 
   @media (max-width: 767px) {
     .message-back {
-        position: fixed;
-        margin-top: 20px;
-        margin-left: -15px;
-        z-index: 10000;
+      position: fixed;
+      margin-top: 20px;
+      margin-left: -15px;
+      z-index: 10000;
     }
 
     .navbar-nav.collapsed {
