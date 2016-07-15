@@ -181,8 +181,26 @@
     .message-back { display: none }
   }
 
+  .hidden-notes {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    margin-bottom: 0px;
+    overflow: hidden;
+  }
+
   /*Note Toggler*/
-  .hidden-notes { display: none; }
+  @media (max-width: 1200px) {
+    .hidden-notes > .family-notes-container,
+    .hidden-notes > .notes-container,
+    .non-clicked-conversation > div > .recipient-field-container,
+    .non-clicked-conversation > .chat-container {
+      opacity: 0;
+      height: 0;
+      margin-bottom: 0px;
+      overflow: hidden;
+    }
+  }
 
   .toggler {
     position: relative;
@@ -648,7 +666,7 @@
     .conversation-container { height: 67vh; }
 
     #chatbox,
-    #chatmessages { height: 46vh; }
+    #chatmessages { height: 48vh; }
 
     .family-notes-container { height: 39vh; }
     .notes-container { height: 37vh; }

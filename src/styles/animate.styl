@@ -13,7 +13,7 @@
   @keyframes pulse {
     0% { transform: scale(0.9); }
     50% { transform: scale(1); }
-    100% { transform: scale(0.9);    }
+    100% { transform: scale(0.9); }
   }
 
   @-webkit-keyframes pulse {
@@ -23,7 +23,13 @@
   }
 
   .inactive > .tab-name:hover { transition: all 0.1s ease; }
-  .tags-container,
-  .conversation-container,
-  .message-container { transition: height 0.2s ease; }
+
+  @media (max-width: 1200px) {
+    .tags-container,
+    .conversation-container,
+    .recipient-field-container,
+    .chat-container,
+    .family-notes-container,
+    .notes-container { transition: opacity 0.2s ease; }
+  }
 }
