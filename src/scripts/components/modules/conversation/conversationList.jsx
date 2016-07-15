@@ -29,7 +29,7 @@ module.exports = React.createClass({
       maxPage: 1,
       offset: 0,
       selectedStaff: null,
-      clickedConversation: false
+      isSelectedConversation: false
     }
   },
 
@@ -96,13 +96,13 @@ module.exports = React.createClass({
   handleOnClick: function(conversationId){
     this.setState({
       selectedConversationId: conversationId,
-      clickedConversation: true
+      isSelectedConversation: true
     });
     MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
   },
 
   handleClickBack: function(){
-    this.setState({clickedConversation: false});
+    this.setState({isSelectedConversation: false});
   },
 
   componentWillMount: function () {
@@ -191,8 +191,8 @@ module.exports = React.createClass({
     var guardians, patients;
     var conversationListClass = classNames({
       'col-lg-3 conversation-container': true,
-      'clicked-conversation': this.state.clickedConversation,
-      'non-clicked-conversation': !this.state.clickedConversation
+      'clicked-conversation': this.state.isSelectedConversation,
+      'non-clicked-conversation': !this.state.isSelectedConversation
     });
 
     if (currentSelectedConversation) {
@@ -208,7 +208,7 @@ module.exports = React.createClass({
           staff={this.state.staff}
           selectedStaff={this.state.selectedStaff}
           onChangeSelectedStaff={this.onChangeSelectedStaff}
-          clickedConversation={this.state.clickedConversation}
+          clickedConversation={this.state.isSelectedConversation}
         />
         <div className="row">
           <div className ={conversationListClass}>
@@ -226,7 +226,7 @@ module.exports = React.createClass({
               guardians={guardians}
               patients={patients}
               onClickBack={this.handleClickBack}
-              clickedConversation={this.state.clickedConversation}
+              clickedConversation={this.state.isSelectedConversation}
             />
           </div>
         </div>
