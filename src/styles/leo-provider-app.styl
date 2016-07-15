@@ -15,6 +15,10 @@
     font-size: 18px;
   }
 
+  .page-header {
+    border-bottom: none;
+  }
+
   /*Navbar*/
   .leo-logo {
     font-size: 40px;
@@ -74,8 +78,15 @@
   /*Positioning*/
   .message-container,
   .notes-container,
-  .family-notes-container { margin-top: -16vh; }
+  .family-notes-container { margin-top: -15vh; }
   #all-tab { height: 100%; }
+
+  @media (max-height: 1000px) {
+    .message-container,
+    .notes-container,
+    .family-notes-container { margin-top: -16vh; }
+    #all-tab { height: 99%; }
+  }
 
   @media (max-height: 930px) {
     .message-container,
@@ -256,7 +267,11 @@
   .family-notes-title > h4,
   .notes-title > h4 { margin-top: 0px; }
 
-  .notes-container { margin-top: 21vh; }
+  .notes-container { margin-top: 22vh; }
+
+  @media (max-height: 900px) {
+    .notes-container { margin-top: 21vh; }
+  }
 
   @media (max-height: 900px) {
     .notes-container { margin-top: 20vh; }
@@ -578,7 +593,11 @@
     .tags-container { width: 24%; }
   }
 
-  .assignment-font { font-family: "Futura PT W01 Book" }
+  .assignment-font {
+    font-family: "Futura PT W01 Book";
+    text-transform: none;
+    display: inline-block;
+  }
 
   .active-tab > .tab-name,
   .nav-tabs > li.active-tab > .tab-name:focus,
