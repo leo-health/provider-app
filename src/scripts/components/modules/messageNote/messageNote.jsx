@@ -122,7 +122,7 @@ module.exports = React.createClass({
           />
         </div>
         <div className={noteSize}>
-          <span className="pull-left glyphicon glyphicon-chevron-left message-back"
+          <span className="pull-left glyphicon glyphicon-menu-left message-back"
               onClick={this.onClickBack}></span>
           <FamilyNotes guardians={this.props.guardians}
                        patients={this.props.patients}

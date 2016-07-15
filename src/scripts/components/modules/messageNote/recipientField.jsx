@@ -48,7 +48,7 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <span className="pull-left glyphicon glyphicon-chevron-left message-back"
+        <span className="pull-left glyphicon glyphicon-menu-left message-back"
                 onClick={this.props.onClickBack}></span>
         <div className="recipient-field-container">
           <div className="pull-left to-field">
