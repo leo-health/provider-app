@@ -88,8 +88,8 @@ module.exports = React.createClass({
 
   render: function() {
     var clickedConversation = classNames({
-      'clicked-conversation': this.props.clickedConversation,
-      'non-clicked-conversation': !this.props.clickedConversation || !this.state.hiddenNotes
+      'selected-conversation': this.props.clickedConversation,
+      'non-selected-conversation': !this.props.clickedConversation || !this.state.hiddenNotes
     });
 
     var messageSize = classNames({

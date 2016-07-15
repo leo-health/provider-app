@@ -212,8 +212,8 @@
   @media (max-width: 1200px) {
     .hidden-notes > .family-notes-container,
     .hidden-notes > .notes-container,
-    .non-clicked-conversation > div > .recipient-field-container,
-    .non-clicked-conversation > .chat-container {
+    .non-selected-conversation > div > .recipient-field-container,
+    .non-selected-conversation > .chat-container {
       opacity: 0;
       height: 0;
       margin-bottom: 0px;
@@ -658,7 +658,7 @@
 
   /*Footer*/
   .feedback > a,
-  #gc-number-1 { color: #6EB1FF; }
+  span.gc-cs-link { color: #6EB1FF; }
 
   /* Mobile styling: medium-large */
   @media (min-width: 768px) and (max-width: 1200px) {
@@ -685,8 +685,8 @@
 
     .find-family-container { display: none }
 
-    .clicked-conversation.tags-container,
-    .clicked-conversation.conversation-container {
+    .selected-conversation.tags-container,
+    .selected-conversation.conversation-container {
       visibility: hidden;
       opacity: 0;
       height: 0;
@@ -711,7 +711,7 @@
     .notes-container,
     .message-container { margin-top: 0px; }
 
-    .non-clicked-conversation.message-container {
+    .non-selected-conversation.message-container {
       visibility: hidden;
       opacity: 0;
       height: 0;
@@ -793,6 +793,6 @@
 
     .message-button,
     .medium-font-size.feedback,
-    .medium-font-size.phone-number { font-size: 13px; }
+    .medium-font-size.call-footer { font-size: 13px; }
   }
 }
