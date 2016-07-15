@@ -69,17 +69,24 @@
     white-space: nowrap;
     padding-right: 5px;
   }
+
   /*Positioning*/
   .message-container,
   .notes-container,
   .family-notes-container { margin-top: -16vh; }
-  #all-tab { height: 100% }
+  #all-tab { height: 100%; }
+
+  @media (max-height: 930px) {
+    .message-container,
+    .notes-container,
+    .family-notes-container { margin-top: -16.5vh; }
+    #all-tab { height: 99%; }
+  }
 
   @media (max-height: 900px) {
     .message-container,
     .notes-container,
     .family-notes-container { margin-top: -17vh; }
-    #all-tab { height: 96%; }
   }
 
   @media (max-height: 850px) {
@@ -89,7 +96,7 @@
     #all-tab { height: 96%; }
   }
 
-  @media (max-height: 750px) {
+  @media (max-height: 760px) {
     .message-container,
     .notes-container,
     .family-notes-container { margin-top: -20vh; }
@@ -305,13 +312,13 @@
   #message-form > .panel { margin-bottom: 10px !important; }
   #chatbox {
     padding-bottom: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
   }
 
   .find-family-field { line-height: 4vh; }
   .form-control.messenger-reply {
     line-height: 20px;
-    height: 6vh;
+    height: 7vh;
   }
 
   #staff-selection { margin-bottom: -10px}
@@ -728,6 +735,8 @@
     .navbar-nav.collapsed { left: 25%; }
 
     .main-container { padding: 0px; }
+
+    #intercom-container { display: none; }
   }
 
   .leo-logo--collapsed {
