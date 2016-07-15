@@ -179,9 +179,9 @@ module.exports = React.createClass({
       }, this);
     } else {
       var state = this.state.conversationState;
-      if(state === parseInt(state, 10)){
+      if (state === parseInt(state, 10)){
         conversations = <div>There is no matching conversation.</div>
-      }else{
+      } else{
         conversations = <div className="medium-font-size empty-conversation-container"> There are no more {state} conversations for you to review. Please be sure to review the other sections. </div>;
       }
     }
@@ -190,7 +190,7 @@ module.exports = React.createClass({
 
     var guardians, patients;
     var conversationListClass = classNames({
-      'col-lg-3 conversation-container ': true,
+      'col-lg-3 conversation-container': true,
       'clicked-conversation': this.state.clickedConversation,
       'non-clicked-conversation': !this.state.clickedConversation
     });

@@ -12,7 +12,7 @@ module.exports = React.createClass({
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
     var navTabsContainer = classNames({
       'nav nav-tabs tags-container': true,
-      ' clicked-conversation': this.props.clickedConversation
+      'clicked-conversation': this.props.clickedConversation
     });
 
     return (
