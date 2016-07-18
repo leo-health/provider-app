@@ -38,20 +38,17 @@ module.exports = React.createClass({
             <div className="closed-div"></div>
           </li>
           <div className="btn-group" id="staff-selection" style={showStaffSelectionStyle}>
-          <li className="btn btn-sm btn-default assignment-font">Assigned to</li>
+          <li className="assignment-font assigned-to">Assigned to</li>
           <div className="btn-group">
-            <li className="btn btn-sm btn-default assignment-font">{selectedStaffName}</li>
-            <li className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <span className="caret"></span>
-            </li>
+            <li className="assignment-font cursor orange-font" data-toggle="dropdown" aria-expanded="false">{selectedStaffName}</li>
             <ul className="dropdown-menu">
               <li onClick={this.props.onChangeConversationStateTab.bind(null, 'escalated')}>
-                <a className="heavy-font-size">Anyone</a>
+                <a className="heavy-font-size cursor">Anyone</a>
               </li>
               {this.props.staff.map(function(staff, i) {
                 return (
                   <li key={i}
-                      className="medium-font-size"
+                      className="medium-font-size cursor"
                       onClick={this.props.onChangeSelectedStaff.bind(null, staff)}>
                     <a>{leoUtil.formatName(staff)}</a>
                   </li>
