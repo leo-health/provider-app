@@ -39,7 +39,7 @@ module.exports = React.createClass({
           </form>
         </div>
         <a href="#" className="btn btn-success btn-sm message-button" onClick={this.handleSendMessage}>
-          <span className="glyphicon glyphicon-ok"></span> Send
+          <span className="glyphicon glyphicon-send"></span> Send
         </a>
         {closeButton}
         {escalateButton}

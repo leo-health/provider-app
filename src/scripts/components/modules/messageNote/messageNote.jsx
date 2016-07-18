@@ -39,6 +39,10 @@ module.exports = React.createClass({
     return this.state.currentConversationId === conversation_id;
   },
 
+  onClickBack: function(){
+    this.setState({ hiddenNotes: true })
+  },
+
   onMessageStatusChange: function(status){
     if(status.newMessage) {
 
@@ -83,13 +87,21 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var clickedConversation = classNames({
+      'selected-conversation': this.props.clickedConversation,
+      'non-selected-conversation': !this.props.clickedConversation || !this.state.hiddenNotes
+    });
+
     var messageSize = classNames({
       'message-container': true,
       'col-lg-9': this.state.hiddenNotes,
       'col-lg-6': !this.state.hiddenNotes
     });
 
+    messageSize += (" " + clickedConversation);
+
     var noteSize = classNames({
+      'all-notes': true,
       'hidden-notes': this.state.hiddenNotes,
       'col-lg-3': !this.state.hiddenNotes
     });
@@ -100,6 +112,7 @@ module.exports = React.createClass({
           <RecipientField onToggleInformation={this.onToggleInformation}
                           guardians={this.props.guardians}
                           patients={this.props.patients}
+                          onClickBack={this.props.onClickBack}
           />
           <MessageList messages={this.state.messages}
                        conversation={this.props.conversation}
@@ -109,6 +122,8 @@ module.exports = React.createClass({
           />
         </div>
         <div className={noteSize}>
+          <span className="pull-left glyphicon glyphicon-menu-left message-back"
+              onClick={this.onClickBack}></span>
           <FamilyNotes guardians={this.props.guardians}
                        patients={this.props.patients}
           />
