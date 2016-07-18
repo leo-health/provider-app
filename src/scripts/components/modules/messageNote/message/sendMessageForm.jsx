@@ -33,13 +33,13 @@ module.exports = React.createClass({
             <textarea rows="3"
                       value={this.state.message}
                       onChange={this.handleMessageChange}
-                      className="form-control medium-font-size"
+                      className="form-control medium-font-size messenger-reply"
                       placeholder="Reply">
             </textarea>
           </form>
         </div>
         <a href="#" className="btn btn-success btn-sm message-button" onClick={this.handleSendMessage}>
-          <span className="glyphicon glyphicon-ok"></span> Send
+          <span className="glyphicon glyphicon-send"></span> Send
         </a>
         {closeButton}
         {escalateButton}

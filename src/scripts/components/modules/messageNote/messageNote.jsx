@@ -1,8 +1,11 @@
 var React = require('react');
 var Reflux = require('reflux');
 var MessageList = require('./message/messageList');
+var FamilyNotes = require('./note/familyNotes');
 var NoteList = require('./note/noteList');
 var _ = require('lodash');
+var classNames = require('classnames');
+var RecipientField = require('./recipientField');
 var MessageStore = require('../../../stores/messageStore');
 var NoteStore = require('../../../stores/noteStore');
 var ConversationStore = require('../../../stores/conversationStore');
@@ -18,7 +21,8 @@ module.exports = React.createClass({
       messages: [],
       currentConversationId: undefined,
       offset: 0,
-      page: 1
+      page: 1,
+      hiddenNotes: true
     }
   },
 
@@ -33,6 +37,10 @@ module.exports = React.createClass({
 
   currentConversationIsSameAs: function(conversation_id) {
     return this.state.currentConversationId === conversation_id;
+  },
+
+  onClickBack: function(){
+    this.setState({ hiddenNotes: true })
   },
 
   onMessageStatusChange: function(status){
@@ -72,10 +80,40 @@ module.exports = React.createClass({
     }
   },
 
+  onToggleInformation: function(){
+    this.setState({
+      hiddenNotes: !this.state.hiddenNotes
+    });
+  },
+
   render: function() {
+    var clickedConversation = classNames({
+      'selected-conversation': this.props.clickedConversation,
+      'non-selected-conversation': !this.props.clickedConversation || !this.state.hiddenNotes
+    });
+
+    var messageSize = classNames({
+      'message-container': true,
+      'col-lg-9': this.state.hiddenNotes,
+      'col-lg-6': !this.state.hiddenNotes
+    });
+
+    messageSize += (" " + clickedConversation);
+
+    var noteSize = classNames({
+      'all-notes': true,
+      'hidden-notes': this.state.hiddenNotes,
+      'col-lg-3': !this.state.hiddenNotes
+    });
+
     return (
       <div>
-        <div className="col-lg-6 message-container">
+        <div className={messageSize}>
+          <RecipientField onToggleInformation={this.onToggleInformation}
+                          guardians={this.props.guardians}
+                          patients={this.props.patients}
+                          onClickBack={this.props.onClickBack}
+          />
           <MessageList messages={this.state.messages}
                        conversation={this.props.conversation}
                        page={this.state.page}
@@ -83,7 +121,12 @@ module.exports = React.createClass({
                        staff={this.props.staff}
           />
         </div>
-        <div className="col-lg-3">
+        <div className={noteSize}>
+          <span className="pull-left glyphicon glyphicon-menu-left message-back"
+              onClick={this.onClickBack}></span>
+          <FamilyNotes guardians={this.props.guardians}
+                       patients={this.props.patients}
+          />
           <NoteList
             currentConversationId={this.state.currentConversationId}
             notes={ _.filter(this.state.messages, function(m){return !m.message_type.includes('message', 'bot_message')}) }/>

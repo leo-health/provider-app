@@ -82,9 +82,11 @@ module.exports = React.createClass({
     }
 
     return (
-      <div className="pre-scrollable panel panel-body notes-container" ref="notesContainer">
-        <h4><strong>Notes</strong></h4>
-        {notes}
+      <div className="notes-container panel panel-body" ref="notesContainer">
+        <div className="notes-title"><h4><strong>Notes</strong></h4></div>
+        <div className="pre-scrollable ">
+          {notes}
+        </div>
       </div>
     )
   }
