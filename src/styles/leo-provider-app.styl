@@ -15,9 +15,7 @@
     font-size: 18px;
   }
 
-  .page-header {
-    border-bottom: none;
-  }
+  .page-header { border-bottom: none; }
 
   /*Navbar*/
   .leo-logo {
@@ -113,7 +111,6 @@
     .notes-container,
     .family-notes-container { margin-top: -20vh; }
   }
-
 
   .tags-container { margin-bottom: 40px }
 
@@ -322,7 +319,26 @@
     border-color: #FFBD6A;
   }
 
+  .list-group-item-heading.primary-label > span {
+    max-width: 55%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .list-group-item-heading.primary-label > .message-date { max-width: 45%; }
+
   .list-group-item.active > .list-group-item-text { color: white; }
+
+  #all-tab > .list-group-item { height: 140px; }
+
+  @media (min-width: 1200px) and (max-width: 1280px) {
+    #all-tab > .list-group-item { height: 190px; }
+  }
+
+  @media (max-width: 740px) {
+    #all-tab > .list-group-item { height: 110px; }
+  }
 
   /*Messaging & Conversations*/
   #message-form > .panel { margin-bottom: 10px !important; }
@@ -557,13 +573,9 @@
 	}
 
   /*Registration*/
-  .right-fix {
-    padding-right: 2em;
-  }
+  .right-fix { padding-right: 2em; }
 
-  .page-header {
-    padding-top: .5%;
-  }
+  .page-header { padding-top: .5%; }
 
   .patient-avatar {
     height: 3.5em;
@@ -576,9 +588,7 @@
     padding: 3px;
   }
 
-  .well.registration-well {
-    background-color: #fff;
-  }
+  .well.registration-well { background-color: #fff; }
 
   .well.faq-well {
    background-color: #fff;
@@ -768,8 +778,6 @@
       position: absolute;
       left: 35%;
     }
-
-    .list-group-item { height: 140px; }
 
     .heavy-font-size,
     .medium-font-size,
