@@ -31,7 +31,7 @@ module.exports = Reflux.createStore({
   },
 
   onConfirmInvitedGuardian: function(authenticationToken){
-    request.put(leo.API_URL + "/users/confirm_secondary_guardian")
+    request.put(leo.API_URL + "/confirm_secondary_guardian")
            .send({ authentication_token: authenticationToken })
            .end(function(err, res){
               UserActions.confirmInvitedGuardian.completed(res.body)

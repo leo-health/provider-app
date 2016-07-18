@@ -45,7 +45,7 @@ var Registration  = React.createClass({
   },
 
   onStatusChange: function(status){
-    if(status.action === "update") {
+    if(status.action === "convert") {
       if(this.isInvitedUser(status)){
         this.context.router.push("/registration/invited/success");
         return
@@ -106,8 +106,8 @@ var Registration  = React.createClass({
       if (error) {
         return;
       } else {
-        RegistrationActions.updateUserRequest({
-          authentication_token: this.props.location.query.token,
+        RegistrationActions.convertInvitedOrExemptedRequest({
+          invitation_token: this.props.location.query.token,
           first_name: this.state.firstName,
           last_name: this.state.lastName,
           email: this.state.email,

@@ -6,8 +6,8 @@ module.exports = Reflux.createStore({
   listenables: [RegistrationActions],
 
   onFetchUserRequest: function(token){
-    request.get(leo.API_URL+"/users")
-           .query({ authentication_token: token })
+    request.get(leo.API_URL+"/users/current")
+           .query({ invitation_token: token })
            .end(function(err, res){
               if(res.ok){
                 RegistrationActions.fetchUserRequest.completed(res.body);
@@ -54,6 +54,33 @@ module.exports = Reflux.createStore({
   },
 
   onUpdateUserRequestFailed: function(res){
+    this.trigger({
+      status: res.status,
+      message: "There was an error updating your information."
+    });
+  },
+
+  onConvertInvitedOrExemptedRequest: function(userParams){
+    request.put(leo.API_URL+"/convert_user")
+        .send(userParams)
+        .end(function(err, res){
+          if(res.ok){
+            RegistrationActions.convertInvitedOrExemptedRequest.completed(res.body);
+          }else{
+            RegistrationActions.convertInvitedOrExemptedRequest.failed(res.body);
+          }
+        });
+  },
+
+  onConvertInvitedOrExemptedRequestCompleted: function(res, nextPage){
+    this.trigger({
+      action: "convert",
+      status: res.status,
+      user: res.data.user
+    });
+  },
+
+  onConvertInvitedOrExemptedRequestFailed: function(res){
     this.trigger({
       status: res.status,
       message: "There was an error updating your information."
