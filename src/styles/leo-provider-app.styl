@@ -596,6 +596,40 @@
   .assignment-font {
     font-family: "Futura PT W01 Medium";
     display: inline-block;
+    float: left;
+    padding-right: 10px;
+    font-size: 16px;
+  }
+
+  .assignment-font.cursor {
+    margin-top: 7px;
+    line-height: 14px;
+    padding-right: 0px;
+  }
+
+  .assignment-font.cursor:after {
+    content: '';
+    height: 3px;
+    width: 0;
+    background: transparent;
+    transition: 0.4s ease;
+    display: block;
+  }
+
+  .assignment-font.cursor:hover:after {
+    background: #FFBD6A;
+    width: 100%;
+  }
+
+  .cursor { cursor: pointer; }
+
+  @media (max-width: 420px) {
+    #staff-selection { margin-left: -87vw; }
+
+    .assignment-font {
+      padding-right: 5px;
+      font-size: 14px;
+    }
   }
 
   .active-tab > .tab-name,
