@@ -624,8 +624,6 @@
   .cursor { cursor: pointer; }
 
   @media (max-width: 420px) {
-    #staff-selection { margin-left: -87vw; }
-
     .assignment-font {
       padding-right: 5px;
       font-size: 14px;
@@ -775,7 +773,7 @@
 
     .heavy-font-size,
     .medium-font-size,
-    blockquote { font-size: 1 4px; }
+    blockquote { font-size: 14px; }
 
     .message-button { font-size: 18px; }
 
@@ -813,13 +811,13 @@
     margin-bottom: 0px;
     padding-bottom: 0px;
   }
+
   @media (max-width: 400px) {
     .message-button { font-size: 16px; }
   }
 
   /* Mobile styling: small */
   @media (max-width: 320px) {
-
     .leo-logo--collapsed { display: none; }
 
     .navbar-nav.collapsed { left: 40%; }
@@ -827,5 +825,7 @@
     .message-button,
     .medium-font-size.feedback,
     .medium-font-size.call-footer { font-size: 13px; }
+
+    #staff-selection { margin-left: -87vw; }
   }
 }
