@@ -29,7 +29,8 @@ module.exports = React.createClass({
       maxPage: 1,
       offset: 0,
       selectedStaff: null,
-      isSelectedConversation: false
+      isSelectedConversation: false,
+      selectedTime: null
     }
   },
 
@@ -99,6 +100,16 @@ module.exports = React.createClass({
       isSelectedConversation: true
     });
     MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
+  },
+
+  handleMessageSend: function(sentTime, id){
+    var newConversations = this.state.conversations.map(function(conversation) {
+      if (conversation.id == id) {
+        conversation.last_message_created_at = sentTime;
+        return conversation;
+      } else { return conversation; }
+    });
+    this.setState({ conversations: newConversations });
   },
 
   handleClickBack: function(){
@@ -181,7 +192,7 @@ module.exports = React.createClass({
       var state = this.state.conversationState;
       if (state === parseInt(state, 10)){
         conversations = <div>There is no matching conversation.</div>
-      } else{
+      } else {
         conversations = <div className="medium-font-size empty-conversation-container"> There are no more {state} conversations for you to review. Please be sure to review the other sections. </div>;
       }
     }
@@ -227,6 +238,7 @@ module.exports = React.createClass({
               patients={patients}
               onClickBack={this.handleClickBack}
               clickedConversation={this.state.isSelectedConversation}
+              onMessageSend={this.handleMessageSend}
             />
           </div>
         </div>

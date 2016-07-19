@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDom = require('react-dom');
 var MessageActions = require('../../../../actions/messageActions');
 var NoteActions = require('../../../../actions/noteActions');;
+var moment = require('moment');
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -16,6 +17,7 @@ module.exports = React.createClass({
     e.preventDefault();
     if (!this.state.message) return;
     MessageActions.sendMessageRequest(sessionStorage.authenticationToken, this.state.message, "text", this.props.conversation.id);
+    this.props.onMessageSend(moment(), this.props.conversation.id);
     this.setState({message: ''})
   },
 
