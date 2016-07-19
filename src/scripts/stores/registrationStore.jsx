@@ -72,11 +72,12 @@ module.exports = Reflux.createStore({
         });
   },
 
-  onConvertInvitedOrExemptedRequestCompleted: function(res, nextPage){
+  onConvertInvitedOrExemptedRequestCompleted: function(res){
     this.trigger({
       action: "convert",
       status: res.status,
-      user: res.data.user
+      user: res.data.user,
+      session: res.data.session
     });
   },
 

@@ -50,12 +50,18 @@ var Registration  = React.createClass({
         this.context.router.push("/registration/invited/success");
         return
       }
+
       if(this.isExemptedUser(status)){
-        this.context.router.push({
-          pathname: "/registration/success",
-          query: {token: status.session.authentication_token}
-        });
-        return
+        if(status.session){
+          this.context.router.push({
+            pathname: "/registration/success",
+            query: {token: status.session.authentication_token}
+          });
+          return
+        }else{
+          this.setState({status: 'error', message: 'There was an error updating your information.'});
+          return
+        }
       }
     }
 
@@ -110,7 +116,6 @@ var Registration  = React.createClass({
           invitation_token: this.props.location.query.token,
           first_name: this.state.firstName,
           last_name: this.state.lastName,
-          email: this.state.email,
           phone: this.state.phone,
           password: this.state.password
         })
@@ -205,6 +210,7 @@ var Registration  = React.createClass({
                 <input type="text"
                        value={this.state.email}
                        className="form-control"
+                       disabled="true"
                        onChange={this.handleEmailChange}/>
                 <label className="text-muted">Email</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('email'))}
