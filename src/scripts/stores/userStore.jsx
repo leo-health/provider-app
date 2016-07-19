@@ -30,9 +30,9 @@ module.exports = Reflux.createStore({
                    message: 'error fetching guardians'})
   },
 
-  onConfirmInvitedGuardian: function(authenticationToken){
+  onConfirmInvitedGuardian: function(invitation_token){
     request.put(leo.API_URL + "/confirm_secondary_guardian")
-           .send({ authentication_token: authenticationToken })
+           .send({ invitation_token: invitation_token })
            .end(function(err, res){
               UserActions.confirmInvitedGuardian.completed(res.body)
             });
