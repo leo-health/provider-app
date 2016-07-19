@@ -30,8 +30,7 @@ module.exports = React.createClass({
       maxPage: 1,
       offset: 0,
       selectedStaff: null,
-      isSelectedConversation: false,
-      selectedTime: null
+      isSelectedConversation: false
     }
   },
 
