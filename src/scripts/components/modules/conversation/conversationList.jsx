@@ -12,6 +12,7 @@ var ConversationStore = require('../../../stores/conversationStore');
 var UserStore = require('../../../stores/userStore');
 var MessageNote = require('../messageNote/messageNote');
 var Infinite = require('react-infinite');
+var moment = require('moment');
 
 module.exports = React.createClass({
   mixins: [
@@ -90,6 +91,7 @@ module.exports = React.createClass({
     array.splice(index,1);
     array.splice(0,0,temp);
     array[0].last_message = lastMessageBody;
+    array[0].last_message_created_at = moment();
     return array
   },
 
@@ -181,7 +183,7 @@ module.exports = React.createClass({
       var state = this.state.conversationState;
       if (state === parseInt(state, 10)){
         conversations = <div>There is no matching conversation.</div>
-      } else{
+      } else {
         conversations = <div className="medium-font-size empty-conversation-container"> There are no more {state} conversations for you to review. Please be sure to review the other sections. </div>;
       }
     }
