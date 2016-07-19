@@ -12,6 +12,7 @@ var ConversationStore = require('../../../stores/conversationStore');
 var UserStore = require('../../../stores/userStore');
 var MessageNote = require('../messageNote/messageNote');
 var Infinite = require('react-infinite');
+var moment = require('moment');
 
 module.exports = React.createClass({
   mixins: [
@@ -129,6 +130,13 @@ module.exports = React.createClass({
         if(this.state.conversationState === "escalated" && this.isInConversationList(data.id)) return;
         this.fetchNewConversation(data.id)
       }
+      var newConversations = this.state.conversations.map(function(conversation) {
+      if (conversation.id == data.id) {
+        conversation.last_message_created_at = moment();
+        return conversation;
+      } else { return conversation; }
+    });
+    this.setState({ conversations: newConversations });
     }, this);
   },
 
