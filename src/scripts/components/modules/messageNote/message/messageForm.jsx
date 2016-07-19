@@ -36,7 +36,6 @@ module.exports = React.createClass({
         page = <SendMessageForm conversation={this.props.conversation}
                                 showClose={this.showClose}
                                 showEscalation={this.showEscalation}
-                                onMessageSend={this.props.onMessageSend}
                                 />;
         break;
     }

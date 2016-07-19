@@ -92,6 +92,7 @@ module.exports = React.createClass({
     array.splice(index,1);
     array.splice(0,0,temp);
     array[0].last_message = lastMessageBody;
+    array[0].last_message_created_at = moment();
     return array
   },
 
@@ -101,16 +102,6 @@ module.exports = React.createClass({
       isSelectedConversation: true
     });
     MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
-  },
-
-  handleMessageSend: function(sentTime, id){
-    var newConversations = this.state.conversations.map(function(conversation) {
-      if (conversation.id == id) {
-        conversation.last_message_created_at = sentTime;
-        return conversation;
-      } else { return conversation; }
-    });
-    this.setState({ conversations: newConversations });
   },
 
   handleClickBack: function(){
@@ -130,13 +121,6 @@ module.exports = React.createClass({
         if(this.state.conversationState === "escalated" && this.isInConversationList(data.id)) return;
         this.fetchNewConversation(data.id)
       }
-      var newConversations = this.state.conversations.map(function(conversation) {
-      if (conversation.id == data.id) {
-        conversation.last_message_created_at = moment();
-        return conversation;
-      } else { return conversation; }
-    });
-    this.setState({ conversations: newConversations });
     }, this);
   },
 
@@ -246,7 +230,6 @@ module.exports = React.createClass({
               patients={patients}
               onClickBack={this.handleClickBack}
               clickedConversation={this.state.isSelectedConversation}
-              onMessageSend={this.handleMessageSend}
             />
           </div>
         </div>

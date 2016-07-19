@@ -119,7 +119,6 @@ module.exports = React.createClass({
                        page={this.state.page}
                        offset={this.state.offset}
                        staff={this.props.staff}
-                       onMessageSend={this.props.onMessageSend}
           />
         </div>
         <div className={noteSize}>

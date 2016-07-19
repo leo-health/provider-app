@@ -94,7 +94,6 @@ module.exports = React.createClass({
       messageForm = (
         <MessageForm conversation={this.props.conversation}
                      staff={this.props.staff}
-                     onMessageSend={this.props.onMessageSend}
                      />
       );
     } else {
