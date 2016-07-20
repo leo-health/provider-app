@@ -15,10 +15,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    if(PRODUCTION){
-      ga('create', 'UA-56852793-1', 'auto');
-      ga('send', 'pageview');
-    }
+    if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'Success_page-viewed');
   },
 
   onStatusChange: function(status) {

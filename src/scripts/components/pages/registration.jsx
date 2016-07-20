@@ -45,6 +45,7 @@ module.exports = React.createClass({
     if(PRODUCTION){
       fbq('init', '255223491501781');
       fbq('track', "PageView");
+      ga('send', 'pageview');
     }
     ReactDom.findDOMNode(this.refs.signUp).scrollTop = 0
   },
