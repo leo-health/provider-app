@@ -54,7 +54,7 @@ module.exports = validation(strategy)(React.createClass({
       email: this.state.email,
       password: this.state.password,
       next_page: "patient",
-      os_version: sessionInfo.os_version,
+      os_version: sessionInfo.osVersion,
       platform: sessionInfo.platform,
       device_type: sessionInfo.deviceType
     });

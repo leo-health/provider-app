@@ -92,8 +92,8 @@ module.exports = React.createClass({
   },
 
   componentWillUnmount: function(){
-    window.onbeforeunload = null;
     sessionStorage.removeItem('authenticationToken');
+    window.onbeforeunload = null;
   },
 
   onPatientError: function(){
