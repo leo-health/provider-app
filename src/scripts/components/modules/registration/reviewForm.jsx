@@ -59,7 +59,7 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
-    RegistrationActions.fetchUserRequest(sessionStorage.authenticationToken);
+    RegistrationActions.fetchUserRequest({authentication_token: sessionStorage.authenticationToken});
     RegistrationActions.fetchPatientsRequest(sessionStorage.authenticationToken)
   },
 

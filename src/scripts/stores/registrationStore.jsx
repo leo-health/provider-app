@@ -5,9 +5,9 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [RegistrationActions],
 
-  onFetchUserRequest: function(token){
+  onFetchUserRequest: function(params){
     request.get(leo.API_URL+"/users/current")
-           .query({ invitation_token: token })
+           .query(params)
            .end(function(err, res){
               if(res.ok){
                 RegistrationActions.fetchUserRequest.completed(res.body);
@@ -90,14 +90,14 @@ module.exports = Reflux.createStore({
 
   onCreateUserRequest: function(userParams){
     request.post(leo.API_URL+"/users")
-            .send(userParams)
-            .end(function(err, res){
-              if(res.ok){
-                RegistrationActions.createUserRequest.completed(res.body, userParams.next_page);
-              }else{
-                RegistrationActions.createUserRequest.failed(res.body);
-              }
-            })
+           .send(userParams)
+           .end(function(err, res){
+             if(res.ok){
+               RegistrationActions.createUserRequest.completed(res.body, userParams.next_page);
+             }else{
+               RegistrationActions.createUserRequest.failed(res.body);
+             }
+           })
   },
 
   onCreateUserRequestCompleted: function(res, nextPage){
