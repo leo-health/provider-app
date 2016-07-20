@@ -89,23 +89,15 @@ module.exports = Reflux.createStore({
   },
 
   onCreateUserRequest: function(userParams){
-    request.get(leo.API_URL+"/ios_configuration")
-           .end(function(err, res){
-             if(res.ok){
-               userParams["vendor_id"]= res.body.data.vendor_id;
-               request.post(leo.API_URL+"/users")
-                      .send(userParams)
-                      .end(function(err, res){
-                        if(res.ok){
-                          RegistrationActions.createUserRequest.completed(res.body, userParams.next_page);
-                        }else{
-                          RegistrationActions.createUserRequest.failed(res.body);
-                        }
-                      })
-             }else{
-               this.trigger({status: 'error', errorMessage: "Server error, our engineers are working on it."})
-             }
-           });
+    request.post(leo.API_URL+"/users")
+            .send(userParams)
+            .end(function(err, res){
+              if(res.ok){
+                RegistrationActions.createUserRequest.completed(res.body, userParams.next_page);
+              }else{
+                RegistrationActions.createUserRequest.failed(res.body);
+              }
+            })
   },
 
   onCreateUserRequestCompleted: function(res, nextPage){
