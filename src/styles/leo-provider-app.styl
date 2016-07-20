@@ -468,33 +468,39 @@
   .pre-scrollable {
     min-height: 100%;
     max-height: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch
   }
+
   .pre-scrollable-left {
-    overflow-y: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch
   }
+
+  @media (min-width: 768px) {
+    .pre-scrollable,
+    .pre-scrollable-left { overflow-y: auto; }
+  }
+
   .container {
     margin-right: auto;
     margin-left: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+  }
+
+  @media (min-width: 440px) {
+    padding-left: 20px
+    padding-right: 20px
   }
 
   /*Media Queries - Reset*/
   @media (min-width: 768px) {
-    .container {
-      width: initial;
-    }
+    .container { width: initial; }
   }
   @media (min-width: 992px) {
-    .container {
-      width: initial;
-    }
+    .container { width: initial; }
   }
   @media (min-width: 1200px) {
-    .container {
-      width: initial;
-    }
+    .container { width: initial; }
   }
 
   /*Media Queries*/
@@ -813,6 +819,8 @@
   @media (max-width: 440px) {
     .navbar-nav.collapsed { left: 25%; }
 
+    #staff-selection { margin-left: -90vw; }
+
     .main-container { padding: 0px; }
 
     #intercom-container { display: none; }
@@ -853,7 +861,5 @@
     .message-button,
     .medium-font-size.feedback,
     .medium-font-size.call-footer { font-size: 13px; }
-
-    #staff-selection { margin-left: -87vw; }
   }
 }
