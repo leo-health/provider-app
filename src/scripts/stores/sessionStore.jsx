@@ -12,7 +12,7 @@ module.exports = Reflux.createStore({
 
   onLoginRequest: function(loginParam){
     request.post(leo.API_URL+"/provider_login")
-           .send({ email: loginParam.email, password: loginParam.password })
+           .send(loginParam)
            .end(function(err, res){
              if (res.ok){
                LoginActions.loginRequest.completed(res.body)

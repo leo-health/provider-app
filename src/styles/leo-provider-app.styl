@@ -15,9 +15,7 @@
     font-size: 18px;
   }
 
-  .page-header {
-    border-bottom: none;
-  }
+  .page-header { border-bottom: none; }
 
   /*Navbar*/
   .leo-logo {
@@ -113,7 +111,6 @@
     .notes-container,
     .family-notes-container { margin-top: -20vh; }
   }
-
 
   .tags-container { margin-bottom: 40px }
 
@@ -322,7 +319,30 @@
     border-color: #FFBD6A;
   }
 
-  .list-group-item.active > .list-group-item-text { color: white; }
+  .list-group-item-heading.primary-label > span {
+    max-width: 55%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .list-group-item-heading.primary-label > .message-date { max-width: 45%; }
+
+  .list-group-item.active > .list-group-item-text,
+  .list-group-item.active:hover > .list-group-item-text { color: white; }
+
+  #all-tab > .list-group-item {
+    height: 140px;
+    overflow: hidden;
+  }
+
+  @media (min-width: 1200px) and (max-width: 1280px) {
+    #all-tab > .list-group-item { height: 190px; }
+  }
+
+  @media (max-width: 740px) {
+    #all-tab > .list-group-item { height: 110px; }
+  }
 
   /*Messaging & Conversations*/
   #message-form > .panel { margin-bottom: 10px !important; }
@@ -448,33 +468,39 @@
   .pre-scrollable {
     min-height: 100%;
     max-height: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch
   }
+
   .pre-scrollable-left {
-    overflow-y: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch
   }
+
+  @media (min-width: 768px) {
+    .pre-scrollable,
+    .pre-scrollable-left { overflow-y: auto; }
+  }
+
   .container {
     margin-right: auto;
     margin-left: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+  }
+
+  @media (min-width: 440px) {
+    padding-left: 20px
+    padding-right: 20px
   }
 
   /*Media Queries - Reset*/
   @media (min-width: 768px) {
-    .container {
-      width: initial;
-    }
+    .container { width: initial; }
   }
   @media (min-width: 992px) {
-    .container {
-      width: initial;
-    }
+    .container { width: initial; }
   }
   @media (min-width: 1200px) {
-    .container {
-      width: initial;
-    }
+    .container { width: initial; }
   }
 
   /*Media Queries*/
@@ -557,13 +583,9 @@
 	}
 
   /*Registration*/
-  .right-fix {
-    padding-right: 2em;
-  }
+  .right-fix { padding-right: 2em; }
 
-  .page-header {
-    padding-top: .5%;
-  }
+  .page-header { padding-top: .5%; }
 
   .patient-avatar {
     height: 3.5em;
@@ -576,9 +598,7 @@
     padding: 3px;
   }
 
-  .well.registration-well {
-    background-color: #fff;
-  }
+  .well.registration-well { background-color: #fff; }
 
   .well.faq-well {
    background-color: #fff;
@@ -712,7 +732,7 @@
   }
 
   @media (max-width: 1200px) {
-    #staff-selection { margin-left: -89vw; }
+    #staff-selection { margin-left: -92vw; }
 
     .find-family-container { display: none }
 
@@ -751,9 +771,21 @@
     }
   }
 
+  @media (max-width: 1000px) {
+    #staff-selection { margin-left: -91vw; }
+  }
+
+  @media (max-width: 900px) {
+    #staff-selection { margin-left: -89vw; }
+  }
+
   /* Mobile styling: medium */
   @media (max-height: 830px) {
     .footer-row { margin-top: -30px; }
+  }
+
+  @media (max-width: 700px) {
+    #staff-selection { margin-left: -87vw; }
   }
 
   @media (max-width: 767px) {
@@ -769,8 +801,6 @@
       left: 35%;
     }
 
-    .list-group-item { height: 140px; }
-
     .heavy-font-size,
     .medium-font-size,
     blockquote { font-size: 14px; }
@@ -782,8 +812,14 @@
   }
 
   /* Mobile styling: small */
+  @media (max-width: 580px) {
+    #staff-selection { margin-left: -85.5vw; }
+  }
+
   @media (max-width: 440px) {
     .navbar-nav.collapsed { left: 25%; }
+
+    #staff-selection { margin-left: -90vw; }
 
     .main-container { padding: 0px; }
 
@@ -825,7 +861,5 @@
     .message-button,
     .medium-font-size.feedback,
     .medium-font-size.call-footer { font-size: 13px; }
-
-    #staff-selection { margin-left: -87vw; }
   }
 }

@@ -144,8 +144,8 @@ module.exports = React.createClass({
 
     return(
       <div className={this.props.selected ? "list-group-item active" : "list-group-item"} onClick={this.props.onClick}>
-        <h6 className="list-group-item-heading heavy-font-size">{primaryGuardian}
-          <span className="pull-right">{messageSendAt}</span>
+        <h6 className="list-group-item-heading heavy-font-size primary-label">{primaryGuardian}
+          <span className="pull-right message-date">{messageSendAt}</span>
         </h6>
         <div className="secondary-label">
           {secondaryGuardians}

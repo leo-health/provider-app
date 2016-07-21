@@ -21,13 +21,6 @@ module.exports = React.createClass({
     if(nextProps.patients.length > 0) this.setState({ edit: false, status: '' })
   },
 
-  componentDidMount: function(){
-    if(PRODUCTION){
-      ga('create', 'UA-56852793-1', 'auto');
-      ga('send', 'pageview');
-    }
-  },
-
   showPatients: function(){
     return this.props.patients.map(function(patient, i){
       return <SinglePatient key={i} patient={patient}/>;
