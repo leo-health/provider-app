@@ -54,6 +54,10 @@ module.exports = React.createClass({
     window.onbeforeunload = function(){
       return "You will lose all unsaved changes to your application."
     };
+
+    window.onunload = function(){
+      sessionStorage.removeItem('authenticationToken');
+    };
   },
 
   onRegistrationStatusChange: function(status){
@@ -94,6 +98,7 @@ module.exports = React.createClass({
 
   componentWillUnmount: function(){
     window.onbeforeunload = null;
+    window.onunload = null;
     sessionStorage.removeItem('authenticationToken');
   },
 
