@@ -45,6 +45,8 @@ var RegistrationHelper = {
     if (navigator.appVersion.indexOf("Mac")!=-1) os="Mac";
     if (navigator.appVersion.indexOf("X11")!=-1) os="UNIX";
     if (navigator.appVersion.indexOf("Linux")!=-1) os="Linux";
+    if (navigator.appVersion.indexOf("iPad")!=-1 || navigator.appVersion.indexOf("iPhone")!=-1) os="iOS";
+    if (navigator.appVersion.indexOf("Android")!=-1) os="Android";
     return {platform: M[0], osVersion: M[1], deviceType: os}
   },
 
