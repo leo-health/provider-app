@@ -6,7 +6,18 @@ var SystemMessage = require('./systemMessage.jsx');
 
 module.exports = React.createClass({
   render: function () {
-    var sentAt = moment(this.props.sentAt).format('MMMM Do YYYY, h:mm:ss a');
+    var sentAt;
+    var sentTime = this.props.sentAt;
+    if (moment(sentTime).isSame(moment(), 'day')) {
+      sentAt = "Today," + moment(sentTime).format(' h:mm a');
+    } else if (moment(sentTime).isSame(moment().subtract(1, 'days'), 'day')) {
+      sentAt = "Yesterday," + moment(sentTime).format(' h:mm a');
+    } else if (moment(sentTime).isSame(moment(), 'year')) {
+      sentAt = moment(this.props.sentAt).format('MMMM D, h:mm a');
+    }
+    else {
+      sentAt = moment(this.props.sentAt).format('MMMM D YYYY, h:mm a');
+    }
     var sender = this.props.sender;
     var messageType = this.props.messageType;
     var body = this.props.body;

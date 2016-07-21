@@ -17,7 +17,7 @@ module.exports = React.createClass({
       }
       return (
         <div key={i}>
-          <div className="heavy-font-size child-title"><strong>{patient.first_name}, {patient.sex}:</strong></div>
+          <div className="heavy-font-size child-title"><strong>{patient.first_name} {patient.last_name}, {patient.sex}:</strong></div>
           <div className="medium-font-size">Age: {age}</div>
         </div>
       )
@@ -28,11 +28,12 @@ module.exports = React.createClass({
   processPhoneNumber: function(guardians) {
     var phoneList = guardians.map(function(guardian, i){
       var phone = guardian.phone;
+      var phoneLink = "tel:+" + phone;
       var preProcessed = (""+phone).replace(/\D/g, '');
       var matched = preProcessed.match(/^(\d{3})(\d{3})(\d{4})$/);
       if (matched) { phone = "(" + matched[1] + ") " + matched[2] + "-" + matched[3]; }
       return (
-        <div key={i} className="medium-font-size">{guardian.first_name} <span className="glyphicon glyphicon-earphone"></span> {phone} </div>
+        <div key={i} className="medium-font-size">{guardian.first_name} {guardian.last_name} <span className="glyphicon glyphicon-earphone"></span> <a href={phoneLink}>{phone}</a></div>
       )
     });
     return phoneList;
@@ -52,11 +53,13 @@ module.exports = React.createClass({
     if (patients) { patientList = this.processAge(patients); }
 
     return (
-      <div className="family-notes-container col-lg-3 pre-scrollable panel-body">
-        <h4><strong>Family Details</strong></h4>
-        {phoneList}
-        {patientList}
-        {emptyNote}
+      <div className="family-notes-container col-lg-3">
+        <div className="family-notes-title"><h4><strong>Family Details</strong></h4></div>
+        <div className="pre-scrollable panel-body">
+          {phoneList}
+          {patientList}
+          {emptyNote}
+        </div>
       </div>
     )
   }

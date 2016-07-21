@@ -64,11 +64,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    if(PRODUCTION){
-      fbq('track', 'CompleteRegistration');
-      ga('create', 'UA-56852793-1', 'auto');
-      ga('send', 'pageview');
-    }
+    if(PRODUCTION) fbq('track', 'CompleteRegistration');
   },
 
   componentWillReceiveProps: function(nextProps){

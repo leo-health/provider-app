@@ -47,18 +47,22 @@ module.exports = React.createClass({
     }
 
     return (
-      <div className="recipient-field-container">
-        <div className="pull-left to-field">
-          <div className="to-field--list">
-            {userIcon}
-            {guardianDisplay}
-            {hyphenIcon}
-            {patientIcon}
-            {patientDisplay}
+      <div>
+        <span className="pull-left glyphicon glyphicon-menu-left message-back cursor"
+                onClick={this.props.onClickBack}></span>
+        <div className="recipient-field-container">
+          <div className="pull-left to-field">
+            <div className="to-field--list">
+              {userIcon}
+              {guardianDisplay}
+              {hyphenIcon}
+              {patientIcon}
+              {patientDisplay}
+            </div>
+            <span className="glyphicon glyphicon-info-sign pull-right toggler"
+                  onClick={this.onClick}>
+            </span>
           </div>
-          <span className="glyphicon glyphicon-info-sign pull-right toggler"
-                onClick={this.onClick}>
-          </span>
         </div>
       </div>
     )
