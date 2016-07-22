@@ -8,7 +8,10 @@ module.exports = React.createClass({
   },
 
   handleOnClick: function(){
-    RegistrationActions.applyPromoCodeRequest(this.state.promoCode);
+    RegistrationActions.applyPromoCodeRequest({
+      coupon_id: this.state.promoCode,
+      authentication_token: sessionStorage.authenticationToken
+    });
     this.setState({disabled: true})
   },
 
