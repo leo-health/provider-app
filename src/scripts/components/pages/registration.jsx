@@ -41,7 +41,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    Stripe.setPublishableKey(leo.STRIPE_KEY);
+    //Stripe.setPublishableKey(leo.STRIPE_KEY);
     if(PRODUCTION){
       fbq('init', '255223491501781');
       fbq('track', "PageView");
@@ -179,7 +179,8 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            {this.selectPage()}
+            <PaymentInfoForm status={this.state.status}
+                             message={this.state.message}/>
           </div>
         </div>
       </div>

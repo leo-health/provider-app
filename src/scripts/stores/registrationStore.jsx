@@ -1,5 +1,6 @@
 var Reflux = require('reflux'),
     request = require('superagent'),
+    stripe = require("stripe")(leo.STRIPE_KEY);
     RegistrationActions = require('../actions/registrationActions');
 
 module.exports = Reflux.createStore({
@@ -264,5 +265,12 @@ module.exports = Reflux.createStore({
 
   onInviteSecondParentRequestFailed: function(res){
     this.trigger({ status: "error", message: res.message.user_message })
+  },
+
+  onApplyPromoCodeRequest: function(promoCode){
+    debuggerg
+    stripe.coupons.retrieve("two-month-off", function(err, coupon) {
+      debugger
+    });
   }
 });

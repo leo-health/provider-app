@@ -1,5 +1,6 @@
 var React = require('react'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
+    PromoCode = require('./creditCard/promoCode'),
     ErrorAlert = require('../alert/errorAlert'),
     FAQ = require('./creditCard/paymentFaq'),
     RegistrationActions = require('../../../actions/registrationActions');
@@ -28,7 +29,9 @@ module.exports = React.createClass({
         <br/>
         <div className="row">
           <div className="col-md-11 col-md-offset-1">
-            <h4 className="signup-header">Please enter in your payment information.</h4>
+            <h5 className="signup-header">Please enter in your payment information. You will be charged $20 per month
+              for each of your children.
+            </h5>
           </div>
         </div>
         <br/>
@@ -41,6 +44,7 @@ module.exports = React.createClass({
         <div className="row">
           <div className="col-md-6 col-md-offset-1">
             <CreateCreditCard ref="paymentForm"/>
+            <PromoCode/>
           </div>
           <div className="col-md-4 form-group">
             <button onClick={this.handleOnClick}
