@@ -54,7 +54,7 @@ module.exports = React.createClass({
 
     return (
       <div className="family-notes-container col-lg-3">
-        <div className="family-notes-title"><h4><strong>Family Details</strong></h4></div>
+        <div className="family-notes-title title-font-size"><span>Family Details</span></div>
         <div className="pre-scrollable panel-body">
           {phoneList}
           {patientList}

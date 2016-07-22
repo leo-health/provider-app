@@ -36,7 +36,7 @@ module.exports = React.createClass({
     var guardianDisplay, patientDisplay, userIcon, hyphenIcon, patientIcon;
 
     if (guardians) {
-      userIcon = <span className="glyphicon glyphicon-user"></span>;
+      userIcon = <span><i className="fa fa-user fa-lg"></i></span>;
       guardianDisplay = this.displayUsers(guardians);
     }
 

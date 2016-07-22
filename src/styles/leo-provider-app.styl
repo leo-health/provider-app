@@ -302,16 +302,30 @@
 
   .empty-message-form { height: 180px; }
 
-  .label.guardian-name { font-size: 14px; }
+  .label.guardian-name,
+  .label.child-label { font-size: 13px; }
+
+  .list-group-item-heading.primary-label.secondary-label { padding-bottom: 0.1em; }
 
   .list-group-item > .secondary-label > .guardian-name {
     background-color: #666666;
     color: white;
   }
 
+  .list-group-item > .patient-list > .child-label {
+    background-color: #FFBD6A;
+    color: white;
+  }
+
   .list-group-item.active > .secondary-label > .guardian-name {
     background-color: white;
     color: #666666;
+  }
+
+  .list-group-item.active > .patient-list > .child-label {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
   }
 
   #all-tab > .list-group-item.active {
@@ -331,17 +345,19 @@
   .list-group-item.active > .list-group-item-text,
   .list-group-item.active:hover > .list-group-item-text { color: white; }
 
+  .list-group-item > .list-group-item-text { margin-top: -12px; }
+
   #all-tab > .list-group-item {
-    height: 140px;
+    height: 145px;
     overflow: hidden;
   }
 
-  @media (min-width: 1200px) and (max-width: 1280px) {
-    #all-tab > .list-group-item { height: 190px; }
+  @media (min-width: 1200px) and (max-width: 1477px) {
+    #all-tab > .list-group-item { height: 175px; }
   }
 
   @media (max-width: 740px) {
-    #all-tab > .list-group-item { height: 110px; }
+    #all-tab > .list-group-item { height: 125px; }
   }
 
   /*Messaging & Conversations*/
@@ -363,6 +379,7 @@
   .img-chat { max-width:400px; max-height:200px; width: auto; height: auto; }
   .img-wrapper {height: 200px;}
   .img-helper {display: inline-block; height: 100%; vertical-align: middle;}
+  .child-label { margin-right: 0.5em; display: inline-block }
   .message-button { margin-left: 5px; }
   @media (min-width: 420px) {
     .message-button {

@@ -135,6 +135,11 @@ module.exports = React.createClass({
     var secondaryGuardians = _.filter(this.props.guardians, function(guardian){
       return guardian.id !=  this.props.primaryGuardian.id
     }.bind(this));
+    var patients = this.props.patients.map(function(patient){
+      return (
+        <ConversationPatient key = {patient.id} patient = {leoUtil.formatName(patient)}/>
+      )
+    }.bind(this));
 
     secondaryGuardians = secondaryGuardians.map(function(guardian){
       return(
@@ -150,6 +155,9 @@ module.exports = React.createClass({
         <div className="secondary-label">
           {secondaryGuardians}
         </div>
+        <p className = "patient-list">
+          {patients}
+        </p>
         <p className="list-group-item-text medium-font-size dark-gray-font">
           { leoUtil.shorten(this.props.lastMessage) }
         </p>
