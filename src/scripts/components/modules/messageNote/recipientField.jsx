@@ -43,7 +43,7 @@ module.exports = React.createClass({
     if (patients) {
       patientDisplay = this.displayUsers(patients);
       hyphenIcon = <div className="to-field--individual orange-font">|</div>;
-      patientIcon = <span className="glyphicon glyphicon-ice-lolly to-field--individual orange-font"></span>;
+      patientIcon = <span className="to-field--individual orange-font"><i className="fa fa-child fa-lg"></i></span>;
     }
 
     return (
