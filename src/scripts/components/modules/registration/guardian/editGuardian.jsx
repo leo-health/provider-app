@@ -86,7 +86,7 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   handlePasswordChange: function(e){
-    this.setState( {password: e.target.value.trim() }, function(){
+    this.setState({ password: e.target.value }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('password')();
     });
   },
