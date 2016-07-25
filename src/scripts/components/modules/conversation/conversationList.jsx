@@ -79,11 +79,14 @@ module.exports = React.createClass({
     });
   },
 
-  moveConversationToTop: function (targetIndex, lastMessageBody) {
+  moveConversationToTop: function (targetIndex, lastMessage) {
+    var lastMessageBody = lastMessage.body;
     if(typeof lastMessageBody !== "string") lastMessageBody = "[image]";
     this.setState({
       conversations: this.moveElementToFront(this.state.conversations, targetIndex, lastMessageBody)
     });
+    if(window.windowHasFocus) return;
+    this.notifyNewMessage(lastMessageBody, lastMessage.sender.first_name);
   },
 
   moveElementToFront: function(array, index, lastMessageBody){
@@ -93,6 +96,16 @@ module.exports = React.createClass({
     array[0].last_message = lastMessageBody;
     array[0].last_message_created_at = moment();
     return array
+  },
+
+  notifyNewMessage: function(message, sender){
+    var title = "New message from " + sender;
+    var options = {
+      body: message,
+      icon: "../../images/leo-light.png"
+    }
+    var notification = new Notification(title, options);
+    setTimeout(notification.close.bind(notification), 5000);
   },
 
   handleOnClick: function(conversationId){
