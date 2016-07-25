@@ -36,14 +36,14 @@ module.exports = React.createClass({
     var guardianDisplay, patientDisplay, userIcon, hyphenIcon, patientIcon;
 
     if (guardians) {
-      userIcon = <span className="glyphicon glyphicon-user"></span>;
+      userIcon = <span><i className="fa fa-user fa-lg"></i></span>;
       guardianDisplay = this.displayUsers(guardians);
     }
 
     if (patients) {
       patientDisplay = this.displayUsers(patients);
       hyphenIcon = <div className="to-field--individual orange-font">|</div>;
-      patientIcon = <span className="glyphicon glyphicon-ice-lolly to-field--individual orange-font"></span>;
+      patientIcon = <span className="to-field--individual orange-font"><i className="fa fa-child fa-lg"></i></span>;
     }
 
     return (

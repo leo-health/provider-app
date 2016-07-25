@@ -24,7 +24,7 @@ module.exports = React.createClass({
         this.handleNewMessageInClosedState();
       }else{
         var that = this;
-        this.props.moveConversationToTop(that.props.reactKey, status.newMessage.body);
+        this.props.moveConversationToTop(that.props.reactKey, status.newMessage);
       }
     }
   },
@@ -115,7 +115,6 @@ module.exports = React.createClass({
 
   fetchNewMessage: function(data) {
     var currentUser = JSON.parse(sessionStorage.user);
-
     if (currentUser.id != data.sender_id) {
       if (data.message_type === "message") {
         MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.id);
@@ -132,14 +131,34 @@ module.exports = React.createClass({
     var dateTime = moment(this.props.createdAt).format('L');
     var messageSendAt = (sentToday) ? timeFromNow : dateTime;
     var conversationId = this.props.conversationId;
+
     var secondaryGuardians = _.filter(this.props.guardians, function(guardian){
       return guardian.id !=  this.props.primaryGuardian.id
     }.bind(this));
 
-    secondaryGuardians = secondaryGuardians.map(function(guardian){
-      return(
-        <ConversationGuardian key={guardian.id} guardian = {leoUtil.formatName(guardian)}/>
-      )
+    var patients = this.props.patients.map(function(patient, i){
+      var commaValue;
+      if (i < (this.props.patients.length - 1)) { commaValue = ", " }
+      return (
+        <span className="child-label" key={patient.id}>
+          <ConversationPatient patient={leoUtil.formatName(patient)}/>{ commaValue }
+        </span>
+      );
+    }.bind(this));
+
+    var guardianIcon;
+    if (secondaryGuardians.length > 0) {
+      var guardianIcon = <i className="fa fa-user fa-lg"></i>
+    };
+
+    secondaryGuardians = secondaryGuardians.map(function(guardian, i){
+      var commaValue;
+      if (i < (secondaryGuardians.length - 1)) { commaValue = ", " }
+      return (
+        <span key={guardian.id} className="guardian-name">
+          <ConversationGuardian guardian={leoUtil.formatName(guardian)}/>{ commaValue }
+        </span>
+      );
     }.bind(this));
 
     return(
@@ -148,8 +167,13 @@ module.exports = React.createClass({
           <span className="pull-right message-date">{messageSendAt}</span>
         </h6>
         <div className="secondary-label">
+          {guardianIcon}
           {secondaryGuardians}
         </div>
+        <p className = "patient-list">
+          <i className="fa fa-child fa-lg"></i>
+          {patients}
+        </p>
         <p className="list-group-item-text medium-font-size dark-gray-font">
           { leoUtil.shorten(this.props.lastMessage) }
         </p>

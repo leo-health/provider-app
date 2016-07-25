@@ -11,7 +11,8 @@ module.exports = React.createClass({
   componentWillMount: function(){
     this.subscribeToPusher();
     this.subscribeToBrowserTabFocusEvent();
-    this.titleBlink()
+    this.titleBlink();
+    this.notificationPermission();
   },
 
   subscribeToPusher: function(){
@@ -46,6 +47,10 @@ module.exports = React.createClass({
       }
       step()
     }
+  },
+
+  notificationPermission: function(){
+    Notification.requestPermission();
   },
 
   componentWillUnmount: function () {

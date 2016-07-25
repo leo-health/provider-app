@@ -46,8 +46,6 @@ module.exports = React.createClass({
             <select className="form-control medium-font-size" onChange={this.handleEscalatedToChange} value={this.state.escalatedToId}>
               {this.parseStaff()}
             </select>
-            <label className="control-label medium-font-size"> with a priority level of</label>
-            <select className="form-control medium-font-size"><option className="dark-gray-font" value={0}>standard</option></select>
             <label className="control-label medium-font-size">Please enter any relevant notes to help the assignee resolve the case.</label>
             <textarea className="form-control medium-font-size"
                       value={this.state.escalationNote}
