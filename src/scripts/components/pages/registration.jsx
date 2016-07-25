@@ -149,13 +149,41 @@ module.exports = React.createClass({
     return page
   },
 
+  colorProgressBar: function(order) {
+    var progress = "";
+    var activeClass = "active-progress";
+    switch(this.state.nextPage){
+      case "you":
+        if(order == 1){progress = ''};
+        break;
+      case "patient":
+        if(order < 2){progress = activeClass};
+        break;
+      case "payment":
+        if(order < 3){progress = activeClass};
+        break;
+      case "review":
+        if(order < 4){progress = activeClass};
+        break;
+    }
+    return progress + " progress-button";
+  },
+
   render: function(){
     return(
       <div id="signup_page" ref='signUp'>
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
-            <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
-            <div id="signup_progress">
+            <img src="/images/leo.png" alt="Leo Logo" className="registration-logo" id="signup_logo"/>
+
+            <ul className="mobile-only mobile-progress">
+              <li className={this.colorProgressBar(1)}></li>
+              <li className={this.colorProgressBar(2)}></li>
+              <li className={this.colorProgressBar(3)}></li>
+              <li className={this.colorProgressBar(4)}></li>
+            </ul>
+
+            <div className="mobile-hidden" id="signup_progress">
               <div className="progress-text" id="progress_xs">
                 <p className="signup-progress-text progress-text-container">({this.state.progressBar[1]}) {this.state.progressBar[2]}</p>
               </div>

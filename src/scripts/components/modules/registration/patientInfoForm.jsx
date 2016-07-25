@@ -62,6 +62,7 @@ module.exports = React.createClass({
       <div>
         <div className="row">
           <div className="col-lg-11 col-lg-offset-1">
+            <div className="registration-header mobile-only">REGISTRATION</div>
             <h4 className="signup-header">Now let’s enroll your family</h4>
           </div>
         </div>
@@ -75,7 +76,7 @@ module.exports = React.createClass({
             {this.showPatients()}
             {this.addPatient()}
           </div>
-          <div className="col-lg-4">
+          <div className="col-lg-4 continue">
             <button type="button"
                     onClick={this.handleContinue}
                     className={continueButtonClass}>

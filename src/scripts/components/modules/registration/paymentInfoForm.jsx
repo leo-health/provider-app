@@ -28,6 +28,7 @@ module.exports = React.createClass({
         <br/>
         <div className="row">
           <div className="col-md-11 col-md-offset-1">
+            <div className="registration-header mobile-only">REGISTRATION</div>
             <h4 className="signup-header">Please enter in your payment information.</h4>
           </div>
         </div>
