@@ -16,7 +16,7 @@ module.exports = React.createClass({
   onPromoCodeStatusChange: function(status){
     if(!status.coupon) return;
     if(status.coupon.status === 'ok'){
-      sessionStorage.promoCode = this.state.promoCode
+      sessionStorage.coupon = this.state.promoCode;
       this.setState({disabled: false, valid: true, errorMessage: ""})
     }else{
       this.setState({disabled: false, valid: false, errorMessage: [status.coupon.message]})
