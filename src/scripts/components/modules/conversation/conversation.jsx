@@ -24,7 +24,7 @@ module.exports = React.createClass({
         this.handleNewMessageInClosedState();
       }else{
         var that = this;
-        this.props.moveConversationToTop(that.props.reactKey, status.newMessage.body);
+        this.props.moveConversationToTop(that.props.reactKey, status.newMessage);
       }
     }
   },
@@ -115,7 +115,6 @@ module.exports = React.createClass({
 
   fetchNewMessage: function(data) {
     var currentUser = JSON.parse(sessionStorage.user);
-
     if (currentUser.id != data.sender_id) {
       if (data.message_type === "message") {
         MessageActions.fetchMessageRequest(sessionStorage.authenticationToken, data.id);
