@@ -83,7 +83,7 @@ module.exports = React.createClass({
 
     return (
       <div className="notes-container panel panel-body" ref="notesContainer">
-        <div className="notes-title"><h4><strong>Notes</strong></h4></div>
+        <div className="notes-title title-font-size"><span>Notes</span></div>
         <div className="pre-scrollable ">
           {notes}
         </div>

@@ -4,14 +4,22 @@
 
   .orange-font { color: #FFBD6A; }
 
+  .title-font-size {
+    font-family: "Open Sans";
+    font-weight: 400;
+    font-size: 24px;
+  }
+
   .heavy-font-size {
-    font-family: "Futura PT W01 Medium";
+    font-family: "Open Sans";
+    font-weight: 400;
     font-size: 18px;
   }
 
   .medium-font-size,
   .message-button {
-    font-family: "Futura PT W01 Book";
+    font-family: "Open Sans";
+    font-weight: 300;
     font-size: 18px;
   }
 
@@ -19,6 +27,8 @@
 
   /*Navbar*/
   .leo-logo {
+    font-family: "Open Sans";
+    font-weight: 300;
     font-size: 40px;
     display: inline;
   }
@@ -54,7 +64,10 @@
 
   .logout-nav > li > .navbar-welcome { padding-right: 7%; }
 
-  .leo-logo-gray { font-family: "Futura PT W01 Book" }
+  .leo-logo-gray {
+    font-family: "Open Sans";
+    font-weight: 400;
+  }
 
   .leo-logo,
   .logout-nav > li > .navbar-welcome {
@@ -251,18 +264,15 @@
   .family-notes-title,
   .notes-title {
     text-align: center;
-    padding-top: 1.5vh;
+    padding-top: 0.7vh;
     height: 6vh;
     border-bottom: 1px solid #E1E1E1;
   }
 
   @media (max-height: 700px) {
     .family-notes-title,
-    .notes-title { padding-top: 1vh; }
+    .notes-title { padding-top: 0vh; }
   }
-
-  .family-notes-title > h4,
-  .notes-title > h4 { margin-top: 0px; }
 
   .notes-container { margin-top: 22vh; }
 
@@ -296,37 +306,36 @@
   .note-text { padding-left: 10px; }
 
   /*Conversation List*/
+  .guardian-name,
+  .child-label {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 0px;
+    margin-right: 0px;
+    font-weight: 600;
+  }
+
   .empty-conversation-container { padding: 15px; }
 
   #chatmessages > .empty-conversation-container { padding-top: 30px; }
 
   .empty-message-form { height: 180px; }
 
-  .label.guardian-name,
-  .label.child-label { font-size: 13px; }
+  .guardian-name,
+  .child-label { font-size: 16px; }
 
   .list-group-item-heading.primary-label.secondary-label { padding-bottom: 0.1em; }
 
-  .list-group-item > .secondary-label > .guardian-name {
-    background-color: #666666;
-    color: white;
-  }
+  .list-group-item > .secondary-label > .guardian-name,
+  .list-group-item > .patient-list > .child-label { color: #666666; }
 
-  .list-group-item > .patient-list > .child-label {
-    background-color: #FFBD6A;
-    color: white;
-  }
+  .list-group-item.active > .patient-list > .child-label,
+  .list-group-item.active > .patient-list > .fa-child,
+  .list-group-item.active > .secondary-label > .guardian-name,
+  .list-group-item.active > .list-group-item-text,
+  .list-group-item.active:hover > .list-group-item-text { color: white; }
 
-  .list-group-item.active > .secondary-label > .guardian-name {
-    background-color: white;
-    color: #666666;
-  }
-
-  .list-group-item.active > .patient-list > .child-label {
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-  }
+  .list-group-item > .patient-list > .fa-child { color: #FFBD6A }
 
   #all-tab > .list-group-item.active {
     background-color: #FFBD6A;
@@ -341,9 +350,6 @@
   }
 
   .list-group-item-heading.primary-label > .message-date { max-width: 45%; }
-
-  .list-group-item.active > .list-group-item-text,
-  .list-group-item.active:hover > .list-group-item-text { color: white; }
 
   .list-group-item > .list-group-item-text { margin-top: -12px; }
 
@@ -379,7 +385,6 @@
   .img-chat { max-width:400px; max-height:200px; width: auto; height: auto; }
   .img-wrapper {height: 200px;}
   .img-helper {display: inline-block; height: 100%; vertical-align: middle;}
-  .child-label { margin-right: 0.5em; display: inline-block }
   .message-button { margin-left: 5px; }
   @media (min-width: 420px) {
     .message-button {
@@ -387,7 +392,6 @@
       margin-left: 0px;
     }
   }
-  .guardian-name { background-color: red }
   .progress-table {display: table; width: 100%; }
   #signup_page {padding-top: 10px}
   #signup_logo { float: left; display: inline; vertical-align: middle }
@@ -456,14 +460,14 @@
   }
 
   /*React AutoSuggest*/
-  .react-autosuggest { position: relative; font-family: "Futura PT W01 Medium" }
+  .react-autosuggest { position: relative; font-family: "Open Sans"; font-weight: 400;}
   .react-autosuggest input { width: 100%; height: 95%; font-size: 18px }
   .react-autosuggest__suggestions { font-size: 16px; z-index: 10000; position:absolute; background-color: #fff; width: 100%; border: 1px solid #aaaaaa; }
   .react-autosuggest ul { list-style: none; padding-left: 0; }
   .react-autosuggest li { margin-left: 0; }
   .react-autosuggest__suggestion--focused { background-color: #ddd; }
-  .react-autosuggest__suggestions-section-name { font-size: 16px; text-transform: uppercase; color: #777; margin-left: 5% ; font-family: "Futura PT W01 Medium" }
-  .react-autosuggest__suggestion { padding-left: 15%; font-family: "Futura PT W01 Medium" }
+  .react-autosuggest__suggestions-section-name { font-size: 16px; text-transform: uppercase; color: #777; margin-left: 5% ; font-family: "Open Sans"; font-weight: 400;}
+  .react-autosuggest__suggestion { padding-left: 15%; font-family: "Open Sans"; font-weight: 400;}
 
   /*TypeAhead*/
   span.twitter-typeahead { width: 100%; }
@@ -594,10 +598,10 @@
 
   /*Blockquote*/
   blockquote footer:before,
-	blockquote small:before,
-	blockquote .small:before {
-	  content: "";
-	}
+  blockquote small:before,
+  blockquote .small:before {
+    content: "";
+  }
 
   /*Registration*/
   .right-fix { padding-right: 2em; }
@@ -631,7 +635,8 @@
   }
 
   .assignment-font {
-    font-family: "Futura PT W01 Medium";
+    font-family: "Open Sans";
+    font-weight: 400;
     display: inline-block;
     float: left;
     padding-right: 10px;

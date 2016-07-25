@@ -135,16 +135,41 @@ module.exports = React.createClass({
     var secondaryGuardians = _.filter(this.props.guardians, function(guardian){
       return guardian.id !=  this.props.primaryGuardian.id
     }.bind(this));
-    var patients = this.props.patients.map(function(patient){
-      return (
-        <ConversationPatient key = {patient.id} patient = {leoUtil.formatName(patient)}/>
-      )
+    var patients = this.props.patients.map(function(patient, i){
+      if (i < (this.props.patients.length - 1)) {
+        return (
+          <span className="child-label" key={patient.id}>
+            <ConversationPatient patient={leoUtil.formatName(patient)}/>,
+          </span>
+        );
+      } else {
+        return (
+          <span className="child-label" key={patient.id}>
+            <ConversationPatient patient={leoUtil.formatName(patient)}/>
+          </span>
+        )
+      }
     }.bind(this));
 
-    secondaryGuardians = secondaryGuardians.map(function(guardian){
-      return(
-        <ConversationGuardian key={guardian.id} guardian = {leoUtil.formatName(guardian)}/>
-      )
+    var guardianIcon;
+    if (secondaryGuardians.length > 0) {
+      var guardianIcon = <i className="fa fa-user fa-lg"></i>
+    };
+
+    secondaryGuardians = secondaryGuardians.map(function(guardian, i){
+      if (i < (secondaryGuardians.length - 1)) {
+        return (
+          <span key={guardian.id} className="guardian-name">
+            <ConversationGuardian guardian={leoUtil.formatName(guardian)}/>,
+          </span>
+        )
+      } else {
+        return (
+          <span key={guardian.id} className="guardian-name">
+            <ConversationGuardian guardian={leoUtil.formatName(guardian)}/>
+          </span>
+        )
+      };
     }.bind(this));
 
     return(
@@ -153,9 +178,11 @@ module.exports = React.createClass({
           <span className="pull-right message-date">{messageSendAt}</span>
         </h6>
         <div className="secondary-label">
+          {guardianIcon}
           {secondaryGuardians}
         </div>
         <p className = "patient-list">
+          <i className="fa fa-child fa-lg"></i>
           {patients}
         </p>
         <p className="list-group-item-text medium-font-size dark-gray-font">
