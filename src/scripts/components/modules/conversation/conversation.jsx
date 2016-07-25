@@ -131,23 +131,19 @@ module.exports = React.createClass({
     var dateTime = moment(this.props.createdAt).format('L');
     var messageSendAt = (sentToday) ? timeFromNow : dateTime;
     var conversationId = this.props.conversationId;
+
     var secondaryGuardians = _.filter(this.props.guardians, function(guardian){
       return guardian.id !=  this.props.primaryGuardian.id
     }.bind(this));
+
     var patients = this.props.patients.map(function(patient, i){
-      if (i < (this.props.patients.length - 1)) {
-        return (
-          <span className="child-label" key={patient.id}>
-            <ConversationPatient patient={leoUtil.formatName(patient)}/>,
-          </span>
-        );
-      } else {
-        return (
-          <span className="child-label" key={patient.id}>
-            <ConversationPatient patient={leoUtil.formatName(patient)}/>
-          </span>
-        )
-      }
+      var commaValue;
+      if (i < (this.props.patients.length - 1)) { commaValue = ", " }
+      return (
+        <span className="child-label" key={patient.id}>
+          <ConversationPatient patient={leoUtil.formatName(patient)}/>{ commaValue }
+        </span>
+      );
     }.bind(this));
 
     var guardianIcon;
@@ -156,19 +152,13 @@ module.exports = React.createClass({
     };
 
     secondaryGuardians = secondaryGuardians.map(function(guardian, i){
-      if (i < (secondaryGuardians.length - 1)) {
-        return (
-          <span key={guardian.id} className="guardian-name">
-            <ConversationGuardian guardian={leoUtil.formatName(guardian)}/>,
-          </span>
-        )
-      } else {
-        return (
-          <span key={guardian.id} className="guardian-name">
-            <ConversationGuardian guardian={leoUtil.formatName(guardian)}/>
-          </span>
-        )
-      };
+      var commaValue;
+      if (i < (secondaryGuardians.length - 1)) { commaValue = ", " }
+      return (
+        <span key={guardian.id} className="guardian-name">
+          <ConversationGuardian guardian={leoUtil.formatName(guardian)}/>{ commaValue }
+        </span>
+      );
     }.bind(this));
 
     return(
