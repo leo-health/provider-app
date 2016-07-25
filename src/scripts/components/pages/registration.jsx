@@ -56,6 +56,7 @@ module.exports = React.createClass({
     };
 
     window.onunload = function(){
+      sessionStorage.removeItem('promoCode');
       sessionStorage.removeItem('authenticationToken');
     };
   },
@@ -100,6 +101,7 @@ module.exports = React.createClass({
     window.onbeforeunload = null;
     window.onunload = null;
     sessionStorage.removeItem('authenticationToken');
+    sessionStorage.removeItem('promoCode');
   },
 
   onPatientError: function(){
@@ -179,8 +181,7 @@ module.exports = React.createClass({
         </div>
         <div className="row">
           <div id="signup_content">
-            <PaymentInfoForm status={this.state.status}
-                             message={this.state.message}/>
+            {this.selectPage()}
           </div>
         </div>
       </div>

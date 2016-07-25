@@ -267,9 +267,22 @@ module.exports = Reflux.createStore({
   },
 
   onApplyPromoCodeRequest: function(params){
-    debugger
     request.get(leo.API_URL + "/subscriptions/validate_coupon")
            .query(params)
-           .end(function(err, res){debugger});
+           .end(function(err, res){
+              if(res.ok){
+                RegistrationActions.applyPromoCodeRequest.completed(res.body)
+              }else{
+                RegistrationActions.applyPromoCodeRequest.failed(res.body)
+              }
+           });
+  },
+
+  onApplyPromoCodeRequestCompleted: function(res){
+    this.trigger({ coupon: { status: res.status }})
+  },
+
+  onApplyPromoCodeRequestFailed: function(res){
+    this.trigger({ coupon: { status: "error", message: res.message.user_message }})
   }
 });
