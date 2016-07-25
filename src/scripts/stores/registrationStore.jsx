@@ -279,7 +279,7 @@ module.exports = Reflux.createStore({
   },
 
   onApplyPromoCodeRequestCompleted: function(res){
-    this.trigger({ coupon: { status: res.status }})
+    this.trigger({ coupon: { status: res.status, message: res.data.text }})
   },
 
   onApplyPromoCodeRequestFailed: function(res){

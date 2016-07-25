@@ -58,6 +58,7 @@ module.exports = React.createClass({
     window.onunload = function(){
       sessionStorage.removeItem('coupon');
       sessionStorage.removeItem('authenticationToken');
+      sessionStorage.removeItem('couponMessage');
     };
   },
 
@@ -102,6 +103,7 @@ module.exports = React.createClass({
     window.onunload = null;
     sessionStorage.removeItem('authenticationToken');
     sessionStorage.removeItem('coupon');
+    sessionStorage.removeItem('couponMessage');
   },
 
   onPatientError: function(){

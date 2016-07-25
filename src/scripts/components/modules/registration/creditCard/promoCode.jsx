@@ -10,14 +10,15 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    return { disabled: false,  promoCode: "", valid: false, errorMessage: []}
+    return { disabled: false,  promoCode: "", valid: false, errorMessage: [], successMessage: ""}
   },
 
   onPromoCodeStatusChange: function(status){
     if(!status.coupon) return;
     if(status.coupon.status === 'ok'){
       sessionStorage.coupon = this.state.promoCode;
-      this.setState({disabled: false, valid: true, errorMessage: ""})
+      sessionStorage.couponMessage = status.coupon.message;
+      this.setState({disabled: false, valid: true, errorMessage: "", successMessage: status.coupon.message})
     }else{
       this.setState({disabled: false, valid: false, errorMessage: [status.coupon.message]})
     }
@@ -38,7 +39,7 @@ module.exports = React.createClass({
 
   validateOrSuccessPage: function(){
     if(this.state.valid){
-      return <h6>The promo code has been applied, your first two months are on us!</h6>
+      return <h6>The promo code has been applied. {this.state.successMessage}</h6>
     }else{
       return(
         <div className="row well">
