@@ -41,7 +41,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function(){
-    //Stripe.setPublishableKey(leo.STRIPE_KEY);
+    Stripe.setPublishableKey(leo.STRIPE_KEY);
     if(PRODUCTION){
       fbq('init', '255223491501781');
       fbq('track', "PageView");
@@ -56,7 +56,7 @@ module.exports = React.createClass({
     };
 
     window.onunload = function(){
-      sessionStorage.removeItem('promoCode');
+      sessionStorage.removeItem('coupon');
       sessionStorage.removeItem('authenticationToken');
     };
   },
@@ -101,7 +101,7 @@ module.exports = React.createClass({
     window.onbeforeunload = null;
     window.onunload = null;
     sessionStorage.removeItem('authenticationToken');
-    sessionStorage.removeItem('promoCode');
+    sessionStorage.removeItem('coupon');
   },
 
   onPatientError: function(){
