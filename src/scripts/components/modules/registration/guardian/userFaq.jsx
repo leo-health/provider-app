@@ -1,11 +1,26 @@
 var React = require('react');
+var classNames = require('classnames');
 
 module.exports = React.createClass({
+  getInitialState: function(){
+    return {clickedFAQ: false}
+  },
+
+  onClick: function() {
+    this.setState({clickedFAQ: !this.state.clickedFAQ})
+  },
+
   render: function() {
+    var faqClass = classNames({
+      'well faq-well': true,
+      'enable-overlay': this.state.clickedFAQ,
+      'disable-overlay': !this.state.clickedFAQ
+    });
+
     return(
       <div>
-        <div className="mobile-only mobile-faq"><strong>FAQ</strong></div>
-        <div id="accordion" role="tablist" aria-multiselectable="true" hide="false" className="well faq-well mobile-hidden">
+        <div className="mobile-only mobile-faq"><strong onClick={this.onClick}>FAQ</strong></div>
+        <div id="accordion" role="tablist" aria-multiselectable="true" hide="false" className={faqClass}>
           <div className="">
             <div className="panel-heading" role="tab" id="headingOne">
               <h4 className="panel-title">

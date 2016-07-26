@@ -3,7 +3,7 @@ var React = require('react'),
     FAQ = require('./guardian/userFaq'),
     EditGuardian = require('./guardian/editGuardian');
 
-module.exports =React.createClass({
+module.exports = React.createClass({
   getInitialState: function(){
     return {disabled: false}
   },

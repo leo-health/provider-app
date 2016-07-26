@@ -22,7 +22,8 @@
 
     .mobile-only { display: block; }
 
-    .mobile-hidden { display: none; }
+    .mobile-hidden,
+    .disable-overlay { display: none; }
 
     .mobile-only.mobile-progress,
     .registration-header.mobile-only {
@@ -107,5 +108,7 @@
       font-size: 15px;
       color: #2196f3;
     }
+
+    .mobile-faq.mobile-only > strong { cursor: pointer }
   }
 }
