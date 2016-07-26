@@ -29,7 +29,11 @@ module.exports = React.createClass({
 
   addPatient: function(){
     if(this.props.patients.length > 0 && !this.state.edit){
-      return <button type="button" className="btn btn-primary" onClick={this.switchToEdit}>Add Another Child</button>
+      return (
+        <div className="thirty-mobile-side-padding">
+          <button type="button" className="btn btn-primary add-another-child" onClick={this.switchToEdit}>Add Another Child</button>
+        </div>
+      )
     }else{
       return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
     }
@@ -76,7 +80,7 @@ module.exports = React.createClass({
             {this.showPatients()}
             {this.addPatient()}
           </div>
-          <div className="col-lg-4 continue">
+          <div className="col-lg-4 continue .mobile-side-padding">
             <button type="button"
                     onClick={this.handleContinue}
                     className={continueButtonClass}>

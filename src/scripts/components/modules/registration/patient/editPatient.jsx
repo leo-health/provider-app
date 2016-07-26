@@ -105,7 +105,7 @@ module.exports = validation(strategy)(React.createClass({
           <a onClick={this.props.handleCancel}
              className="pull-right"
              style={showCancelButton}>
-            <span className="registration-icon glyphicon glyphicon-trash"></span>
+            <span className="registration-icon glyphicon glyphicon-remove cursor"></span>
           </a>
         </div>
         <div className="col-lg-6">
