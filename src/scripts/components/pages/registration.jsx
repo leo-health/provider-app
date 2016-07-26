@@ -53,6 +53,10 @@ module.exports = React.createClass({
     window.onbeforeunload = function(){
       return "You will lose all unsaved changes to your application."
     };
+
+    window.onunload = function(){
+      sessionStorage.removeItem('authenticationToken');
+    };
   },
 
   onRegistrationStatusChange: function(status){
@@ -93,6 +97,7 @@ module.exports = React.createClass({
 
   componentWillUnmount: function(){
     window.onbeforeunload = null;
+    window.onunload = null;
     sessionStorage.removeItem('authenticationToken');
   },
 
@@ -104,6 +109,7 @@ module.exports = React.createClass({
 
   selectPage: function(){
     var page;
+    if(PRODUCTION) ga('send', 'pageview');
     switch(this.state.nextPage){
       case "you":
         page = <UserInfoForm status={this.state.status}
@@ -138,6 +144,7 @@ module.exports = React.createClass({
         break;
       default:
         page = <UserInfoForm status={this.state.status} message={this.state.message}/>;
+        if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'About-you_page-viewed');
         break;
     }
     return page

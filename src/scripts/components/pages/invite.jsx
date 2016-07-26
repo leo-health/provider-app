@@ -41,21 +41,27 @@ var Registration  = React.createClass({
   },
 
   componentWillMount: function(){
-    RegistrationActions.fetchUserRequest(this.props.location.query.token);
+    RegistrationActions.fetchUserRequest({invitation_token: this.props.location.query.token});
   },
 
   onStatusChange: function(status){
-    if(status.action === "update") {
+    if(status.action === "convert") {
       if(this.isInvitedUser(status)){
         this.context.router.push("/registration/invited/success");
         return
       }
+
       if(this.isExemptedUser(status)){
-        this.context.router.push({
-          pathname: "/registration/success",
-          query: {token: status.session.authentication_token}
-        });
-        return
+        if(status.session){
+          this.context.router.push({
+            pathname: "/registration/success",
+            query: {token: status.session.authentication_token}
+          });
+          return
+        }else{
+          this.setState({status: 'error', message: 'There was an error updating your information.'});
+          return
+        }
       }
     }
 
@@ -106,11 +112,10 @@ var Registration  = React.createClass({
       if (error) {
         return;
       } else {
-        RegistrationActions.updateUserRequest({
-          authentication_token: this.props.location.query.token,
+        RegistrationActions.convertInvitedOrExemptedRequest({
+          invitation_token: this.props.location.query.token,
           first_name: this.state.firstName,
           last_name: this.state.lastName,
-          email: this.state.email,
           phone: this.state.phone,
           password: this.state.password
         })
@@ -205,6 +210,7 @@ var Registration  = React.createClass({
                 <input type="text"
                        value={this.state.email}
                        className="form-control"
+                       disabled="true"
                        onChange={this.handleEmailChange}/>
                 <label className="text-muted">Email</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('email'))}

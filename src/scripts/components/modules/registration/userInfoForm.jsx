@@ -4,13 +4,6 @@ var React = require('react'),
     EditGuardian = require('./guardian/editGuardian');
 
 module.exports =React.createClass({
-  componentDidMount: function(){
-    if(PRODUCTION){
-      ga('create', 'UA-56852793-1', 'auto');
-      ga('send', 'pageview');
-    }
-  },
-
   getInitialState: function(){
     return {disabled: false}
   },

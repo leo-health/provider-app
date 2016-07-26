@@ -1,6 +1,7 @@
 var React = require('react');
 var Reflux = require('reflux');
 var leoUtil = require('../../../utils/common').StringUtils;
+var classNames = require('classnames');
 
 module.exports = React.createClass({
   render: function () {
@@ -9,9 +10,14 @@ module.exports = React.createClass({
     var closeTabCSSClass = (this.props.currentListState === "closed" ? "active-tab" : "inactive") + " closed";
     var showStaffSelectionStyle = escalationTabCSSClass === "active-tab escalated" ? {display: "inline-block"} : {display: "none"};
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
+    var navTabsContainer = classNames({
+      'nav nav-tabs tags-container': true,
+      'selected-conversation': this.props.clickedConversation
+    });
+
     return (
       <div>
-        <ul className="nav nav-tabs tags-container">
+        <ul className={navTabsContainer}>
           <li className={openTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
             <a href="#open" className="tab-name" data-toggle="tab">
                 <span className="heavy-font-size">Open</span>
@@ -32,20 +38,17 @@ module.exports = React.createClass({
             <div className="closed-div"></div>
           </li>
           <div className="btn-group" id="staff-selection" style={showStaffSelectionStyle}>
-          <li className="btn btn-sm btn-default assignment-font">Assigned to</li>
+          <li className="assignment-font assigned-to">Assigned to</li>
           <div className="btn-group">
-            <li className="btn btn-sm btn-default assignment-font">{selectedStaffName}</li>
-            <li className="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <span className="caret"></span>
-            </li>
+            <li className="assignment-font cursor orange-font" data-toggle="dropdown" aria-expanded="false">{selectedStaffName}</li>
             <ul className="dropdown-menu">
               <li onClick={this.props.onChangeConversationStateTab.bind(null, 'escalated')}>
-                <a className="heavy-font-size">Anyone</a>
+                <a className="heavy-font-size cursor">Anyone</a>
               </li>
               {this.props.staff.map(function(staff, i) {
                 return (
                   <li key={i}
-                      className="medium-font-size"
+                      className="medium-font-size cursor"
                       onClick={this.props.onChangeSelectedStaff.bind(null, staff)}>
                     <a>{leoUtil.formatName(staff)}</a>
                   </li>

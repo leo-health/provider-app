@@ -5,12 +5,14 @@ var _ = require('lodash');
 var Conversation = require('./conversation');
 var ConversationHeader = require('./conversationHeader');
 var ConversationActions = require('../../../actions/conversationActions');
+var classNames = require('classnames');
 var MessageActions = require('../../../actions/messageActions');
 var UserActions = require('../../../actions/userActions');
 var ConversationStore = require('../../../stores/conversationStore');
 var UserStore = require('../../../stores/userStore');
 var MessageNote = require('../messageNote/messageNote');
 var Infinite = require('react-infinite');
+var moment = require('moment');
 
 module.exports = React.createClass({
   mixins: [
@@ -27,7 +29,8 @@ module.exports = React.createClass({
       conversations: [],
       maxPage: 1,
       offset: 0,
-      selectedStaff: null
+      selectedStaff: null,
+      isSelectedConversation: false
     }
   },
 
@@ -76,11 +79,14 @@ module.exports = React.createClass({
     });
   },
 
-  moveConversationToTop: function (targetIndex, lastMessageBody) {
+  moveConversationToTop: function (targetIndex, lastMessage) {
+    var lastMessageBody = lastMessage.body;
     if(typeof lastMessageBody !== "string") lastMessageBody = "[image]";
     this.setState({
       conversations: this.moveElementToFront(this.state.conversations, targetIndex, lastMessageBody)
     });
+    if(window.windowHasFocus) return;
+    this.notifyNewMessage(lastMessageBody, lastMessage.sender.first_name);
   },
 
   moveElementToFront: function(array, index, lastMessageBody){
@@ -88,12 +94,30 @@ module.exports = React.createClass({
     array.splice(index,1);
     array.splice(0,0,temp);
     array[0].last_message = lastMessageBody;
+    array[0].last_message_created_at = moment();
     return array
   },
 
+  notifyNewMessage: function(message, sender){
+    var title = "New message from " + sender;
+    var options = {
+      body: message,
+      icon: "../../images/leo-light.png"
+    }
+    var notification = new Notification(title, options);
+    setTimeout(notification.close.bind(notification), 5000);
+  },
+
   handleOnClick: function(conversationId){
-    this.setState({selectedConversationId: conversationId});
+    this.setState({
+      selectedConversationId: conversationId,
+      isSelectedConversation: true
+    });
     MessageActions.fetchMessagesRequest( sessionStorage.authenticationToken, conversationId, 1, 0);
+  },
+
+  handleClickBack: function(){
+    this.setState({isSelectedConversation: false});
   },
 
   componentWillMount: function () {
@@ -148,7 +172,6 @@ module.exports = React.createClass({
       conversations = conversations.map(function(conversation, i){
         var selected = this.state.selectedConversationId === conversation.id;
         var boundClick = this.handleOnClick.bind(this, conversation.id);
-
         return (
           <Conversation key = {i}
                         reactKey = {i}
@@ -167,18 +190,30 @@ module.exports = React.createClass({
                         currentListState = {this.state.conversationState}
                         selectedStaff = {this.state.selectedStaff}
           />
-
-)      }, this);
+        )
+      }, this);
     } else {
       var state = this.state.conversationState;
-      if(state === parseInt(state, 10)){
+      if (state === parseInt(state, 10)){
         conversations = <div>There is no matching conversation.</div>
-      }else{
+      } else {
         conversations = <div className="medium-font-size empty-conversation-container"> There are no more {state} conversations for you to review. Please be sure to review the other sections. </div>;
       }
     }
 
     var currentSelectedConversation = _.find(this.state.conversations, {id: this.state.selectedConversationId});
+
+    var guardians, patients;
+    var conversationListClass = classNames({
+      'col-lg-3 conversation-container': true,
+      'selected-conversation': this.state.isSelectedConversation,
+      'non-selected-conversation': !this.state.isSelectedConversation
+    });
+
+    if (currentSelectedConversation) {
+      guardians = currentSelectedConversation.guardians;
+      patients = currentSelectedConversation.patients;
+    }
 
     return (
       <div>
@@ -188,10 +223,10 @@ module.exports = React.createClass({
           staff={this.state.staff}
           selectedStaff={this.state.selectedStaff}
           onChangeSelectedStaff={this.onChangeSelectedStaff}
+          clickedConversation={this.state.isSelectedConversation}
         />
-
         <div className="row">
-          <div className ="col-lg-3 conversation-container">
+          <div className ={conversationListClass}>
             <div className="tab-pane fade active in panel panel-default pre-scrollable-left tab-content"
                  id="all-tab"
                  ref="conversationList"
@@ -203,6 +238,10 @@ module.exports = React.createClass({
             <MessageNote
               staff={this.state.staff}
               conversation={currentSelectedConversation}
+              guardians={guardians}
+              patients={patients}
+              onClickBack={this.handleClickBack}
+              clickedConversation={this.state.isSelectedConversation}
             />
           </div>
         </div>

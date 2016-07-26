@@ -36,7 +36,7 @@ module.exports = validation(strategy)(React.createClass({
       if (error) {
         return
       } else {
-        this.createEnrollment();
+        this.createUser();
       }
     };
 
@@ -44,7 +44,8 @@ module.exports = validation(strategy)(React.createClass({
     this.submitHasBeenAttemptedOnce = true;
   },
 
-  createEnrollment: function(){
+  createUser: function(){
+    var sessionInfo = Helper.browserDetect();
     RegistrationActions.createUserRequest({
       authentication_token: sessionStorage.authenticationToken,
       phone: this.state.phone.replace(/\D/g,''),
@@ -52,8 +53,10 @@ module.exports = validation(strategy)(React.createClass({
       last_name: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
-      client_version: "1.0.1",
-      next_page: "patient"
+      next_page: "patient",
+      os_version: sessionInfo.osVersion,
+      platform: sessionInfo.platform,
+      device_type: sessionInfo.deviceType
     });
     this.props.setDisableState();
   },

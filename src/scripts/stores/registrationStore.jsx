@@ -5,9 +5,9 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [RegistrationActions],
 
-  onFetchUserRequest: function(token){
-    request.get(leo.API_URL+"/users")
-           .query({ authentication_token: token })
+  onFetchUserRequest: function(params){
+    request.get(leo.API_URL+"/users/current")
+           .query(params)
            .end(function(err, res){
               if(res.ok){
                 RegistrationActions.fetchUserRequest.completed(res.body);
@@ -60,24 +60,44 @@ module.exports = Reflux.createStore({
     });
   },
 
+  onConvertInvitedOrExemptedRequest: function(userParams){
+    request.put(leo.API_URL+"/convert_user")
+        .send(userParams)
+        .end(function(err, res){
+          if(res.ok){
+            RegistrationActions.convertInvitedOrExemptedRequest.completed(res.body);
+          }else{
+            RegistrationActions.convertInvitedOrExemptedRequest.failed(res.body);
+          }
+        });
+  },
+
+  onConvertInvitedOrExemptedRequestCompleted: function(res){
+    this.trigger({
+      action: "convert",
+      status: res.status,
+      user: res.data.user,
+      session: res.data.session
+    });
+  },
+
+  onConvertInvitedOrExemptedRequestFailed: function(res){
+    this.trigger({
+      status: res.status,
+      message: "There was an error updating your information."
+    });
+  },
+
   onCreateUserRequest: function(userParams){
-    request.get(leo.API_URL+"/ios_configuration")
+    request.post(leo.API_URL+"/users")
+           .send(userParams)
            .end(function(err, res){
              if(res.ok){
-               userParams["vendor_id"]= res.body.data.vendor_id;
-               request.post(leo.API_URL+"/users")
-                      .send(userParams)
-                      .end(function(err, res){
-                        if(res.ok){
-                          RegistrationActions.createUserRequest.completed(res.body, userParams.next_page);
-                        }else{
-                          RegistrationActions.createUserRequest.failed(res.body);
-                        }
-                      })
+               RegistrationActions.createUserRequest.completed(res.body, userParams.next_page);
              }else{
-               this.trigger({status: 'error', errorMessage: "Server error, our engineers are working on it."})
+               RegistrationActions.createUserRequest.failed(res.body);
              }
-           });
+           })
   },
 
   onCreateUserRequestCompleted: function(res, nextPage){

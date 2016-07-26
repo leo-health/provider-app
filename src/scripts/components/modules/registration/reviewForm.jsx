@@ -59,16 +59,12 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function() {
-    RegistrationActions.fetchUserRequest(sessionStorage.authenticationToken);
+    RegistrationActions.fetchUserRequest({authentication_token: sessionStorage.authenticationToken});
     RegistrationActions.fetchPatientsRequest(sessionStorage.authenticationToken)
   },
 
   componentDidMount: function(){
-    if(PRODUCTION){
-      fbq('track', 'CompleteRegistration');
-      ga('create', 'UA-56852793-1', 'auto');
-      ga('send', 'pageview');
-    }
+    if(PRODUCTION) fbq('track', 'CompleteRegistration');
   },
 
   componentWillReceiveProps: function(nextProps){

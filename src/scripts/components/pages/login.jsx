@@ -4,6 +4,7 @@ var React = require('react'),
     ReactDom = require('react-dom'),
     LoginAction = require('../../actions/loginActions'),
     SessionStore = require('../../stores/sessionStore'),
+    Helper = require('../../utils/registrationHelper');
     ErrorAlert = require('../modules/alert/errorAlert');
 
 module.exports = React.createClass({
@@ -36,11 +37,17 @@ module.exports = React.createClass({
 
   handleOnSubmit: function(e){
     e.preventDefault();
+    var sessionInfo = Helper.browserDetect();
     var email = ReactDom.findDOMNode(this.refs.email).value.trim();
     var password = ReactDom.findDOMNode(this.refs.password).value.trim();
     if (!this.isSessionStorageNameSupported() || !email || !password) return;
-    var loginParam = {email: email, password: password};
-    LoginAction.loginRequest(loginParam);
+    LoginAction.loginRequest({
+      email: email,
+      password: password,
+      os_version: sessionInfo.osVersion,
+      platform: sessionInfo.platform,
+      device_type: sessionInfo.deviceType
+    });
   },
 
   handleOnForget: function(){

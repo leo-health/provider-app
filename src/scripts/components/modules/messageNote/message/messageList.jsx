@@ -96,11 +96,11 @@ module.exports = React.createClass({
       );
     } else {
       messageForm = (
-        <div className="emptyMessageForm"></div>
+        <div className="empty-message-form"></div>
       );
     }
     return (
-      <div>
+      <div className="chat-container">
         <div id="chatbox" className="pre-scrollable panel panel-body">
           <div id="chatmessages" ref="conversationContainer" onScroll={this.handleScroll}>
             {this.renderMessages(this.props.messages)}

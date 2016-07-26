@@ -32,7 +32,7 @@ module.exports = React.createClass({
           <div className="panel-heading" role="tab" id="headingThree">
             <h4 className="panel-title">
               <strong><a className="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Is my family’s medical How secure is my family's information secure?
+                How secure is my family's information?
               </a></strong>
             </h4>
           </div>
