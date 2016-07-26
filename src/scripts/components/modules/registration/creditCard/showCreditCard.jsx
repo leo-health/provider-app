@@ -1,10 +1,6 @@
 var React = require('react');
 
 module.exports = React.createClass({
-  couponAdded: function(){
-    if(sessionStorage.coupon) return " Your first two months are on us!"
-  },
-
   render: function(){
     return(
       <div className="form-group">
