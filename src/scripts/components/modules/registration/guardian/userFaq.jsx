@@ -6,7 +6,7 @@ module.exports = React.createClass({
     return {clickedFAQ: false}
   },
 
-  onClick: function() {
+  onToggleFAQ: function() {
     this.setState({clickedFAQ: !this.state.clickedFAQ})
   },
 
@@ -17,9 +17,16 @@ module.exports = React.createClass({
       'disable-overlay': !this.state.clickedFAQ
     });
 
+    var overlayClass = classNames({
+      'faq-overlay': true,
+      'enable-overlay': this.state.clickedFAQ,
+      'disable-overlay': !this.state.clickedFAQ
+    });
+
     return(
       <div>
-        <div className="mobile-only mobile-faq"><strong onClick={this.onClick}>FAQ</strong></div>
+        <div className="mobile-only mobile-faq"><strong onClick={this.onToggleFAQ}>FAQ</strong></div>
+        <div className={overlayClass} onClick={this.onToggleFAQ}></div>
         <div id="accordion" role="tablist" aria-multiselectable="true" hide="false" className={faqClass}>
           <div className="">
             <div className="panel-heading" role="tab" id="headingOne">

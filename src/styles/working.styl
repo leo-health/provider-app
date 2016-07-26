@@ -110,5 +110,28 @@
     }
 
     .mobile-faq.mobile-only > strong { cursor: pointer }
+
+    .faq-overlay.enable-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background:rgba(0,0,0,0.6);
+      z-index:5;
+      width: 100vw;
+      height:100vh;
+    }
+
+    #accordion.enable-overlay {
+      display: block;
+      max-height: 380px;
+      width: 70vw;
+      position: fixed;
+      margin: 0 auto;
+      z-index: 10;
+      top: 20vh;
+      left: 15vw;
+      overflow-y: auto;
+      text-align: center;
+    }
   }
 }
