@@ -3,7 +3,7 @@ var React = require('react'),
     FAQ = require('./guardian/userFaq'),
     EditGuardian = require('./guardian/editGuardian');
 
-module.exports = React.createClass({
+module.exports =React.createClass({
   getInitialState: function(){
     return {disabled: false}
   },
@@ -38,7 +38,7 @@ module.exports = React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-6 col-lg-offset-1">
+          <div className="col-lg-6 col-lg-offset-1 reset-bottom">
             <EditGuardian ref="editGuardian"
                           insurers={this.props.insurers}
                           setDisableState={this.setDisableState}/>
