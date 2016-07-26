@@ -107,7 +107,7 @@ module.exports = validation(strategy)(React.createClass({
                  onChange={this.handleFirstNameChange}
                  autoFocus
                  ref="firstName"/>
-          <label className="text-muted">First Name</label>
+          <label>First Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
 
@@ -117,7 +117,7 @@ module.exports = validation(strategy)(React.createClass({
                  value={this.state.lastName}
                  onChange={this.handleLastNameChange}
                  ref="lastName"/>
-          <label className="text-muted">Last Name</label>
+          <label>Last Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
 
@@ -126,7 +126,7 @@ module.exports = validation(strategy)(React.createClass({
                  value={this.state.email}
                  className="form-control"
                  onChange={this.handleEmailChange}/>
-          <label className="text-muted">Email</label>
+          <label>Email</label>
           {Helper.renderHelpText(this.props.getValidationMessages('email'))}
         </div>
 
@@ -135,7 +135,7 @@ module.exports = validation(strategy)(React.createClass({
                  value={this.state.password}
                  className="form-control"
                  onChange={this.handlePasswordChange}/>
-          <label className="text-muted">Create Password</label>
+          <label>Create Password</label>
           {Helper.renderHelpText(this.props.getValidationMessages('password'))}
         </div>
 
@@ -147,7 +147,7 @@ module.exports = validation(strategy)(React.createClass({
                  ref="phone"
                  pattern="[0-9]*"
                  onInput={Helper.phoneMask}/>
-          <label className="text-muted">Phone</label>
+          <label>Phone</label>
           {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
         </div>
       </div>

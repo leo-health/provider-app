@@ -114,7 +114,7 @@ module.exports = validation(strategy)(React.createClass({
                  value={this.state.firstName}
                  onChange={this.handleFirstNameChange}
                  autoFocus/>
-          <label className="text-muted">Child's First Name</label>
+          <label>Child's First Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
         <div className="col-lg-6">
@@ -122,13 +122,13 @@ module.exports = validation(strategy)(React.createClass({
                  className="form-control"
                  value={this.state.lastName}
                  onChange={this.handleLastNameChange}/>
-          <label className="text-muted">Child's Last Name</label>
+          <label>Child's Last Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
         <div className="col-lg-6">
           <DateSelector onChange={this.handleBirthDateChange}
                         value={this.state.birthDate}/>
-          <label className="text-muted">Birth Date</label>
+          <label>Birth Date</label>
           {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
         </div>
         <div className="col-lg-6">
@@ -138,7 +138,7 @@ module.exports = validation(strategy)(React.createClass({
             <option value={"M"}>Male</option>
             <option value={"F"}>Female</option>
           </select>
-          <label className="text-muted">Sex</label>
+          <label>Sex</label>
         </div>
         <div className="col-lg-12">
           <button onClick={this.handleOnSubmit}
