@@ -7,6 +7,7 @@ var React = require('react'),
     EditPatient = require('./patient/editPatient'),
     FAQ = require('./patient/patientFaq'),
     SinglePatient = require('./patient/singlePatient');
+    PatientCarousel = require('./patient/patientCarousel');
 
 module.exports = React.createClass({
   contextTypes: {
@@ -25,6 +26,10 @@ module.exports = React.createClass({
     return this.props.patients.map(function(patient, i){
       return <SinglePatient key={i} patient={patient}/>;
     });
+  },
+
+  patientCarousel: function(){
+    return <PatientCarousel patients={this.props.patients}/>;
   },
 
   addPatient: function(){
@@ -78,6 +83,7 @@ module.exports = React.createClass({
           </div>
           <div className="col-lg-6 col-lg-offset-1" style={{paddingBottom: "2%"}}>
             {this.showPatients()}
+            {this.patientCarousel()}
             {this.addPatient()}
           </div>
           <div className="col-lg-4 continue .mobile-side-padding">

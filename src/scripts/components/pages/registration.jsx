@@ -62,7 +62,7 @@ module.exports = React.createClass({
 
   onRegistrationStatusChange: function(status){
     this.setState(status);
-    if(status.patient) this.setState({patients: this.state.patients.concat(status.patient)});
+    if(status.patient) {this.setState({patients: this.state.patients.concat(status.patient)})};
     if(status.deletedPatient) this.setState({patients: _.reject(this.state.patients, {id: status.deletedPatient.id})});
     if(status.updatedPatient) this.setState({patients: this.replacePatient(this.state.patients, status.updatedPatient)});
     if(status.authenticationToken) sessionStorage['authenticationToken'] = status.authenticationToken;
