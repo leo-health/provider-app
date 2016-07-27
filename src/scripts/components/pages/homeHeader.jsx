@@ -8,6 +8,10 @@ var React = require('react'),
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(SessionStore, "onStatusChange")],
 
+  getInitialState: function(){
+    return { online: true }
+  },
+
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
@@ -20,6 +24,10 @@ module.exports = React.createClass({
     var authenticationToken = sessionStorage.authenticationToken;
     if(!authenticationToken) return;
     LoginAction.logoutRequest(authenticationToken)
+  },
+
+  buttonColor: function(){
+    return this.state.online ? {color: "green"} : {color: "red"};
   },
 
   render: function() {
@@ -54,6 +62,15 @@ module.exports = React.createClass({
               <ul className="nav navbar-nav navbar-right logout-nav ">
                 <li>
                   <a className="heavy-font-size navbar-welcome">Welcome, {user}</a>
+                </li>
+                <li className="dropdown">
+                  <a className="dropdown-toggle navbar-dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
+                  </a>
+                  <ul className="dropdown-menu row">
+                    <li className="col-lg-12"><h5>Your are online and the practice is open</h5></li>
+                    <li className="col-lg-offset-2 col-lg-8"><button className="full-width-button">Turn On</button></li>
+                  </ul>
                 </li>
                 <li>
                   <a onClick={this.handleOnLogout} className="heavy-font-size logout-button"><strong>logout</strong></a>
