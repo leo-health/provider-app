@@ -49,7 +49,7 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <div className="row well registration-well">
+      <div className="row well registration-well mobile-hidden">
         <a className="icon" onClick={this.handleDelete}><span className="registration-icon glyphicon glyphicon-trash pull-right cursor"></span></a>
         <a className="icon" onClick={this.props.handleEdit}><span className="registration-icon glyphicon glyphicon-pencil pull-right cursor"></span></a>
         {this.formatDisplay(this.props.patient)}

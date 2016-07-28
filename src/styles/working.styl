@@ -145,7 +145,7 @@
 
     .date-selector {
       display: inline-block;
-      width: 33%;
+      max-width: 33%;
     }
 
     /*Family enrollment*/
@@ -160,29 +160,46 @@
     }
 
     .patient-individual {
-      width: 33%;
-      margin: auto;
+      max-width: 33%;
+      margin: 0px 10px;
       display: inline-block;
     }
 
     .carousel-buttons {
       height: 100%;
       width: 25px;
-      padding-right: 25px;
       padding-top: 10px;
       display: inline-block;
-      float: right;
+      float: left;
     }
 
+    .avatar-details {
+      display: inline-block;
+      float: left;
+    }
+
+    .avatar-name-container {
+      position: relative;
+      left: 50%;
+    }
     .avatar-first-name {
-      position: absolute;
-      top: 55px;
-      left: -50px;
+      position: relative;
+      display: inline-block;
+      width: 80px;
+      left: -50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .patient-avatar {
       height: 50px;
       margin-right: 0px;
+    }
+
+    .patient-carousel {
+      text-align: center;
+      padding: 0px 30px;
     }
   }
 }
