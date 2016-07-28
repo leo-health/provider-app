@@ -7,7 +7,8 @@ var React = require('react'),
     DatePicker = require('react-datepicker'),
     moment = require('moment'),
     DateSelector=require('../../../../utils/dateSelector'),
-    strategy = require('joi-validation-strategy');
+    strategy = require('joi-validation-strategy'),
+    classNames = require('classnames');
 
 require('react-datepicker/dist/react-datepicker.css');
 
@@ -98,9 +99,13 @@ module.exports = validation(strategy)(React.createClass({
 
   render: function(){
     var showCancelButton = this.props.cancel ? {display: "inline-block"} : {display: "none"};
+    var editClass = classNames({
+      "row well": true,
+      "nested-edit-patient-form": this.props.nested
+    });
 
     return(
-      <div className="row well">
+      <div className={editClass}>
         <div className="col-lg-12">
           <a onClick={this.props.handleCancel}
              className="pull-right"
