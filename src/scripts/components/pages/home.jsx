@@ -1,18 +1,33 @@
 var React = require('react'),
+    Reflux = require('reflux'),
     HomeHeader = require('./homeHeader'),
     FindFamily = require('../modules/search/findFamily'),
     ConversationList = require('../modules/conversation/conversationList'),
     ConversationHeader = require('../modules/conversation/conversationHeader'),
-    SessionStore = require('../../stores/sessionStore'),
+    PracticeStore = require('../../stores/practiceStore'),
     Footer = require('./footer'),
     _ = require('lodash');
 
 module.exports = React.createClass({
+  mixins: [Reflux.listenTo(PracticeStore, "onStatusChange")],
+
+  getInitialState: function(){
+    return { isOfficeHour: false }
+  },
+
+  onStatusChange: function(status){
+    if(status.practice) this.setState({ isOfficeHour: status.practice.is_office_hour });
+  },
+
   componentWillMount: function(){
     this.subscribeToPusher();
     this.subscribeToBrowserTabFocusEvent();
     this.titleBlink();
     this.notificationPermission();
+  },
+
+  componentDidMount: function() {
+    PracticeStore.fetchPracticeRequest({authentication_token: sessionStorage.authenticationToken})
   },
 
   subscribeToPusher: function(){
@@ -64,7 +79,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <HomeHeader/>
+        <HomeHeader isOfficeHour={this.state.isOfficeHour}/>
         <div className="container page-header main-container">
           <div className="row">
             <div className="col-lg-3 find-family-container">
