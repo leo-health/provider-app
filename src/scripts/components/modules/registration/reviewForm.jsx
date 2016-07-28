@@ -34,12 +34,12 @@ module.exports = React.createClass({
 
   editOrSavePayment: function(isEdit){
     if(isEdit){
-      return <a className="icon" onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-pencil pull-right"></span></a>
+      return <a className="icon" onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-pencil pull-right cursor"></span></a>
     }else{
       return(
         <div className="pull-right inline-block">
-          <a onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-ok"></span></a>
-          <a onClick={this.cancelPayment}><span className="registration-icon glyphicon glyphicon-remove"></span></a>
+          <a onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-ok cursor"></span></a>
+          <a onClick={this.cancelPayment}><span className="registration-icon glyphicon glyphicon-remove cursor"></span></a>
         </div>
       )
     }
@@ -127,17 +127,19 @@ module.exports = React.createClass({
 
         <div className="row">
           <div className="col-lg-7 col-lg-offset-1">
+            <div className="registration-header mobile-only">REGISTRATION</div>
             <h3 className="signup-header">Let's double check!</h3>
-            <p className="lead">Please review all of the information below and click 'Sign Up' to complete enrollment.</p>
+            <p className="lead mobile-hidden">Please review all of the information below and click 'Sign Up' to complete enrollment.</p>
+            <p className="lead mobile-only">Please review and click 'Sign Up' to complete enrollment.</p>
             <div className="col-lg-12">
               {this.editOrShowGuardian()}
             </div>
             <div className="col-lg-12">
-              <h4 style={{display: 'inline-block'}}>Your Family</h4>
+              <h4 style={{display: 'inline-block'}} className="signup-header">Your Family</h4>
               <a className="icon"
                  onClick={this.addPatientToggle}
                  style={this.displayOrHideAddPatientButton()}>
-                <span className="registration-icon glyphicon glyphicon-plus pull-right"></span>
+                <span className="registration-icon glyphicon glyphicon-plus pull-right cursor"></span>
               </a>
             </div>
             <div className="col-lg-12">
@@ -147,7 +149,7 @@ module.exports = React.createClass({
               {this.state.showAddPatient}
             </div>
             <div className="col-lg-12">
-              <h4 className="inline-block">Payment</h4>
+              <h4 className="inline-block signup-header">Payment</h4>
               {this.editOrSavePayment(this.state.editPayment)}
             </div>
             <div className="col-lg-12">

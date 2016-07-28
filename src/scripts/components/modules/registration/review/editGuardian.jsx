@@ -76,7 +76,7 @@ module.exports = validation(strategy)(React.createClass({
     return(
      <div className="row">
        <div className="col-lg-12">
-         <h4 className="inline-block">Your Information</h4>
+         <h4 className="inline-block signup-header">Your Information</h4>
          <a onClick={this.props.guardianStateToggle}>
            <span className="registration-icon glyphicon glyphicon-remove pull-right"></span>
          </a>
