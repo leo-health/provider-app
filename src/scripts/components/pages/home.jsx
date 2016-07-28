@@ -3,10 +3,9 @@ var React = require('react'),
     HomeHeader = require('./homeHeader'),
     FindFamily = require('../modules/search/findFamily'),
     ConversationList = require('../modules/conversation/conversationList'),
-    ConversationHeader = require('../modules/conversation/conversationHeader'),
     PracticeStore = require('../../stores/practiceStore'),
-    Footer = require('./footer'),
-    _ = require('lodash');
+    PracticeActions = require('../../actions/practiceActions'),
+    Footer = require('./footer');
 
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(PracticeStore, "onStatusChange")],
@@ -27,7 +26,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    PracticeStore.fetchPracticeRequest({authentication_token: sessionStorage.authenticationToken})
+    PracticeActions.fetchPracticeRequest({authentication_token: sessionStorage.authenticationToken})
   },
 
   subscribeToPusher: function(){
