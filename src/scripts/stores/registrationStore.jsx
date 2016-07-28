@@ -266,23 +266,23 @@ module.exports = Reflux.createStore({
     this.trigger({ status: "error", message: res.message.user_message })
   },
 
-  onApplyPromoCodeRequest: function(params){
+  onValidatePromoCodeRequest: function(params){
     request.get(leo.API_URL + "/subscriptions/validate_coupon")
            .query(params)
            .end(function(err, res){
               if(res.ok){
-                RegistrationActions.applyPromoCodeRequest.completed(res.body)
+                RegistrationActions.validatePromoCodeRequest.completed(res.body)
               }else{
-                RegistrationActions.applyPromoCodeRequest.failed(res.body)
+                RegistrationActions.validatePromoCodeRequest.failed(res.body)
               }
            });
   },
 
-  onApplyPromoCodeRequestCompleted: function(res){
+  onValidatePromoCodeRequestCompleted: function(res){
     this.trigger({ coupon: { status: res.status, message: res.data.text }})
   },
 
-  onApplyPromoCodeRequestFailed: function(res){
+  onValidatePromoCodeRequestFailed: function(res){
     this.trigger({ coupon: { status: "error", message: res.message.user_message }})
   }
 });

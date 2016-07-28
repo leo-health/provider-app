@@ -16,16 +16,15 @@ module.exports = React.createClass({
   onPromoCodeStatusChange: function(status){
     if(!status.coupon) return;
     if(status.coupon.status === 'ok'){
-      sessionStorage.coupon = this.state.promoCode;
-      sessionStorage.couponMessage = status.coupon.message;
-      this.setState({disabled: false, valid: true, errorMessage: "", successMessage: status.coupon.message})
+      sessionStorage.coupon = JSON.stringify({id: this.state.promoCode, message: status.coupon.message});
+      this.setState({disabled: false, valid: true, errorMessage: [], successMessage: status.coupon.message})
     }else{
       this.setState({disabled: false, valid: false, errorMessage: [status.coupon.message]})
     }
   },
 
   handleOnClick: function(){
-    RegistrationActions.applyPromoCodeRequest({
+    RegistrationActions.validatePromoCodeRequest({
       coupon_id: this.state.promoCode,
       authentication_token: sessionStorage.authenticationToken
     });
