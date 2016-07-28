@@ -49,25 +49,25 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   handleFirstNameChange: function(e) {
-    this.setState({ firstName: e.target.value }, function(){
+    this.setState({ firstName: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
     });
   },
 
   handleLastNameChange: function (e) {
-    this.setState({ lastName: e.target.value }, function(){
+    this.setState({ lastName: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
     });
   },
 
   handlePhoneChange: function(e) {
-    this.setState({ phone: e.target.value }, function(){
+    this.setState({ phone: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
     });
   },
 
   handleEmailChange: function(e){
-    this.setState({email: e.target.value}, function(){
+    this.setState({ email: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
     });
   },
