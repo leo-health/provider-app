@@ -15,7 +15,19 @@ module.exports = React.createClass({
   },
 
   getInitialState: function(){
-    return { edit: false, cancel: false, status: '', message: '' }
+    return { edit: false,
+             cancel: false,
+             status: '',
+             message: '',
+             editingCount: 0 }
+  },
+
+  editingAdd: function(){
+    this.setState({editingCount: this.state.editingCount + 1})
+  },
+
+  editingCancel: function(){
+    this.setState({editingCount: this.state.editingCount - 1})
   },
 
   componentWillReceiveProps: function(nextProps){
@@ -32,6 +44,10 @@ module.exports = React.createClass({
     return <PatientCarousel patients={this.props.patients}
                             carouselShiftLeft={this.props.carouselShiftLeft}
                             carouselShiftRight={this.props.carouselShiftRight}
+                            editingCount={this.state.editingCount}
+                            editingAdd={this.editingAdd}
+                            editingCancel={this.editingCancel}
+                            handleCancel={this.handleCancel}
                             />;
   },
 
@@ -39,7 +55,7 @@ module.exports = React.createClass({
     if(this.props.patients.length > 0 && !this.state.edit){
       return (
         <div className="thirty-mobile-side-padding">
-          <button type="button" className="btn btn-primary add-another-child" onClick={this.switchToEdit}>Add Another Child</button>
+          <button type="button" className="btn btn-primary add-another-child" onClick={this.switchToAdd}>Add Another Child</button>
         </div>
       )
     }else{
@@ -51,10 +67,8 @@ module.exports = React.createClass({
     this.setState({edit: false, cancel: false})
   },
 
-
-
-  switchToEdit: function(){
-    this.setState({edit: true, cancel: true})
+  switchToAdd: function(){
+    this.setState({edit: true, cancel: true, editingCount: 0})
   },
 
   handleContinue: function(){

@@ -12,11 +12,15 @@ module.exports = React.createClass({
     RegistrationActions.removePatientRequest({
       id: this.props.patient.id, authentication_token: sessionStorage.authenticationToken
     });
+    if(this.state.isEdit){
+      this.props.editingCancel();
+    }
   },
 
   handleEdit: function(){
     this.setState({isEdit: true})
-    if(!this.state.isEdit){
+    this.props.handleCancel();
+    if(!this.state.isEdit || this.props.editingCount == 0){
       this.props.editingAdd();
     }
   },
@@ -27,10 +31,13 @@ module.exports = React.createClass({
   },
 
   displayEdit: function(){
-    if (this.state.isEdit){
+    if (this.state.isEdit && this.props.editingCount > 0){
       return (
         <div className="edit-container">
-          <EditPatient patient={this.props.patient} handleCancel={this.handleCancel} cancel={true} nested={true}/>
+          <EditPatient patient={this.props.patient}
+                       handleCancel={this.handleCancel}
+                       cancel={true}
+                       nested={true}/>
         </div>
         )
     } else {return}

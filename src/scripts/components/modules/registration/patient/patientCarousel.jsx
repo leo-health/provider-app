@@ -5,40 +5,29 @@ var CarouselIndividual = require('./carouselIndividual');
 var classNames = require('classnames');
 
 module.exports = React.createClass({
-  getInitialState: function(){
-    return {editing: 0}
-  },
-
   formatDisplay: function(){
     var patients = this.props.patients;
     if(this.props.patients.length > 2) {
-      console.log("Wow lots of patients");
       patients = patients.slice(0, 2);
     }
     return patients.map(function(patient, i){
       return (
         <div key={i} className="patient-individual-container">
           <CarouselIndividual patient={patient}
-                              editingAdd={this.editingAdd}
-                              editingCancel={this.editingCancel}
+                              editingAdd={this.props.editingAdd}
+                              editingCancel={this.props.editingCancel}
+                              editingCount={this.props.editingCount}
+                              handleCancel={this.props.handleCancel}
                               />
         </div>
       )
     }.bind(this))
   },
 
-  editingAdd: function(){
-    this.setState({editing: this.state.editing + 1})
-  },
-
-  editingCancel: function(){
-    this.setState({editing: this.state.editing - 1})
-  },
-
   render: function(){
     var carouselClass = classNames({
       "mobile-only patient-carousel": true,
-      "carousel-padding": this.state.editing > 0
+      "carousel-padding": this.props.editingCount > 0
     });
 
     var leftArrow, rightArrow;
