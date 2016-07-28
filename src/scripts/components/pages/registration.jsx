@@ -80,6 +80,31 @@ module.exports = React.createClass({
     return _.map(patients, function(patient){ return (patient.id === newPatient.id) ? newPatient : patient })
   },
 
+  carouselShiftLeft: function(){
+    console.log("Shift Left!");
+    var patients = this.state.patients;
+    if(this.state.patients.length > 2){
+      var shifted = patients.shift();
+      patients.push(shifted);
+      this.setState({
+        patients: patients
+      })
+    }
+  },
+
+  carouselShiftRight: function(){
+    console.log("Shift right!");
+    var patients = this.state.patients;
+    if(this.state.patients.length > 2){
+      var shifted = patients.pop();
+      patients.unshift(shifted);
+      this.setState({
+        patients: patients
+      })
+    }
+  },
+
+
   navigateTo: function(destination){
     this.context.router.push({
       pathname: "/registration",
@@ -120,7 +145,10 @@ module.exports = React.createClass({
       case "patient":
         page = <PatientInfoForm navigateTo={this.navigateTo}
                                 patients={this.state.patients}
-                                user={this.state.user}/>;
+                                user={this.state.user}
+                                carouselShiftRight={this.carouselShiftRight}
+                                carouselShiftLeft={this.carouselShiftLeft}
+                                />;
 
         if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'Add-child_page-viewed');
         break;

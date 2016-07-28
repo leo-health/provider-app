@@ -9,8 +9,13 @@ module.exports = React.createClass({
     return {editing: 0}
   },
 
-  formatDisplay: function(patients){
-    return this.props.patients.map(function(patient, i){
+  formatDisplay: function(){
+    var patients = this.props.patients;
+    if(this.props.patients.length > 2) {
+      console.log("Wow lots of patients");
+      patients = patients.slice(0, 2);
+    }
+    return patients.map(function(patient, i){
       return (
         <div key={i} className="patient-individual-container">
           <CarouselIndividual patient={patient}
@@ -36,9 +41,16 @@ module.exports = React.createClass({
       "carousel-padding": this.state.editing > 0
     });
 
+    var leftArrow, rightArrow;
+    if(this.props.patients.length > 2){
+      leftArrow = <span className="pull-left glyphicon glyphicon-menu-left cursor carousel-arrow" onClick={this.props.carouselShiftLeft}></span>;
+      rightArrow = <span className="pull-right glyphicon glyphicon-menu-right cursor carousel-arrow" onClick={this.props.carouselShiftRight}></span>;
+    }
     return(
       <div className={carouselClass}>
+        {leftArrow}
         {this.formatDisplay()}
+        {rightArrow}
       </div>
     )
   }

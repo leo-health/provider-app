@@ -43,14 +43,18 @@ module.exports = React.createClass({
     }
   },
 
-
   render: function(){
     var patient = this.props.patient;
+    if(patient.sex === "M"){
+      avatarUrl = "../../images/Avatar_Patient_Son.png";
+    }else{
+      avatarUrl = "../../images/Avatar_Patient_Daughter.png";
+    }
     return(
       <div>
         <div className="patient-individual">
           <div className="avatar-details">
-            <img src="../../images/Avatar_Patient_Daughter.png" className="patient-avatar"/>
+            <img src={avatarUrl} className="patient-avatar"/>
             <div className="avatar-name-container">
               <span className="avatar-first-name">{patient.first_name}</span>
             </div>

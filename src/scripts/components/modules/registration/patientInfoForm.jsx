@@ -29,7 +29,10 @@ module.exports = React.createClass({
   },
 
   patientCarousel: function(){
-    return <PatientCarousel patients={this.props.patients}/>;
+    return <PatientCarousel patients={this.props.patients}
+                            carouselShiftLeft={this.props.carouselShiftLeft}
+                            carouselShiftRight={this.props.carouselShiftRight}
+                            />;
   },
 
   addPatient: function(){
@@ -47,6 +50,8 @@ module.exports = React.createClass({
   handleCancel: function(){
     this.setState({edit: false, cancel: false})
   },
+
+
 
   switchToEdit: function(){
     this.setState({edit: true, cancel: true})
