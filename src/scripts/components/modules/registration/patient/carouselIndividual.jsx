@@ -41,9 +41,9 @@ module.exports = React.createClass({
   },
 
   render: function(){
-    var patientClass = classNames({
-      "patient-individual": true,
-      "patient-individual--highlighted": this.props.editPatientID == this.props.patient.id
+    var patientUnderlineClass = classNames({
+      "patient-underline": true,
+      "patient-underline--highlighted": this.props.editPatientID == this.props.patient.id
     });
 
     var patient = this.props.patient;
@@ -54,12 +54,12 @@ module.exports = React.createClass({
     }
     return(
       <div>
-        <div className={patientClass}>
+        <div className="patient-individual">
           <div className="avatar-details">
             <img src={avatarUrl} className="patient-avatar"/>
             <div className="avatar-name-container">
               <span className="avatar-first-name">{patient.first_name}</span>
-              <div className="avatar-underline"></div>
+              <div className={patientUnderlineClass}></div>
             </div>
           </div>
           <div className="carousel-buttons">

@@ -200,6 +200,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      padding-bottom: 5px;
     }
 
     .patient-avatar {
@@ -230,5 +231,18 @@
       top: 25px;
     }
 
+    .patient-underline {
+      position: relative;
+      height: 2px;
+      width: 0px;
+      left: -50%;
+      top: -13px;
+    }
+
+    .patient-underline--highlighted {
+      width: 100%;
+      background-color: #2196f3;
+      transition: width 0.2s ease;
+    }
   }
 }
