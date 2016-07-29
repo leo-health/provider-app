@@ -14,11 +14,13 @@ module.exports = React.createClass({
       return (
         <div key={i} className="patient-individual-container">
           <CarouselIndividual patient={patient}
-                              editingAdd={this.props.editingAdd}
-                              editingCancel={this.props.editingCancel}
+                              handleEdit={this.props.handleEdit}
+                              editingPatient={this.props.editingPatient}
                               editingCount={this.props.editingCount}
                               handleCancel={this.props.handleCancel}
+                              editPatientID={this.props.editPatientID}
                               />
+
         </div>
       )
     }.bind(this))
@@ -27,7 +29,7 @@ module.exports = React.createClass({
   render: function(){
     var carouselClass = classNames({
       "mobile-only patient-carousel": true,
-      "carousel-padding": this.props.editingCount > 0
+      "carousel-padding": this.props.editingPatient
     });
 
     var leftArrow, rightArrow;

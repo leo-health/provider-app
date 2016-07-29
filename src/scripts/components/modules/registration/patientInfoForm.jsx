@@ -19,15 +19,8 @@ module.exports = React.createClass({
              cancel: false,
              status: '',
              message: '',
-             editingCount: 0 }
-  },
-
-  editingAdd: function(){
-    this.setState({editingCount: this.state.editingCount + 1})
-  },
-
-  editingCancel: function(){
-    this.setState({editingCount: this.state.editingCount - 1})
+             editingPatient: false,
+             editPatientID: null }
   },
 
   componentWillReceiveProps: function(nextProps){
@@ -44,10 +37,10 @@ module.exports = React.createClass({
     return <PatientCarousel patients={this.props.patients}
                             carouselShiftLeft={this.props.carouselShiftLeft}
                             carouselShiftRight={this.props.carouselShiftRight}
-                            editingCount={this.state.editingCount}
-                            editingAdd={this.editingAdd}
-                            editingCancel={this.editingCancel}
+                            editingPatient={this.state.editingPatient}
+                            handleEdit={this.handleEdit}
                             handleCancel={this.handleCancel}
+                            editPatientID={this.state.editPatientID}
                             />;
   },
 
@@ -63,12 +56,29 @@ module.exports = React.createClass({
     }
   },
 
+  handleEdit: function(patientID){
+    this.setState({
+      editingPatient: true,
+      editPatientID: patientID
+    })
+  },
+
   handleCancel: function(){
-    this.setState({edit: false, cancel: false})
+    this.setState({
+      edit: false,
+      cancel: false,
+      editingPatient: false,
+      editPatientID: null
+    })
   },
 
   switchToAdd: function(){
-    this.setState({edit: true, cancel: true, editingCount: 0})
+    this.setState({
+      edit: true,
+      cancel: true,
+      editingPatient: false,
+      editPatientID: null
+    })
   },
 
   handleContinue: function(){
