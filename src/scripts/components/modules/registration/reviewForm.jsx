@@ -176,6 +176,7 @@ module.exports = React.createClass({
             <div className="col-lg-12">
               {this.editOrShowGuardian()}
             </div>
+            <div className="review-divider"></div>
             <div className="col-lg-12 bring-forward">
               <h4 style={{display: 'inline-block'}} className="signup-header">Your Family</h4>
               <a className="icon"
@@ -192,6 +193,7 @@ module.exports = React.createClass({
               {this.state.showAddPatient}
             </div>
             <div className="col-lg-12 bring-forward">
+            <div className="review-divider"></div>
               <h4 className="inline-block signup-header">Payment</h4>
               {this.editOrSavePayment(this.state.editPayment)}
             </div>
