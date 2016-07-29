@@ -47,7 +47,7 @@ module.exports = React.createClass({
                    value={this.state.promoCode}
                    onChange={this.handlePromoCodeChange}
                    className="form-control"/>
-            <label className="text-muted">Promo Code(optional)</label>
+            <label>Promo Code (optional)</label>
             {Helper.renderHelpText(this.state.errorMessage)}
           </div>
 

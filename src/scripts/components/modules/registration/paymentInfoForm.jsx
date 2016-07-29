@@ -31,8 +31,7 @@ module.exports = React.createClass({
           <div className="col-md-11 col-md-offset-1">
             <div className="registration-header mobile-only">REGISTRATION</div>
             <h4 className="signup-header mobile-only">Please enter in your payment information.</h4>
-            <h5 className="signup-header mobile-hidden">Please enter in your payment information. You will be charged $20 per month
-              for each of your children.
+            <h5 className="signup-header mobile-hidden">Please enter in your payment information. You will be charged $20 a month for each child.
             </h5>
           </div>
         </div>
