@@ -9,11 +9,40 @@ var React = require('react'),
     ShowGuardian = require('./review/showGuardian'),
     EditGuardian = require('./review/editGuardian'),
     EditPatient = require('./patient/editPatient'),
-    SinglePatient=require('./patient/singlePatient');
+    SinglePatient = require('./patient/singlePatient'),
+    patientCarousel = require('./patient/patientCarousel');
 
 module.exports = React.createClass({
   getInitialState: function() {
-    return({ editGuardian: true, editPayment: true, showAddPatient: false, status: '', message: '' })
+    return({ editGuardian: true,
+             editPayment: true,
+             showAddPatient: false,
+             status: '',
+             message: '',
+             editingCount: 0 })
+  },
+
+  editingAdd: function(){
+    this.setState({editingCount: this.state.editingCount + 1})
+  },
+
+  editingCancel: function(){
+    this.setState({editingCount: this.state.editingCount - 1})
+  },
+
+  patientCarousel: function(){
+    return <PatientCarousel patients={this.props.patients}
+                            carouselShiftLeft={this.props.carouselShiftLeft}
+                            carouselShiftRight={this.props.carouselShiftRight}
+                            editingCount={this.state.editingCount}
+                            editingAdd={this.editingAdd}
+                            editingCancel={this.editingCancel}
+                            handleCancel={this.handleCancel}
+                            />;
+  },
+
+  handleCancel: function(){
+    this.setState({showAddPatient: false})
   },
 
   editOrShowGuardian: function(){
@@ -100,7 +129,10 @@ module.exports = React.createClass({
     if(this.state.showAddPatient){
       this.setState({showAddPatient: false})
     }else{
-      this.setState({showAddPatient: <EditPatient handleCancel={this.addPatientToggle} cancel={true}/>})
+      this.setState({
+        showAddPatient: <EditPatient handleCancel={this.addPatientToggle} cancel={true}/>,
+        editingCount: 0
+      })
     }
   },
 
@@ -134,7 +166,7 @@ module.exports = React.createClass({
             <div className="col-lg-12">
               {this.editOrShowGuardian()}
             </div>
-            <div className="col-lg-12">
+            <div className="col-lg-12 bring-forward">
               <h4 style={{display: 'inline-block'}} className="signup-header">Your Family</h4>
               <a className="icon"
                  onClick={this.addPatientToggle}
@@ -144,11 +176,12 @@ module.exports = React.createClass({
             </div>
             <div className="col-lg-12">
               {this.addOrDisplayPatient()}
+              {this.patientCarousel()}
             </div>
             <div className="col-lg-12">
               {this.state.showAddPatient}
             </div>
-            <div className="col-lg-12">
+            <div className="col-lg-12 bring-forward">
               <h4 className="inline-block signup-header">Payment</h4>
               {this.editOrSavePayment(this.state.editPayment)}
             </div>

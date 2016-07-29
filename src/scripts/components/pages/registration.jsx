@@ -165,6 +165,8 @@ module.exports = React.createClass({
                            status={this.state.status}
                            message={this.state.message}
                            patients={this.state.patients}
+                           carouselShiftRight={this.carouselShiftRight}
+                           carouselShiftLeft={this.carouselShiftLeft}
                            onPatientError={this.onPatientError}
                            user={this.state.user}/>;
 
