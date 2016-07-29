@@ -45,7 +45,6 @@ module.exports = React.createClass({
     if(PRODUCTION){
       fbq('init', '255223491501781');
       fbq('track', "PageView");
-      ga('send', 'pageview');
     }
     ReactDom.findDOMNode(this.refs.signUp).scrollTop = 0
   },
@@ -56,6 +55,7 @@ module.exports = React.createClass({
     };
 
     window.onunload = function(){
+      sessionStorage.removeItem('coupon');
       sessionStorage.removeItem('authenticationToken');
     };
   },
@@ -125,6 +125,7 @@ module.exports = React.createClass({
     window.onbeforeunload = null;
     window.onunload = null;
     sessionStorage.removeItem('authenticationToken');
+    sessionStorage.removeItem('coupon');
   },
 
   onPatientError: function(){
@@ -135,6 +136,7 @@ module.exports = React.createClass({
 
   selectPage: function(){
     var page;
+    if(PRODUCTION) ga('send', 'pageview');
     switch(this.state.nextPage){
       case "you":
         page = <UserInfoForm status={this.state.status}
@@ -174,6 +176,7 @@ module.exports = React.createClass({
         break;
       default:
         page = <UserInfoForm status={this.state.status} message={this.state.message}/>;
+        if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'About-you_page-viewed');
         break;
     }
     return page

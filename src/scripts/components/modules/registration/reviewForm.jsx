@@ -140,7 +140,8 @@ module.exports = React.createClass({
     if(this.props.patients.length > 0){
       RegistrationActions.createSubscriptionRequest({
         authentication_token: sessionStorage.authenticationToken,
-        credit_card_token: this.props.creditCardToken
+        credit_card_token: this.props.creditCardToken,
+        coupon_id: JSON.parse(sessionStorage.coupon).id
       })
     }else{
       this.props.onPatientError()

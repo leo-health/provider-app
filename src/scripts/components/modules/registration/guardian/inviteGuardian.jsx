@@ -43,17 +43,17 @@ module.exports = validation(strategy)(React.createClass({
 
   handleEmailChange: function(e) {
     if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
-    this.setState({ email: e.target.value })
+    this.setState({ email: e.target.value.trim() })
   },
 
   handleFirstNameChange: function(e) {
     if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
-    this.setState({ firstName: e.target.value })
+    this.setState({ firstName: e.target.value.trim() })
   },
 
   handleLastNameChange: function (e) {
     if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
-    this.setState({ lastName: e.target.value })
+    this.setState({ lastName: e.target.value.trim() })
   },
 
   render: function(){

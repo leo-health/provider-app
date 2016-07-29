@@ -41,25 +41,25 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   handleFirstNameChange: function(e) {
-    this.setState({ firstName: e.target.value }, function(){
+    this.setState({ firstName: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
     });
   },
 
   handleLastNameChange: function (e) {
-    this.setState({ lastName: e.target.value }, function(){
+    this.setState({ lastName: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
     });
   },
 
   handleSexChange: function(e){
-    this.setState({sex: e.target.value}, function(){
+    this.setState({ sex: e.target.value }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('sex')();
     });
   },
 
   handleBirthDateChange: function(date){
-    this.setState({birthDate: date}, function(){
+    this.setState({ birthDate: date }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('birthDate')();
     });
   },

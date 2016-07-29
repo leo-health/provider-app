@@ -264,5 +264,25 @@ module.exports = Reflux.createStore({
 
   onInviteSecondParentRequestFailed: function(res){
     this.trigger({ status: "error", message: res.message.user_message })
+  },
+
+  onValidatePromoCodeRequest: function(params){
+    request.get(leo.API_URL + "/subscriptions/validate_coupon")
+           .query(params)
+           .end(function(err, res){
+              if(res.ok){
+                RegistrationActions.validatePromoCodeRequest.completed(res.body)
+              }else{
+                RegistrationActions.validatePromoCodeRequest.failed(res.body)
+              }
+           });
+  },
+
+  onValidatePromoCodeRequestCompleted: function(res){
+    this.trigger({ coupon: { status: res.status, message: res.data.text }})
+  },
+
+  onValidatePromoCodeRequestFailed: function(res){
+    this.trigger({ coupon: { status: "error", message: res.message.user_message }})
   }
 });
