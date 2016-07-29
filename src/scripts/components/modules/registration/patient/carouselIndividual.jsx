@@ -1,7 +1,8 @@
-var React = require('react');
-var moment = require('moment');
-var RegistrationActions = require('../../../../actions/registrationActions');
-var EditPatient = require('./editPatient');
+var React = require('react'),
+    moment = require('moment'),
+    RegistrationActions = require('../../../../actions/registrationActions'),
+    classNames = require('classnames'),
+    EditPatient = require('./editPatient');
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -51,6 +52,11 @@ module.exports = React.createClass({
   },
 
   render: function(){
+    var patientClass = classNames({
+      "patient-individual": true,
+      "patient-individual--highlighted": this.state.isEdit
+    });
+
     var patient = this.props.patient;
     if(patient.sex === "M"){
       avatarUrl = "../../images/Avatar_Patient_Son.png";
@@ -59,7 +65,7 @@ module.exports = React.createClass({
     }
     return(
       <div>
-        <div className="patient-individual">
+        <div className={patientClass}>
           <div className="avatar-details">
             <img src={avatarUrl} className="patient-avatar"/>
             <div className="avatar-name-container">
