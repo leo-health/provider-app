@@ -81,7 +81,6 @@ module.exports = React.createClass({
   },
 
   carouselShiftLeft: function(){
-    console.log("Shift Left!");
     var patients = this.state.patients;
     if(this.state.patients.length > 2){
       var shifted = patients.shift();
@@ -93,7 +92,6 @@ module.exports = React.createClass({
   },
 
   carouselShiftRight: function(){
-    console.log("Shift right!");
     var patients = this.state.patients;
     if(this.state.patients.length > 2){
       var shifted = patients.pop();

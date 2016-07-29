@@ -14,35 +14,39 @@ var React = require('react'),
 
 module.exports = React.createClass({
   getInitialState: function() {
-    return({ editGuardian: true,
+    return { editGuardian: true,
              editPayment: true,
              showAddPatient: false,
              status: '',
              message: '',
-             editingCount: 0 })
-  },
-
-  editingAdd: function(){
-    this.setState({editingCount: this.state.editingCount + 1})
-  },
-
-  editingCancel: function(){
-    this.setState({editingCount: this.state.editingCount - 1})
+             editingPatient: false,
+             editPatientID: null }
   },
 
   patientCarousel: function(){
     return <PatientCarousel patients={this.props.patients}
                             carouselShiftLeft={this.props.carouselShiftLeft}
                             carouselShiftRight={this.props.carouselShiftRight}
-                            editingCount={this.state.editingCount}
-                            editingAdd={this.editingAdd}
-                            editingCancel={this.editingCancel}
+                            editingPatient={this.state.editingPatient}
+                            handleEdit={this.handleEdit}
                             handleCancel={this.handleCancel}
+                            editPatientID={this.state.editPatientID}
+                            nested={false}
                             />;
   },
 
+  handleEdit: function(patientID){
+    this.setState({
+      editingPatient: true,
+      editPatientID: patientID
+    })
+  },
+
   handleCancel: function(){
-    this.setState({showAddPatient: false})
+    this.setState({
+      editingPatient: false,
+      editPatientID: null
+    })
   },
 
   editOrShowGuardian: function(){
@@ -131,7 +135,8 @@ module.exports = React.createClass({
     }else{
       this.setState({
         showAddPatient: <EditPatient handleCancel={this.addPatientToggle} cancel={true}/>,
-        editingCount: 0
+        editingPatient: false,
+        editPatientID: null
       })
     }
   },

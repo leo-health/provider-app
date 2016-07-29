@@ -28,7 +28,7 @@ module.exports = React.createClass({
           <EditPatient patient={this.props.patient}
                        handleCancel={this.handleCancel}
                        cancel={true}
-                       nested={true}/>
+                       nested={this.props.nested}/>
         </div>
         )
     } else {return}
