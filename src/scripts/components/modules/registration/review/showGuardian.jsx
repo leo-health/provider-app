@@ -14,7 +14,7 @@ module.exports =React.createClass({
         <div className="col-lg-12">
           <h4 className="inline-block signup-header">Your Information</h4>
           <a className="icon" onClick={this.props.guardianStateToggle}>
-            <span className="registration-icon glyphicon glyphicon-pencil pull-right"></span>
+            <i className="fa fa-pencil fa-2x cursor pull-right" onClick={this.props.guardianStateToggle}></i>
           </a>
         </div>
         <div className="col-lg-12">

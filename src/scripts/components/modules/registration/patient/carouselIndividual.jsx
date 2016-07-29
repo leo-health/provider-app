@@ -64,12 +64,10 @@ module.exports = React.createClass({
           </div>
           <div className="carousel-buttons">
             <a className="icon" onClick={this.handleDelete}>
-              <span className="registration-icon glyphicon glyphicon-trash pull-right cursor">
-              </span>
+              <i className="fa fa-trash-o fa-2x cursor" onClick={this.handleDelete}></i>
             </a>
             <a className="icon" onClick={this.handleEdit}>
-              <span className="registration-icon glyphicon glyphicon-pencil pull-right cursor">
-              </span>
+              <i className="fa fa-edit fa-2x cursor" onClick={this.handleEdit}></i>
             </a>
           </div>
         </div>

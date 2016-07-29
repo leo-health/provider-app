@@ -47,7 +47,7 @@ module.exports = React.createClass({
             <CreateCreditCard ref="paymentForm"/>
             <PromoCode/>
           </div>
-          <div className="col-md-4 form-group">
+          <div className="col-md-4 form-group payment-button">
             <button onClick={this.handleOnClick}
                     disabled = {this.state.disabled}
                     className="btn btn-primary full-width-button">

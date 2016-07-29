@@ -67,7 +67,11 @@ module.exports = React.createClass({
 
   editOrSavePayment: function(isEdit){
     if(isEdit){
-      return <a className="icon" onClick={this.handlePayment}><span className="registration-icon glyphicon glyphicon-pencil pull-right cursor"></span></a>
+      return(
+        <a className="icon" onClick={this.handlePayment}>
+          <i className="fa fa-pencil fa-2x cursor pull-right" onClick={this.handlePayment}></i>
+        </a>
+      )
     }else{
       return(
         <div className="pull-right inline-block">
