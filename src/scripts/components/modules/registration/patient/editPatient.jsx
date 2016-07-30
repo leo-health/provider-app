@@ -101,7 +101,8 @@ module.exports = validation(strategy)(React.createClass({
     var showCancelButton = this.props.cancel ? {display: "inline-block"} : {display: "none"};
     var editClass = classNames({
       "row well": true,
-      "nested-edit-patient-form": this.props.nested
+      "nested-edit-patient-form": this.props.nested,
+      "review-form": this.props.review
     });
 
     return(

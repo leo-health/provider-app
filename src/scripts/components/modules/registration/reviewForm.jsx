@@ -10,6 +10,7 @@ var React = require('react'),
     EditGuardian = require('./review/editGuardian'),
     EditPatient = require('./patient/editPatient'),
     SinglePatient = require('./patient/singlePatient'),
+    classNames = require('classnames'),
     patientCarousel = require('./patient/patientCarousel');
 
 module.exports = React.createClass({
@@ -31,7 +32,7 @@ module.exports = React.createClass({
                             handleEdit={this.handleEdit}
                             handleCancel={this.handleCancel}
                             editPatientID={this.state.editPatientID}
-                            nested={false}
+                            review={true}
                             />;
   },
 
@@ -57,7 +58,9 @@ module.exports = React.createClass({
     }else{
       return <EditGuardian user={this.props.user}
                            guardianStateToggle={this.guardianStateToggle}
-                           formatPhoneNumber={Helper.formatPhoneNumber}/>
+                           formatPhoneNumber={Helper.formatPhoneNumber}
+                           review={true}
+                           />
     }
   },
 
@@ -113,7 +116,7 @@ module.exports = React.createClass({
     if(this.state.editPayment){
       return <ShowCreditCard creditCardBrand={this.props.creditCardBrand} last4={this.props.last4}/>
     }else{
-      return <CreateCreditCard ref="paymentForm"/>
+      return <CreateCreditCard ref="paymentForm" review={true} />
     }
   },
 
@@ -158,6 +161,11 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    var addChildClass = classNames({
+      'icon review-add-child mobile-only': true,
+      'mobile-hidden': this.state.editingPatient || this.state.showAddPatient
+    });
+
     return (
       <div>
         <div className="row">
@@ -179,7 +187,7 @@ module.exports = React.createClass({
             <div className="review-divider"></div>
             <div className="col-lg-12 bring-forward">
               <h4 style={{display: 'inline-block'}} className="signup-header">Your Family</h4>
-              <a className="icon"
+              <a className="icon mobile-hidden"
                  onClick={this.addPatientToggle}
                  style={this.displayOrHideAddPatientButton()}>
                 <span className="registration-icon glyphicon glyphicon-plus pull-right cursor"></span>
@@ -192,6 +200,12 @@ module.exports = React.createClass({
             <div className="col-lg-12">
               {this.state.showAddPatient}
             </div>
+             <a className={addChildClass}
+               onClick={this.addPatientToggle}
+               style={this.displayOrHideAddPatientButton()}>
+              <span className="registration-icon glyphicon glyphicon-plus cursor mobile-add-child--review"></span>
+              Add a child
+            </a>
             <div className="col-lg-12 bring-forward">
             <div className="review-divider"></div>
               <h4 className="inline-block signup-header">Payment</h4>

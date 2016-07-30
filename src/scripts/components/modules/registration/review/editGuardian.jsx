@@ -4,6 +4,7 @@ var React = require('react'),
     Helper = require('../../../../utils/registrationHelper'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
+    classNames = require('classnames'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
@@ -73,16 +74,24 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   render: function(){
+    var formClass = classNames({
+      'col-lg-12 well': true,
+      'review-form': this.props.review
+    });
+
     return(
      <div className="row">
        <div className="col-lg-12">
          <h4 className="inline-block signup-header">Your Information</h4>
-         <a onClick={this.props.guardianStateToggle}>
-           <span className="registration-icon glyphicon glyphicon-remove pull-right"></span>
+         <a onClick={this.props.guardianStateToggle} className="mobile-hidden">
+           <span className="registration-icon glyphicon glyphicon-remove pull-right cursor"></span>
          </a>
        </div>
 
-       <div className="col-lg-12 well">
+       <div className={formClass}>
+         <a onClick={this.props.guardianStateToggle} className="mobile-only">
+           <span className="registration-icon glyphicon glyphicon-remove pull-right cursor"></span>
+         </a>
          <div className="col-lg-6">
            <input type="text"
                   className="form-control"

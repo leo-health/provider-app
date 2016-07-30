@@ -20,6 +20,7 @@ module.exports = React.createClass({
                               handleCancel={this.props.handleCancel}
                               editPatientID={this.props.editPatientID}
                               nested={true}
+                              review={this.props.review}
                               />
 
         </div>

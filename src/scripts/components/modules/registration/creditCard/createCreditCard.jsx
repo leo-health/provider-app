@@ -1,6 +1,8 @@
 var React = require('react'),
     ReactDom = require('react-dom'),
-    RegistrationActions = require('../../../../actions/registrationActions');
+    RegistrationActions = require('../../../../actions/registrationActions'),
+    classNames = require('classnames');
+
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -47,8 +49,13 @@ module.exports = React.createClass({
   },
 
   render: function(){
+    var formClass = classNames({
+      'row well': true,
+      'review-form credit-card-form': this.props.review
+    });
+
     return(
-      <div className="row well">
+      <div className={formClass}>
         <div className="form-group col-md-8">
           <input type="text"
                  className="form-control"

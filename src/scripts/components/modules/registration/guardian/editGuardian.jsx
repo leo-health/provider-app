@@ -4,7 +4,6 @@ var React = require('react'),
     validation = require('react-validation-mixin'),
     RegistrationActions = require('../../../../actions/registrationActions'),
     Joi = require('joi'),
-    classNames = require('classnames'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({

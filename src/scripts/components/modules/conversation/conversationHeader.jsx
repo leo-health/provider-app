@@ -1,7 +1,7 @@
-var React = require('react');
-var Reflux = require('reflux');
-var leoUtil = require('../../../utils/common').StringUtils;
-var classNames = require('classnames');
+var React = require('react'),
+    Reflux = require('reflux'),
+    leoUtil = require('../../../utils/common').StringUtils,
+    classNames = require('classnames');
 
 module.exports = React.createClass({
   render: function () {
