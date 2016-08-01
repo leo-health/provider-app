@@ -22,7 +22,7 @@ module.exports = React.createClass({
   },
 
   displayEdit: function(){
-    if (this.props.editingPatient){
+    if (this.props.editingPatient && this.props.editPatientID == this.props.patient.id){
       return (
         <div className="edit-container">
           <EditPatient patient={this.props.patient}
@@ -53,6 +53,8 @@ module.exports = React.createClass({
     }else{
       avatarUrl = "../../images/Avatar_Patient_Daughter.png";
     }
+    console.log("This is the patient that's being edited:");
+    console.log(this.props.patient.first_name);
     return(
       <div>
         <div className="patient-individual">
@@ -64,12 +66,8 @@ module.exports = React.createClass({
             </div>
           </div>
           <div className="carousel-buttons">
-            <a className="icon" onClick={this.handleDelete}>
-              <i className="fa fa-trash-o fa-2x cursor" onClick={this.handleDelete}></i>
-            </a>
-            <a className="icon" onClick={this.handleEdit}>
-              <i className="fa fa-edit fa-2x cursor" onClick={this.handleEdit}></i>
-            </a>
+              <i className="fa fa-trash-o fa-2x cursor icon" onClick={this.handleDelete}></i>
+              <i className="fa fa-edit fa-2x cursor icon" onClick={this.handleEdit}></i>
           </div>
         </div>
         {this.displayEdit()}

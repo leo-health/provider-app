@@ -10,7 +10,12 @@ module.exports = React.createClass({
     if(this.props.patients.length > 2) {
       patients = patients.slice(0, 2);
     }
+    console.log("THESE ARE THE PATIENTS");
+    console.log(patients)
     return patients.map(function(patient, i){
+      console.log("THIS IS PATIENT NUMBER");
+      console.log(i);
+      console.log(patient);
       return (
         <div key={i} className="patient-individual-container">
           <CarouselIndividual patient={patient}
