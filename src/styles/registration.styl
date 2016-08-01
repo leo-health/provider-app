@@ -1,18 +1,15 @@
 @css {
-  /*Formatting*/
+  /*General Formatting*/
+  .mobile-only { display: none; }
 
-  .mobile-only {
-    display: none;
-  }
+  .bring-forward { z-index: 10; }
 
-  .bring-forward {
-    z-index: 10;
-  }
-
+  /*Mobile Styling*/
   @media(max-width: 1200px) {
-    .col-lg-12.well {
-      background-color: white;
-    }
+    /*General Formatting*/
+    .alert.alert-dismissible.alert-danger { text-align: center; }
+
+    .col-lg-12.well { background-color: white; }
 
     #signup_page {
       margin-top: -30px;
@@ -35,8 +32,40 @@
     .mobile-only.mobile-hidden,
     .disable-overlay { display: none; }
 
-    /*Progress Bar*/
+    .row.well {
+      background-color: white;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      margin: -20px 0px 0px 0px;
+    }
 
+    .reset-bottom { margin-bottom: 0px; }
+
+    .signup-header { font-size: 20px; }
+
+    .form-group.col-lg-4 {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    .continue.col-lg-4,
+    .col-md-4.form-group.payment-form {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+
+    .thirty-mobile-side-padding {
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+
+    .lead.mobile-only,
+    .signup-header {
+      text-align: center;
+      margin: 0px auto;
+    }
+
+    /*Progress Bar*/
     .mobile-only.mobile-progress,
     .registration-header.mobile-only {
       text-align: center;
@@ -83,45 +112,7 @@
       transition: all 0.5s ease;
     }
 
-    .lead.mobile-only,
-    .signup-header {
-      text-align: center;
-      margin: 0px auto;
-    }
-
-    .signup-header {
-      font-size: 20px;
-    }
-
-    .row.well {
-      background-color: white;
-      padding-top: 0px;
-      padding-bottom: 0px;
-      margin: -20px 0px 0px 0px;
-    }
-
-    .reset-bottom {
-      margin-bottom: 0px;
-    }
-
-    .form-group.col-lg-4 {
-      padding-left: 40px;
-      padding-right: 40px;
-    }
-
-    .continue.col-lg-4,
-    .col-md-4.form-group.payment-form {
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-
-    .thirty-mobile-side-padding {
-      padding-left: 35px;
-      padding-right: 35px;
-    }
-
     /*FAQ*/
-
     .mobile-faq.mobile-only {
       text-align: center;
       font-size: 15px;
@@ -153,29 +144,17 @@
       text-align: center;
     }
 
-    .date-selector {
-      display: inline-block;
-      max-width: 33%;
-    }
-
     /*Family enrollment*/
+    .date-selector { max-width: 33%; }
 
-    .add-another-child {
-      width: 100%;
-    }
+    .add-another-child { width: 100%; }
 
-    .patient-carousel {
-      text-align: center;
-    }
+    .avatar-details,
+    .patient-individual,
+    .date-selector,
+    .patient-individual-container { display: inline-block; }
 
-    .patient-individual-container {
-      display: inline-block;
-    }
-
-    .patient-individual {
-      margin: 0px 10px;
-      display: inline-block;
-    }
+    .patient-individual { margin: 0px 10px; }
 
     .carousel-buttons {
       height: 100%;
@@ -185,20 +164,16 @@
       float: left;
     }
 
-    .icon.fa {
-      color: #2196f3;
-    }
+    .icon.fa { color: #2196f3; }
 
-    .avatar-details {
-      display: inline-block;
-      float: left;
-    }
+    .avatar-details { float: left; }
 
     .avatar-name-container {
       z-index: -1;
       position: relative;
       left: 50%;
     }
+
     .avatar-first-name {
       position: relative;
       display: inline-block;
@@ -219,9 +194,9 @@
       text-align: center;
       padding: 0px 30px;
     }
-    .carousel-padding {
-      padding-bottom: 330px;
-    }
+
+    .carousel-padding { padding-bottom: 330px; }
+
     .edit-container {
       position: absolute;
       left: 50%
@@ -253,15 +228,7 @@
       transition: width 0.2s ease;
     }
 
-    .review-divider {
-      margin-bottom: 15px;
-      height: 1px;
-      width: 80vw;
-      background-color: rgba(0, 0, 0, 0.1);
-      margin-left: auto;
-      margin-right: auto;
-    }
-
+    /*Payment*/
     .promo-line.form-group {
       width: 60vw;
       float: left;
@@ -274,8 +241,16 @@
       float: right;
     }
 
-    .promo-success {
-      text-align: center;
+    .promo-success { text-align: center; }
+
+    /*Review Page*/
+    .review-divider {
+      margin-bottom: 15px;
+      height: 1px;
+      width: 80vw;
+      background-color: rgba(0, 0, 0, 0.1);
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .row.well.review-form,
@@ -285,9 +260,8 @@
       padding-bottom: 5px;
     }
 
-    .credit-card-form.review-form.row.well {
-      margin-top: 10px;
-    }
+    .credit-card-form.review-form.row.well,
+    .empty-review.row.well.review-form { margin-top: 10px; }
 
     .review-add-child {
       display: block;
@@ -295,14 +269,7 @@
       font-size: 15px;
       padding-bottom: 5px;
     }
-    .mobile-add-child--review {
-      font-size: 15px;
-    }
-    .empty-review.row.well.review-form {
-      margin-top: 10px;
-    }
-    .alert.alert-dismissible.alert-danger {
-      text-align: center;
-    }
+
+    .mobile-add-child--review { font-size: 15px; }
   }
 }
