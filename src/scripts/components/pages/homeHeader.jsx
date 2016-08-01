@@ -3,17 +3,30 @@ var React = require('react'),
     ReactRouter = require('react-router'),
     SessionStore = require('../../stores/sessionStore'),
     LoginAction = require('../../actions/loginActions'),
+    SmsSwitch = require('../modules/dropDown/smsSwitch'),
+    OnCallSwitch = require('../modules/dropDown/onCallSwitch'),
     leoUtil = require('../../utils/common').StringUtils;
 
 module.exports = React.createClass({
   mixins: [Reflux.listenTo(SessionStore, "onStatusChange")],
 
+  contextTypes: { router: React.PropTypes.object.isRequired },
+
   getInitialState: function(){
-    return { online: true }
+    return {isOncall: this.props.user.is_oncall, isPracticeOpen: this.props.user.is_practice_open}
   },
 
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
+  componentDidMount: function(){
+    this.subscribeToPusher();
+  },
+
+  subscribeToPusher: function() {
+    var channel = this.props.pusher.subscribe('practice');
+    channel.bind('practice_hour', function(data){
+      if(data.practice_id === this.props.user.practice_id){
+        data.status === 'open' ? this.setState({isPracticeOpen: true}) : this.setState({isPracticeOpen: false})
+      }
+    }, this);
   },
 
   onStatusChange: function (status) {
@@ -27,31 +40,38 @@ module.exports = React.createClass({
   },
 
   buttonColor: function(){
-    //this.pros.isOfficeHour
-    return this.state.online ? {color: "green"} : {color: "red"};
+    return (this.state.isOncall || this.state.isPracticeOpen) ? {color: "green"} : {color: "red"};
+  },
+
+  displayUserName: function(){
+    return leoUtil.formatName(this.props.user);
+  },
+
+  dropDownSelection: function(){
+    if(this.state.isPracticeOpen){
+      return <SmsSwitch buttonColor={this.buttonColor()}/>
+    }else{
+      return <OnCallSwitch buttonColor={this.buttonColor()}/>
+    }
   },
 
   render: function() {
-    var user;
-    if(sessionStorage.user) user = leoUtil.formatName(JSON.parse(sessionStorage.user));
-
     return (
       <div>
         <div className="navbar navbar-default navbar-fixed-top">
           <div className="container">
             <div className="navbar-header">
-            <ul className="nav navbar-nav leo-nav collapsed">
-                  <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
-                  <div>
-                    <span className="leo-logo leo-logo--collapsed leo-logo-gray">messenger </span>
-                  </div>
+              <ul className="nav navbar-nav leo-nav collapsed">
+                <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
+                <div>
+                  <span className="leo-logo leo-logo--collapsed leo-logo-gray">messenger </span>
+                </div>
               </ul>
               <ul className="nav navbar-nav navbar-right logout-nav logout-nav--collapsed">
                 <li>
                   <a onClick={this.handleOnLogout} className="heavy-font-size logout-button collapsed"><strong>logout</strong></a>
                 </li>
               </ul>
-
             </div>
             <div className="navbar-collapse collapse" id="navbar-main">
               <ul className="nav navbar-nav leo-nav">
@@ -60,20 +80,11 @@ module.exports = React.createClass({
                   <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
                 </div>
               </ul>
-              <ul className="nav navbar-nav navbar-right logout-nav ">
+              <ul className="nav navbar-nav navbar-right logout-nav">
                 <li>
-                  <a className="heavy-font-size navbar-welcome">Welcome, {user}</a>
+                  <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
                 </li>
-                <li className="dropdown">
-                  <a className="dropdown-toggle navbar-dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
-                  </a>
-                  <ul className="dropdown-menu row">
-                    <li className="col-lg-12"><h5>Your are online and the practice is open</h5></li>
-                    <li className="col-lg-offset-1 col-lg-10"><h7>Away from your desk? Get Alerts on your phone</h7></li>
-                    <li className="col-lg-offset-2 col-lg-8"><button className="full-width-button">Turn On</button></li>
-                  </ul>
-                </li>
+                {this.dropDownSelection()}
                 <li>
                   <a onClick={this.handleOnLogout} className="heavy-font-size logout-button"><strong>logout</strong></a>
                 </li>

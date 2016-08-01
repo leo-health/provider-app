@@ -67,5 +67,21 @@ module.exports = Reflux.createStore({
       status: response.status,
       message: "error fetching staff"
     })
+  },
+
+  onFetchIndividualUserRequest: function(params){
+    request.get(leo.API_URL+"/users/current")
+        .query(params)
+        .end(function(err, res){
+          if(res.ok){
+            UserActions.fetchIndividualUserRequest.completed(res.body)
+          }else{
+            UserActions.fetchIndividualUserRequest.failed(res.body)
+          }
+        })
+  },
+
+  onFetchIndividualUserRequestCompleted: function(res) {
+    this.trigger({ self: res.data.user })
   }
 });

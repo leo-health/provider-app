@@ -3,19 +3,21 @@ var React = require('react'),
     HomeHeader = require('./homeHeader'),
     FindFamily = require('../modules/search/findFamily'),
     ConversationList = require('../modules/conversation/conversationList'),
-    PracticeStore = require('../../stores/practiceStore'),
-    PracticeActions = require('../../actions/practiceActions'),
+    UserStore = require('../../stores/userStore'),
+    UserActions = require('../../actions/userActions'),
     Footer = require('./footer');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(PracticeStore, "onStatusChange")],
+  mixins: [Reflux.listenTo(UserStore, "onStatusChange")],
 
   getInitialState: function(){
-    return { isOfficeHour: false }
+    return { user: '' }
   },
 
   onStatusChange: function(status){
-    if(status.practice) this.setState({ isOfficeHour: status.practice.is_office_hour });
+    if(status.self){
+      this.setState({user: status.self});
+    }
   },
 
   componentWillMount: function(){
@@ -26,7 +28,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    PracticeActions.fetchPracticeRequest({authentication_token: sessionStorage.authenticationToken})
+    UserActions.fetchIndividualUserRequest({authentication_token: sessionStorage.authenticationToken})
   },
 
   subscribeToPusher: function(){
@@ -75,10 +77,14 @@ module.exports = React.createClass({
     this.pusher.unsubscribe('presence-provider_app');
   },
 
+  renderHomeHeader: function(){
+    if(this.state.user) return <HomeHeader user={this.state.user} pusher={this.pusher}/>
+  },
+
   render: function() {
     return (
       <div>
-        <HomeHeader isOfficeHour={this.state.isOfficeHour}/>
+        {this.renderHomeHeader()}
         <div className="container page-header main-container">
           <div className="row">
             <div className="col-lg-3 find-family-container">
