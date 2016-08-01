@@ -26,13 +26,12 @@ module.exports = React.createClass({
   render: function(){
     return(
       <div>
-        <br/>
         <div className="row">
           <div className="col-md-11 col-md-offset-1">
             <div className="registration-header mobile-only">REGISTRATION</div>
-            <h4 className="signup-header mobile-only">Please enter in your payment information.</h4>
-            <h5 className="signup-header mobile-hidden">Please enter in your payment information. You will be charged $20 a month for each child.
-            </h5>
+            <h5 className="signup-header mobile-hidden">Please enter your payment information. You'll be charged $20 a month for each child.</h5>
+            <h4 className="signup-header mobile-only">Please enter your payment info.</h4>
+            <p className="lead mobile-only">You'll be charged $20 a month for each child.</p>
           </div>
         </div>
         <br/>

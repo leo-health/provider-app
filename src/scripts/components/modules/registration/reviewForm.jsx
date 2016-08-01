@@ -181,7 +181,7 @@ module.exports = React.createClass({
             <div className="registration-header mobile-only">REGISTRATION</div>
             <h3 className="signup-header">Let's double check!</h3>
             <p className="lead mobile-hidden">Please review all of the information below and click 'Sign Up' to complete enrollment.</p>
-            <p className="lead mobile-only">Please review and click 'Sign Up' to complete enrollment.</p>
+            <p className="lead mobile-only">Review and click 'Sign Up' to complete enrollment.</p>
             <div className="col-lg-12">
               {this.editOrShowGuardian()}
             </div>
@@ -223,7 +223,8 @@ module.exports = React.createClass({
               Sign Up
             </button>
             <br/><br/>
-            <p className='lead'>By clicking sign up you agree to our <a href='/terms' target='_blank'>terms of service</a> and <a href='/privacy' target='_blank'>privacy policies.</a></p>
+            <p className='lead mobile-hidden'>By clicking sign up you agree to our <a href='/terms' target='_blank'>terms of service</a> and <a href='/privacy' target='_blank'>privacy policies.</a></p>
+            <p className='lead mobile-only'>By clicking sign up you agree to our <a href='/terms' target='_blank'>terms of service</a> and <a href='/privacy' target='_blank'>privacy policies.</a></p>
           </div>
         </div>
       </div>

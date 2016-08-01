@@ -63,6 +63,7 @@
     .signup-header {
       text-align: center;
       margin: 0px auto;
+      max-width: 90vw;
     }
 
     /*Progress Bar*/
@@ -156,6 +157,13 @@
 
     .patient-individual { margin: 0px 10px; }
 
+    @media(max-width: 330px) {
+      .patient-individual {margin: 0px; }
+
+      .cursor.glyphicon-menu-left.cursor.carousel-arrow { margin-right: -15px; }
+    }
+
+
     .carousel-buttons {
       height: 100%;
       width: 25px;
@@ -239,6 +247,7 @@
       width: 25vw;
       display: inline-block;
       float: right;
+      padding: 0px;
     }
 
     .promo-success { text-align: center; }
