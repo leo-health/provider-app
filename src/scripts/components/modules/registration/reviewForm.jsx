@@ -32,6 +32,7 @@ module.exports = React.createClass({
                             handleEdit={this.handleEdit}
                             handleCancel={this.handleCancel}
                             editPatientID={this.state.editPatientID}
+                            nested={true}
                             review={true}
                             />;
   },
@@ -121,7 +122,7 @@ module.exports = React.createClass({
   },
 
   addOrDisplayPatient: function () {
-    return this.props.patients.length > 0 ? this.parsePatients(this.props.patients) : <EditPatient cancel={false}/>
+    return this.props.patients.length > 0 ? this.parsePatients(this.props.patients) : <EditPatient cancel={false} review={true} empty={true}/>
   },
 
   parsePatients: function(patients){
@@ -141,7 +142,7 @@ module.exports = React.createClass({
       this.setState({showAddPatient: false})
     }else{
       this.setState({
-        showAddPatient: <EditPatient handleCancel={this.addPatientToggle} cancel={true}/>,
+        showAddPatient: <EditPatient handleCancel={this.addPatientToggle} cancel={true} review={true}/>,
         editingPatient: false,
         editPatientID: null
       })

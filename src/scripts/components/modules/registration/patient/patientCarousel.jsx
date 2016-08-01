@@ -13,9 +13,6 @@ module.exports = React.createClass({
     console.log("THESE ARE THE PATIENTS");
     console.log(patients)
     return patients.map(function(patient, i){
-      console.log("THIS IS PATIENT NUMBER");
-      console.log(i);
-      console.log(patient);
       return (
         <div key={i} className="patient-individual-container">
           <CarouselIndividual patient={patient}

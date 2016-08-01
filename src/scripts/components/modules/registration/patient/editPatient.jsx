@@ -102,7 +102,8 @@ module.exports = validation(strategy)(React.createClass({
     var editClass = classNames({
       "row well": true,
       "nested-edit-patient-form": this.props.nested,
-      "review-form": this.props.review
+      "review-form": this.props.review,
+      "empty-review": this.props.empty
     });
 
     return(

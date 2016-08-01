@@ -53,8 +53,6 @@ module.exports = React.createClass({
     }else{
       avatarUrl = "../../images/Avatar_Patient_Daughter.png";
     }
-    console.log("This is the patient that's being edited:");
-    console.log(this.props.patient.first_name);
     return(
       <div>
         <div className="patient-individual">
