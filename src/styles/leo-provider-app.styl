@@ -25,6 +25,90 @@
 
   .page-header { border-bottom: none; }
 
+  /*Login*/
+  .login-container {
+    position: absolute;
+    top: 15vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vw
+  }
+
+  .login-page {
+    margin: 0;
+    padding: 0;
+  }
+
+  .login-logo > img {
+    height: 130px;
+    margin-bottom: 3vh;
+  }
+
+  .login-message,
+  .login-forgot,
+  .btn.btn-primary.login {
+    font-family: "Open Sans";
+    font-weight: 300;
+  }
+
+  .login-message {
+    font-size: 1.5em;
+    margin: 0px;
+  }
+
+
+  .login.form-group {
+    margin: 0 auto 2vh auto;
+    min-width: 313px;
+    max-width: 25vw;
+  }
+
+  @media (max-width: 320px) {
+    .login.form-group,
+    .login-logo > img {
+      min-width: 295px;
+      width: 295px;
+    }
+  }
+
+  .login.form-group > .fa {
+    position: relative;
+    top: 30px;
+    left: -47%;
+    font-size: 15px;
+  }
+
+  .login.form-group > .form-control { text-indent: 25px; }
+
+  .login.form-group > input.form-control {
+    box-shadow: inset 0 -1px 0 #666666;
+    border-color: #666666;
+    transition: all 0.5s ease;
+  }
+
+  .login.form-group > input.form-control:focus {
+    border-color: #2196F3;
+    box-shadow: inset 0 -2px 0 #2196F3;
+  }
+
+
+  .login > .form-control::-webkit-input-placeholder { color: #666666; }
+  .login > .form-control::-moz-placeholder { color: #666666; }
+  .login > .form-control::-ms-placeholder { color: #666666; }
+  .login > .form-control::placeholder { color: #666666; }
+
+  .login-forgot {
+    margin-top: 5px;
+    text-align: left;
+    font-size: 1em;
+    margin-bottom: 4vh;
+  }
+
+  .btn.btn-primary.login {
+    width: 100%;
+    background-color: #2196F3;
+  }
+
   /*Navbar*/
   .leo-logo {
     font-family: "Open Sans";
