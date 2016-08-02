@@ -73,15 +73,23 @@ module.exports = Reflux.createStore({
     request.get(leo.API_URL+"/users/current")
         .query(params)
         .end(function(err, res){
-          if(res.ok){
-            UserActions.fetchIndividualUserRequest.completed(res.body)
-          }else{
-            UserActions.fetchIndividualUserRequest.failed(res.body)
-          }
+          if(res.ok) UserActions.fetchIndividualUserRequest.completed(res.body)
         })
   },
 
   onFetchIndividualUserRequestCompleted: function(res) {
     this.trigger({ self: res.data.user })
+  },
+
+  onUpdateStaffProfileRequest: function(params){
+    request.put(leo.API_URL + "/staff_profiles/current")
+           .send(params)
+           .end(function(err, res){
+              if(res.ok) UserActions.updateStaffProfileRequest.completed(res.body)
+            });
+  },
+
+  onUpdateStaffProfileRequestCompleted: function(res){
+    this.trigger({ onCall: res.data.staff_profile.on_call, isSms: res.data.staff_profile.sms_enabled})
   }
 });

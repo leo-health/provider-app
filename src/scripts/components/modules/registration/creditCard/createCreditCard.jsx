@@ -1,5 +1,4 @@
 var React = require('react'),
-    ReactDom = require('react-dom'),
     RegistrationActions = require('../../../../actions/registrationActions');
 
 module.exports = React.createClass({

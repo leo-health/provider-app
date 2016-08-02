@@ -2,13 +2,17 @@ var React = require('react'),
     Reflux = require('reflux'),
     ReactRouter = require('react-router'),
     SessionStore = require('../../stores/sessionStore'),
+    UserStore = require('../../stores/userStore'),
     LoginAction = require('../../actions/loginActions'),
     SmsSwitch = require('../modules/dropDown/smsSwitch'),
     OnCallSwitch = require('../modules/dropDown/onCallSwitch'),
     leoUtil = require('../../utils/common').StringUtils;
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(SessionStore, "onStatusChange")],
+  mixins: [
+    Reflux.listenTo(SessionStore, "onSessionStatusChange"),
+    Reflux.listenTo(UserStore, "onUserStatusChange")
+  ],
 
   contextTypes: { router: React.PropTypes.object.isRequired },
 
@@ -29,8 +33,12 @@ module.exports = React.createClass({
     }, this);
   },
 
-  onStatusChange: function (status) {
+  onSessionStatusChange: function (status) {
     if(status.isLoggedIn === false) this.context.router.push('/login')
+  },
+
+  onUserStatusChange: function(status){
+    if(status.onCall) this.setState({ isOncall: status.onCall })
   },
 
   handleOnLogout: function(){
@@ -49,9 +57,11 @@ module.exports = React.createClass({
 
   dropDownSelection: function(){
     if(this.state.isPracticeOpen){
-      return <SmsSwitch buttonColor={this.buttonColor()}/>
+      return <SmsSwitch buttonColor={this.buttonColor()} isSms={this.props.user.is_sms}/>
     }else{
-      return <OnCallSwitch buttonColor={this.buttonColor()}/>
+      return <OnCallSwitch buttonColor={this.buttonColor()}
+                           practiceId={this.props.user.practice_id}
+                           isOncall={this.state.isOncall}/>
     }
   },
 

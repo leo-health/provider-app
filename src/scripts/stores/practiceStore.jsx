@@ -5,29 +5,15 @@ var Reflux = require('reflux'),
 module.exports = Reflux.createStore({
   listenables: [PracticeActions],
 
-  onFetchPracticeRequest: function(param){
-    request.get(leo.API_URL+"/practices/current")
-           .query(param)
+  onFetchPracticeRequest: function(params){
+    request.get(leo.API_URL+"/practices/" + params.id)
+           .query(params)
            .end(function(err,res){
-           if(res.ok) {
-             PracticeActions.fetchPracticeRequest.completed(res.body)
-           }else{
-             PracticeActions.fetchPracticeRequest.failed(res.body)
-           }
-         })
+             if(res.ok) PracticeActions.fetchPracticeRequest.completed(res.body)
+           })
   },
 
   onFetchPracticeRequestCompleted: function(response){
-    this.trigger({
-      status: 'ok',
-      practice: response.data.practice
-    })
-  },
-
-  onFetchPracticeRequestFailed: function(response){
-    this.trigger({
-      status: 'error',
-      message: response.message.user_message
-    })
+    this.trigger({ oncallProviders: response.data.practice.oncall_providers })
   }
 });
