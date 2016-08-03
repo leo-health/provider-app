@@ -3,7 +3,9 @@ var React = require('react'),
     ReactRouter = require('react-router'),
     SessionStore = require('../../stores/sessionStore'),
     UserStore = require('../../stores/userStore'),
-    LoginAction = require('../../actions/loginActions'),
+    PracticeStore = require('../../stores/practiceStore'),
+    PracticeActions = require('../../actions/practiceActions'),
+    LoginActions = require('../../actions/loginActions'),
     SmsSwitch = require('../modules/dropDown/smsSwitch'),
     OnCallSwitch = require('../modules/dropDown/onCallSwitch'),
     leoUtil = require('../../utils/common').StringUtils;
@@ -11,26 +13,31 @@ var React = require('react'),
 module.exports = React.createClass({
   mixins: [
     Reflux.listenTo(SessionStore, "onSessionStatusChange"),
-    Reflux.listenTo(UserStore, "onUserStatusChange")
+    Reflux.listenTo(UserStore, "onUserStatusChange"),
+    Reflux.listenTo(PracticeStore, "onPracticeStatusChange")
   ],
 
   contextTypes: { router: React.PropTypes.object.isRequired },
 
   getInitialState: function(){
-    return {isOncall: this.props.user.is_oncall, isPracticeOpen: this.props.user.is_practice_open}
+    return {isOncall: this.props.user.is_oncall, isPracticeOpen: this.props.user.is_practice_open, oncallProviders: []}
   },
 
   componentDidMount: function(){
-    this.subscribeToPusher();
+    this.subscribeToPracticeHourChange();
   },
 
-  subscribeToPusher: function() {
+  subscribeToPracticeHourChange: function() {
     var channel = this.props.pusher.subscribe('practice');
     channel.bind('practice_hour', function(data){
       if(data.practice_id === this.props.user.practice_id){
         data.status === 'open' ? this.setState({isPracticeOpen: true}) : this.setState({isPracticeOpen: false})
       }
     }, this);
+  },
+
+  onPracticeStatusChange: function(status){
+   if(status.oncallProviders) this.setState({ oncallProviders: status.oncallProviders })
   },
 
   onSessionStatusChange: function (status) {
@@ -44,7 +51,15 @@ module.exports = React.createClass({
   handleOnLogout: function(){
     var authenticationToken = sessionStorage.authenticationToken;
     if(!authenticationToken) return;
-    LoginAction.logoutRequest(authenticationToken)
+    LoginActions.logoutRequest(authenticationToken)
+  },
+
+  handleOnClick: function(){
+    if(this.state.isPracticeOpen) return;
+    PracticeActions.fetchPracticeRequest({
+      id: this.props.user.practice_id,
+      authentication_token: sessionStorage.authenticationToken
+    })
   },
 
   buttonColor: function(){
@@ -57,11 +72,9 @@ module.exports = React.createClass({
 
   dropDownSelection: function(){
     if(this.state.isPracticeOpen){
-      return <SmsSwitch buttonColor={this.buttonColor()} isSms={this.props.user.is_sms}/>
+      return <SmsSwitch isSms={this.props.user.is_sms}/>
     }else{
-      return <OnCallSwitch buttonColor={this.buttonColor()}
-                           practiceId={this.props.user.practice_id}
-                           isOncall={this.state.isOncall}/>
+      return <OnCallSwitch isOncall={this.state.isOncall} oncallProviders={this.state.oncallProviders}/>
     }
   },
 
@@ -94,7 +107,18 @@ module.exports = React.createClass({
                 <li>
                   <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
                 </li>
-                {this.dropDownSelection()}
+                <li className="dropdown">
+                  <a className="dropdown-toggle navbar-dropdown"
+                     data-toggle="dropdown"
+                     href="#"
+                     onClick={this.handleOnClick}
+                     role="button"
+                     aria-haspopup="true"
+                     aria-expanded="false">
+                    <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
+                  </a>
+                  {this.dropDownSelection()}
+                </li>
                 <li>
                   <a onClick={this.handleOnLogout} className="heavy-font-size logout-button"><strong>logout</strong></a>
                 </li>

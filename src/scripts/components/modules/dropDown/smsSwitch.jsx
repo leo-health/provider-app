@@ -32,20 +32,15 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <li className="dropdown">
-        <a className="dropdown-toggle navbar-dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-          <i className="fa fa-circle fa-2" aria-hidden="true" style={this.props.buttonColor}></i>
-        </a>
-        <ul className="dropdown-menu row">
-          <li className="col-lg-12"><h5>Your are available and the practice is open</h5></li>
-          <li className="col-lg-offset-1 col-lg-10"><h7>{this.headerSwitch()}</h7></li>
-          <li className="col-lg-12">
-            <label>
-              <span>Off</span><Toggle defaultChecked={this.state.isSms} onChange={this.onChange} /><span>On</span>
-            </label>
-          </li>
-        </ul>
-      </li>
+      <ul className="dropdown-menu row">
+        <li className="col-lg-12"><h5>Your are available and the practice is open</h5></li>
+        <li className="col-lg-offset-1 col-lg-10"><h7>{this.headerSwitch()}</h7></li>
+        <li className="col-lg-12">
+          <label>
+            <span>Off</span><Toggle defaultChecked={this.state.isSms} onChange={this.onChange} /><span>On</span>
+          </label>
+        </li>
+      </ul>
     )
   }
 });
