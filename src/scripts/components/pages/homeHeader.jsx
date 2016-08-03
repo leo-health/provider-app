@@ -2,6 +2,7 @@ var React = require('react'),
     Reflux = require('reflux'),
     ReactRouter = require('react-router'),
     SessionStore = require('../../stores/sessionStore'),
+    UserActions = require('../../actions/userActions'),
     UserStore = require('../../stores/userStore'),
     PracticeStore = require('../../stores/practiceStore'),
     PracticeActions = require('../../actions/practiceActions'),
@@ -20,18 +21,21 @@ module.exports = React.createClass({
   contextTypes: { router: React.PropTypes.object.isRequired },
 
   getInitialState: function(){
-    return {isOncall: this.props.user.is_oncall, isPracticeOpen: this.props.user.is_practice_open, oncallProviders: []}
+    return {user: '', oncallProviders: []}
   },
 
   componentDidMount: function(){
+    UserActions.fetchIndividualUserRequest({authentication_token: sessionStorage.authenticationToken});
     this.subscribeToPracticeHourChange();
   },
 
   subscribeToPracticeHourChange: function() {
     var channel = this.props.pusher.subscribe('practice');
     channel.bind('practice_hour', function(data){
-      if(data.practice_id === this.props.user.practice_id){
-        data.status === 'open' ? this.setState({isPracticeOpen: true}) : this.setState({isPracticeOpen: false})
+      if(data.practice_id === this.state.user.practice_id){
+        var user = this.state.user;
+        data.status === "open" ? user.is_practice_open = true : user.is_practice_open = false;
+        this.setState({ user: user })
       }
     }, this);
   },
@@ -45,7 +49,7 @@ module.exports = React.createClass({
   },
 
   onUserStatusChange: function(status){
-    if(status.onCall) this.setState({ isOncall: status.onCall })
+    if(status.self) this.setState({ user: status.self });
   },
 
   handleOnLogout: function(){
@@ -55,78 +59,82 @@ module.exports = React.createClass({
   },
 
   handleOnClick: function(){
-    if(this.state.isPracticeOpen) return;
+    if(this.state.user.is_practice_open) return;
     PracticeActions.fetchPracticeRequest({
-      id: this.props.user.practice_id,
+      id: this.state.user.practice_id,
       authentication_token: sessionStorage.authenticationToken
     })
   },
 
   buttonColor: function(){
-    return (this.state.isOncall || this.state.isPracticeOpen) ? {color: "green"} : {color: "red"};
+    return (this.state.user.is_oncall || this.state.user.is_practice_open) ? {color: "green"} : {color: "red"};
   },
 
   displayUserName: function(){
-    return leoUtil.formatName(this.props.user);
+    return leoUtil.formatName(this.state.user);
   },
 
   dropDownSelection: function(){
-    if(this.state.isPracticeOpen){
-      return <SmsSwitch isSms={this.props.user.is_sms}/>
+    if(this.state.user.is_practice_open){
+      return <SmsSwitch isSms={this.state.user.is_sms}/>
     }else{
-      return <OnCallSwitch isOncall={this.state.isOncall} oncallProviders={this.state.oncallProviders}/>
+      return <OnCallSwitch isOncall={this.state.user.is_oncall} oncallProviders={this.state.oncallProviders}/>
     }
   },
 
   render: function() {
-    return (
-      <div>
-        <div className="navbar navbar-default navbar-fixed-top">
-          <div className="container">
-            <div className="navbar-header">
-              <ul className="nav navbar-nav leo-nav collapsed">
-                <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
-                <div>
-                  <span className="leo-logo leo-logo--collapsed leo-logo-gray">messenger </span>
-                </div>
-              </ul>
-              <ul className="nav navbar-nav navbar-right logout-nav logout-nav--collapsed">
-                <li>
-                  <a onClick={this.handleOnLogout} className="heavy-font-size logout-button collapsed"><strong>logout</strong></a>
-                </li>
-              </ul>
-            </div>
-            <div className="navbar-collapse collapse" id="navbar-main">
-              <ul className="nav navbar-nav leo-nav">
-                <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
-                <div>
-                  <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
-                </div>
-              </ul>
-              <ul className="nav navbar-nav navbar-right logout-nav">
-                <li>
-                  <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
-                </li>
-                <li className="dropdown">
-                  <a className="dropdown-toggle navbar-dropdown"
-                     data-toggle="dropdown"
-                     href="#"
-                     onClick={this.handleOnClick}
-                     role="button"
-                     aria-haspopup="true"
-                     aria-expanded="false">
-                    <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
-                  </a>
-                  {this.dropDownSelection()}
-                </li>
-                <li>
-                  <a onClick={this.handleOnLogout} className="heavy-font-size logout-button"><strong>logout</strong></a>
-                </li>
-              </ul>
+    if(this.state.user){
+      return (
+        <div>
+          <div className="navbar navbar-default navbar-fixed-top">
+            <div className="container">
+              <div className="navbar-header">
+                <ul className="nav navbar-nav leo-nav collapsed">
+                  <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
+                  <div>
+                    <span className="leo-logo leo-logo--collapsed leo-logo-gray">messenger </span>
+                  </div>
+                </ul>
+                <ul className="nav navbar-nav navbar-right logout-nav logout-nav--collapsed">
+                  <li>
+                    <a onClick={this.handleOnLogout} className="heavy-font-size logout-button collapsed"><strong>logout</strong></a>
+                  </li>
+                </ul>
+              </div>
+              <div className="navbar-collapse collapse" id="navbar-main">
+                <ul className="nav navbar-nav leo-nav">
+                  <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
+                  <div>
+                    <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
+                  </div>
+                </ul>
+                <ul className="nav navbar-nav navbar-right logout-nav">
+                  <li>
+                    <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
+                  </li>
+                  <li className="dropdown">
+                    <a className="dropdown-toggle navbar-dropdown"
+                       data-toggle="dropdown"
+                       href="#"
+                       onClick={this.handleOnClick}
+                       role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                      <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
+                    </a>
+                    {this.dropDownSelection()}
+                  </li>
+                  <li>
+                    <a onClick={this.handleOnLogout} className="heavy-font-size logout-button"><strong>logout</strong></a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }else{
+      return <div></div>
+    }
   }
 });

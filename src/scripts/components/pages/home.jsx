@@ -1,34 +1,15 @@
 var React = require('react'),
-    Reflux = require('reflux'),
     HomeHeader = require('./homeHeader'),
     FindFamily = require('../modules/search/findFamily'),
     ConversationList = require('../modules/conversation/conversationList'),
-    UserStore = require('../../stores/userStore'),
-    UserActions = require('../../actions/userActions'),
     Footer = require('./footer');
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(UserStore, "onStatusChange")],
-
-  getInitialState: function(){
-    return { user: '' }
-  },
-
-  onStatusChange: function(status){
-    if(status.self){
-      this.setState({user: status.self});
-    }
-  },
-
   componentWillMount: function(){
     this.subscribeToPusher();
     this.subscribeToBrowserTabFocusEvent();
     this.titleBlink();
     this.notificationPermission();
-  },
-
-  componentDidMount: function() {
-    UserActions.fetchIndividualUserRequest({authentication_token: sessionStorage.authenticationToken})
   },
 
   subscribeToPusher: function(){
@@ -77,14 +58,10 @@ module.exports = React.createClass({
     this.pusher.unsubscribe('presence-provider_app');
   },
 
-  renderHomeHeader: function(){
-    if(this.state.user) return <HomeHeader user={this.state.user} pusher={this.pusher}/>
-  },
-
   render: function() {
     return (
       <div>
-        {this.renderHomeHeader()}
+        <HomeHeader pusher={this.pusher}/>
         <div className="container page-header main-container">
           <div className="row">
             <div className="col-lg-3 find-family-container">

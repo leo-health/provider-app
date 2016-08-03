@@ -90,6 +90,6 @@ module.exports = Reflux.createStore({
   },
 
   onUpdateStaffProfileRequestCompleted: function(res){
-    this.trigger({ onCall: res.data.staff_profile.on_call, isSms: res.data.staff_profile.sms_enabled})
+    this.trigger({ self: res.data.user })
   }
 });

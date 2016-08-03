@@ -20,7 +20,7 @@ module.exports = React.createClass({
   },
 
   parseProviderNames: function(providers){
-    var result;
+    var result=' ';
     for(var i = 0; i < providers.length; i++){
       if(i === providers.length -1){
         result = result + providers[i].first_name
@@ -58,7 +58,7 @@ module.exports = React.createClass({
     return(
       <ul className="dropdown-menu row">
         <li className="col-lg-12"><h5>{this.headerSwitch()}</h5></li>
-        <li className="col-lg-offset-1 col-lg-10"><h6>{this.promptSwitch()}</h6></li>
+        <li className="col-lg-offset-1 col-lg-10"><h6 className='long-string'>{this.promptSwitch()}</h6></li>
         <li className="col-lg-offset-2 col-lg-8">
           <button className="full-width-button" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button>
         </li>
