@@ -26,12 +26,12 @@ module.exports = React.createClass({
   render: function(){
     return(
       <div>
+        <br/>
         <div className="row">
           <div className="col-md-11 col-md-offset-1">
-            <div className="registration-header mobile-only">REGISTRATION</div>
-            <h5 className="signup-header mobile-hidden">Please enter your payment information. You'll be charged $20 a month for each child.</h5>
-            <h4 className="signup-header mobile-only">Please enter your payment info.</h4>
-            <p className="lead mobile-only">You'll be charged $20 a month for each child.</p>
+            <h5 className="signup-header">Please enter in your payment information. You will be charged $20 per month
+              for each of your children.
+            </h5>
           </div>
         </div>
         <br/>
@@ -46,10 +46,10 @@ module.exports = React.createClass({
             <CreateCreditCard ref="paymentForm"/>
             <PromoCode/>
           </div>
-          <div className="col-md-4 form-group payment-form">
+          <div className="col-md-4 form-group">
             <button onClick={this.handleOnClick}
                     disabled = {this.state.disabled}
-                    className="btn btn-primary btn-lg full-width-button">
+                    className="btn btn-primary full-width-button">
               Continue
             </button>
             <br/><br/>

@@ -62,7 +62,7 @@ module.exports = React.createClass({
 
   onRegistrationStatusChange: function(status){
     this.setState(status);
-    if(status.patient) {this.setState({patients: this.state.patients.concat(status.patient)})};
+    if(status.patient) this.setState({patients: this.state.patients.concat(status.patient)});
     if(status.deletedPatient) this.setState({patients: _.reject(this.state.patients, {id: status.deletedPatient.id})});
     if(status.updatedPatient) this.setState({patients: this.replacePatient(this.state.patients, status.updatedPatient)});
     if(status.authenticationToken) sessionStorage['authenticationToken'] = status.authenticationToken;
@@ -79,29 +79,6 @@ module.exports = React.createClass({
   replacePatient: function(patients, newPatient){
     return _.map(patients, function(patient){ return (patient.id === newPatient.id) ? newPatient : patient })
   },
-
-  carouselShiftLeft: function(){
-    var patients = this.state.patients;
-    if(this.state.patients.length > 2){
-      var shifted = patients.shift();
-      patients.push(shifted);
-      this.setState({
-        patients: patients
-      })
-    }
-  },
-
-  carouselShiftRight: function(){
-    var patients = this.state.patients;
-    if(this.state.patients.length > 2){
-      var shifted = patients.pop();
-      patients.unshift(shifted);
-      this.setState({
-        patients: patients
-      })
-    }
-  },
-
 
   navigateTo: function(destination){
     this.context.router.push({
@@ -145,10 +122,7 @@ module.exports = React.createClass({
       case "patient":
         page = <PatientInfoForm navigateTo={this.navigateTo}
                                 patients={this.state.patients}
-                                user={this.state.user}
-                                carouselShiftRight={this.carouselShiftRight}
-                                carouselShiftLeft={this.carouselShiftLeft}
-                                />;
+                                user={this.state.user}/>;
 
         if(PRODUCTION) ga('send', 'event', 'Registration', 'page-view', 'Add-child_page-viewed');
         break;
@@ -165,8 +139,6 @@ module.exports = React.createClass({
                            status={this.state.status}
                            message={this.state.message}
                            patients={this.state.patients}
-                           carouselShiftRight={this.carouselShiftRight}
-                           carouselShiftLeft={this.carouselShiftLeft}
                            onPatientError={this.onPatientError}
                            user={this.state.user}/>;
 
@@ -180,41 +152,13 @@ module.exports = React.createClass({
     return page
   },
 
-  colorProgressBar: function(order) {
-    var progress = "";
-    var activeClass = "active-progress";
-    switch(this.state.nextPage){
-      case "you":
-        if(order == 1){progress = ''};
-        break;
-      case "patient":
-        if(order < 2){progress = activeClass};
-        break;
-      case "payment":
-        if(order < 3){progress = activeClass};
-        break;
-      case "review":
-        if(order < 4){progress = activeClass};
-        break;
-    }
-    return progress + " progress-button";
-  },
-
   render: function(){
     return(
       <div id="signup_page" ref='signUp'>
         <div className="row">
           <div className="col-md-10 col-md-offset-1">
-            <img src="/images/leo.png" alt="Leo Logo" className="registration-logo" id="signup_logo"/>
-
-            <ul className="mobile-only mobile-progress">
-              <li className={this.colorProgressBar(1)}></li>
-              <li className={this.colorProgressBar(2)}></li>
-              <li className={this.colorProgressBar(3)}></li>
-              <li className={this.colorProgressBar(4)}></li>
-            </ul>
-
-            <div className="mobile-hidden" id="signup_progress">
+            <img src="/images/leo.png" alt="Leo Logo" id="signup_logo"/>
+            <div id="signup_progress">
               <div className="progress-text" id="progress_xs">
                 <p className="signup-progress-text progress-text-container">({this.state.progressBar[1]}) {this.state.progressBar[2]}</p>
               </div>

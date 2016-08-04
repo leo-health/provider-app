@@ -7,7 +7,6 @@ var React = require('react'),
     EditPatient = require('./patient/editPatient'),
     FAQ = require('./patient/patientFaq'),
     SinglePatient = require('./patient/singlePatient');
-    PatientCarousel = require('./patient/patientCarousel');
 
 module.exports = React.createClass({
   contextTypes: {
@@ -15,12 +14,7 @@ module.exports = React.createClass({
   },
 
   getInitialState: function(){
-    return { edit: false,
-             cancel: false,
-             status: '',
-             message: '',
-             editingPatient: false,
-             editPatientID: null }
+    return { edit: false, cancel: false, status: '', message: '' }
   },
 
   componentWillReceiveProps: function(nextProps){
@@ -33,52 +27,20 @@ module.exports = React.createClass({
     });
   },
 
-  patientCarousel: function(){
-    return <PatientCarousel patients={this.props.patients}
-                            carouselShiftLeft={this.props.carouselShiftLeft}
-                            carouselShiftRight={this.props.carouselShiftRight}
-                            editingPatient={this.state.editingPatient}
-                            handleEdit={this.handleEdit}
-                            handleCancel={this.handleCancel}
-                            editPatientID={this.state.editPatientID}
-                            />;
-  },
-
   addPatient: function(){
     if(this.props.patients.length > 0 && !this.state.edit){
-      return (
-        <div className="thirty-mobile-side-padding">
-          <button type="button" className="btn btn-primary btn-lg alternate-button add-another-child" onClick={this.switchToAdd}>Add Another Child</button>
-        </div>
-      )
+      return <button type="button" className="btn btn-primary" onClick={this.switchToEdit}>Add Another Child</button>
     }else{
       return <EditPatient cancel={this.state.cancel} handleCancel={this.handleCancel}/>
     }
   },
 
-  handleEdit: function(patientID){
-    this.setState({
-      editingPatient: true,
-      editPatientID: patientID
-    })
-  },
-
   handleCancel: function(){
-    this.setState({
-      edit: false,
-      cancel: false,
-      editingPatient: false,
-      editPatientID: null
-    })
+    this.setState({edit: false, cancel: false})
   },
 
-  switchToAdd: function(){
-    this.setState({
-      edit: true,
-      cancel: true,
-      editingPatient: false,
-      editPatientID: null
-    })
+  switchToEdit: function(){
+    this.setState({edit: true, cancel: true})
   },
 
   handleContinue: function(){
@@ -100,7 +62,6 @@ module.exports = React.createClass({
       <div>
         <div className="row">
           <div className="col-lg-11 col-lg-offset-1">
-            <div className="registration-header mobile-only">REGISTRATION</div>
             <h4 className="signup-header">Now let’s enroll your family</h4>
           </div>
         </div>
@@ -112,10 +73,9 @@ module.exports = React.createClass({
           </div>
           <div className="col-lg-6 col-lg-offset-1" style={{paddingBottom: "2%"}}>
             {this.showPatients()}
-            {this.patientCarousel()}
             {this.addPatient()}
           </div>
-          <div className="col-lg-4 continue .mobile-side-padding">
+          <div className="col-lg-4">
             <button type="button"
                     onClick={this.handleContinue}
                     className={continueButtonClass}>

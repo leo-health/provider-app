@@ -38,20 +38,20 @@ module.exports = React.createClass({
 
   validateOrSuccessPage: function(){
     if(this.state.valid){
-      return <h6 className="promo-success">The promo code has been applied. {this.state.successMessage}</h6>
+      return <h6>The promo code has been applied. {this.state.successMessage}</h6>
     }else{
       return(
         <div className="row well">
-          <div className="form-group col-md-9 promo-line">
+          <div className="form-group col-md-9">
             <input type="text"
                    value={this.state.promoCode}
                    onChange={this.handlePromoCodeChange}
                    className="form-control"/>
-            <label>Promo Code (optional)</label>
+            <label className="text-muted">Promo Code(optional)</label>
             {Helper.renderHelpText(this.state.errorMessage)}
           </div>
 
-          <div className="form-group col-md-3 promo-button">
+          <div className="form-group col-md-3">
             <button onClick={this.handleOnClick}
                     disabled = {this.state.disabled}
                     className="btn btn-primary full-width-button">

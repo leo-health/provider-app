@@ -59,7 +59,7 @@ module.exports = React.createClass({
               {patientIcon}
               {patientDisplay}
             </div>
-            <span className="glyphicon glyphicon-info-sign pull-right toggler cursor"
+            <span className="glyphicon glyphicon-info-sign pull-right toggler"
                   onClick={this.onClick}>
             </span>
           </div>

@@ -1,8 +1,6 @@
 var React = require('react'),
     ReactDom = require('react-dom'),
-    RegistrationActions = require('../../../../actions/registrationActions'),
-    classNames = require('classnames');
-
+    RegistrationActions = require('../../../../actions/registrationActions');
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -49,13 +47,8 @@ module.exports = React.createClass({
   },
 
   render: function(){
-    var formClass = classNames({
-      'row well': true,
-      'review-form credit-card-form': this.props.review
-    });
-
     return(
-      <div className={formClass}>
+      <div className="row well">
         <div className="form-group col-md-8">
           <input type="text"
                  className="form-control"
@@ -65,7 +58,7 @@ module.exports = React.createClass({
                  required
                  pattern="[0-9]*"
                  autoFocus/>
-          <label>Card Number</label>
+          <label className="text-muted">Card Number</label>
         </div>
         <div className="form-group col-md-4">
           <input type="text"
@@ -75,7 +68,7 @@ module.exports = React.createClass({
                  maxLength="4"
                  pattern="[0-9]*"
                  required/>
-          <label>CVC</label>
+          <label className="text-muted">CVC</label>
         </div>
 
         <div className="form-group col-md-6">
@@ -87,7 +80,7 @@ module.exports = React.createClass({
                  onInput={this.expirationDateMask}
                  pattern="[0-9]*"
                  required/>
-          <label>Expiration (MM/YY)</label>
+          <label className="text-muted">Expiration (MM/YY)</label>
         </div>
 
         <div className="form-group col-md-6">
@@ -97,7 +90,7 @@ module.exports = React.createClass({
                  onChange={this.handleZipChange}
                  pattern="[0-9]*"
                  required/>
-          <label>Zip Code</label>
+          <label className="text-muted">Zip Code</label>
         </div>
       </div>
     )
