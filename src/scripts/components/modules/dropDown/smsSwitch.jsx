@@ -33,11 +33,9 @@ module.exports = React.createClass({
   render: function(){
     return(
       <ul className="dropdown-menu row">
-        <li className="col-lg-12"><h5>Your are available and the practice is open</h5></li>
-        <li className="col-lg-offset-1 col-lg-10"><div>{this.headerSwitch()}</div></li>
-        <li className="col-lg-offset-4">
-            <span>Off</span><Toggle defaultChecked={this.state.isSms} onChange={this.onChange} /><span>On</span>
-        </li>
+        <li><p>Your are available and the practice is open</p></li>
+        <li><span>{this.headerSwitch()}</span></li><br/>
+        <li><span>Off</span><Toggle defaultChecked={this.state.isSms} onChange={this.onChange}/><span>On</span></li>
       </ul>
     )
   }

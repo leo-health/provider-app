@@ -1,6 +1,8 @@
 @css {
   /*Global styling*/
-  //.dropdown-menu > li { text-align: center; width: 30em  }
+  .dropdown-menu{ padding: 20px }
+  .dropdown-menu > li { text-align: center; }
+  .dropdown-menu > li > p { word-break: break-word; white-space: pre-wrap}
   .react-toggle {
     display: inline-block;
     position: relative;
@@ -60,44 +62,9 @@
     background-color: #128D15;
   }
 
-  .react-toggle-track-check {
-    position: absolute;
-    width: 14px;
-    height: 10px;
-    top: 0px;
-    bottom: 0px;
-    margin-top: auto;
-    margin-bottom: auto;
-    line-height: 0;
-    left: 8px;
-    opacity: 0;
-    -webkit-transition: opacity 0.25s ease;
-    -moz-transition: opacity 0.25s ease;
-    transition: opacity 0.25s ease;
-  }
+  .react-toggle-track-check { display: none }
 
-  .react-toggle--checked .react-toggle-track-check {
-    opacity: 1;
-    -webkit-transition: opacity 0.25s ease;
-    -moz-transition: opacity 0.25s ease;
-    transition: opacity 0.25s ease;
-  }
-
-  .react-toggle-track-x {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    top: 0px;
-    bottom: 0px;
-    margin-top: auto;
-    margin-bottom: auto;
-    line-height: 0;
-    right: 10px;
-    opacity: 1;
-    -webkit-transition: opacity 0.25s ease;
-    -moz-transition: opacity 0.25s ease;
-    transition: opacity 0.25s ease;
-  }
+  .react-toggle-track-x { display: none }
 
   .react-toggle--checked .react-toggle-track-x {
     opacity: 0;

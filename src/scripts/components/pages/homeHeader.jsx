@@ -35,7 +35,7 @@ module.exports = React.createClass({
       if(data.practice_id === this.state.user.practice_id){
         var user = this.state.user;
         data.status === "open" ? user.is_practice_open = true : user.is_practice_open = false;
-        user.is_on_call = true;
+        user.is_oncall = true;
         this.setState({ user: user })
       }
     }, this);

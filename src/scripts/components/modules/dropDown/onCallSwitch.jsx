@@ -75,10 +75,10 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <ul className="dropdown-menu row">
-        <li className="col-lg-offset-1 col-lg-10"><p>{this.headerSwitch()}</p></li>
-        <li className="col-lg-offset-1 col-lg-10"><span className='long-string'>{this.promptSwitch()}</span></li>
-        <li><button className="btn btn-primary btn-lg" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button></li>
+      <ul className="dropdown-menu">
+        <li><p>{this.headerSwitch()}</p></li>
+        <li><span>{this.promptSwitch()}</span></li><br/>
+        <li><button className="btn btn-primary btn-md" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button></li>
       </ul>
     )
   }
