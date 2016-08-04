@@ -192,7 +192,7 @@ var Registration  = React.createClass({
                        onChange={this.handleFirstNameChange}
                        autoFocus
                        ref="firstName"/>
-                <label>First Name</label>
+                <label className="text-muted">First Name</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
               </div>
 
@@ -202,7 +202,7 @@ var Registration  = React.createClass({
                        value={this.state.lastName}
                        onChange={this.handleLastNameChange}
                        ref="lastName"/>
-                <label>Last Name</label>
+                <label className="text-muted">Last Name</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
               </div>
 
@@ -212,7 +212,7 @@ var Registration  = React.createClass({
                        className="form-control"
                        disabled="true"
                        onChange={this.handleEmailChange}/>
-                <label>Email</label>
+                <label className="text-muted">Email</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('email'))}
               </div>
 
@@ -224,7 +224,7 @@ var Registration  = React.createClass({
                        ref="phone"
                        pattern="[0-9]*"
                        onInput={Helper.phoneMask}/>
-                <label>Mobile Phone</label>
+                <label className="text-muted">Phone</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
               </div>
 
@@ -233,7 +233,7 @@ var Registration  = React.createClass({
                        value={this.state.password}
                        className="form-control"
                        onChange={this.handlePasswordChange}/>
-                <label>Create Password</label>
+                <label className="text-muted">Create Password</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('password'))}
               </div>
 
@@ -242,7 +242,7 @@ var Registration  = React.createClass({
                        value={this.state.passwordConfirmation}
                        className="form-control"
                        onChange={this.handlePasswordConfirmationChange}/>
-                <label>Re-enter Password</label>
+                <label className="text-muted">Re-enter Password</label>
                 {Helper.renderHelpText(this.props.getValidationMessages('passwordConfirmation'))}
               </div>
             </div>
