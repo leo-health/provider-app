@@ -2,7 +2,7 @@ var React = require('react');
 
 module.exports = React.createClass({
   render: function(){
-    var promoCodeMessage = (sessionStorage.coupon ? JSON.parse(sessionStorage.coupon).message : "");
+    var promoCodeMessage = (sessionStorage.coupon ? JSON.parse(sessionStorage.coupon).message : null);
 
     return(
       <div className="form-group">
