@@ -125,6 +125,14 @@
     margin-top: 0.4%;
   }
 
+  @media (max-width: 1200px) {
+    .logout-button.collapsed > i {
+      color: #FFBD6A;
+      padding-right: 10px;
+      font-size: 25px;
+    }
+  }
+
   .logout-nav > li {
     white-space: nowrap;
     padding-right: 5px;
@@ -907,7 +915,7 @@
 
     .navbar-nav.collapsed {
       position: absolute;
-      left: 35%;
+      left: 40%;
     }
 
     .heavy-font-size,
@@ -918,6 +926,9 @@
 
     .family-notes-container > h4,
     .notes-container > h4 { font-size: 20px; }
+
+    .leo-logo--collapsed,
+    #intercom-container { display: none; }
   }
 
   /* Mobile styling: small */
@@ -926,13 +937,9 @@
   }
 
   @media (max-width: 440px) {
-    .navbar-nav.collapsed { left: 25%; }
-
     #staff-selection { margin-left: -90vw; }
 
     .main-container { padding: 0px; }
-
-    #intercom-container { display: none; }
   }
 
   .leo-logo--collapsed {
@@ -963,10 +970,6 @@
 
   /* Mobile styling: small */
   @media (max-width: 320px) {
-    .leo-logo--collapsed { display: none; }
-
-    .navbar-nav.collapsed { left: 40%; }
-
     .message-button,
     .medium-font-size.feedback,
     .medium-font-size.call-footer { font-size: 13px; }
