@@ -59,7 +59,7 @@
 
   @media (min-width: 1200px) {
     .navbar-nav.leo-nav.collapsed,
-    .logout-button.collapsed { display: none }
+    .cursor.collapsed { display: none }
   }
 
   .logout-nav > li > .navbar-welcome { padding-right: 7%; }
@@ -78,8 +78,6 @@
     -ms-user-select: none;
     user-select: none;
   }
-
-  .logout-button { cursor: pointer; }
 
   .logout-nav > li {
     white-space: nowrap;
@@ -236,7 +234,6 @@
     margin-top: 5px;
     padding-right: 10px;
     font-size: 25px;
-    cursor: pointer;
     display: inline;
   }
 
@@ -663,7 +660,10 @@
     width: 100%;
   }
 
-  .cursor { cursor: pointer; }
+  .cursor {
+    cursor: pointer;
+    z-index: 5;
+  }
 
   @media (max-width: 420px) {
     .assignment-font {
