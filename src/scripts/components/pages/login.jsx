@@ -71,22 +71,25 @@ module.exports = React.createClass({
   render: function(){
     return(
       <div>
-        <div className="container page-header">
+        <div className="container page-header login-page">
           <div className="row">
-            <div className="col-lg-offset-4 col-lg-4 col-lg-offset-4 jumbotron text-center">
+            <div className="col-lg-4 text-center login-container">
               <form className="" onSubmit={this.handleOnSubmit}>
-                <a href="../" className=""><img src="/images/leo.png" alt="..." /></a>
+                <a href="../" className="login-logo"><img src="/images/full-leo.png" alt="..." /></a>
+                <p className="login-message">Login to your account</p>
                 <fieldset>
                   <ErrorAlert message={this.state.message} status={this.state.status}/>
-                  <div className="form-group">
+                  <div className="form-group login">
+                    <span className="fa fa-envelope-o fa-lg"></span>
                     <input type="text" className="form-control" id="inputEmail" placeholder="Email" ref="email"/>
                   </div>
-                  <div className="form-group">
+                  <div className="form-group login">
+                    <span className="fa fa-lock fa-lg"></span>
                     <input type="password" className="form-control" id="inputPassword" placeholder="Password" ref="password"/>
+                    <p onClick={this.handleOnForget} className="login-forgot cursor">Did you forget your password?</p>
                   </div>
-                  <div className="form-group">
-                    <button type="submit" className="btn btn-primary">Login</button>&nbsp;
-                    <button type="button" className="btn btn-default" onClick={this.handleOnForget}>Forgot?</button>
+                  <div className="form-group login">
+                    <button type="submit" className="btn btn-primary btn-lg login">Login</button>&nbsp;
                   </div>
                 </fieldset>
               </form>
