@@ -120,7 +120,7 @@ module.exports = validation(strategy)(React.createClass({
                   ref="phone"
                   pattern="[0-9]*"
                   onInput={Helper.phoneMask}/>
-           <label>Phone</label>
+           <label>Mobile Phone</label>
            {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
          </div>
 

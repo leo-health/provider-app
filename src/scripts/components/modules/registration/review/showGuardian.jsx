@@ -30,7 +30,7 @@ module.exports =React.createClass({
               </tr>
               <tr>
                 <td>E-mail address</td>
-                <td>Phone</td>
+                <td>Mobile Phone</td>
               </tr>
               <tr>
                 <td><p className="lead  right-fix">{email}</p></td>
