@@ -89,7 +89,7 @@ module.exports = React.createClass({
                     <p onClick={this.handleOnForget} className="login-forgot cursor">Did you forget your password?</p>
                   </div>
                   <div className="form-group login">
-                    <button type="submit" className="btn btn-primary login">Login</button>&nbsp;
+                    <button type="submit" className="btn btn-primary btn-lg login">Login</button>&nbsp;
                   </div>
                 </fieldset>
               </form>
