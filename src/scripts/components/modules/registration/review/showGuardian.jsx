@@ -12,9 +12,9 @@ module.exports =React.createClass({
     return(
       <div className="row">
         <div className="col-lg-12">
-          <h4 className="inline-block signup-header">Your Information</h4>
+          <h4 className="inline-block">Your Information</h4>
           <a className="icon" onClick={this.props.guardianStateToggle}>
-            <i className="fa fa-pencil fa-2x cursor pull-right" onClick={this.props.guardianStateToggle}></i>
+            <span className="registration-icon glyphicon glyphicon-pencil pull-right"></span>
           </a>
         </div>
         <div className="col-lg-12">
@@ -30,7 +30,7 @@ module.exports =React.createClass({
               </tr>
               <tr>
                 <td>E-mail address</td>
-                <td>Mobile Phone</td>
+                <td>Phone</td>
               </tr>
               <tr>
                 <td><p className="lead  right-fix">{email}</p></td>

@@ -4,6 +4,7 @@ var React = require('react'),
     validation = require('react-validation-mixin'),
     RegistrationActions = require('../../../../actions/registrationActions'),
     Joi = require('joi'),
+    classNames = require('classnames'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
@@ -93,46 +94,46 @@ module.exports = validation(strategy)(React.createClass({
   render: function(){
     return(
       <div className="row well">
-        <div className="form-group col-lg-6 reset-bottom">
+        <div className="form-group col-lg-6">
           <input type="text"
                  className="form-control"
                  value={this.state.firstName}
                  onChange={this.handleFirstNameChange}
                  autoFocus
                  ref="firstName"/>
-          <label>First Name</label>
+          <label className="text-muted">First Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
 
-        <div className="form-group col-lg-6 reset-bottom">
+        <div className="form-group col-lg-6">
           <input type="text"
                  className="form-control"
                  value={this.state.lastName}
                  onChange={this.handleLastNameChange}
                  ref="lastName"/>
-          <label>Last Name</label>
+          <label className="text-muted">Last Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
 
-        <div className="form-group col-lg-12 reset-bottom">
+        <div className="form-group col-lg-12">
           <input type="text"
                  value={this.state.email}
                  className="form-control"
                  onChange={this.handleEmailChange}/>
-          <label>Email</label>
+          <label className="text-muted">Email</label>
           {Helper.renderHelpText(this.props.getValidationMessages('email'))}
         </div>
 
-        <div className="form-group col-lg-12 reset-bottom">
+        <div className="form-group col-lg-12">
           <input type="password"
                  value={this.state.password}
                  className="form-control"
                  onChange={this.handlePasswordChange}/>
-          <label>Create Password</label>
+          <label className="text-muted">Create Password</label>
           {Helper.renderHelpText(this.props.getValidationMessages('password'))}
         </div>
 
-        <div className="form-group col-lg-12 reset-bottom">
+        <div className="form-group col-lg-12">
           <input type="text"
                  className="form-control"
                  value={this.state.phone}
@@ -140,7 +141,7 @@ module.exports = validation(strategy)(React.createClass({
                  ref="phone"
                  pattern="[0-9]*"
                  onInput={Helper.phoneMask}/>
-          <label>Mobile Phone</label>
+          <label className="text-muted">Phone</label>
           {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
         </div>
       </div>

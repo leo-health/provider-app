@@ -24,11 +24,9 @@ module.exports =React.createClass({
     return (
       <div>
         <div className="row">
-          <div className="col-lg-11 col-lg-offset-1 signup-">
-            <div className="registration-header mobile-only">REGISTRATION</div>
+          <div className="col-lg-11 col-lg-offset-1">
             <h4 className="signup-header">Tell us a little about yourself</h4>
-            <p className="lead mobile-hidden">We are thrilled to welcome you to the Practice! To get your enrolled, we need to collect some info about you and your family.</p>
-            <p className="lead mobile-only">To get you enrolled, we need to collect some info.</p>
+            <p className="lead">We are thrilled to welcome you to the Practice! To get your enrolled, we need to collect some info about you and your family.</p>
           </div>
         </div>
         <br/>
@@ -38,7 +36,7 @@ module.exports =React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-6 col-lg-offset-1 reset-bottom">
+          <div className="col-lg-6 col-lg-offset-1">
             <EditGuardian ref="editGuardian"
                           insurers={this.props.insurers}
                           setDisableState={this.setDisableState}/>

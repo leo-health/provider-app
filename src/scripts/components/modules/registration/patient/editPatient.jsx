@@ -7,8 +7,7 @@ var React = require('react'),
     DatePicker = require('react-datepicker'),
     moment = require('moment'),
     DateSelector=require('../../../../utils/dateSelector'),
-    strategy = require('joi-validation-strategy'),
-    classNames = require('classnames');
+    strategy = require('joi-validation-strategy');
 
 require('react-datepicker/dist/react-datepicker.css');
 
@@ -99,20 +98,14 @@ module.exports = validation(strategy)(React.createClass({
 
   render: function(){
     var showCancelButton = this.props.cancel ? {display: "inline-block"} : {display: "none"};
-    var editClass = classNames({
-      "row well": true,
-      "nested-edit-patient-form": this.props.nested,
-      "review-form": this.props.review,
-      "empty-review": this.props.empty
-    });
 
     return(
-      <div className={editClass}>
+      <div className="row well">
         <div className="col-lg-12">
           <a onClick={this.props.handleCancel}
              className="pull-right"
              style={showCancelButton}>
-            <span className="registration-icon glyphicon glyphicon-remove cursor"></span>
+            <span className="registration-icon glyphicon glyphicon-trash"></span>
           </a>
         </div>
         <div className="col-lg-6">
@@ -121,7 +114,7 @@ module.exports = validation(strategy)(React.createClass({
                  value={this.state.firstName}
                  onChange={this.handleFirstNameChange}
                  autoFocus/>
-          <label>Child's First Name</label>
+          <label className="text-muted">Child's First Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
         <div className="col-lg-6">
@@ -129,13 +122,13 @@ module.exports = validation(strategy)(React.createClass({
                  className="form-control"
                  value={this.state.lastName}
                  onChange={this.handleLastNameChange}/>
-          <label>Child's Last Name</label>
+          <label className="text-muted">Child's Last Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
         <div className="col-lg-6">
           <DateSelector onChange={this.handleBirthDateChange}
                         value={this.state.birthDate}/>
-          <label>Birth Date</label>
+          <label className="text-muted">Birth Date</label>
           {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
         </div>
         <div className="col-lg-6">
@@ -145,12 +138,12 @@ module.exports = validation(strategy)(React.createClass({
             <option value={"M"}>Male</option>
             <option value={"F"}>Female</option>
           </select>
-          <label>Sex</label>
+          <label className="text-muted">Sex</label>
         </div>
         <div className="col-lg-12">
           <button onClick={this.handleOnSubmit}
                   disabled={this.state.disabled}
-                  className="btn btn-primary btn-lg full-width-button alternate-button">
+                  className="btn btn-primary full-width-button">
             Save
           </button>
         </div>

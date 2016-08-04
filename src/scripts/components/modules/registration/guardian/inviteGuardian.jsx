@@ -77,7 +77,7 @@ module.exports = validation(strategy)(React.createClass({
                        value={this.state.firstName}
                        onChange={this.handleFirstNameChange}
                        ref="firstName"/>
-                <label>First Name</label>
+                <label className="text-muted">First Name</label>
                 <div className="form-group">
                   {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
                 </div>
@@ -88,7 +88,7 @@ module.exports = validation(strategy)(React.createClass({
                        value={this.state.lastName}
                        onChange={this.handleLastNameChange}
                        ref="lastName"/>
-                <label>Last Name</label>
+                <label className="text-muted">Last Name</label>
                 <div className="form-group">
                   {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
                 </div>
@@ -99,7 +99,7 @@ module.exports = validation(strategy)(React.createClass({
                        value={this.state.email}
                        onChange={this.handleEmailChange}
                        ref="email"/>
-                <label>Email</label>
+                <label className="text-muted">Email</label>
               </div>
               <div className="form-group col-lg-12">
                 {Helper.renderHelpText(this.props.getValidationMessages('email'))}
