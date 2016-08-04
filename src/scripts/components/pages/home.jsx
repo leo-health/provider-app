@@ -8,6 +8,10 @@ var React = require('react'),
     _ = require('lodash');
 
 module.exports = React.createClass({
+  getInitialState: function () {
+    return { desktop: false }
+  },
+
   componentWillMount: function(){
     this.subscribeToPusher();
     this.subscribeToBrowserTabFocusEvent();
@@ -50,7 +54,10 @@ module.exports = React.createClass({
   },
 
   notificationPermission: function(){
-    Notification.requestPermission();
+    if (window.screen.width > 768) {
+      Notification.requestPermission();
+      this.setState({desktop: true})
+    }
   },
 
   componentWillUnmount: function () {
@@ -71,7 +78,7 @@ module.exports = React.createClass({
               <FindFamily/>
             </div>
           </div>
-          <ConversationList pusher={this.pusher}/>
+          <ConversationList pusher={this.pusher} desktop={this.state.desktop}/>
           <Footer/>
         </div>
       </div>
