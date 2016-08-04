@@ -1,4 +1,6 @@
-var React = require('react');
+var React = require('react'),
+    classNames = require('classnames');
+
 module.exports = React.createClass({
 
   getInitialState: function () {
@@ -34,6 +36,11 @@ module.exports = React.createClass({
     var guardians = this.props.guardians;
     var patients = this.props.patients;
     var guardianDisplay, patientDisplay, userIcon, hyphenIcon, patientIcon;
+    var toggleClass = classNames({
+      'glyphicon pull-right toggler': true,
+      'glyphicon-info-sign': !this.props.toggled,
+      'glyphicon-circle-arrow-right': this.props.toggled
+    });
 
     if (guardians) {
       userIcon = <span><i className="fa fa-user fa-lg"></i></span>;
@@ -49,7 +56,7 @@ module.exports = React.createClass({
     return (
       <div>
         <span className="pull-left glyphicon glyphicon-menu-left message-back cursor"
-                onClick={this.props.onClickBack}></span>
+              onClick={this.props.onClickBack}></span>
         <div className="recipient-field-container">
           <div className="pull-left to-field">
             <div className="to-field--list">
@@ -59,7 +66,7 @@ module.exports = React.createClass({
               {patientIcon}
               {patientDisplay}
             </div>
-            <span className="glyphicon glyphicon-info-sign pull-right toggler"
+            <span className={toggleClass}
                   onClick={this.onClick}>
             </span>
           </div>
