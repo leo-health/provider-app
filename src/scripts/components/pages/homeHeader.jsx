@@ -18,7 +18,7 @@ module.exports = React.createClass({
     Reflux.listenTo(PracticeStore, "onPracticeStatusChange")
   ],
 
-  contextTypes: { router: React.PropTypes.object.isRequired },
+  contextTypes: {router: React.PropTypes.object.isRequired},
 
   getInitialState: function(){
     return {user: '', oncallProviders: []}
@@ -35,6 +35,7 @@ module.exports = React.createClass({
       if(data.practice_id === this.state.user.practice_id){
         var user = this.state.user;
         data.status === "open" ? user.is_practice_open = true : user.is_practice_open = false;
+        user.is_on_call = true;
         this.setState({ user: user })
       }
     }, this);
@@ -67,7 +68,7 @@ module.exports = React.createClass({
   },
 
   buttonColor: function(){
-    return (this.state.user.is_oncall || this.state.user.is_practice_open) ? {color: "green"} : {color: "red"};
+    return (this.state.user.is_oncall) ? {color: "green"} : {color: "red"};
   },
 
   displayUserName: function(){
@@ -78,7 +79,7 @@ module.exports = React.createClass({
     if(this.state.user.is_practice_open){
       return <SmsSwitch isSms={this.state.user.is_sms}/>
     }else{
-      return <OnCallSwitch isOncall={this.state.user.is_oncall} oncallProviders={this.state.oncallProviders}/>
+      return <OnCallSwitch user={this.state.user} oncallProviders={this.state.oncallProviders}/>
     }
   },
 

@@ -1,38 +1,57 @@
 var React = require('react'),
     Reflux = require('reflux'),
+    _ = require('lodash'),
     UserActions = require('../../../actions/userActions');
 
 module.exports = React.createClass({
   headerSwitch: function(){
-    if(this.props.isOncall){
-      if(this.props.oncallProviders.length === 0){
-        return 'Your are on call and will receive patient alerts by text'
-      }else{
-        return 'Your are on call with' + this.parseProviderNames(this.props.oncallProviders) + ' and will receive patient alerts by text'
-      }
+    if(this.props.user.is_oncall){
+      return this.parseProviderNames(this.props.oncallProviders)
     }else{
       if(this.props.oncallProviders.length === 0){
         return 'No one is on call. All conversations will be sent to the nurse line'
       }else{
-       return this.parseProviderNames(this.props.oncallProviders) + 'are on call. Join them or enjoy your time off!'
+        return this.parseProviderNameOffCall(this.props.oncallProviders)
       }
     }
   },
 
   parseProviderNames: function(providers){
-    var result=' ';
-    for(var i = 0; i < providers.length; i++){
-      if(i === providers.length -1){
-        result = result + providers[i].first_name
-      }else{
-        result = result + providers[i].first_name + ' and '
-      }
+    var currentUserId = this.props.user.id;
+    _.remove(providers, function(provider){return provider.id === currentUserId});
+    switch(providers.length){
+      case 0:
+        return 'Your are on call and will receive patient alerts by text';
+        break;
+      case 1:
+        return 'Your are on call with ' + providers[0].first_name + ' and will receive patient alerts by text';
+        break;
+      case 2:
+        return 'Your are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and will receive patient alerts by text';
+        break;
+      default:
+        var remainer =  providers.length - 2;
+        return 'Your are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainer + ' more will receive patient alerts by text';
     }
-    return result
   },
 
+  parseProviderNameOffCall: function(providers){
+    switch(providers.length){
+      case 1:
+        return this.providers[0].first_name + ' are on call. Join them or enjoy your time off!';
+        break;
+      case 2:
+        return this.providers[0].first_name + ', and ' + providers[1].first_name + ' are on call. Join them or enjoy your time off!';
+        break;
+      default:
+        var remainer =  providers.length - 2;
+        return providers[0].first_name + ', ' +  providers[1].first_name + ' and ' + remainer + ' more are on call, Join them or enjoy your time off!';
+    }
+  },
+
+
   promptSwitch: function(){
-    if(this.props.isOncall){
+    if(this.props.user.is_oncall){
       return "Time for bed? Send calls to the nurse line."
     }else{
       return "Available to go on call? Get Alerts sent to your phone."
@@ -40,7 +59,7 @@ module.exports = React.createClass({
   },
 
   buttonTextSwitch: function(){
-    if (this.props.isOncall){
+    if (this.props.user.is_oncall){
       return "GO OFF DUTY"
     }else{
       return "GO ON CALL"
@@ -50,18 +69,16 @@ module.exports = React.createClass({
   toggleOnCall: function(){
     UserActions.updateStaffProfileRequest({
       authentication_token: sessionStorage.authenticationToken,
-      on_call: !this.props.isOncall
+      on_call: !this.props.user.is_oncall
     })
   },
 
   render: function(){
     return(
       <ul className="dropdown-menu row">
-        <li className="col-lg-12"><h5>{this.headerSwitch()}</h5></li>
-        <li className="col-lg-offset-1 col-lg-10"><h6 className='long-string'>{this.promptSwitch()}</h6></li>
-        <li className="col-lg-offset-2 col-lg-8">
-          <button className="full-width-button" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button>
-        </li>
+        <li className="col-lg-offset-1 col-lg-10"><p>{this.headerSwitch()}</p></li>
+        <li className="col-lg-offset-1 col-lg-10"><span className='long-string'>{this.promptSwitch()}</span></li>
+        <li><button className="btn btn-primary btn-lg" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button></li>
       </ul>
     )
   }
