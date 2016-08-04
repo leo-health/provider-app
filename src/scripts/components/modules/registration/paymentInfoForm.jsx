@@ -49,7 +49,7 @@ module.exports = React.createClass({
           <div className="col-md-4 form-group payment-form">
             <button onClick={this.handleOnClick}
                     disabled = {this.state.disabled}
-                    className="btn btn-primary full-width-button">
+                    className="btn btn-primary btn-lg full-width-button">
               Continue
             </button>
             <br/><br/>

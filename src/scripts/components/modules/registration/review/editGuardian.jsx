@@ -126,7 +126,7 @@ module.exports = validation(strategy)(React.createClass({
 
         <div className="col-lg-12">
           <button onClick={this.handleOnSubmit}
-                  className="btn btn-primary full-width-button">
+                  className="btn btn-primary btn-lg full-width-button alternate-button">
             Done
           </button>
         </div>

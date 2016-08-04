@@ -48,7 +48,7 @@ module.exports = React.createClass({
     if(this.props.patients.length > 0 && !this.state.edit){
       return (
         <div className="thirty-mobile-side-padding">
-          <button type="button" className="btn btn-primary add-another-child" onClick={this.switchToAdd}>Add Another Child</button>
+          <button type="button" className="btn btn-primary btn-lg alternate-button add-another-child" onClick={this.switchToAdd}>Add Another Child</button>
         </div>
       )
     }else{
