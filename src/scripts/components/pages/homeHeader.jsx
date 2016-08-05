@@ -103,38 +103,39 @@ module.exports = React.createClass({
                 </ul>
                 <ul className="nav navbar-nav navbar-right logout-nav logout-nav--collapsed">
                   <li>
-                    <a onClick={this.handleOnLogout} className="heavy-font-size logout-button collapsed"><i className="fa fa-sign-out fa-lg"></i></a>
+                    <i onClick={this.handleOnLogout} className="fa fa-sign-out fa-lg logout-button collapsed cursor"></i>
                   </li>
                 </ul>
               </div>
-              <div className="navbar-collapse collapse" id="navbar-main">
-                <ul className="nav navbar-nav leo-nav">
-                  <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
-                  <div>
-                    <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
-                  </div>
-                </ul>
-                <ul className="nav navbar-nav navbar-right logout-nav ">
-                  <li>
-                    <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
-                  </li>
-                  <li className="dropdown">
-                    <a className="dropdown-toggle navbar-dropdown"
-                       data-toggle="dropdown"
-                       href="#"
-                       onClick={this.handleOnClick}
-                       role="button"
-                       aria-haspopup="true"
-                       aria-expanded="false">
-                      <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
-                    </a>
-                    {this.dropDownSelection()}
-                  </li>
-                  <li>
-                    <a onClick={this.handleOnLogout} className="heavy-font-size cursor"><strong>logout</strong></a>
-                  </li>
-                </ul>
-              </div>
+            </div>
+
+            <div className="navbar-collapse collapse" id="navbar-main">
+              <ul className="nav navbar-nav leo-nav">
+                <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
+                <div>
+                  <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
+                </div>
+              </ul>
+              <ul className="nav navbar-nav navbar-right logout-nav ">
+                <li>
+                  <a className="heavy-font-size navbar-welcome">Welcome, {user}</a>
+                </li>
+                <li className="dropdown">
+                  <a className="dropdown-toggle navbar-dropdown"
+                     data-toggle="dropdown"
+                     href="#"
+                     onClick={this.handleOnClick}
+                     role="button"
+                     aria-haspopup="true"
+                     aria-expanded="false">
+                    <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
+                  </a>
+                  {this.dropDownSelection()}
+                </li>
+                <li>
+                  <a onClick={this.handleOnLogout} className="heavy-font-size cursor"><strong>logout</strong></a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
