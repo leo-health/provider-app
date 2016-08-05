@@ -206,8 +206,7 @@ module.exports = React.createClass({
     var guardians, patients;
     var conversationListClass = classNames({
       'col-lg-3 conversation-container': true,
-      'selected-conversation': this.state.isSelectedConversation,
-      'non-selected-conversation': !this.state.isSelectedConversation
+      'selected-conversation': this.state.isSelectedConversation
     });
 
     if (currentSelectedConversation) {
