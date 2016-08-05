@@ -42,7 +42,7 @@ module.exports = React.createClass({
           <div className="col-lg-4 login-container text-center">
             <form className="form-group login" onSubmit={this.handleOnSubmit}>
               <a href="../" className="login-logo"><img src="/images/full-leo.png" alt="..." /></a>
-              <h6 className="forgot-message">Please enter your @leohealth.com e-mail address and we'll send you a link to reset your password right away!</h6>
+              <h6 className="forgot-message">Please enter your e-mail address and we'll send you a link to reset your password right away!</h6>
               <SuccessAlert message={this.state.message} status={this.state.status}/>
               <ErrorAlert message={this.state.message} status={this.state.status}/>
               <fieldset>
