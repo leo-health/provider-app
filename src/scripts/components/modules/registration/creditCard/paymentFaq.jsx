@@ -14,13 +14,11 @@ module.exports = React.createClass({
     var faqClass = classNames({
       'well faq-well': true,
       'enable-overlay': this.state.clickedFAQ,
-      'disable-overlay': !this.state.clickedFAQ
     });
 
     var overlayClass = classNames({
       'faq-overlay': true,
       'enable-overlay': this.state.clickedFAQ,
-      'disable-overlay': !this.state.clickedFAQ
     });
 
     return(
