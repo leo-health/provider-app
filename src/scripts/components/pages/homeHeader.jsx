@@ -34,8 +34,13 @@ module.exports = React.createClass({
     channel.bind('practice_hour', function(data){
       if(data.practice_id === this.state.user.practice_id){
         var user = this.state.user;
-        data.status === "open" ? user.is_practice_open = true : user.is_practice_open = false;
-        user.is_oncall = true;
+        if(data.status === "open"){
+          user.is_practice_open = true;
+          user.is_oncall = true
+        }else{
+          user.is_practice_open = false;
+          user.is_oncall = false;
+        }
         this.setState({ user: user })
       }
     }, this);
