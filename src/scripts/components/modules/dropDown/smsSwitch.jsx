@@ -30,12 +30,20 @@ module.exports = React.createClass({
     })
   },
 
+  test: function(e){
+    e.stopPropagation();
+  },
+
   render: function(){
     return(
-      <ul className="dropdown-menu row">
+      <ul className="dropdown-menu">
         <li><p>Your are available and the practice is open</p></li>
         <li><span>{this.headerSwitch()}</span></li><br/>
-        <li><span>Off</span><Toggle defaultChecked={this.state.isSms} onChange={this.onChange}/><span>On</span></li>
+        <li>
+          <span className="toggle-name">Off</span>
+            <Toggle defaultChecked={this.state.isSms}  aria-label="No label tag" onChange={this.onChange}/>
+          <span className="toggle-name">On</span>
+        </li>
       </ul>
     )
   }
