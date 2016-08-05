@@ -85,7 +85,7 @@ module.exports = React.createClass({
     this.setState({
       conversations: this.moveElementToFront(this.state.conversations, targetIndex, lastMessageBody)
     });
-    if(window.windowHasFocus) return;
+    if(!this.props.desktop || window.windowHasFocus) return;
     this.notifyNewMessage(lastMessageBody, lastMessage.sender.first_name);
   },
 

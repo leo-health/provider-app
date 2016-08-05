@@ -113,6 +113,7 @@ module.exports = React.createClass({
                           guardians={this.props.guardians}
                           patients={this.props.patients}
                           onClickBack={this.props.onClickBack}
+                          toggled={!this.state.hiddenNotes}
           />
           <MessageList messages={this.state.messages}
                        conversation={this.props.conversation}
