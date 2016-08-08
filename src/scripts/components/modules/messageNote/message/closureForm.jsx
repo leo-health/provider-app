@@ -1,10 +1,28 @@
 var React = require('react'),
     NoteActions = require('../../../../actions/noteActions'),
+    NoteStore = require('../../../../stores/noteStore'),
+    Reflux = require('reflux'),
     classNames = require('classnames');
 
 module.exports = React.createClass({
+  mixins: [
+    Reflux.listenTo(NoteStore, "onClosureReasonChange"),
+  ],
+
   getInitialState: function(){
-    return {closureOption: '', closureNote: ''}
+    return {closureOption: '', closureNote: '', reasons: []}
+  },
+
+  componentWillMount: function () {
+    noteActions.fetchReasonRequest(sessionStorage.authenticationToken);
+  },
+
+  onClosureReasonChange: function(){
+    if(status.reasonSelection){
+      this.setState({
+        reasons: status.reasonSelection
+      })
+    }
   },
 
   handleClosureNoteChange: function(e){
@@ -22,6 +40,15 @@ module.exports = React.createClass({
     this.setState({ closureOption: e.target.value })
   },
 
+  parseReasons: function(){
+    if(this.state.reasons.length > 0){
+      return this.state.reasons.map(function(reason, i){
+        return <option className="dark-gray-font" key={i} value={reason.id}>{leoUtil.formatName(reason.long_description)}</option>
+      })
+    }
+  },
+
+
   render: function(){
     var closureClass = classNames({
       'form-control medium-font-size closure-text': true,
@@ -36,13 +63,13 @@ module.exports = React.createClass({
             <label className="control-label medium-font-size">Please enter any relevant notes to explain how the case was resolved.</label>
             <select className="form-control drop-down" onChange={this.handleClosureToChange}>
               <option value="">Select a reason</option>
-              <option value="01">1 - scheduled appointment</option>
-              <option value="02">2 - resolved over the phone</option>
-              <option value="03">3 - addressed on messaging (clinical)</option>
-              <option value="04">4- addressed on messaging (administrative)</option>
-              <option value="05">5 - addressed on messaging (billing)</option>
-              <option value="06">6 - related to previous</option>
-              <option value="07">7 - other (explain below)</option>
+              <option value="appointment">1 - scheduled appointment</option>
+              <option value="phone">2 - resolved over the phone</option>
+              <option value="clinical">3 - clinical issue</option>
+              <option value="administrative">4 - administrative</option>
+              <option value="billing">5 - billing</option>
+              <option value="previous">6 - related to previous</option>
+              <option value="other - ">7 - other (explain below)</option>
             </select>
             <textarea value={this.state.closureNote}
                       onChange={this.handleClosureNoteChange}

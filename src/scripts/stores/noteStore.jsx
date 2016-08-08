@@ -90,5 +90,33 @@ module.exports = Reflux.createStore({
       status: response.status,
       message: "error escalating conversation"
     })
+  },
+
+  onFetchReasonRequest: function(authenticationToken){
+    request.get(leo.API_URL+"/closure_reasons")
+        .query({authentication_token: authenticationToken})
+        .end(function(err, res){
+          if(res.ok){
+            NoteActions.fetchReasonRequest.completed(res.body)
+          }else{
+            UserActions.fetchReasonRequest.failed(res.body)
+          }
+        })
+  },
+
+  onFetchReasonRequestCompleted: function(response){
+    var reasons = response.data.reasons;
+    this.trigger({
+      status: response.status,
+      reasonSelection: reasons
+    })
+  },
+
+  onFetchReasonRequestFailed: function(response){
+    this.trigger({
+      status: response.status,
+      message: "error fetching closure reasons"
+    })
   }
+
 });
