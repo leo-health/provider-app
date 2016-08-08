@@ -1,5 +1,4 @@
 var React = require('react'),
-    Reflux = require('reflux'),
     _ = require('lodash'),
     UserActions = require('../../../actions/userActions');
 

@@ -82,7 +82,7 @@ module.exports = React.createClass({
 
   dropDownSelection: function(){
     if(this.state.user.is_practice_open){
-      return <SmsSwitch isSms={this.state.user.is_sms}/>
+      return <SmsSwitch isSms={this.state.user.sms_enabled}/>
     }else{
       return <OnCallSwitch user={this.state.user} oncallProviders={this.state.oncallProviders}/>
     }
