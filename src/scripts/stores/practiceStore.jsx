@@ -14,6 +14,6 @@ module.exports = Reflux.createStore({
   },
 
   onFetchPracticeRequestCompleted: function(response){
-    this.trigger({ oncallProviders: response.data.practice.oncall_providers })
+    this.trigger({ oncallProviders: response.data.practice.on_call_providers })
   }
 });
