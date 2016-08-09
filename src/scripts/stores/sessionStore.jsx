@@ -37,7 +37,7 @@ module.exports = Reflux.createStore({
   onLoginRequestCompleted: function(response){
     sessionStorage['authenticationToken']=response.data.session.authentication_token;
     sessionStorage['user']=JSON.stringify(response.data.user);
-    this.trigger(this.getSession());
+    this.trigger({isLoggedIn: true});
   },
 
   onLoginRequestFailed: function(response){
@@ -47,24 +47,24 @@ module.exports = Reflux.createStore({
   onLogoutRequestCompleted: function(response){
     sessionStorage.removeItem('authenticationToken');
     sessionStorage.removeItem('user');
-    this.trigger(this.getSession());
+    this.trigger({isLoggedIn: false});
   },
 
   onValidateStaffRequest: function(param){
     request.post(leo.API_URL+"/staff_validation")
-        .send(param)
-        .end(function(err, res){
-          if (res.ok){
-            return true
-          }else{
-            return false
-          }
-        })
+           .send(param)
+           .end(function(err, res){
+             if (res.ok){
+               return true
+             }else{
+               return false
+             }
+           })
   },
 
   isLoggedIn: function(){
-    if(sessionStorage['authenticationToken']){
-      return this.onValidateStaffRequest({authentication_token: sessionStorage['authenticationToken']})
+    if(sessionStorage.authenticationToken){
+      return LoginActions.validateStaffRequest({authentication_token: sessionStorage['authenticationToken']})
     }else{
       return false
     }
