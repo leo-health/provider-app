@@ -33,9 +33,14 @@ module.exports = Reflux.createStore({
     this.trigger({highlightNoteKey: highlightNoteKey})
   },
 
-  onCreateCloseNoteRequest: function(authenticationToken, conversationId, note){
-    request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
-        .query({ authentication_token: authenticationToken, note: note })
+  onCreateCloseNoteRequest: function(authenticationToken, conversationId, hasNote, note, reasonId){
+    if (hasNote && note === "") {
+      var response = { status: "error" };
+      NoteActions.createCloseNoteRequest.failed(response);
+    }
+    else {
+      request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
+        .query({ authentication_token: authenticationToken, note: note , reasonId: reasonId})
         .end(function(err, res){
           if(res.ok){
             NoteActions.createCloseNoteRequest.completed(res.body)
@@ -43,6 +48,7 @@ module.exports = Reflux.createStore({
             NoteActions.createCloseNoteRequest.failed(res.body)
           }
         })
+    }
   },
 
   onCreateCloseNoteRequestCompleted: function(response){
@@ -58,6 +64,8 @@ module.exports = Reflux.createStore({
       message: "error closing conversation"
     })
   },
+
+
 
   onCreateEscalateNoteRequest: function(authenticationToken, conversationId, escalatedToId, note, priority){
     escalateParams = {
@@ -93,13 +101,13 @@ module.exports = Reflux.createStore({
   },
 
   onFetchReasonRequest: function(authenticationToken){
-    request.get(leo.API_URL+"/closure_reasons")
+    request.get(leo.API_URL+"/conversations/closure_reasons")
         .query({authentication_token: authenticationToken})
         .end(function(err, res){
           if(res.ok){
             NoteActions.fetchReasonRequest.completed(res.body)
           }else{
-            UserActions.fetchReasonRequest.failed(res.body)
+            NoteActions.fetchReasonRequest.failed(res.body)
           }
         })
   },
@@ -118,5 +126,4 @@ module.exports = Reflux.createStore({
       message: "error fetching closure reasons"
     })
   }
-
 });

@@ -2,7 +2,8 @@ var React = require('react'),
     NoteActions = require('../../../../actions/noteActions'),
     NoteStore = require('../../../../stores/noteStore'),
     Reflux = require('reflux'),
-    classNames = require('classnames');
+    classNames = require('classnames'),
+    ErrorAlert = require('../../alert/errorAlert');
 
 module.exports = React.createClass({
   mixins: [
@@ -10,14 +11,14 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    return {closureOption: '', closureNote: '', reasons: []}
+    return {reasonId: '', closureNote: '', reasons: [], hasNote: false, status: '', errorMessage: ''}
   },
 
   componentWillMount: function () {
-    noteActions.fetchReasonRequest(sessionStorage.authenticationToken);
+    NoteActions.fetchReasonRequest(sessionStorage.authenticationToken);
   },
 
-  onClosureReasonChange: function(){
+  onClosureReasonChange: function(status){
     if(status.reasonSelection){
       this.setState({
         reasons: status.reasonSelection
@@ -31,45 +32,54 @@ module.exports = React.createClass({
 
   handleClose: function (e) {
     e.preventDefault();
-    NoteActions.createCloseNoteRequest(sessionStorage.authenticationToken, this.props.conversation.id, this.state.closureNote);
-    this.props.showMessage();
+    if (this.state.hasNote && this.state.closureNote === "") {
+      this.setState({
+        status: 'error',
+        errorMessage: 'Please include an explanation'
+      })
+    } else if (this.state.reasonId === "" || !this.state.reasonId) {
+      this.setState({
+        status: 'error',
+        errorMessage: 'Please select a closure reason'
+      })
+    } else {
+      NoteActions.createCloseNoteRequest(sessionStorage.authenticationToken, this.props.conversation.id, this.state.hasNote, this.state.closureNote, this.state.reasonId);
+      this.props.showMessage();
+    }
   },
 
   handleClosureToChange: function(e){
-    console.log(e.target)
-    this.setState({ closureOption: e.target.value })
+    targetArray = JSON.parse("[" + e.target.value + "]");
+    this.setState({
+      reasonId: targetArray[0],
+      hasNote: targetArray[1]
+    })
   },
 
   parseReasons: function(){
     if(this.state.reasons.length > 0){
       return this.state.reasons.map(function(reason, i){
-        return <option className="dark-gray-font" key={i} value={reason.id}>{leoUtil.formatName(reason.long_description)}</option>
+        return <option className="dark-gray-font" key={reason.order} value={[reason.id, reason.has_note]}>{i} - {reason.long_description}</option>
       })
     }
   },
 
-
   render: function(){
     var closureClass = classNames({
       'form-control medium-font-size closure-text': true,
-      'show-text-field': this.state.closureOption == "07"
-    });
+      'show-text-field': this.state.hasNote
+    })
 
     return(
       <div id="close-form" className="alert alert-dismissible alert-default">
         <button type="button" className="close" onClick={this.props.showMessage}>×</button>
         <form className="form alert-form">
+          <ErrorAlert message={this.state.errorMessage} status={this.state.status}/>
           <div className="form-group">
             <label className="control-label medium-font-size">Please enter any relevant notes to explain how the case was resolved.</label>
             <select className="form-control drop-down" onChange={this.handleClosureToChange}>
               <option value="">Select a reason</option>
-              <option value="appointment">1 - scheduled appointment</option>
-              <option value="phone">2 - resolved over the phone</option>
-              <option value="clinical">3 - clinical issue</option>
-              <option value="administrative">4 - administrative</option>
-              <option value="billing">5 - billing</option>
-              <option value="previous">6 - related to previous</option>
-              <option value="other - ">7 - other (explain below)</option>
+              {this.parseReasons()}
             </select>
             <textarea value={this.state.closureNote}
                       onChange={this.handleClosureNoteChange}
