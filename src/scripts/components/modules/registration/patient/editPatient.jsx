@@ -7,7 +7,8 @@ var React = require('react'),
     DatePicker = require('react-datepicker'),
     moment = require('moment'),
     DateSelector=require('../../../../utils/dateSelector'),
-    strategy = require('joi-validation-strategy');
+    strategy = require('joi-validation-strategy'),
+    classNames = require('classnames');
 
 require('react-datepicker/dist/react-datepicker.css');
 
@@ -40,25 +41,25 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   handleFirstNameChange: function(e) {
-    this.setState({ firstName: e.target.value }, function(){
+    this.setState({ firstName: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
     });
   },
 
   handleLastNameChange: function (e) {
-    this.setState({ lastName: e.target.value }, function(){
+    this.setState({ lastName: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
     });
   },
 
   handleSexChange: function(e){
-    this.setState({sex: e.target.value}, function(){
+    this.setState({ sex: e.target.value }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('sex')();
     });
   },
 
   handleBirthDateChange: function(date){
-    this.setState({birthDate: date}, function(){
+    this.setState({ birthDate: date }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('birthDate')();
     });
   },
@@ -98,14 +99,20 @@ module.exports = validation(strategy)(React.createClass({
 
   render: function(){
     var showCancelButton = this.props.cancel ? {display: "inline-block"} : {display: "none"};
+    var editClass = classNames({
+      "row well": true,
+      "nested-edit-patient-form": this.props.nested,
+      "review-form": this.props.review,
+      "empty-review": this.props.empty
+    });
 
     return(
-      <div className="row well">
+      <div className={editClass}>
         <div className="col-lg-12">
           <a onClick={this.props.handleCancel}
              className="pull-right"
              style={showCancelButton}>
-            <span className="registration-icon glyphicon glyphicon-trash"></span>
+            <span className="registration-icon glyphicon glyphicon-remove cursor"></span>
           </a>
         </div>
         <div className="col-lg-6">
@@ -114,7 +121,7 @@ module.exports = validation(strategy)(React.createClass({
                  value={this.state.firstName}
                  onChange={this.handleFirstNameChange}
                  autoFocus/>
-          <label className="text-muted">Child's First Name</label>
+          <label>Child's First Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
         </div>
         <div className="col-lg-6">
@@ -122,13 +129,13 @@ module.exports = validation(strategy)(React.createClass({
                  className="form-control"
                  value={this.state.lastName}
                  onChange={this.handleLastNameChange}/>
-          <label className="text-muted">Child's Last Name</label>
+          <label>Child's Last Name</label>
           {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
         </div>
         <div className="col-lg-6">
           <DateSelector onChange={this.handleBirthDateChange}
                         value={this.state.birthDate}/>
-          <label className="text-muted">Birth Date</label>
+          <label>Birth Date</label>
           {Helper.renderHelpText(this.props.getValidationMessages('birthDate'))}
         </div>
         <div className="col-lg-6">
@@ -138,12 +145,12 @@ module.exports = validation(strategy)(React.createClass({
             <option value={"M"}>Male</option>
             <option value={"F"}>Female</option>
           </select>
-          <label className="text-muted">Sex</label>
+          <label>Sex</label>
         </div>
         <div className="col-lg-12">
           <button onClick={this.handleOnSubmit}
                   disabled={this.state.disabled}
-                  className="btn btn-primary full-width-button">
+                  className="btn btn-primary btn-lg full-width-button alternate-button">
             Save
           </button>
         </div>

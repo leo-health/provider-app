@@ -1,5 +1,6 @@
 var React = require('react'),
     CreateCreditCard = require('./creditCard/createCreditCard'),
+    PromoCode = require('./creditCard/promoCode'),
     ErrorAlert = require('../alert/errorAlert'),
     FAQ = require('./creditCard/paymentFaq'),
     RegistrationActions = require('../../../actions/registrationActions');
@@ -25,10 +26,12 @@ module.exports = React.createClass({
   render: function(){
     return(
       <div>
-        <br/>
         <div className="row">
           <div className="col-md-11 col-md-offset-1">
-            <h4 className="signup-header">Please enter in your payment information.</h4>
+            <div className="registration-header mobile-only">REGISTRATION</div>
+            <h5 className="signup-header mobile-hidden">Please enter your payment information. You'll be charged $20 a month for each child.</h5>
+            <h4 className="signup-header mobile-only">Please enter your payment info.</h4>
+            <p className="lead mobile-only">You'll be charged $20 a month for each child.</p>
           </div>
         </div>
         <br/>
@@ -41,11 +44,12 @@ module.exports = React.createClass({
         <div className="row">
           <div className="col-md-6 col-md-offset-1">
             <CreateCreditCard ref="paymentForm"/>
+            <PromoCode/>
           </div>
-          <div className="col-md-4 form-group">
+          <div className="col-md-4 form-group payment-form">
             <button onClick={this.handleOnClick}
                     disabled = {this.state.disabled}
-                    className="btn btn-primary full-width-button">
+                    className="btn btn-primary btn-lg full-width-button">
               Continue
             </button>
             <br/><br/>

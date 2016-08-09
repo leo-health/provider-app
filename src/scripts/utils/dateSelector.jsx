@@ -63,7 +63,7 @@ module.exports = React.createClass({
   render: function(){
     return(
       <div className="row">
-        <div className="col-lg-5 no-right-padding">
+        <div className="col-lg-5 no-right-padding date-selector">
           <select className="form-control" value={this.state.month} onChange={this.handleMonthChange}>
             <option value="">Month</option>
             <option value="">-----</option>
@@ -81,14 +81,14 @@ module.exports = React.createClass({
             <option value="12">December</option>
           </select>
         </div>
-        <div className="col-lg-3 no-right-padding tiny-left-padding">
+        <div className="col-lg-3 no-right-padding tiny-left-padding date-selector">
           <select className="form-control" value={this.state.day} onChange={this.handleDayChange}>
             <option value="">Day</option>
             <option value="">-----</option>
             {this.generateDays()}
           </select>
         </div>
-        <div className="col-lg-4 tiny-left-padding">
+        <div className="col-lg-4 tiny-left-padding date-selector">
           <select className="form-control" value={this.state.year} onChange={this.handleYearChange}>
             <option value="">Year</option>
             <option value="">----</option>

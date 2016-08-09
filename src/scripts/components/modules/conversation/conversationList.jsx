@@ -85,7 +85,7 @@ module.exports = React.createClass({
     this.setState({
       conversations: this.moveElementToFront(this.state.conversations, targetIndex, lastMessageBody)
     });
-    if(window.windowHasFocus) return;
+    if(!this.props.desktop || window.windowHasFocus) return;
     this.notifyNewMessage(lastMessageBody, lastMessage.sender.first_name);
   },
 
@@ -206,8 +206,7 @@ module.exports = React.createClass({
     var guardians, patients;
     var conversationListClass = classNames({
       'col-lg-3 conversation-container': true,
-      'selected-conversation': this.state.isSelectedConversation,
-      'non-selected-conversation': !this.state.isSelectedConversation
+      'selected-conversation': this.state.isSelectedConversation
     });
 
     if (currentSelectedConversation) {

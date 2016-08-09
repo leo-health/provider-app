@@ -25,6 +25,93 @@
 
   .page-header { border-bottom: none; }
 
+  /*Login*/
+  .login-container {
+    position: absolute;
+    top: 15vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vw
+  }
+
+  .login-page {
+    margin: 0;
+    padding: 0;
+  }
+
+  .login-logo > img {
+    height: 130px;
+    margin-bottom: 3vh;
+  }
+
+  .login-message,
+  .login-forgot,
+  .btn.btn-primary.login,
+  .forgot-message,
+  .login > .form-control {
+    font-family: "Open Sans";
+    font-weight: 300;
+    font-size: 1.5em;
+  }
+
+  .forgot-message { margin-bottom: 0px; }
+
+  .login-message {
+    font-size: 1.5em;
+    margin: 0px;
+  }
+
+  .login.form-group {
+    margin: 0 auto 2vh auto;
+    min-width: 313px;
+    max-width: 25vw;
+  }
+
+  @media (max-width: 320px) {
+    .login.form-group,
+    .login-logo > img {
+      min-width: 295px;
+      width: 295px;
+    }
+  }
+
+  .login.form-group > .fa {
+    position: relative;
+    top: 30px;
+    left: -47%;
+    font-size: 15px;
+  }
+
+  .login.form-group > .form-control { text-indent: 25px; }
+
+  .login.form-group > input.form-control {
+    box-shadow: inset 0 -1px 0 #666666;
+    border-color: #666666;
+    transition: all 0.5s ease;
+    margin-bottom: 10px;
+  }
+
+  .login.form-group > input.form-control:focus {
+    border-color: #2196F3;
+    box-shadow: inset 0 -2px 0 #2196F3;
+  }
+
+  .login > .form-control::-webkit-input-placeholder { color: #666666; }
+  .login > .form-control::-moz-placeholder { color: #666666; }
+  .login > .form-control::-ms-placeholder { color: #666666; }
+  .login > .form-control::placeholder { color: #666666; }
+
+  .login-forgot {
+    margin-top: 5px;
+    text-align: left;
+    margin-bottom: 4vh;
+  }
+
+  .btn.btn-primary.login {
+    width: 100%;
+    background-color: #2196F3;
+  }
+
   /*Navbar*/
   .leo-logo {
     font-family: "Open Sans";
@@ -36,6 +123,15 @@
   .logout-nav {
     margin-right: 1.5%;
     margin-top: 0.4%;
+  }
+
+  @media (max-width: 1200px) {
+    i.logout-button.collapsed {
+      color: #FFBD6A;
+      padding-right: 10px;
+      font-size: 25px;
+      margin-top: 10px;
+    }
   }
 
   .logout-nav > li {
@@ -59,7 +155,7 @@
 
   @media (min-width: 1200px) {
     .navbar-nav.leo-nav.collapsed,
-    .logout-button.collapsed { display: none }
+    .cursor.collapsed { display: none }
   }
 
   .logout-nav > li > .navbar-welcome { padding-right: 7%; }
@@ -78,8 +174,6 @@
     -ms-user-select: none;
     user-select: none;
   }
-
-  .logout-button { cursor: pointer; }
 
   .logout-nav > li {
     white-space: nowrap;
@@ -179,6 +273,10 @@
     width: 100%;
   }
 
+  @media (max-width: 450px) {
+    .to-field { top: 10% }
+  }
+
   .to-field--list {
     display: inline-block;
     overflow-y: auto;
@@ -236,7 +334,6 @@
     margin-top: 5px;
     padding-right: 10px;
     font-size: 25px;
-    cursor: pointer;
     display: inline;
   }
 
@@ -381,7 +478,8 @@
 
   #staff-selection { margin-bottom: -10px}
   #chatbox { position: relative; overflow-x: hidden; width: 100%; }
-  #chatmessages { bottom: 3%; position: absolute; overflow: auto; width: 98%; height: 57vh; padding-top: 10px; }
+  #chatmessages { bottom: 3%; position: absolute; overflow: auto; width: 98%; height: 57vh; padding-top: 30px; }
+
   .img-chat { max-width:400px; max-height:200px; width: auto; height: auto; }
   .img-wrapper {height: 200px;}
   .img-helper {display: inline-block; height: 100%; vertical-align: middle;}
@@ -663,7 +761,10 @@
     width: 100%;
   }
 
-  .cursor { cursor: pointer; }
+  .cursor {
+    cursor: pointer;
+    z-index: 5;
+  }
 
   @media (max-width: 420px) {
     .assignment-font {
@@ -820,7 +921,7 @@
 
     .navbar-nav.collapsed {
       position: absolute;
-      left: 35%;
+      left: 40%;
     }
 
     .heavy-font-size,
@@ -831,6 +932,9 @@
 
     .family-notes-container > h4,
     .notes-container > h4 { font-size: 20px; }
+
+    .leo-logo--collapsed,
+    #intercom-container { display: none; }
   }
 
   /* Mobile styling: small */
@@ -839,13 +943,9 @@
   }
 
   @media (max-width: 440px) {
-    .navbar-nav.collapsed { left: 25%; }
-
     #staff-selection { margin-left: -90vw; }
 
     .main-container { padding: 0px; }
-
-    #intercom-container { display: none; }
   }
 
   .leo-logo--collapsed {
@@ -876,10 +976,6 @@
 
   /* Mobile styling: small */
   @media (max-width: 320px) {
-    .leo-logo--collapsed { display: none; }
-
-    .navbar-nav.collapsed { left: 40%; }
-
     .message-button,
     .medium-font-size.feedback,
     .medium-font-size.call-footer { font-size: 13px; }
