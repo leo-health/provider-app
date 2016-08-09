@@ -50,11 +50,23 @@ module.exports = Reflux.createStore({
     this.trigger(this.getSession());
   },
 
-  getSession: function(){
-    return {isLoggedIn: this.isLoggedIn()}
+  onValidateStaffRequest: function(param){
+    request.post(leo.API_URL+"/staff_validation")
+        .send(param)
+        .end(function(err, res){
+          if (res.ok){
+            return true
+          }else{
+            return false
+          }
+        })
   },
 
   isLoggedIn: function(){
-    return !!sessionStorage['authenticationToken'];
+    if(sessionStorage['authenticationToken']){
+      return this.onValidateStaffRequest({authentication_token: sessionStorage['authenticationToken']})
+    }else{
+      return false
+    }
   }
 });
