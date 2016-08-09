@@ -51,8 +51,8 @@ module.exports = Reflux.createStore({
   },
 
   onValidateStaffRequest: function(param){
-    request.post(leo.API_URL+"/staff_validation")
-           .send(param)
+    request.get(leo.API_URL+"/staff_validation")
+           .query(param)
            .end(function(err, res){
              if (res.ok){
                return true
