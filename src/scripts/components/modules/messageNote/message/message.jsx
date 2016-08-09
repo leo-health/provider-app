@@ -53,6 +53,7 @@ module.exports = React.createClass({
                                  sentAt={sentAt}
                                  escalatedTo={escalatedTo}
                                  messageType={messageType}
+                                 toggleOpen={this.props.toggleOpen}
                                  link={this.props.link}/>;
         break;
       case "close":
@@ -60,6 +61,7 @@ module.exports = React.createClass({
                                   sentAt={sentAt}
                                   closedBy={sender}
                                   messageType={messageType}
+                                  toggleOpen={this.props.toggleOpen}
                                   link={this.props.link}/>;
         break;
     }

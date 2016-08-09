@@ -77,6 +77,7 @@ module.exports = React.createClass({
                                        messageType = {msg.message_type}
                                        typeName = {msg.type_name}
                                        link={this.props.link}
+                                       toggleOpen={this.props.toggleOpen}
          />;
 
         messages[i].message_type === 'bot_message' ? prevType : prevType = messages[i].message_type;

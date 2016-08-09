@@ -3,6 +3,7 @@ var NoteActions = require('../../../../actions/noteActions');
 
 module.exports = React.createClass({
   handleClick: function(){
+    this.props.toggleOpen();
     var highlightNoteKey = this.props.id.toString() + this.props.messageType;
     NoteActions.scrollToNote(highlightNoteKey);
   },

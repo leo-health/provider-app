@@ -86,6 +86,12 @@ module.exports = React.createClass({
     });
   },
 
+  onToggleOpen: function(){
+    this.setState({
+      hiddenNotes: false
+    })
+  },
+
   render: function() {
     var clickedConversation = classNames({
       'selected-conversation': this.props.clickedConversation,
@@ -120,6 +126,7 @@ module.exports = React.createClass({
                        page={this.state.page}
                        offset={this.state.offset}
                        staff={this.props.staff}
+                       toggleOpen={this.onToggleOpen}
           />
         </div>
         <div className={noteSize}>
