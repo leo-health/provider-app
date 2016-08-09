@@ -29,7 +29,7 @@ var requireAuth = function(nextState, replace) {
     return
   }
 
-  if(!SessionStore.getSession().isLoggedIn){
+  if(!SessionStore.isLoggedIn()){
     replace({ pathname: "/login", state: { nextPathname: nextState.location.pathname }})
   }
 };
