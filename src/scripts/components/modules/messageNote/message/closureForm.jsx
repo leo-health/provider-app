@@ -78,7 +78,7 @@ module.exports = React.createClass({
           <ErrorAlert message={this.state.errorMessage} status={this.state.status}/>
           <div className="form-group">
             <label className="control-label medium-font-size block-label">Please enter any relevant notes to explain how the case was resolved.</label>
-            <select className="form-control drop-down closure-drop-down" onChange={this.handleClosureToChange}>
+            <select className="form-control drop-down closure-drop-down medium-font-size" onChange={this.handleClosureToChange}>
               <option value="">Select a reason</option>
               {this.parseReasons()}
             </select>
