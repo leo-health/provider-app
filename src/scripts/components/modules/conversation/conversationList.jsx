@@ -1,18 +1,18 @@
-var React = require('react');
-var ReactDom = require('react-dom');
-var Reflux = require('reflux');
-var _ = require('lodash');
-var Conversation = require('./conversation');
-var ConversationHeader = require('./conversationHeader');
-var ConversationActions = require('../../../actions/conversationActions');
-var classNames = require('classnames');
-var MessageActions = require('../../../actions/messageActions');
-var UserActions = require('../../../actions/userActions');
-var ConversationStore = require('../../../stores/conversationStore');
-var UserStore = require('../../../stores/userStore');
-var MessageNote = require('../messageNote/messageNote');
-var Infinite = require('react-infinite');
-var moment = require('moment');
+var React = require('react'),
+    ReactDom = require('react-dom'),
+    Reflux = require('reflux'),
+    _ = require('lodash'),
+    Conversation = require('./conversation'),
+    ConversationHeader = require('./conversationHeader'),
+    ConversationActions = require('../../../actions/conversationActions'),
+    classNames = require('classnames'),
+    MessageActions = require('../../../actions/messageActions'),
+    UserActions = require('../../../actions/userActions'),
+    ConversationStore = require('../../../stores/conversationStore'),
+    UserStore = require('../../../stores/userStore'),
+    MessageNote = require('../messageNote/messageNote'),
+    Infinite = require('react-infinite'),
+    moment = require('moment');
 
 module.exports = React.createClass({
   mixins: [
@@ -103,7 +103,7 @@ module.exports = React.createClass({
     var options = {
       body: message,
       icon: "../../images/leo-light.png"
-    }
+    };
     var notification = new Notification(title, options);
     setTimeout(notification.close.bind(notification), 5000);
   },

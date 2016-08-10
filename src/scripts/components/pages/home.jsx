@@ -72,7 +72,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <HomeHeader/>
+        <HomeHeader pusher={this.pusher}/>
         <div className="container page-header main-container">
           <div className="row">
             <div className="col-lg-3 find-family-container">

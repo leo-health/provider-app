@@ -3,7 +3,6 @@ var React = require('react'),
     RegistrationActions = require('../../../../actions/registrationActions'),
     classNames = require('classnames');
 
-
 module.exports = React.createClass({
   getInitialState: function(){
     return { cardNumber: "", zip: "", expirationDate: "", cvc: "" }
