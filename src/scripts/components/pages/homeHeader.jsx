@@ -118,7 +118,7 @@ module.exports = React.createClass({
               </ul>
               <ul className="nav navbar-nav navbar-right logout-nav ">
                 <li>
-                  <a className="heavy-font-size navbar-welcome">Welcome, {user}</a>
+                  <a className="heavy-font-size navbar-welcome">Welcome, {this.state.user.first_name}</a>
                 </li>
                 <li className="dropdown">
                   <a className="dropdown-toggle navbar-dropdown"
