@@ -37,7 +37,7 @@ module.exports = React.createClass({
     var patients = this.props.patients;
     var guardianDisplay, patientDisplay, userIcon, hyphenIcon, patientIcon;
     var toggleClass = classNames({
-      'glyphicon pull-right toggler': true,
+      'glyphicon pull-right toggler cursor': true,
       'glyphicon-info-sign': !this.props.toggled,
       'glyphicon-circle-arrow-right': this.props.toggled
     });
