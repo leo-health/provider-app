@@ -21,7 +21,7 @@ module.exports = React.createClass({
   onClosureReasonChange: function(status){
     if(status.reasonSelection){
       this.setState({
-        reasons: status.reasonSelection
+        reasons: status.reasonSelection,
       })
     }
   },
@@ -52,7 +52,8 @@ module.exports = React.createClass({
     targetArray = JSON.parse("[" + e.target.value + "]");
     this.setState({
       reasonId: targetArray[0],
-      hasNote: targetArray[1]
+      hasNote: targetArray[1],
+      closureNote: ''
     })
   },
 
