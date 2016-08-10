@@ -18,7 +18,6 @@ module.exports = React.createClass({
     var newMessage = messages[messages.length - 1];
     var lastMessage = this.props.messages[this.props.messages.length - 1];
     var node = ReactDom.findDOMNode(this.refs.conversationContainer);
-
     var currentUserSentLastMessage = newMessage && newMessage !== lastMessage && currentUser.id == newMessage.created_by.id;
     var selectedConversationWasChanged = newProps.conversation && this.props.conversation && newProps.conversation.id !== this.props.conversation.id;
     var loadingBatchMessages = newProps.page !== this.props.page;
@@ -77,6 +76,7 @@ module.exports = React.createClass({
                                        messageType = {msg.message_type}
                                        typeName = {msg.type_name}
                                        link={this.props.link}
+                                       toggleOpen={this.props.toggleOpen}
          />;
 
         messages[i].message_type === 'bot_message' ? prevType : prevType = messages[i].message_type;
