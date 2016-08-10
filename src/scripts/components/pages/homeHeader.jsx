@@ -121,7 +121,7 @@ module.exports = React.createClass({
                   <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
                 </li>
                 <li className="dropdown">
-                  <a className="dropdown-toggle navbar-dropdown"
+                  <a className="dropdown-toggle"
                      data-toggle="dropdown"
                      href="#"
                      onClick={this.handleOnClick}
