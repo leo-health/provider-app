@@ -951,9 +951,30 @@
   .form-control.closure-text { display: none; }
 
   .form-control.closure-text.show-text-field {
-    display: block;
-    margin-bottom: 15px;
+    display: inline-block;
+    width: 50%;
+    top: 10px;
+    margin-top: -10px;
+    position: relative;
+    min-width: 90%;
   }
+
+  @media (min-width: 912px) {
+    .form-control.closure-text.show-text-field { min-width: 70%; }
+  }
+
+  .form-control.drop-down.closure-drop-down {
+    width: auto;
+    color: #666;
+    background-color: white;
+    padding: 0px 15px;
+    display: inline-block;
+    margin-right: 20px
+  }
+
+  .closure-drop-down > option { color: #666; }
+
+  .block-label { display: block; }
 
   /*Footer*/
   .feedback > a,
