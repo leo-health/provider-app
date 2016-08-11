@@ -178,7 +178,9 @@
   @media (max-width: 1200px) {
     .logout-button.collapsed {
       color: #666666;
-      font-size: 17px;
+      font-size: 15px;
+      font-family: "Open Sans";
+      font-weight: 300;
     }
   }
 
@@ -226,6 +228,43 @@
   .logout-nav > li {
     white-space: nowrap;
     padding-right: 5px;
+  }
+
+  @media (max-width: 768px) {
+    .status-overlay {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      background-color: #666666;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    .status-dropdown {
+      position: fixed;
+      display: inline-block;
+      width: 90vw;
+      left: 5vw;
+      background-color: white;
+      z-index: 20000;
+      text-align: center;
+      border-radius: 4px;
+      top: 25vh;
+      padding: 10px;
+    }
+
+    #dropdown-menu-status.dropdown-menu { position: absolute; }
+
+    .status-dropdown > li,
+    .status-dropdown > li > p,
+    .status-dropdown > li > button {
+      font-family: "Open Sans";
+      display: block;
+      width: 100%;
+      white-space: normal;
+    }
   }
 
   /*Positioning*/

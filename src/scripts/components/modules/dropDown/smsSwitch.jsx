@@ -29,14 +29,17 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <ul className='dropdown-menu' ref='dropdown'>
-        <li><p>You are available and the practice is open</p></li>
-        <li><span>{this.headerSwitch()}</span></li><br/>
-        <li>
-          <span className="toggle-name">Off</span>
-          <Switch className="switch" on={this.props.isSms} ref="toggle"/>
-          <span className="toggle-name">On</span>
-        </li>
+      <ul className="dropdown-menu" ref="dropdown" id="dropdown-menu-status">
+        <div className="status-overlay cursor"></div>
+        <div className="status-dropdown">
+          <li><p>You are available and the practice is open</p></li>
+          <li><span>{this.headerSwitch()}</span></li><br/>
+          <li>
+            <span className="toggle-name">Off</span>
+            <Switch className="switch" on={this.props.isSms} ref="toggle"/>
+            <span className="toggle-name">On</span>
+          </li>
+        </div>
       </ul>
     )
   }

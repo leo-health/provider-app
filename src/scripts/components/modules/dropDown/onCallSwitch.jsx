@@ -74,10 +74,13 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <ul className="dropdown-menu">
-        <li><p>{this.headerSwitch()}</p></li>
-        <li><span>{this.promptSwitch()}</span></li><br/>
-        <li><button className="btn btn-primary btn-md" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button></li>
+      <ul className="dropdown-menu call-switch" id="dropdown-menu-status">
+        <div className="status-overlay cursor"></div>
+        <div className="status-dropdown">
+          <li><p>{this.headerSwitch()}</p></li>
+          <li><span>{this.promptSwitch()}</span></li><br/>
+          <li><button className="btn btn-primary btn-md" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button></li>
+        </div>
       </ul>
     )
   }
