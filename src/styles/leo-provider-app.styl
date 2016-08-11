@@ -134,12 +134,51 @@
     margin-top: 0.4%;
   }
 
+  .dropdown.navbar-dropdown-collapsed {
+    position: absolute;
+    display: inline-block;
+  }
+
+  .status-menu { right: 22vw; }
+
+  .logout-menu { right: 10vw; }
+
+  #logout-dropdown {
+    position: absolute;
+    margin-left: -80px;
+    margin-top: 48px;
+    padding: 5px 0px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 1031;
+    background-color: white;
+    min-width:130px;
+    width: auto;
+  }
+
+  #status-dropdown {
+    position: absolute;
+    margin-left: -65px;
+    margin-top: 48px;
+    padding: 5px 0px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 1031;
+    background-color: white;
+    min-width:130px;
+    width: auto;
+  }
+
+  .navbar-dropdown-collapsed.fa-caret-down { padding-left: 5px; }
+
+  .dropdown-toggle.navbar-dropdown-collapsed {
+    position: absolute;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
   @media (max-width: 1200px) {
-    i.logout-button.collapsed {
-      color: #FFBD6A;
-      padding-right: 10px;
-      font-size: 25px;
-      margin-top: 10px;
+    .logout-button.collapsed {
+      color: #666666;
+      font-size: 17px;
     }
   }
 
@@ -148,7 +187,7 @@
     padding-right: 5px;
   }
 
-  .leo-nav { margin-left: 0; }
+  .leo-logo { margin-left: 0; }
 
   .navbar-nav {
     white-space: nowrap;
@@ -156,14 +195,14 @@
   }
 
   @media (min-width: 768px) {
-    .leo-nav {
+    .leo-logo {
       margin-left: 1.5%;
       width: 50%;
     }
   }
 
   @media (min-width: 1200px) {
-    .navbar-nav.leo-nav.collapsed,
+    .navbar-nav.collapsed,
     .cursor.collapsed { display: none }
   }
 
@@ -854,13 +893,8 @@
     .family-notes-container,
     .notes-container { margin-top: 0px; }
 
-    .navbar-nav.collapsed {
-      display: none;
-    }
-
-    .logout-nav--collapsed.logout-nav {
-      display: none;
-    }
+    .logout-nav--collapsed.logout-nav,
+    .navbar-nav.collapsed { display: none; }
   }
 
   @media (max-width: 1200px) {
@@ -928,9 +962,9 @@
       z-index: 10000;
     }
 
-    .navbar-nav.collapsed {
+    .leo-logo.collapsed {
       position: absolute;
-      left: 40%;
+      left: 42%;
     }
 
     .heavy-font-size,

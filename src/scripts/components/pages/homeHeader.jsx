@@ -95,22 +95,44 @@ module.exports = React.createClass({
           <div className="navbar navbar-default navbar-fixed-top">
             <div className="container">
               <div className="navbar-header">
-                <ul className="nav navbar-nav leo-nav collapsed">
+                <ul className="nav navbar-nav leo-logo collapsed">
                   <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
                   <div>
                     <span className="leo-logo leo-logo--collapsed leo-logo-gray">messenger </span>
                   </div>
                 </ul>
-                <ul className="nav navbar-nav navbar-right logout-nav logout-nav--collapsed">
-                  <li>
-                    <i onClick={this.handleOnLogout} className="fa fa-sign-out fa-lg logout-button collapsed cursor"></i>
+                <ul className="nav navbar-nav collapsed navbar-right logout-nav logout-nav--collapsed">
+                  <li className="dropdown navbar-dropdown-collapsed status-menu">
+                    <a href="#"
+                       className="dropdown-toggle navbar-dropdown-collapsed"
+                       data-toggle="dropdown"
+                       role="button"
+                       aria-expanded="false">
+                      <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
+                      <i className="fa fa-caret-down fa-2 navbar-dropdown-collapsed" aria-hidden="true"></i>
+                    </a>
+                    {this.dropDownSelection()}
+                  </li>
+                  <li className="dropdown navbar-dropdown-collapsed logout-menu">
+                    <a href="#"
+                       className="dropdown-toggle navbar-dropdown-collapsed"
+                       data-toggle="dropdown"
+                       role="button"
+                       aria-expanded="false">
+                       <span className="glyphicon glyphicon-option-vertical cursor"></span>
+                    </a>
+                    <ul className="dropdown-menu logout-dropdown" id="logout-dropdown">
+                      <li className="logout-button collapsed">
+                        <span>Logout </span>
+                        <i onClick={this.handleOnLogout} className="fa fa-sign-out fa-lg cursor"></i>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
             </div>
-
             <div className="navbar-collapse collapse" id="navbar-main">
-              <ul className="nav navbar-nav leo-nav">
+              <ul className="nav navbar-nav leo-logo">
                 <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
                 <div>
                   <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
