@@ -1,22 +1,11 @@
 var React = require('react'),
     ReactDom = require('react-dom'),
-    Toggle = require('react-toggle'),
-    UserActions = require('../../../actions/userActions'),
-    UserStore = require('../../../stores/userStore'),
-    classNames = require('classnames');
-    Reflux = require('reflux');
+    Switch = require('react-toggle-switch'),
+    UserActions = require('../../../actions/userActions');
+
+require("react-toggle-switch/dist/css/switch.min.css");
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(UserStore, "onStatusChange")],
-
-  getInitialState: function(){
-    return { isSms: this.props.isSms, stayOpen: false }
-  },
-
-  onStatusChange: function(status){
-    if(status.isSms) this.setState({ isSms: this.state.isSms })
-  },
-
   componentDidMount() {
     const node = ReactDom.findDOMNode(this.refs.toggle);
     node.addEventListener('click', this.handleClick, false);
@@ -31,13 +20,11 @@ module.exports = React.createClass({
   },
 
   handleClick: function(e) {
-    this.refs.toggle.setState({checked: !this.refs.toggle.state.checked});
+    e.stopPropagation();
     UserActions.updateStaffProfileRequest({
       authentication_token: sessionStorage.authenticationToken,
-      sms_enabled: !this.state.isSms
+      sms_enabled: !this.props.isSms
     });
-
-    e.stopPropagation();
   },
 
   render: function(){
@@ -47,7 +34,7 @@ module.exports = React.createClass({
         <li><span>{this.headerSwitch()}</span></li><br/>
         <li>
           <span className="toggle-name">Off</span>
-            <Toggle defaultChecked={this.state.isSms} ref='toggle'/>
+          <Switch className="switch" on={this.props.isSms} ref="toggle"/>
           <span className="toggle-name">On</span>
         </li>
       </ul>
