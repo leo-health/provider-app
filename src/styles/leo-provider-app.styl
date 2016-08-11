@@ -271,21 +271,29 @@
   }
 
   @media (min-width: 768px) {
-    #dropdown-menu-status {
+    #dropdown-menu-status.sms-switch {
       margin-right: -125px;
       margin-top: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    #dropdown-menu-status.call-switch {
+      margin-right: -210px;
+      margin-top: 7px;
     }
 
     .status-dropdown > li > p,
     .status-dropdown > li,
     .status-dropdown > li > span,
-    .toggle-name {
+    .toggle-name,
+    .status-button.btn-md {
       text-align: center;
       font-family: "Open Sans";
     }
   }
 
+  #dropdown-menu-status { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) }
+
+  .status-button.btn-md { background-color: #6EB1FF }
   /*Positioning*/
   .message-container,
   .notes-container,

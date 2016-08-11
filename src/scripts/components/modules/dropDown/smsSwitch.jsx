@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <ul className="dropdown-menu" ref="dropdown" id="dropdown-menu-status">
+      <ul className="dropdown-menu sms-switch" ref="dropdown" id="dropdown-menu-status">
         <div className="status-overlay cursor"></div>
         <div className="status-dropdown">
           <li><p>You are available and the practice is open</p></li>

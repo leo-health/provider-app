@@ -29,8 +29,8 @@ module.exports = React.createClass({
         return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and will receive patient alerts by text';
         break;
       default:
-        var remainer =  providers.length - 2;
-        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainer + ' more will receive patient alerts by text';
+        var remainder =  providers.length - 2;
+        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainder + ' more will receive patient alerts by text';
     }
   },
 
@@ -79,7 +79,7 @@ module.exports = React.createClass({
         <div className="status-dropdown">
           <li><p>{this.headerSwitch()}</p></li>
           <li><span>{this.promptSwitch()}</span></li><br/>
-          <li><button className="btn btn-primary btn-md" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button></li>
+          <li><button className="btn btn-primary btn-md status-button" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button></li>
         </div>
       </ul>
     )
