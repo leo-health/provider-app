@@ -139,14 +139,14 @@
     display: inline-block;
   }
 
-  .status-menu { right: 22vw; }
+  .status-menu { right: 15vw; }
 
-  .logout-menu { right: 10vw; }
+  .logout-menu { right: 5vw; }
 
-  #logout-dropdown {
+  #logout-dropdown-mobile {
     position: absolute;
     margin-left: -80px;
-    margin-top: 48px;
+    margin-top: 5px;
     padding: 5px 0px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     z-index: 1031;
@@ -169,10 +169,16 @@
 
   .navbar-dropdown-collapsed.fa-caret-down { padding-left: 5px; }
 
-  .dropdown-toggle.navbar-dropdown-collapsed {
+  .dropdown-toggle {
     position: absolute;
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  .header-switch {
+    display: block;
+    word-wrap: break-word;
+    white-space: normal;
   }
 
   @media (max-width: 1200px) {
@@ -182,11 +188,6 @@
       font-family: "Open Sans";
       font-weight: 300;
     }
-  }
-
-  .logout-nav > li {
-    white-space: nowrap;
-    padding-right: 5px;
   }
 
   .leo-logo { margin-left: 0; }
@@ -203,12 +204,19 @@
     }
   }
 
+  li > .switch.on {
+    background-color: #63CF9B;
+  }
+
   @media (min-width: 1200px) {
     .navbar-nav.collapsed,
     .cursor.collapsed { display: none }
   }
 
-  .logout-nav > li > .navbar-welcome { padding-right: 7%; }
+  .logout-nav > li > .navbar-welcome {
+    padding-right: 10px;
+    margin-left: 10px;
+  }
 
   .leo-logo-gray {
     font-family: "Open Sans";
@@ -225,10 +233,7 @@
     user-select: none;
   }
 
-  .logout-nav > li {
-    white-space: nowrap;
-    padding-right: 5px;
-  }
+  #dropdown-menu-status { position: absolute; }
 
   @media (max-width: 768px) {
     .status-overlay {
@@ -245,8 +250,8 @@
     .status-dropdown {
       position: fixed;
       display: inline-block;
-      width: 90vw;
-      left: 5vw;
+      width: 93vw;
+      left: 3.5vw;
       background-color: white;
       z-index: 20000;
       text-align: center;
@@ -255,8 +260,6 @@
       padding: 10px;
     }
 
-    #dropdown-menu-status.dropdown-menu { position: absolute; }
-
     .status-dropdown > li,
     .status-dropdown > li > p,
     .status-dropdown > li > button {
@@ -264,6 +267,22 @@
       display: block;
       width: 100%;
       white-space: normal;
+    }
+  }
+
+  @media (min-width: 768px) {
+    #dropdown-menu-status {
+      margin-right: -125px;
+      margin-top: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .status-dropdown > li > p,
+    .status-dropdown > li,
+    .status-dropdown > li > span,
+    .toggle-name {
+      text-align: center;
+      font-family: "Open Sans";
     }
   }
 

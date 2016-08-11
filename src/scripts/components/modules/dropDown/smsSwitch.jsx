@@ -33,7 +33,8 @@ module.exports = React.createClass({
         <div className="status-overlay cursor"></div>
         <div className="status-dropdown">
           <li><p>You are available and the practice is open</p></li>
-          <li><span>{this.headerSwitch()}</span></li><br/>
+          <li><span className="header-switch">{this.headerSwitch()}</span></li>
+          <br/><br/>
           <li>
             <span className="toggle-name">Off</span>
             <Switch className="switch" on={this.props.isSms} ref="toggle"/>

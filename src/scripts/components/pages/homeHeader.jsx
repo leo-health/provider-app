@@ -73,7 +73,7 @@ module.exports = React.createClass({
   },
 
   buttonColor: function(){
-    return (this.state.user.is_oncall) ? {color: "green"} : {color: "red"};
+    return (this.state.user.is_oncall) ? {color: "#63CF9B"} : {color: "#FF906A"};
   },
 
   displayUserName: function(){
@@ -108,8 +108,8 @@ module.exports = React.createClass({
                        data-toggle="dropdown"
                        role="button"
                        aria-expanded="false">
-                      <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
-                      <i className="fa fa-caret-down fa-2 navbar-dropdown-collapsed" aria-hidden="true"></i>
+                      <i className="fa fa-circle" aria-hidden="true" style={this.buttonColor()}></i>
+                      <i className="fa fa-caret-down navbar-dropdown-collapsed" aria-hidden="true"></i>
                     </a>
                     {this.dropDownSelection()}
                   </li>
@@ -121,7 +121,7 @@ module.exports = React.createClass({
                        aria-expanded="false">
                        <span className="glyphicon glyphicon-option-vertical cursor"></span>
                     </a>
-                    <ul className="dropdown-menu logout-dropdown" id="logout-dropdown">
+                    <ul className="dropdown-menu" id="logout-dropdown-mobile">
                       <li className="logout-button collapsed">
                         <span>Logout </span>
                         <i onClick={this.handleOnLogout} className="fa fa-sign-out fa-lg cursor"></i>
@@ -138,10 +138,7 @@ module.exports = React.createClass({
                   <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
                 </div>
               </ul>
-              <ul className="nav navbar-nav navbar-right logout-nav ">
-                <li>
-                  <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
-                </li>
+              <ul className="nav navbar-nav navbar-right logout-nav">
                 <li className="dropdown">
                   <a className="dropdown-toggle"
                      data-toggle="dropdown"
@@ -150,9 +147,13 @@ module.exports = React.createClass({
                      role="button"
                      aria-haspopup="true"
                      aria-expanded="false">
-                    <i className="fa fa-circle fa-2" aria-hidden="true" style={this.buttonColor()}></i>
+                    <i className="fa fa-circle" aria-hidden="true" style={this.buttonColor()}></i>
+                    <i className="fa fa-caret-down navbar-dropdown-collapsed" aria-hidden="true"></i>
                   </a>
                   {this.dropDownSelection()}
+                </li>
+                <li>
+                  <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
                 </li>
                 <li>
                   <a onClick={this.handleOnLogout} className="heavy-font-size cursor"><strong>logout</strong></a>
