@@ -15,7 +15,7 @@ module.exports = React.createClass({
     if(this.props.isSms){
       return 'Back at your desk? Stop texts alerts on your phone'
     }else{
-      return 'Away from your desk? Get Alerts on your phone'
+      return 'Away from your desk? Start text alerts on your phone'
     }
   },
 
@@ -29,14 +29,18 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <ul className='dropdown-menu' ref='dropdown'>
-        <li><p>Your are available and the practice is open</p></li>
-        <li><span>{this.headerSwitch()}</span></li><br/>
-        <li>
-          <span className="toggle-name">Off</span>
-          <Switch className="switch" on={this.props.isSms} ref="toggle"/>
-          <span className="toggle-name">On</span>
-        </li>
+      <ul className="dropdown-menu sms-switch" ref="dropdown" id="dropdown-menu-status">
+        <div className="status-overlay cursor"></div>
+        <div className="status-dropdown">
+          <li><p>You are available and the practice is open</p></li>
+          <li><span className="header-switch">{this.headerSwitch()}</span></li>
+          <br/><br/>
+          <li>
+            <span className="toggle-name">Off</span>
+            <Switch className="switch" on={this.props.isSms} ref="toggle"/>
+            <span className="toggle-name">On</span>
+          </li>
+        </div>
       </ul>
     )
   }

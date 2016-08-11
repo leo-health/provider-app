@@ -20,17 +20,17 @@ module.exports = React.createClass({
     _.remove(providers, function(provider){return provider.id === currentUserId});
     switch(providers.length){
       case 0:
-        return 'Your are on call and will receive patient alerts by text';
+        return 'You are on call and will receive patient alerts by text';
         break;
       case 1:
-        return 'Your are on call with ' + providers[0].first_name + ' and will receive patient alerts by text';
+        return 'You are on call with ' + providers[0].first_name + ' and will receive patient alerts by text';
         break;
       case 2:
-        return 'Your are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and will receive patient alerts by text';
+        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and will receive patient alerts by text';
         break;
       default:
-        var remainer =  providers.length - 2;
-        return 'Your are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainer + ' more will receive patient alerts by text';
+        var remainder =  providers.length - 2;
+        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainder + ' more will receive patient alerts by text';
     }
   },
 
@@ -43,8 +43,8 @@ module.exports = React.createClass({
         return this.providers[0].first_name + ', and ' + providers[1].first_name + ' are on call. Join them or enjoy your time off!';
         break;
       default:
-        var remainer =  providers.length - 2;
-        return providers[0].first_name + ', ' +  providers[1].first_name + ' and ' + remainer + ' more are on call, Join them or enjoy your time off!';
+        var remainder =  providers.length - 2;
+        return providers[0].first_name + ', ' +  providers[1].first_name + ' and ' + remainder + ' more are on call, Join them or enjoy your time off!';
     }
   },
 
@@ -53,7 +53,7 @@ module.exports = React.createClass({
     if(this.props.user.is_oncall){
       return "Time for bed? Send calls to the nurse line."
     }else{
-      return "Available to go on call? Get Alerts sent to your phone."
+      return "Available to go on call? Get alerts sent to your phone."
     }
   },
 
@@ -74,10 +74,13 @@ module.exports = React.createClass({
 
   render: function(){
     return(
-      <ul className="dropdown-menu">
-        <li><p>{this.headerSwitch()}</p></li>
-        <li><span>{this.promptSwitch()}</span></li><br/>
-        <li><button className="btn btn-primary btn-md" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button></li>
+      <ul className="dropdown-menu call-switch" id="dropdown-menu-status">
+        <div className="status-overlay cursor"></div>
+        <div className="status-dropdown">
+          <li><p>{this.headerSwitch()}</p></li>
+          <li><span>{this.promptSwitch()}</span></li><br/>
+          <li><button className="btn btn-primary btn-md status-button" onClick={this.toggleOnCall}>{this.buttonTextSwitch()}</button></li>
+        </div>
       </ul>
     )
   }
