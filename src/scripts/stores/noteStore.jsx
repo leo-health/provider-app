@@ -40,7 +40,7 @@ module.exports = Reflux.createStore({
     }
     else {
       request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
-        .query({ authentication_token: authenticationToken, note: note , reasonId: reasonId})
+        .query({ authentication_token: authenticationToken, hasNote: hasNote, note: note , reasonId: reasonId})
         .end(function(err, res){
           if(res.ok){
             NoteActions.createCloseNoteRequest.completed(res.body)
