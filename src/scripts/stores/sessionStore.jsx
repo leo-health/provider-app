@@ -1,6 +1,4 @@
 var Reflux = require('reflux'),
-    ReactRouter = require('react-router'),
-    {Router, Route, hashHistory} = ReactRouter,
     History = require('history'),
     request = require('superagent'),
     LoginActions = require('../actions/loginActions');
@@ -36,7 +34,6 @@ module.exports = Reflux.createStore({
 
   onLoginRequestCompleted: function(response){
     sessionStorage['authenticationToken']=response.data.session.authentication_token;
-    sessionStorage['user']=JSON.stringify(response.data.user);
     this.trigger({isLoggedIn: true});
   },
 
@@ -46,27 +43,15 @@ module.exports = Reflux.createStore({
 
   onLogoutRequestCompleted: function(response){
     sessionStorage.removeItem('authenticationToken');
-    sessionStorage.removeItem('user');
     this.trigger({isLoggedIn: false});
   },
 
-  onValidateStaffRequest: function(param){
+  isLoggedIn: function(nextState, replace, callback){
     request.get(leo.API_URL+"/staff_validation")
-           .query(param)
+           .query({authentication_token: sessionStorage.authenticationToken})
            .end(function(err, res){
-             if (res.ok){
-               return true
-             }else{
-               return false
-             }
-           })
-  },
-
-  isLoggedIn: function(){
-    if(sessionStorage.authenticationToken){
-      return LoginActions.validateStaffRequest({authentication_token: sessionStorage['authenticationToken']})
-    }else{
-      return false
-    }
+             if (!res.ok) replace({ pathname: "/login", state: { nextPathname: nextState.location.pathname }})
+             callback();
+           });
   }
 });
