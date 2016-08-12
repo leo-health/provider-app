@@ -56,7 +56,6 @@ module.exports = React.createClass({
 
     window.onunload = function(){
       sessionStorage.removeItem('coupon');
-      sessionStorage.removeItem('authenticationToken');
     };
   },
 
