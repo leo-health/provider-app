@@ -30,7 +30,7 @@ module.exports = React.createClass({
         break;
       default:
         var remainder =  providers.length - 2;
-        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainder + ' more will receive patient alerts by text';
+        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainder + ' others, and will receive patient alerts by text';
     }
   },
 
