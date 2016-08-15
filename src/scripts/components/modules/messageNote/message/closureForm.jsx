@@ -60,7 +60,7 @@ module.exports = React.createClass({
   parseReasons: function(){
     if(this.state.reasons.length > 0){
       return this.state.reasons.map(function(reason, i){
-        return <option className="dark-gray-font" key={reason.order} value={[reason.id, reason.has_note]}>{i} - {reason.long_description}</option>
+        return <option className="dark-gray-font" key={reason.order} value={[reason.id, reason.has_note]}>{i + 1} - {reason.long_description}</option>
       })
     }
   },
