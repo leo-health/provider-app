@@ -296,6 +296,7 @@
   .status-dropdown { z-index: 20000 }
 
   .status-button.btn-md { background-color: #6EB1FF }
+
   /*Positioning*/
   .message-container,
   .notes-container,
@@ -335,6 +336,12 @@
     .family-notes-container { margin-top: -20vh; }
   }
 
+  footer { margin: 0px }
+
+  .feedback { margin-right: 4%; }
+
+  /*Conversation Container*/
+
   .tags-container { margin-bottom: 40px }
 
   .conversation-container,
@@ -361,7 +368,10 @@
     margin-top: 55px;
     margin-left: -22.7%;
     z-index: 2;
+    display: inline-block;
   }
+
+  #staff-selection.hide-selection { display: none; }
 
   #message-form .panel-body { padding-bottom: 10px }
 
@@ -369,10 +379,6 @@
     padding-bottom: 30px;
     margin-bottom: 49px;
   }
-
-  footer { margin: 0px }
-
-  .feedback { margin-right: 4%; }
 
   /*Recipient Field*/
   .recipient-field-container {
@@ -545,8 +551,7 @@
   .list-group-item.active > .patient-list > .child-label,
   .list-group-item.active > .patient-list > .fa-child,
   .list-group-item.active > .secondary-label > .guardian-name,
-  .list-group-item.active > .list-group-item-text,
-  .list-group-item.active:hover > .list-group-item-text { color: white; }
+  .list-group-item.active > .list-group-item-text { color: white; }
 
   .list-group-item > .patient-list > .fa-child { color: #FFBD6A }
 
@@ -908,15 +913,13 @@
   }
 
   .open-case,
-  .escalated,
   .closed {
-    width: 33%;
+    width: 50%;
     text-align: center;
     height: 44px;
   }
 
   .open-div,
-  .escalated-div,
   .closed-div {
     width: 100%;
     height: 10px;
@@ -929,8 +932,6 @@
 
   .open-div,
   .active-tab.open-case,
-  .escalated-div,
-  .active-tab.escalated,
   .closed-div,
   .active-tab.closed { background-color: #FFBD6A }
 
