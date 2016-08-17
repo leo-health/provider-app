@@ -34,6 +34,13 @@
 
   .auto-scroll { position: relative; }
 
+  .cursor {
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  .default-cursor { cursor: default; }
+
   /*Login*/
   .login-container {
     position: absolute;
@@ -888,11 +895,6 @@
   .assignment-font.cursor:hover:after {
     background: #FFBD6A;
     width: 100%;
-  }
-
-  .cursor {
-    cursor: pointer;
-    z-index: 5;
   }
 
   @media (max-width: 420px) {
