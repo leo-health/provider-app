@@ -11,7 +11,7 @@ module.exports = React.createClass({
   ],
 
   getInitialState: function(){
-    return {reasonId: '', closureNote: '', reasons: [], hasNote: false, status: '', errorMessage: ''}
+    return {reasonId: '', closureNote: '', reasons: [], userInput: false, status: '', errorMessage: ''}
   },
 
   componentWillMount: function () {
@@ -32,7 +32,7 @@ module.exports = React.createClass({
 
   handleClose: function (e) {
     e.preventDefault();
-    if (this.state.hasNote && this.state.closureNote === "") {
+    if (this.state.userInput && this.state.closureNote === "") {
       this.setState({
         status: 'error',
         errorMessage: 'Please include an explanation'
@@ -43,7 +43,7 @@ module.exports = React.createClass({
         errorMessage: 'Please select a closure reason'
       })
     } else {
-      NoteActions.createCloseNoteRequest(sessionStorage.authenticationToken, this.props.conversation.id, this.state.hasNote, this.state.closureNote, this.state.reasonId);
+      NoteActions.createCloseNoteRequest(sessionStorage.authenticationToken, this.props.conversation.id, this.state.userInput, this.state.closureNote, this.state.reasonId);
       this.props.showMessage();
     }
   },
@@ -52,7 +52,7 @@ module.exports = React.createClass({
     targetArray = JSON.parse("[" + e.target.value + "]");
     this.setState({
       reasonId: targetArray[0],
-      hasNote: targetArray[1],
+      userInput: targetArray[1],
       closureNote: ''
     })
   },
@@ -60,7 +60,7 @@ module.exports = React.createClass({
   parseReasons: function(){
     if(this.state.reasons.length > 0){
       return this.state.reasons.map(function(reason, i){
-        return <option className="dark-gray-font" key={reason.order} value={[reason.id, reason.has_note]}>{i + 1} - {reason.long_description}</option>
+        return <option className="dark-gray-font" key={reason.reason_order} value={[reason.id, reason.user_input]}>{i + 1} - {reason.long_description}</option>
       })
     }
   },
@@ -68,7 +68,7 @@ module.exports = React.createClass({
   render: function(){
     var closureClass = classNames({
       'form-control medium-font-size closure-text': true,
-      'show-text-field': this.state.hasNote
+      'show-text-field': this.state.userInput
     })
 
     return(

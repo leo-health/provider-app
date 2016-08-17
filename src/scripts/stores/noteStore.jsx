@@ -33,14 +33,14 @@ module.exports = Reflux.createStore({
     this.trigger({highlightNoteKey: highlightNoteKey})
   },
 
-  onCreateCloseNoteRequest: function(authenticationToken, conversationId, hasNote, note, reasonId){
-    if (hasNote && note === "") {
+  onCreateCloseNoteRequest: function(authenticationToken, conversationId, userInput, note, reasonId){
+    if (userInput && note === "") {
       var response = { status: "error" };
       NoteActions.createCloseNoteRequest.failed(response);
     }
     else {
       request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
-        .query({ authentication_token: authenticationToken, hasNote: hasNote, note: note , reasonId: reasonId})
+        .query({ authentication_token: authenticationToken, userInput: userInput, note: note , reasonId: reasonId})
         .end(function(err, res){
           if(res.ok){
             NoteActions.createCloseNoteRequest.completed(res.body)
