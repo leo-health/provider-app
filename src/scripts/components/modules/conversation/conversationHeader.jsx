@@ -12,8 +12,7 @@ module.exports = React.createClass({
       'selected-conversation': this.props.clickedConversation
     });
     var openTabCSSClass = classNames({
-      'active-tab': this.props.currentListState === "open" || this.props.currentListState === "escalated",
-      'inactive': this.props.currentListState === "closed",
+      'active-tab': this.props.currentListState !== "closed",
       'open-case': true
     })
     var showStaffSelectionClass = classNames({

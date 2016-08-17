@@ -161,8 +161,8 @@ module.exports = React.createClass({
       );
     }.bind(this));
 
-    var escalatedTo
-    if (this.props.escalatedTo) escalatedTo = this.props.escalatedTo.first_name[0] + this.props.escalatedTo.last_name[0]
+    var escalatedInitials
+    if (this.props.escalatedTo) escalatedInitials = this.props.escalatedTo.first_name[0] + this.props.escalatedTo.last_name[0]
 
     return(
       <div className={this.props.selected ? "list-group-item active default-cursor" : "list-group-item cursor"} onClick={this.props.onClick}>
@@ -180,7 +180,7 @@ module.exports = React.createClass({
         <p className="list-group-item-text medium-font-size dark-gray-font">
           {leoUtil.shorten(this.props.lastMessage)}
         </p>
-        <p className="list-group-item-text heavy-font-size dark-gray-font pull-right escalated-to">{escalatedTo}</p>
+        <p className="list-group-item-text heavy-font-size dark-gray-font pull-right escalated-to">{escalatedInitials}</p>
       </div>
     )
   }
