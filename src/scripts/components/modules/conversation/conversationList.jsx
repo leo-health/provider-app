@@ -189,6 +189,7 @@ module.exports = React.createClass({
                         moveConversationToTop = {this.moveConversationToTop}
                         currentListState = {this.state.conversationState}
                         selectedStaff = {this.state.selectedStaff}
+                        escalatedTo = {conversation.escalated_to}
           />
         )
       }, this);
