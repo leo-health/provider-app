@@ -912,8 +912,11 @@
     box-shadow: none;
   }
 
-  .open-case > .tab-name { box-shadow: none; }
+  .open-case > .tab-name,
+  .inactive > .tab-name { box-shadow: none; }
+
   .open-case > .tab-name:hover,
+  .inactive > .tab-name:hover,
   .nav-tabs > li > .tab-name:focus:hover,
   .nav-tabs> li.active > .tab-name,
   .nav-tabs> li.active > .tab-name:focus,
