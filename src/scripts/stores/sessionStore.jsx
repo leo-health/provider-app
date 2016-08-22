@@ -34,6 +34,7 @@ module.exports = Reflux.createStore({
 
   onLoginRequestCompleted: function(response){
     sessionStorage['authenticationToken']=response.data.session.authentication_token;
+    sessionStorage['user']=JSON.stringify(response.data.user);
     this.trigger({isLoggedIn: true});
   },
 
@@ -43,6 +44,7 @@ module.exports = Reflux.createStore({
 
   onLogoutRequestCompleted: function(response){
     sessionStorage.removeItem('authenticationToken');
+    sessionStorage.removeItem('user');
     this.trigger({isLoggedIn: false});
   },
 
