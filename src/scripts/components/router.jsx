@@ -22,16 +22,14 @@ var React = require('react'),
 
 window.React = React;
 
-var requireAuth = function(nextState, replace) {
+var requireAuth = function(nextState, replace, callback) {
   var hash = window.location.href.split('#/')[1];
   if( hash === 'privacy' || hash === 'terms'){
     replace({ pathname: "/" + hash });
     return
   }
 
-  if(!SessionStore.isLoggedIn()){
-    replace({ pathname: "/login", state: { nextPathname: nextState.location.pathname }})
-  }
+  SessionStore.isLoggedIn(nextState, replace, callback)
 };
 
 render((

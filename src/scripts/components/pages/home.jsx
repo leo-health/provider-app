@@ -3,11 +3,16 @@ var React = require('react'),
     FindFamily = require('../modules/search/findFamily'),
     ConversationList = require('../modules/conversation/conversationList'),
     ConversationHeader = require('../modules/conversation/conversationHeader'),
+    Helper = require('../../utils/registrationHelper'),
     SessionStore = require('../../stores/sessionStore'),
     Footer = require('./footer'),
     _ = require('lodash');
 
 module.exports = React.createClass({
+  getInitialState: function () {
+    return { desktop: false }
+  },
+
   componentWillMount: function(){
     this.subscribeToPusher();
     this.subscribeToBrowserTabFocusEvent();
@@ -50,7 +55,10 @@ module.exports = React.createClass({
   },
 
   notificationPermission: function(){
-    Notification.requestPermission();
+    if (!Helper.mobileCheck()) {
+      Notification.requestPermission();
+      this.setState({desktop: true})
+    }
   },
 
   componentWillUnmount: function () {
@@ -64,14 +72,14 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <HomeHeader/>
+        <HomeHeader pusher={this.pusher}/>
         <div className="container page-header main-container">
           <div className="row">
             <div className="col-lg-3 find-family-container">
               <FindFamily/>
             </div>
           </div>
-          <ConversationList pusher={this.pusher}/>
+          <ConversationList pusher={this.pusher} desktop={this.state.desktop}/>
           <Footer/>
         </div>
       </div>

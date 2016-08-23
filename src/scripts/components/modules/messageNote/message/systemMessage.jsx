@@ -3,6 +3,7 @@ var NoteActions = require('../../../../actions/noteActions');
 
 module.exports = React.createClass({
   handleClick: function(){
+    this.props.toggleOpen();
     var highlightNoteKey = this.props.id.toString() + this.props.messageType;
     NoteActions.scrollToNote(highlightNoteKey);
   },
@@ -13,10 +14,10 @@ module.exports = React.createClass({
 
     if (this.props.messageType == "escalation"){
       message = "Case was assigned to " + this.props.escalatedTo;
-      tagClass = "danger"
+      tagClass = "danger cursor"
     }else{
       message = "Case was closed by " + this.props.closedBy;
-      tagClass = "primary"
+      tagClass = "primary cursor"
     }
     return(
       <div className="inline-hr medium-font-size">

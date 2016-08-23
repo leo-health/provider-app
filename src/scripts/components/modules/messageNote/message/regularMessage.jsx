@@ -15,7 +15,7 @@ module.exports = React.createClass({
     }
 
     if(this.props.prevType != 'escalation' && this.props.prevType != 'close'){
-      topLine = <div className='inline-hr' id={this.props.reactKey}><hr ref={this.props.reactKey}/></div>
+      topLine = this.props.reactKey == 0 ? "" : <div className='inline-hr' id={this.props.reactKey}><hr ref={this.props.reactKey}/></div>
     }
 
     return(

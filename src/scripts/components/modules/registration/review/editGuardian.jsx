@@ -4,6 +4,7 @@ var React = require('react'),
     Helper = require('../../../../utils/registrationHelper'),
     validation = require('react-validation-mixin'),
     Joi = require('joi'),
+    classNames = require('classnames'),
     strategy = require('joi-validation-strategy');
 
 module.exports = validation(strategy)(React.createClass({
@@ -49,47 +50,55 @@ module.exports = validation(strategy)(React.createClass({
   },
 
   handleFirstNameChange: function(e) {
-    this.setState({ firstName: e.target.value }, function(){
+    this.setState({ firstName: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('firstName')();
     });
   },
 
   handleLastNameChange: function (e) {
-    this.setState({ lastName: e.target.value }, function(){
+    this.setState({ lastName: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('lastName')();
     });
   },
 
   handlePhoneChange: function(e) {
-    this.setState({ phone: e.target.value }, function(){
+    this.setState({ phone: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('phone')();
     });
   },
 
   handleEmailChange: function(e){
-    this.setState({email: e.target.value}, function(){
+    this.setState({ email: e.target.value.trim() }, function(){
       if(this.submitHasBeenAttemptedOnce) this.props.handleValidation('email')();
     });
   },
 
   render: function(){
+    var formClass = classNames({
+      'col-lg-12 well': true,
+      'review-form': this.props.review
+    });
+
     return(
      <div className="row">
        <div className="col-lg-12">
-         <h4 className="inline-block">Your Information</h4>
-         <a onClick={this.props.guardianStateToggle}>
-           <span className="registration-icon glyphicon glyphicon-remove pull-right"></span>
+         <h4 className="inline-block signup-header">Your Information</h4>
+         <a onClick={this.props.guardianStateToggle} className="mobile-hidden">
+           <span className="registration-icon glyphicon glyphicon-remove pull-right cursor"></span>
          </a>
        </div>
 
-       <div className="col-lg-12 well">
+       <div className={formClass}>
+         <a onClick={this.props.guardianStateToggle} className="mobile-only">
+           <span className="registration-icon glyphicon glyphicon-remove pull-right cursor"></span>
+         </a>
          <div className="col-lg-6">
            <input type="text"
                   className="form-control"
                   value={this.state.firstName}
                   onChange={this.handleFirstNameChange}
                   ref="firstName"/>
-           <label className="text-muted">First Name</label>
+           <label>First Name</label>
            {Helper.renderHelpText(this.props.getValidationMessages('firstName'))}
          </div>
 
@@ -99,7 +108,7 @@ module.exports = validation(strategy)(React.createClass({
                   value={this.state.lastName}
                   onChange={this.handleLastNameChange}
                   ref="lastName"/>
-           <label className="text-muted">Last Name</label>
+           <label>Last Name</label>
            {Helper.renderHelpText(this.props.getValidationMessages('lastName'))}
          </div>
 
@@ -111,13 +120,13 @@ module.exports = validation(strategy)(React.createClass({
                   ref="phone"
                   pattern="[0-9]*"
                   onInput={Helper.phoneMask}/>
-           <label className="text-muted">Phone</label>
+           <label>Mobile Phone</label>
            {Helper.renderHelpText(this.props.getValidationMessages('phone'))}
          </div>
 
         <div className="col-lg-12">
           <button onClick={this.handleOnSubmit}
-                  className="btn btn-primary full-width-button">
+                  className="btn btn-primary btn-lg full-width-button alternate-button">
             Done
           </button>
         </div>
