@@ -946,6 +946,38 @@
 
   #close-form { background-color: rgba(66, 80, 90, 0.5); }
 
+  .drop-down > option { color: #575757; }
+
+  .form-control.closure-text { display: none; }
+
+  .alert-form > .alert-danger { font-family: "Open Sans" }
+
+  .form-control.closure-text.show-text-field {
+    display: inline-block;
+    width: 50%;
+    top: 12px;
+    margin-top: -10px;
+    position: relative;
+    min-width: 90%;
+  }
+
+  @media (min-width: 912px) {
+    .form-control.closure-text.show-text-field { min-width: 70%; }
+  }
+
+  .form-control.drop-down.closure-drop-down {
+    width: auto;
+    color: #666;
+    background-color: white;
+    padding: 0px 15px;
+    display: inline-block;
+    margin-right: 20px
+  }
+
+  .closure-drop-down > option { color: #666; }
+
+  .block-label { display: block; }
+
   /*Footer*/
   .feedback > a,
   span.gc-cs-link { color: #6EB1FF; }
