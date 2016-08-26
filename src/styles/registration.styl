@@ -4,8 +4,12 @@
 
   .bring-forward { z-index: 10; }
 
-  /*Mobile Styling*/
+  /*Non Desktop Styling*/
   @media(max-width: 1200px) {
+    /*Tablet and small laptop styling*/
+    @media (min-width: 768px) {
+
+    }
     /*General Formatting*/
     .alert.alert-dismissible.alert-danger { text-align: center; }
 
@@ -30,7 +34,8 @@
 
     .mobile-hidden,
     .mobile-only.mobile-hidden,
-    .faq-overlay { display: none; }
+    .faq-overlay,
+    .faq-well { display: none; }
 
     .row.well {
       background-color: white;
