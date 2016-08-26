@@ -27,7 +27,7 @@ module.exports = React.createClass({
     return(
       <div>
         <div className="row">
-          <div className="col-md-11 col-md-offset-1">
+          <div className="col-md-11 col-md-offset-1 payment-header">
             <div className="registration-header mobile-only">REGISTRATION</div>
             <h5 className="signup-header mobile-hidden">Please enter your payment information. You'll be charged $20 a month for each child.</h5>
             <h4 className="signup-header mobile-only">Please enter your payment info.</h4>
@@ -36,17 +36,17 @@ module.exports = React.createClass({
         </div>
         <br/>
         <div className="row">
-          <div className="col-md-10 col-md-offset-1">
+          <div className="col-md-10 col-md-offset-1 payment-content">
             <ErrorAlert message={this.props.message}
                         status={this.props.status}/>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6 col-md-offset-1">
+          <div className="col-md-6 col-md-offset-1 payment-content">
             <CreateCreditCard ref="paymentForm"/>
             <PromoCode/>
           </div>
-          <div className="col-md-4 form-group payment-form">
+          <div className="col-md-4 form-group payment-form payment-content">
             <button onClick={this.handleOnClick}
                     disabled = {this.state.disabled}
                     className="btn btn-primary btn-lg full-width-button">
