@@ -37,7 +37,7 @@ module.exports = React.createClass({
         status: 'error',
         errorMessage: 'Please include an explanation'
       })
-    } else if (this.state.reasonId === "" || !this.state.reasonId) {
+    } else if (this.state.reasonId === "" || (this.state.reasonId !== 0 && !this.state.reasonId)) {
       this.setState({
         status: 'error',
         errorMessage: 'Please select a closure reason'
