@@ -53,7 +53,6 @@ module.exports = React.createClass({
 
   render: function () {
     var notes = this.props.notes;
-
     if(notes && notes.length > 0){
       var highlightNoteKey = this.state.highlightNoteKey;
       notes = notes.map(function(note, i){
