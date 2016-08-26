@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
     if(sessionStorage.user) {
       currentUser = JSON.parse(sessionStorage.user);
-      sender = currentUser.id == sender.id ? "You:" : leoUtil.formatName(sender)
+      sender = currentUser.id == sender.id ? "You" : leoUtil.formatName(sender)
     }
 
     var noteDisplayString;
