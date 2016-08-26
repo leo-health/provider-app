@@ -53,22 +53,23 @@ module.exports = React.createClass({
 
   render: function () {
     var notes = this.props.notes;
+
     if(notes && notes.length > 0){
       var highlightNoteKey = this.state.highlightNoteKey;
-
       notes = notes.map(function(note, i){
+
         var tagName = this.shouldHighlightNote(note) ? 'blockquote' : 'div';
-        var reason;
+        var description;
         if (note.message_type == "escalated" || note.note !== "") {
-          reason = note.note;
+          description = note.note;
         } else if (note.closure_reason) {
-          reason = _.capitalize(note.closure_reason.long_description);
+          description = _.capitalize(note.closure_reason.long_description);
         }
 
         return <Note key={i}
                      reactKey={i}
                      id={note.id}
-                     note={reason}
+                     note={description}
                      sender={note.created_by}
                      sentAt={note.created_at}
                      messageType={note.message_type}
