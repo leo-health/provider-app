@@ -5,16 +5,11 @@ var React = require('react'),
 
 module.exports = React.createClass({
   render: function () {
-    var closeTabCSSClass = (this.props.currentListState === "closed" ? "active-tab" : "inactive") + " closed";
     var selectedStaffName = this.props.selectedStaff ? leoUtil.formatName(this.props.selectedStaff) : "Anyone";
     var navTabsContainer = classNames({
       'nav nav-tabs tags-container': true,
       'selected-conversation': this.props.clickedConversation
     });
-    var openTabCSSClass = classNames({
-      'active-tab': this.props.currentListState !== "closed",
-      'open-case': true
-    })
     var showStaffSelectionClass = classNames({
       'btn-group': true,
       'hide-selection': this.props.currentListState === "closed"
@@ -23,13 +18,13 @@ module.exports = React.createClass({
     return (
       <div>
         <ul className={navTabsContainer}>
-          <li className={openTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
+          <li className="open-case active" onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
             <a href="#open" className="tab-name" data-toggle="tab">
                 <span className="heavy-font-size">Open</span>
             </a>
             <div className="open-div"></div>
           </li>
-          <li className={closeTabCSSClass} onClick={this.props.onChangeConversationStateTab.bind(null, 'closed')}>
+          <li className="closed" onClick={this.props.onChangeConversationStateTab.bind(null, 'closed')}>
             <a href="#closed" className="tab-name" data-toggle="tab">
               <span className="heavy-font-size">Closed</span>
             </a>

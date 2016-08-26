@@ -904,26 +904,19 @@
     }
   }
 
-  .active-tab > .tab-name,
-  .nav-tabs > li.active-tab > .tab-name:focus,
-  .nav-tabs > li.active-tab > .tab-name:hover,
-  .nav-tabs > li.active-tab > .tab-name:focus:hover {
-    color: white;
+  .nav-tabs > li > .tab-name:hover {
     box-shadow: none;
+    color: #FFBD6A;
   }
 
-  .open-case > .tab-name,
-  .inactive > .tab-name { box-shadow: none; }
-
-  .open-case > .tab-name:hover,
-  .inactive > .tab-name:hover,
+  .nav-tabs > li > .tab-name:focus,
   .nav-tabs > li > .tab-name:focus:hover,
   .nav-tabs> li.active > .tab-name,
   .nav-tabs> li.active > .tab-name:focus,
   .nav-tabs> li.active > .tab-name:focus:hover {
-    box-shadow: none;
-    color: white;
-    background-color: #FFBD6A;
+    box-shadow: none !important;
+    color: white !important;
+    background-color: #FFBD6A !important;
   }
 
   .open-case,
@@ -937,17 +930,13 @@
   .closed-div {
     width: 100%;
     height: 10px;
+    background-color: #FFBD6A;
   }
 
   .tab-name {
     padding-top: 10px;
     height: 100%;
   }
-
-  .open-div,
-  .active-tab.open-case,
-  .closed-div,
-  .active-tab.closed { background-color: #FFBD6A }
 
   /*Button styling*/
   .btn-success.message-button { background-color: #63CF9B; }
