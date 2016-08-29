@@ -43,7 +43,7 @@ module.exports = React.createClass({
         <form className="form alert-form">
           <div className="form-group">
             <label className="control-label medium-font-size"> Assign this conversation to </label>&nbsp;
-            <select className="form-control medium-font-size" onChange={this.handleEscalatedToChange} value={this.state.escalatedToId}>
+            <select className="form-control medium-font-size drop-down" onChange={this.handleEscalatedToChange} value={this.state.escalatedToId}>
               {this.parseStaff()}
             </select>
             <label className="control-label medium-font-size">Please enter any relevant notes to help the assignee resolve the case.</label>

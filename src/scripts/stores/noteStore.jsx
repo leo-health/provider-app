@@ -33,9 +33,14 @@ module.exports = Reflux.createStore({
     this.trigger({highlightNoteKey: highlightNoteKey})
   },
 
-  onCreateCloseNoteRequest: function(authenticationToken, conversationId, note){
-    request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
-        .query({ authentication_token: authenticationToken, note: note })
+  onCreateCloseNoteRequest: function(authenticationToken, conversationId, userInput, note, reasonId){
+    if (userInput && note === "") {
+      var response = { status: "error" };
+      NoteActions.createCloseNoteRequest.failed(response);
+    }
+    else {
+      request.put(leo.API_URL+"/conversations/" + conversationId + "/close")
+        .query({ authentication_token: authenticationToken, userInput: userInput, note: note , reasonId: reasonId})
         .end(function(err, res){
           if(res.ok){
             NoteActions.createCloseNoteRequest.completed(res.body)
@@ -43,6 +48,7 @@ module.exports = Reflux.createStore({
             NoteActions.createCloseNoteRequest.failed(res.body)
           }
         })
+    }
   },
 
   onCreateCloseNoteRequestCompleted: function(response){
@@ -58,6 +64,8 @@ module.exports = Reflux.createStore({
       message: "error closing conversation"
     })
   },
+
+
 
   onCreateEscalateNoteRequest: function(authenticationToken, conversationId, escalatedToId, note, priority){
     escalateParams = {
@@ -89,6 +97,33 @@ module.exports = Reflux.createStore({
     this.trigger({
       status: response.status,
       message: "error escalating conversation"
+    })
+  },
+
+  onFetchReasonRequest: function(authenticationToken){
+    request.get(leo.API_URL+"/conversations/closure_reasons")
+        .query({authentication_token: authenticationToken})
+        .end(function(err, res){
+          if(res.ok){
+            NoteActions.fetchReasonRequest.completed(res.body)
+          }else{
+            NoteActions.fetchReasonRequest.failed(res.body)
+          }
+        })
+  },
+
+  onFetchReasonRequestCompleted: function(response){
+    var reasons = response.data.reasons;
+    this.trigger({
+      status: response.status,
+      reasonSelection: reasons
+    })
+  },
+
+  onFetchReasonRequestFailed: function(response){
+    this.trigger({
+      status: response.status,
+      message: "error fetching closure reasons"
     })
   }
 });

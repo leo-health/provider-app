@@ -96,7 +96,7 @@ module.exports = React.createClass({
             <div className="container">
               <div className="navbar-header">
                 <ul className="nav navbar-nav leo-logo collapsed">
-                  <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
+                  <li><a href="../" className="navbar-brand pulse"><img src="../images/leo.png" alt="..." /></a></li>
                   <div>
                     <span className="leo-logo leo-logo--collapsed leo-logo-gray">messenger </span>
                   </div>
@@ -133,10 +133,7 @@ module.exports = React.createClass({
             </div>
             <div className="navbar-collapse collapse" id="navbar-main">
               <ul className="nav navbar-nav leo-logo">
-                <li><a href="../" className="navbar-brand pulse"><img src="../images/leo-light.png" alt="..." /></a></li>
-                <div>
-                  <span className="leo-logo orange-font">leo | </span><span className="leo-logo leo-logo-gray"> messenger</span>
-                </div>
+                <li><a href="../" className="navbar-brand pulse"><img src="../images/full-leo-header.png" alt="..." /></a></li>
               </ul>
               <ul className="nav navbar-nav navbar-right logout-nav">
                 <li className="dropdown">
