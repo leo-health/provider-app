@@ -33,7 +33,7 @@ module.exports = React.createClass({
           <div className={showStaffSelectionClass} id="staff-selection">
           <li className="assignment-font assigned-to">Assigned to</li>
           <div className="btn-group">
-            <li className="assignment-font cursor orange-font" data-toggle="dropdown" aria-expanded="false">{selectedStaffName}</li>
+            <li className="assignment-font cursor blue-font" data-toggle="dropdown" aria-expanded="false">{selectedStaffName}</li>
             <ul className="dropdown-menu">
               <li onClick={this.props.onChangeConversationStateTab.bind(null, 'escalated')}>
                 <a className="heavy-font-size cursor">Anyone</a>
