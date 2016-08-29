@@ -240,9 +240,14 @@
     user-select: none;
   }
 
-  #dropdown-menu-status { position: absolute; }
+  #dropdown-menu-status {
+    position: absolute;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
 
   @media (max-width: 768px) {
+    #dropdown-menu-status { box-shadow: none; }
+
     .status-overlay {
       position: fixed;
       width: 100vw;
@@ -297,8 +302,6 @@
       font-family: "Open Sans";
     }
   }
-
-  #dropdown-menu-status { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) }
 
   .status-dropdown { z-index: 20000 }
 
