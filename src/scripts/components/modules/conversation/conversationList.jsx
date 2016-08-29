@@ -102,7 +102,7 @@ module.exports = React.createClass({
     var title = "New message from " + sender;
     var options = {
       body: message,
-      icon: "../../images/leo-light.png"
+      icon: "../../images/full-leo-header.png"
     };
     var notification = new Notification(title, options);
     setTimeout(notification.close.bind(notification), 5000);
