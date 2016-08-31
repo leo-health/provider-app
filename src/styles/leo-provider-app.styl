@@ -9,7 +9,9 @@
 
   .dark-gray-font { color: #575757; }
 
-  .orange-font { color: #FFBD6A; }
+  .orange-font { color: #FF906A; }
+
+  .blue-font { color: #6EB1FF; }
 
   .title-font-size {
     font-family: "Open Sans";
@@ -20,19 +22,26 @@
   .heavy-font-size {
     font-family: "Open Sans";
     font-weight: 400;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .medium-font-size,
   .message-button {
     font-family: "Open Sans";
     font-weight: 300;
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .page-header { border-bottom: none; }
 
   .auto-scroll { position: relative; }
+
+  .cursor {
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  .default-cursor { cursor: default; }
 
   /*Login*/
   .login-container {
@@ -127,10 +136,16 @@
     font-weight: 300;
     font-size: 40px;
     display: inline;
+    margin-left: 0;
+  }
+
+  .full-logo {
+    margin-top: -5px;
+    margin-left: 0.25%;
   }
 
   .logout-nav {
-    margin-right: 1.5%;
+    margin-right: 2.5%;
     margin-top: 0.4%;
   }
 
@@ -190,8 +205,6 @@
     }
   }
 
-  .leo-logo { margin-left: 0; }
-
   .navbar-nav {
     white-space: nowrap;
     display: inline-block;
@@ -199,7 +212,7 @@
 
   @media (min-width: 768px) {
     .leo-logo {
-      margin-left: 1.5%;
+      margin-left: 0.5%;
       width: 50%;
     }
   }
@@ -233,9 +246,14 @@
     user-select: none;
   }
 
-  #dropdown-menu-status { position: absolute; }
+  #dropdown-menu-status {
+    position: absolute;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
 
   @media (max-width: 768px) {
+    #dropdown-menu-status { box-shadow: none; }
+
     .status-overlay {
       position: fixed;
       width: 100vw;
@@ -291,11 +309,10 @@
     }
   }
 
-  #dropdown-menu-status { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) }
-
   .status-dropdown { z-index: 20000 }
 
   .status-button.btn-md { background-color: #6EB1FF }
+
   /*Positioning*/
   .message-container,
   .notes-container,
@@ -335,6 +352,12 @@
     .family-notes-container { margin-top: -20vh; }
   }
 
+  footer { margin: 0px }
+
+  .feedback { margin-right: 4%; }
+
+  /*Conversation Container*/
+
   .tags-container { margin-bottom: 40px }
 
   .conversation-container,
@@ -361,7 +384,10 @@
     margin-top: 55px;
     margin-left: -22.7%;
     z-index: 2;
+    display: inline-block;
   }
+
+  #staff-selection.hide-selection { display: none; }
 
   #message-form .panel-body { padding-bottom: 10px }
 
@@ -370,9 +396,12 @@
     margin-bottom: 49px;
   }
 
-  footer { margin: 0px }
-
-  .feedback { margin-right: 4%; }
+  .escalated-to {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    text-transform: uppercase;
+  }
 
   /*Recipient Field*/
   .recipient-field-container {
@@ -385,7 +414,7 @@
     position: relative;
     top: 20%;
     padding-left: 15px;
-    font-size: 18px;
+    font-size: 14px;
     width: 100%;
   }
 
@@ -518,10 +547,13 @@
 
   .note-text { padding-left: 10px; }
 
+  /*Notes*/
+  .note-text > blockquote > span,
+  .note-text > div > span { font-family: 'Open Sans'; }
+
   /*Conversation List*/
   .guardian-name,
   .child-label {
-    display: inline-block;
     padding-left: 5px;
     padding-right: 0px;
     margin-right: 0px;
@@ -535,7 +567,7 @@
   .empty-message-form { height: 180px; }
 
   .guardian-name,
-  .child-label { font-size: 16px; }
+  .child-label { font-size: 14px; }
 
   .list-group-item-heading.primary-label.secondary-label { padding-bottom: 0.1em; }
 
@@ -548,17 +580,16 @@
   .list-group-item.active > .list-group-item-text,
   .list-group-item.active:hover > .list-group-item-text { color: white; }
 
-  .list-group-item > .patient-list > .fa-child { color: #FFBD6A }
+  .list-group-item > .patient-list > .fa-child { color: #FF906A }
 
   #all-tab > .list-group-item.active {
-    background-color: #FFBD6A;
-    border-color: #FFBD6A;
+    background-color: #6EB1FF;
+    border-color: #6EB1FF;
   }
 
   .list-group-item-heading.primary-label > span {
     max-width: 55%;
     text-overflow: ellipsis;
-    overflow: hidden;
     white-space: nowrap;
   }
 
@@ -586,7 +617,7 @@
     margin-bottom: 4px;
   }
 
-  .find-family-field { line-height: 4vh; }
+  .find-family-field { line-height: 3.5vh; }
   .form-control.messenger-reply {
     line-height: 20px;
     height: 7vh;
@@ -611,7 +642,7 @@
   #signup_logo { float: left; display: inline; vertical-align: middle }
   #signup_progress{ overflow: hidden}
   #progress { padding-left: 60px }
-  .progress-text {color: black; font-size: 18px; font-weight: 400}
+  .progress-text {color: black; font-size: 14px; font-weight: 400}
   .signup_header{font-weight: 100}
   .progress-text-container{width: 15%}
   .signup-progress-text,
@@ -675,7 +706,7 @@
 
   /*React AutoSuggest*/
   .react-autosuggest { position: relative; font-family: "Open Sans"; font-weight: 400;}
-  .react-autosuggest input { width: 100%; height: 95%; font-size: 18px }
+  .react-autosuggest input { width: 100%; height: 95%; font-size: 14px }
   .react-autosuggest__suggestions { font-size: 16px; z-index: 10000; position:absolute; background-color: #fff; width: 100%; border: 1px solid #aaaaaa; }
   .react-autosuggest ul { list-style: none; padding-left: 0; }
   .react-autosuggest li { margin-left: 0; }
@@ -691,7 +722,7 @@
   .input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu { top: 28px !important; }
   .tt-hint { color: #ddd; }
   .tt-menu { padding: 8px 0; background-color: #fff; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, 0.2); border-radius: inherit; box-shadow: 0 5px 10px rgba(0,0,0,.2); }
-  .tt-suggestion { padding: 3px 20px; font-size: 18px; line-height: 24px; }
+  .tt-suggestion { padding: 3px 20px; font-size: 14px; line-height: 24px; }
 
   /*Alert*/
   .alert-form { color: #fff!important; font-size:16px; }
@@ -853,13 +884,12 @@
     font-weight: 400;
     display: inline-block;
     float: left;
-    padding-right: 10px;
-    font-size: 16px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 100%;
   }
 
   .assignment-font.cursor {
-    margin-top: 7px;
-    line-height: 14px;
     padding-right: 0px;
   }
 
@@ -873,13 +903,8 @@
   }
 
   .assignment-font.cursor:hover:after {
-    background: #FFBD6A;
+    background: #6EB1FF;
     width: 100%;
-  }
-
-  .cursor {
-    cursor: pointer;
-    z-index: 5;
   }
 
   @media (max-width: 420px) {
@@ -889,50 +914,40 @@
     }
   }
 
-  .active-tab > .tab-name,
-  .nav-tabs > li.active-tab > .tab-name:focus,
-  .nav-tabs > li.active-tab > .tab-name:hover,
-  .nav-tabs > li.active-tab > .tab-name:focus:hover {
-    color: white;
+  .nav-tabs > li > .tab-name:hover {
     box-shadow: none;
+    color: #6EB1FF;
   }
-  .inactive > .tab-name { box-shadow: none; }
-  .inactive > .tab-name:hover,
+
+  .nav-tabs > li > .tab-name:focus,
   .nav-tabs > li > .tab-name:focus:hover,
   .nav-tabs> li.active > .tab-name,
+  .nav-tabs> li.active > .tab-name:hover,
   .nav-tabs> li.active > .tab-name:focus,
   .nav-tabs> li.active > .tab-name:focus:hover {
     box-shadow: none;
     color: white;
-    background-color: #FFBD6A;
+    background-color: #6EB1FF;
   }
 
   .open-case,
-  .escalated,
   .closed {
-    width: 33%;
+    width: 49%;
     text-align: center;
     height: 44px;
   }
 
   .open-div,
-  .escalated-div,
   .closed-div {
     width: 100%;
-    height: 10px;
+    height: 2px;
+    background-color: #6EB1FF;
   }
 
   .tab-name {
     padding-top: 10px;
     height: 100%;
   }
-
-  .open-div,
-  .active-tab.open-case,
-  .escalated-div,
-  .active-tab.escalated,
-  .closed-div,
-  .active-tab.closed { background-color: #FFBD6A }
 
   /*Button styling*/
   .btn-success.message-button { background-color: #63CF9B; }
@@ -945,6 +960,38 @@
   #escalation-form { background-color: rgba(161, 49, 14, 0.5); }
 
   #close-form { background-color: rgba(66, 80, 90, 0.5); }
+
+  .drop-down > option { color: #575757; }
+
+  .form-control.closure-text { display: none; }
+
+  .alert-form > .alert-danger { font-family: "Open Sans" }
+
+  .form-control.closure-text.show-text-field {
+    display: inline-block;
+    width: 50%;
+    top: 12px;
+    margin-top: -10px;
+    position: relative;
+    min-width: 90%;
+  }
+
+  @media (min-width: 912px) {
+    .form-control.closure-text.show-text-field { min-width: 70%; }
+  }
+
+  .form-control.drop-down.closure-drop-down {
+    width: auto;
+    color: #666;
+    background-color: white;
+    padding: 0px 15px;
+    display: inline-block;
+    margin-right: 20px
+  }
+
+  .closure-drop-down > option { color: #666; }
+
+  .block-label { display: block; }
 
   /*Footer*/
   .feedback > a,
@@ -1039,7 +1086,7 @@
     .medium-font-size,
     blockquote { font-size: 14px; }
 
-    .message-button { font-size: 18px; }
+    .message-button { font-size: 14px; }
 
     .family-notes-container > h4,
     .notes-container > h4 { font-size: 20px; }

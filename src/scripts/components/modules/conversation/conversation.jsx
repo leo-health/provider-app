@@ -161,8 +161,11 @@ module.exports = React.createClass({
       );
     }.bind(this));
 
+    var escalatedInitials
+    if (this.props.escalatedTo) escalatedInitials = this.props.escalatedTo.first_name[0] + this.props.escalatedTo.last_name[0]
+
     return(
-      <div className={this.props.selected ? "list-group-item active" : "list-group-item"} onClick={this.props.onClick}>
+      <div className={this.props.selected ? "list-group-item active default-cursor" : "list-group-item cursor"} onClick={this.props.onClick}>
         <h6 className="list-group-item-heading heavy-font-size primary-label">{primaryGuardian}
           <span className="pull-right message-date">{messageSendAt}</span>
         </h6>
@@ -175,8 +178,9 @@ module.exports = React.createClass({
           {patients}
         </p>
         <p className="list-group-item-text medium-font-size dark-gray-font">
-          { leoUtil.shorten(this.props.lastMessage) }
+          {leoUtil.shorten(this.props.lastMessage)}
         </p>
+        <p className="list-group-item-text heavy-font-size dark-gray-font pull-right escalated-to">{escalatedInitials}</p>
       </div>
     )
   }

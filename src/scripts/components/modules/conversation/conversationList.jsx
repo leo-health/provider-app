@@ -102,7 +102,7 @@ module.exports = React.createClass({
     var title = "New message from " + sender;
     var options = {
       body: message,
-      icon: "../../images/leo-light.png"
+      icon: "../../images/full-leo-header.png"
     };
     var notification = new Notification(title, options);
     setTimeout(notification.close.bind(notification), 5000);
@@ -189,6 +189,7 @@ module.exports = React.createClass({
                         moveConversationToTop = {this.moveConversationToTop}
                         currentListState = {this.state.conversationState}
                         selectedStaff = {this.state.selectedStaff}
+                        escalatedTo = {conversation.escalated_to}
           />
         )
       }, this);
@@ -217,7 +218,7 @@ module.exports = React.createClass({
     return (
       <div>
         <ConversationHeader
-          currentListState={this.state.conversationState}
+          conversationState={this.state.conversationState}
           onChangeConversationStateTab={this.onChangeConversationStateTab}
           staff={this.state.staff}
           selectedStaff={this.state.selectedStaff}

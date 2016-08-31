@@ -4,8 +4,13 @@
 
   .bring-forward { z-index: 10; }
 
-  /*Mobile Styling*/
+  /*Non Desktop Styling*/
   @media(max-width: 1200px) {
+    /*Tablet and small laptop styling*/
+    @media (min-width: 768px) {
+      #signup_content { padding: 0px 10% }
+    }
+
     /*General Formatting*/
     .alert.alert-dismissible.alert-danger { text-align: center; }
 
@@ -30,7 +35,8 @@
 
     .mobile-hidden,
     .mobile-only.mobile-hidden,
-    .faq-overlay { display: none; }
+    .faq-overlay,
+    .faq-well { display: none; }
 
     .row.well {
       background-color: white;
@@ -244,14 +250,21 @@
     }
 
     /*Payment*/
+    .payment-header,
+    .payment-content {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .promo-line.form-group {
-      width: 60vw;
+      width: 70%;
       float: left;
       display: inline-block;
     }
 
     .promo-button.form-group {
-      width: 25vw;
+      width: 30%;
       display: inline-block;
       float: right;
       padding: 0px;
