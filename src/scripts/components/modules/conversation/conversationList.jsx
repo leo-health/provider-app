@@ -218,7 +218,7 @@ module.exports = React.createClass({
     return (
       <div>
         <ConversationHeader
-          currentListState={this.state.conversationState}
+          conversationState={this.state.conversationState}
           onChangeConversationStateTab={this.onChangeConversationStateTab}
           staff={this.state.staff}
           selectedStaff={this.state.selectedStaff}

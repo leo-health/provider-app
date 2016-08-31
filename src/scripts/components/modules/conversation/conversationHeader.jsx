@@ -12,19 +12,21 @@ module.exports = React.createClass({
     });
     var showStaffSelectionClass = classNames({
       'btn-group': true,
-      'hide-selection': this.props.currentListState === "closed"
-    })
+      'hide-selection': this.props.conversationState === "closed"
+    });
+    var openTab = classNames({'active': this.props.conversationState !== "closed", "open-case": true});
+    var closedTab = classNames({'active': this.props.conversationState === "closed", "closed": true});
 
     return (
       <div>
         <ul className={navTabsContainer}>
-          <li className="open-case active" onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
+          <li className={openTab} onClick={this.props.onChangeConversationStateTab.bind(null, 'open')}>
             <a href="#open" className="tab-name" data-toggle="tab">
                 <span className="heavy-font-size">Open</span>
             </a>
             <div className="open-div"></div>
           </li>
-          <li className="closed" onClick={this.props.onChangeConversationStateTab.bind(null, 'closed')}>
+          <li className={closedTab} onClick={this.props.onChangeConversationStateTab.bind(null, 'closed')}>
             <a href="#closed" className="tab-name" data-toggle="tab">
               <span className="heavy-font-size">Closed</span>
             </a>
