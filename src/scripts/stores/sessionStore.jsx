@@ -50,10 +50,7 @@ module.exports = Reflux.createStore({
 
   isLoggedIn: function(nextState, replace, callback){
     request.get(leo.API_URL+"/staff_validation")
-           .query({authentication_token: sessionStorage.authenticationToken})
-           .end(function(err, res){
-             if (!res.ok) replace({ pathname: "/login", state: { nextPathname: nextState.location.pathname }})
-             callback();
-           });
+           .query({ authentication_token: sessionStorage.authenticationToken })
+           .end(function(err, res){if (!res.ok) replace("/login"); callback() });
   }
 });
