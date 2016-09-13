@@ -1,4 +1,5 @@
 var React = require('react'),
+    Reflux = require('reflux'),
     _ = require('lodash'),
     UserActions = require('../../../actions/userActions');
 
@@ -37,10 +38,10 @@ module.exports = React.createClass({
   parseProviderNameOffCall: function(providers){
     switch(providers.length){
       case 1:
-        return this.providers[0].first_name + ' are on call. Join them or enjoy your time off!';
+        return providers[0].first_name + ' are on call. Join them or enjoy your time off!';
         break;
       case 2:
-        return this.providers[0].first_name + ', and ' + providers[1].first_name + ' are on call. Join them or enjoy your time off!';
+        return providers[0].first_name + ', and ' + providers[1].first_name + ' are on call. Join them or enjoy your time off!';
         break;
       default:
         var remainder =  providers.length - 2;

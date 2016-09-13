@@ -21,33 +21,26 @@ module.exports = React.createClass({
   contextTypes: {router: React.PropTypes.object.isRequired},
 
   getInitialState: function(){
-    return {user: '', oncallProviders: []}
+    return { user: '', dropDown: '', oncallProviders: [] }
   },
 
   componentDidMount: function(){
     UserActions.fetchIndividualUserRequest({authentication_token: sessionStorage.authenticationToken});
-    this.subscribeToPracticeHourChange();
-  },
-
-  subscribeToPracticeHourChange: function() {
-    var channel = this.props.pusher.subscribe('practice');
-    channel.bind('practice_hour', function(data){
-      if(data.practice_id === this.state.user.practice_id){
-        var user = this.state.user;
-        if(data.status === "open"){
-          user.is_practice_open = true;
-          user.is_oncall = true
-        }else{
-          user.is_practice_open = false;
-          user.is_oncall = false;
-        }
-        this.setState({ user: user })
-      }
-    }, this);
   },
 
   onPracticeStatusChange: function(status){
-   if(status.oncallProviders) this.setState({ oncallProviders: status.oncallProviders })
+    if(status.data.is_practice_open){
+      debugger
+      var dropDown;
+      if(status.data.is_practice_open){
+        dropDown = <SmsSwitch isSms={this.state.user.sms_enabled}/>
+      }else{
+        dropDown = <OnCallSwitch user={this.state.user} oncallProviders={this.state.oncallProviders}/>
+      }
+      this.setState({ dropDown: dropDown })
+    }
+
+    if(status.data.practice) this.setState({ oncallProviders: status.practice.on_call_providers })
   },
 
   onSessionStatusChange: function (status) {
@@ -64,11 +57,11 @@ module.exports = React.createClass({
     LoginActions.logoutRequest(authenticationToken)
   },
 
-  handleOnClick: function(){
-    if(this.state.user.is_practice_open) return;
+  isPracticeOpen: function(){
     PracticeActions.fetchPracticeRequest({
       id: this.state.user.practice_id,
-      authentication_token: sessionStorage.authenticationToken
+      authentication_token: sessionStorage.authenticationToken,
+      query: 'is_open'
     })
   },
 
@@ -78,14 +71,6 @@ module.exports = React.createClass({
 
   displayUserName: function(){
     return leoUtil.formatName(this.state.user);
-  },
-
-  dropDownSelection: function(){
-    if(this.state.user.is_practice_open){
-      return <SmsSwitch isSms={this.state.user.sms_enabled}/>
-    }else{
-      return <OnCallSwitch user={this.state.user} oncallProviders={this.state.oncallProviders}/>
-    }
   },
 
   render: function() {
@@ -140,14 +125,12 @@ module.exports = React.createClass({
                   <a className="dropdown-toggle"
                      data-toggle="dropdown"
                      href="#"
-                     onClick={this.handleOnClick}
-                     role="button"
-                     aria-haspopup="true"
-                     aria-expanded="false">
+                     onClick={this.isPracticeOpen}
+                     role="button">
                     <i className="fa fa-circle" aria-hidden="true" style={this.buttonColor()}></i>
                     <i className="fa fa-caret-down navbar-dropdown-collapsed" aria-hidden="true"></i>
                   </a>
-                  {this.dropDownSelection()}
+                  {this.state.dropDown}
                 </li>
                 <li>
                   <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
