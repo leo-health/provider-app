@@ -25,6 +25,7 @@ module.exports = React.createClass({
 
     if (currentUserSentLastMessage) this.shouldScrollToBottom = true;
     else if (selectedConversationWasChanged) this.shouldScrollToBottom = true;
+    else if (this.props.page === 1) this.shouldScrollToBottom = true;
     else if (loadingBatchMessages) this.shouldScrollToBottom = false;
     else this.shouldScrollToBottom = scrollPositionAlreadyAtBottom;
   },
@@ -37,7 +38,7 @@ module.exports = React.createClass({
   },
 
   scrollToBottomIfNeeded: function() {
-    if (this.shouldScrollToBottom || !this.shouldScrollToBottom) {
+    if (this.shouldScrollToBottom) {
       var node = ReactDom.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight - node.offsetHeight;
     }
