@@ -21,7 +21,7 @@ module.exports = React.createClass({
   contextTypes: {router: React.PropTypes.object.isRequired},
 
   getInitialState: function(){
-    return { user: '', dropDown: '', oncallProviders: [] }
+    return { user: '', oncallProviders: '', isPracticeOpen: false }
   },
 
   componentDidMount: function(){
@@ -29,18 +29,14 @@ module.exports = React.createClass({
   },
 
   onPracticeStatusChange: function(status){
-    if(status.data.is_practice_open){
-      debugger
-      var dropDown;
-      if(status.data.is_practice_open){
-        dropDown = <SmsSwitch isSms={this.state.user.sms_enabled}/>
-      }else{
-        dropDown = <OnCallSwitch user={this.state.user} oncallProviders={this.state.oncallProviders}/>
-      }
-      this.setState({ dropDown: dropDown })
+    if( status.data.is_practice_open !== undefined ){
+      if(!status.data.is_practice_open) this.fetchOnCallProviders();
+      this.setState({ isPracticeOpen: status.data.is_practice_open });
     }
 
-    if(status.data.practice) this.setState({ oncallProviders: status.practice.on_call_providers })
+    if( status.data.practice ){
+      this.setState({ oncallProviders: status.data.practice.on_call_providers })
+    }
   },
 
   onSessionStatusChange: function (status) {
@@ -57,7 +53,14 @@ module.exports = React.createClass({
     LoginActions.logoutRequest(authenticationToken)
   },
 
-  isPracticeOpen: function(){
+  fetchOnCallProviders: function(){
+    PracticeActions.fetchPracticeRequest({
+      id: this.state.user.practice_id,
+      authentication_token: sessionStorage.authenticationToken
+    })
+  },
+
+  checkIsPracticeOpen: function(){
     PracticeActions.fetchPracticeRequest({
       id: this.state.user.practice_id,
       authentication_token: sessionStorage.authenticationToken,
@@ -73,49 +76,19 @@ module.exports = React.createClass({
     return leoUtil.formatName(this.state.user);
   },
 
+  dropDownSelection: function(){
+    if(this.state.isPracticeOpen){
+      return <SmsSwitch isSms={this.state.user.sms_enabled}/>
+    }else if(!!this.state.oncallProviders){
+      return <OnCallSwitch user={this.state.user} oncallProviders={this.state.oncallProviders}/>
+    }
+  },
+
   render: function() {
     if(this.state.user){
       return (
         <div>
           <div className="navbar navbar-default navbar-fixed-top">
-            <div className="container">
-              <div className="navbar-header">
-                <ul className="nav navbar-nav leo-logo collapsed">
-                  <li><a href="../" className="navbar-brand pulse"><img src="../images/leo.png" alt="..." /></a></li>
-                  <div>
-                    <span className="leo-logo leo-logo--collapsed leo-logo-gray">messenger </span>
-                  </div>
-                </ul>
-                <ul className="nav navbar-nav collapsed navbar-right logout-nav logout-nav--collapsed">
-                  <li className="dropdown navbar-dropdown-collapsed status-menu">
-                    <a href="#"
-                       className="dropdown-toggle navbar-dropdown-collapsed"
-                       data-toggle="dropdown"
-                       role="button"
-                       aria-expanded="false">
-                      <i className="fa fa-circle" aria-hidden="true" style={this.buttonColor()}></i>
-                      <i className="fa fa-caret-down navbar-dropdown-collapsed" aria-hidden="true"></i>
-                    </a>
-                    {this.dropDownSelection()}
-                  </li>
-                  <li className="dropdown navbar-dropdown-collapsed logout-menu">
-                    <a href="#"
-                       className="dropdown-toggle navbar-dropdown-collapsed"
-                       data-toggle="dropdown"
-                       role="button"
-                       aria-expanded="false">
-                       <span className="glyphicon glyphicon-option-vertical cursor"></span>
-                    </a>
-                    <ul className="dropdown-menu" id="logout-dropdown-mobile">
-                      <li className="logout-button collapsed">
-                        <span>Logout </span>
-                        <i onClick={this.handleOnLogout} className="fa fa-sign-out fa-lg cursor"></i>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
             <div className="navbar-collapse collapse" id="navbar-main">
               <ul className="nav navbar-nav leo-logo full-logo">
                 <li><a href="../" className="navbar-brand pulse"><img src="../images/full-leo-header.png" alt="..." /></a></li>
@@ -125,12 +98,12 @@ module.exports = React.createClass({
                   <a className="dropdown-toggle"
                      data-toggle="dropdown"
                      href="#"
-                     onClick={this.isPracticeOpen}
+                     onClick={this.checkIsPracticeOpen}
                      role="button">
                     <i className="fa fa-circle" aria-hidden="true" style={this.buttonColor()}></i>
                     <i className="fa fa-caret-down navbar-dropdown-collapsed" aria-hidden="true"></i>
                   </a>
-                  {this.state.dropDown}
+                  {this.dropDownSelection()}
                 </li>
                 <li>
                   <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>

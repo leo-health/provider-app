@@ -5,7 +5,7 @@ var React = require('react'),
 
 module.exports = React.createClass({
   headerSwitch: function(){
-    if(this.props.user.is_oncall){
+    if(this.isOncall(this.props.user)){
       return this.parseProviderNames(this.props.oncallProviders)
     }else{
       if(this.props.oncallProviders.length === 0){
@@ -14,6 +14,10 @@ module.exports = React.createClass({
         return this.parseProviderNameOffCall(this.props.oncallProviders)
       }
     }
+  },
+
+  isOncall: function(user){
+    return _.filter(this.props.oncallProviders, {id: user.id}).length > 0
   },
 
   parseProviderNames: function(providers){
@@ -38,10 +42,10 @@ module.exports = React.createClass({
   parseProviderNameOffCall: function(providers){
     switch(providers.length){
       case 1:
-        return providers[0].first_name + ' are on call. Join them or enjoy your time off!';
+        return providers[0].first_name + ' is on call. Join him/her or enjoy your time off!';
         break;
       case 2:
-        return providers[0].first_name + ', and ' + providers[1].first_name + ' are on call. Join them or enjoy your time off!';
+        return providers[0].first_name + ' and ' + providers[1].first_name + ' are on call. Join them or enjoy your time off!';
         break;
       default:
         var remainder =  providers.length - 2;
