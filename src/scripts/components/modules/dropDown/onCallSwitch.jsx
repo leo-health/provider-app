@@ -1,12 +1,12 @@
 var React = require('react'),
-    Reflux = require('reflux'),
     _ = require('lodash'),
     UserActions = require('../../../actions/userActions');
 
 module.exports = React.createClass({
   headerSwitch: function(){
     if(this.isOncall(this.props.user)){
-      return this.parseProviderNames(this.props.oncallProviders)
+      var providers = this.props.oncallProviders.slice();
+      return this.parseProviderNames(providers)
     }else{
       if(this.props.oncallProviders.length === 0){
         return 'No one is on call. All conversations will be sent to the nurse line'
@@ -17,7 +17,7 @@ module.exports = React.createClass({
   },
 
   isOncall: function(user){
-    return _.filter(this.props.oncallProviders, {id: user.id}).length > 0
+    return !!_.find(this.props.oncallProviders, {id: user.id})
   },
 
   parseProviderNames: function(providers){

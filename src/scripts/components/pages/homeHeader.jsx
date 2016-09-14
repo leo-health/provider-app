@@ -1,6 +1,5 @@
 var React = require('react'),
     Reflux = require('reflux'),
-    ReactRouter = require('react-router'),
     SessionStore = require('../../stores/sessionStore'),
     UserActions = require('../../actions/userActions'),
     UserStore = require('../../stores/userStore'),
@@ -9,7 +8,8 @@ var React = require('react'),
     LoginActions = require('../../actions/loginActions'),
     SmsSwitch = require('../modules/dropDown/smsSwitch'),
     OnCallSwitch = require('../modules/dropDown/onCallSwitch'),
-    leoUtil = require('../../utils/common').StringUtils;
+    leoUtil = require('../../utils/common').StringUtils,
+    _ = require('lodash');
 
 module.exports = React.createClass({
   mixins: [
@@ -18,14 +18,24 @@ module.exports = React.createClass({
     Reflux.listenTo(PracticeStore, "onPracticeStatusChange")
   ],
 
-  contextTypes: {router: React.PropTypes.object.isRequired},
+  contextTypes: { router: React.PropTypes.object.isRequired },
 
   getInitialState: function(){
-    return { user: '', oncallProviders: '', isPracticeOpen: false }
+    return { user: '', oncallProviders: [], isPracticeOpen: '' }
   },
 
   componentDidMount: function(){
-    UserActions.fetchIndividualUserRequest({authentication_token: sessionStorage.authenticationToken});
+    UserActions.fetchIndividualUserRequest({ authentication_token: sessionStorage.authenticationToken });
+    this.subscribeToOncallChange();
+  },
+
+  subscribeToOncallChange: function() {
+    var channel = this.props.pusher.subscribe('staff');
+    channel.bind('oncall_change', function(data){
+      var user = this.state.user;
+      if(_.indexOf(data.staff_ids, user.id) != -1) user.is_oncall = (data.event === 'on-call');
+      this.setState({ user: user })
+    }, this);
   },
 
   onPracticeStatusChange: function(status){
@@ -35,7 +45,9 @@ module.exports = React.createClass({
     }
 
     if( status.data.practice ){
-      this.setState({ oncallProviders: status.data.practice.on_call_providers })
+      var oncallProviders = [];
+      _.forEach(status.data.practice.on_call_providers, function(provider){ oncallProviders.push(provider) });
+      this.setState({ oncallProviders: oncallProviders });
     }
   },
 
@@ -87,34 +99,72 @@ module.exports = React.createClass({
   render: function() {
     if(this.state.user){
       return (
-        <div>
-          <div className="navbar navbar-default navbar-fixed-top">
-            <div className="navbar-collapse collapse" id="navbar-main">
-              <ul className="nav navbar-nav leo-logo full-logo">
-                <li><a href="../" className="navbar-brand pulse"><img src="../images/full-leo-header.png" alt="..." /></a></li>
-              </ul>
-              <ul className="nav navbar-nav navbar-right logout-nav">
-                <li className="dropdown">
-                  <a className="dropdown-toggle"
-                     data-toggle="dropdown"
-                     href="#"
-                     onClick={this.checkIsPracticeOpen}
-                     role="button">
-                    <i className="fa fa-circle" aria-hidden="true" style={this.buttonColor()}></i>
-                    <i className="fa fa-caret-down navbar-dropdown-collapsed" aria-hidden="true"></i>
-                  </a>
-                  {this.dropDownSelection()}
-                </li>
-                <li>
-                  <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
-                </li>
-                <li>
-                  <a onClick={this.handleOnLogout} className="heavy-font-size cursor"><strong>logout</strong></a>
-                </li>
-              </ul>
+          <div>
+            <div className="navbar navbar-default navbar-fixed-top">
+              <div className="container">
+                <div className="navbar-header">
+                  <ul className="nav navbar-nav leo-logo collapsed">
+                    <li><a href="../" className="navbar-brand pulse"><img src="../images/leo.png" alt="..." /></a></li>
+                    <div>
+                      <span className="leo-logo leo-logo--collapsed leo-logo-gray">messenger </span>
+                    </div>
+                  </ul>
+                  <ul className="nav navbar-nav collapsed navbar-right logout-nav logout-nav--collapsed">
+                    <li className="dropdown navbar-dropdown-collapsed status-menu">
+                      <a href="#"
+                         className="dropdown-toggle navbar-dropdown-collapsed"
+                         data-toggle="dropdown"
+                         onClick={this.checkIsPracticeOpen}
+                         role="button">
+                        <i className="fa fa-circle" aria-hidden="true" style={this.buttonColor()}></i>
+                        <i className="fa fa-caret-down navbar-dropdown-collapsed" aria-hidden="true"></i>
+                      </a>
+                      {this.dropDownSelection()}
+                    </li>
+                    <li className="dropdown navbar-dropdown-collapsed logout-menu">
+                      <a href="#"
+                         className="dropdown-toggle navbar-dropdown-collapsed"
+                         data-toggle="dropdown"
+                         role="button"
+                         aria-expanded="false">
+                        <span className="glyphicon glyphicon-option-vertical cursor"></span>
+                      </a>
+                      <ul className="dropdown-menu" id="logout-dropdown-mobile">
+                        <li className="logout-button collapsed">
+                          <span>Logout </span>
+                          <i onClick={this.handleOnLogout} className="fa fa-sign-out fa-lg cursor"></i>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="navbar-collapse collapse" id="navbar-main">
+                <ul className="nav navbar-nav leo-logo full-logo">
+                  <li><a href="../" className="navbar-brand pulse"><img src="../images/full-leo-header.png" alt="..." /></a></li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right logout-nav">
+                  <li className="dropdown">
+                    <a className="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#"
+                       onClick={this.checkIsPracticeOpen}
+                       role="button">
+                      <i className="fa fa-circle" aria-hidden="true" style={this.buttonColor()}></i>
+                      <i className="fa fa-caret-down navbar-dropdown-collapsed" aria-hidden="true"></i>
+                    </a>
+                    {this.dropDownSelection()}
+                  </li>
+                  <li>
+                    <a className="heavy-font-size navbar-welcome">Welcome, {this.displayUserName()}</a>
+                  </li>
+                  <li>
+                    <a onClick={this.handleOnLogout} className="heavy-font-size cursor"><strong>logout</strong></a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
       )
     }else{
       return <div></div>
