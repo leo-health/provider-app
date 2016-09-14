@@ -37,7 +37,7 @@ module.exports = React.createClass({
   },
 
   scrollToBottomIfNeeded: function() {
-    if (this.shouldScrollToBottom) {
+    if (this.shouldScrollToBottom || !this.shouldScrollToBottom) {
       var node = ReactDom.findDOMNode(this.refs.conversationContainer);
       node.scrollTop = node.scrollHeight - node.offsetHeight;
     }
