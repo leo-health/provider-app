@@ -9,7 +9,7 @@ module.exports = React.createClass({
       return this.parseProviderNames(providers)
     }else{
       if(this.props.oncallProviders.length === 0){
-        return 'No one is on call. All conversations will be sent to the nurse line'
+        return 'No one is on call. All conversations will be sent to the nurse line.'
       }else{
         return this.parseProviderNameOffCall(this.props.oncallProviders)
       }
@@ -25,17 +25,17 @@ module.exports = React.createClass({
     _.remove(providers, function(provider){return provider.id === currentUserId});
     switch(providers.length){
       case 0:
-        return 'You are on call and will receive patient alerts by text';
+        return 'You are on call and will receive patient alerts by text.';
         break;
       case 1:
-        return 'You are on call with ' + providers[0].first_name + ' and will receive patient alerts by text';
+        return 'You are on call with ' + providers[0].first_name + ' and will receive patient alerts by text.';
         break;
       case 2:
-        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and will receive patient alerts by text';
+        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and will receive patient alerts by text.';
         break;
       default:
         var remainder =  providers.length - 2;
-        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainder + ' others, and will receive patient alerts by text';
+        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainder + ' others, and will receive patient alerts by text.';
     }
   },
 
