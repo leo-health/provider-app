@@ -26,6 +26,8 @@ var requireAuth = function(nextState, replace, callback) {
   var hash = window.location.href.split('#/')[1];
   if( hash === 'privacy' || hash === 'terms'){
     replace('/' + hash); callback()
+  } else if(!sessionStorage.authenticationToken){
+    replace('/login'); callback()
   } else{
     SessionStore.isLoggedIn(nextState, replace, callback)
   }

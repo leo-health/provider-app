@@ -4,15 +4,20 @@ var React = require('react'),
 
 module.exports = React.createClass({
   headerSwitch: function(){
-    if(this.props.user.is_oncall){
-      return this.parseProviderNames(this.props.oncallProviders)
+    if(this.isOncall(this.props.user)){
+      var providers = this.props.oncallProviders.slice();
+      return this.parseProviderNames(providers)
     }else{
       if(this.props.oncallProviders.length === 0){
-        return 'No one is on call. All conversations will be sent to the nurse line'
+        return 'No one is on call. All conversations will be sent to the nurse line.'
       }else{
         return this.parseProviderNameOffCall(this.props.oncallProviders)
       }
     }
+  },
+
+  isOncall: function(user){
+    return !!_.find(this.props.oncallProviders, {id: user.id})
   },
 
   parseProviderNames: function(providers){
@@ -20,27 +25,27 @@ module.exports = React.createClass({
     _.remove(providers, function(provider){return provider.id === currentUserId});
     switch(providers.length){
       case 0:
-        return 'You are on call and will receive patient alerts by text';
+        return 'You are on call and will receive patient alerts by text.';
         break;
       case 1:
-        return 'You are on call with ' + providers[0].first_name + ' and will receive patient alerts by text';
+        return 'You are on call with ' + providers[0].first_name + ' and will receive patient alerts by text.';
         break;
       case 2:
-        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and will receive patient alerts by text';
+        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and will receive patient alerts by text.';
         break;
       default:
         var remainder =  providers.length - 2;
-        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainder + ' others, and will receive patient alerts by text';
+        return 'You are on call with ' + providers[0].first_name + ', ' + providers[1].first_name + ' and ' + remainder + ' others, and will receive patient alerts by text.';
     }
   },
 
   parseProviderNameOffCall: function(providers){
     switch(providers.length){
       case 1:
-        return this.providers[0].first_name + ' are on call. Join them or enjoy your time off!';
+        return providers[0].first_name + ' is on call. Join him/her or enjoy your time off!';
         break;
       case 2:
-        return this.providers[0].first_name + ', and ' + providers[1].first_name + ' are on call. Join them or enjoy your time off!';
+        return providers[0].first_name + ' and ' + providers[1].first_name + ' are on call. Join them or enjoy your time off!';
         break;
       default:
         var remainder =  providers.length - 2;
