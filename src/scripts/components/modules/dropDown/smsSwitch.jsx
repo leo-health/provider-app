@@ -13,9 +13,9 @@ module.exports = React.createClass({
 
   headerSwitch: function(){
     if(this.props.isSms){
-      return 'Back at your desk? Stop texts alerts on your phone'
+      return 'Back at your desk? Stop texts alerts on your phone.'
     }else{
-      return 'Away from your desk? Start text alerts on your phone'
+      return 'Away from your desk? Start text alerts on your phone.'
     }
   },
 
