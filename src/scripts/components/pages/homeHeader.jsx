@@ -76,7 +76,7 @@ module.exports = React.createClass({
     PracticeActions.fetchPracticeRequest({
       id: this.state.user.practice_id,
       authentication_token: sessionStorage.authenticationToken,
-      query: 'is_open'
+      schedule_check: true
     })
   },
 
