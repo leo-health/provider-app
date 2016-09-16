@@ -28,8 +28,6 @@ module.exports = React.createClass({
         params: { authentication_token: sessionStorage.authenticationToken }
       }
     });
-
-    this.pusher.subscribe('presence-provider_app');
   },
 
   subscribeToBrowserTabFocusEvent: function() {
@@ -59,14 +57,6 @@ module.exports = React.createClass({
       Notification.requestPermission();
       this.setState({desktop: true})
     }
-  },
-
-  componentWillUnmount: function () {
-    this.unsubscribeFromPusher();
-  },
-
-  unsubscribeFromPusher: function(){
-    this.pusher.unsubscribe('presence-provider_app');
   },
 
   render: function() {
