@@ -1,5 +1,6 @@
 var React = require('react');
 var classNames = require('classnames');
+var MONTHLY_SUBSCRIPTION_PRICE = require('../../../../utils/constants.js').MONTHLY_SUBSCRIPTION_PRICE;
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -59,7 +60,7 @@ module.exports = React.createClass({
               </h4>
             </div>
             <div id="collapseThree" className="collapse panel-body" role="tabpanel" aria-labelledby="headingThree">
-              No, you will only be charged $20/month for each child. There are no hidden fees or charges.
+              No, you will only be charged ${MONTHLY_SUBSCRIPTION_PRICE}/month for each child. There are no hidden fees or charges.
             </div>
           </div>
           <div className="">
