@@ -397,11 +397,32 @@
     margin-bottom: 49px;
   }
 
-  .escalated-to {
+  .list-group-item > .escalated-to {
     position: absolute;
     bottom: 10px;
     right: 20px;
     text-transform: uppercase;
+
+    display: block;
+    height: 30px;
+    width: 30px;
+    line-height: 27px;
+
+    -moz-border-radius: 30px; /* or 50% */
+    border-radius: 30px; /* or 50% */
+    text-align: center;
+
+    border: 1px solid #FF906A!important;
+    background-color: #FF906A!important;
+    color: #FFFFFF!important;
+    font-size: 1em;
+
+  }
+
+  .list-group-item.active > .escalated-to {
+    border: 1px solid #FFFFFF!important;
+    color: #2196f3!important;
+    background-color: #FFFFFF!important;
   }
 
   /*Recipient Field*/
