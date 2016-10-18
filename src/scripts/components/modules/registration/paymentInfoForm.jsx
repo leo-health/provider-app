@@ -3,7 +3,9 @@ var React = require('react'),
     PromoCode = require('./creditCard/promoCode'),
     ErrorAlert = require('../alert/errorAlert'),
     FAQ = require('./creditCard/paymentFaq'),
-    RegistrationActions = require('../../../actions/registrationActions');
+    RegistrationActions = require('../../../actions/registrationActions'),
+    MONTHLY_SUBSCRIPTION_PRICE = require('../../../utils/constants.js').MONTHLY_SUBSCRIPTION_PRICE;
+
 
 module.exports = React.createClass({
   getInitialState: function(){
@@ -29,9 +31,9 @@ module.exports = React.createClass({
         <div className="row">
           <div className="col-md-11 col-md-offset-1 payment-header">
             <div className="registration-header mobile-only">REGISTRATION</div>
-            <h5 className="signup-header mobile-hidden">Please enter your payment information. You'll be charged $20 a month for each child.</h5>
+            <h5 className="signup-header mobile-hidden">{`Please enter your payment information. You'll be charged $${MONTHLY_SUBSCRIPTION_PRICE} a month for each child.`}</h5>
             <h4 className="signup-header mobile-only">Please enter your payment info.</h4>
-            <p className="lead mobile-only">You'll be charged $20 a month for each child.</p>
+            <p className="lead mobile-only">You'll be charged ${MONTHLY_SUBSCRIPTION_PRICE} a month for each child.</p>
           </div>
         </div>
         <br/>
