@@ -72,6 +72,8 @@ Once you are ready to deploy, do the following :-
 1. Run 'gulp clean' in case your built has old css
 2. Run 'gulp build' when you want to generate production level code
 
+*Merging to staging will trigger an automated build via CodeShip on AWS. To avoid this, append `--skip-ci` to your commit message*
+
 
 ### Extra Note
 
@@ -100,3 +102,6 @@ So please do yourself a favor by adding the following line to your .profile or .
 alias gulp='node --harmony `which gulp`'
 ```
 Now ready to get your hands dirty and good luck!
+
+
+
